@@ -1,8 +1,4 @@
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-
+#include "../libft/include/libft.h"
 
 static const char b64_table[] = {
   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
@@ -15,42 +11,48 @@ static const char b64_table[] = {
   '4', '5', '6', '7', '8', '9', '+', '/'
 };
 
-int			ft_strcmp(const char *s1, const char *s2)
-{
-	unsigned char *ss1;
-	unsigned char *ss2;
+#define ER0 "usage:  ft_ssl command [command opts] [command args]\n"
+#define ER10 "ft_ssl: Error: \""
+#define ER11 "\" is an invalid command.\n"
+#define ER12 "Standard commands:\n"
+#define ER13 "Message Digest commands:\n"
+#define ER14 "Cipher commands:\n   base64\n   des\n   des-ecb\n   des-cbc\n"
+#define ER15 "   des3\n   des3-ecb   \n   des3-cbc\n"
+#define ER2 "ft_ssl: option requires an argument "
+#define ER30 "   -h,  display this message\n"
+#define ER31 "   -e,  encrypt mode (default, with all cipher commands)\n"
+#define ER32 "   -d,  decrypt mode (with all cipher commands)\n"
+#define ER33 "   -a,  base64 encode/decode (with DES algorithms)\n"
+#define ER34 "   -k,  key in hex is the next arguement (with DES algorithms)\n"
+#define ER35 "   -i,  input file for message\n"
+#define ER36 "   -o,  output file for message\n"
+#define ER301 ER30, ER31, ER32, ER33, ER34
+#define ER302 ER35, ER36
+#define ER000 ER10, argv, ER11, ER12, ER301, ER13, ER302, ER14, ER15
+#define ER001 ER2, argv, ER0, ER12, ER301, ER13, ER302, ER14, ER15
+#define ER002 ER0, ER12, ER301, ER13, ER302, ER14, ER15
+#define CHF(x) argv[a][b] == x
+#define CHN(x) argv[a][b + 1] == x
+#define CHP(x) argv[a][b - 1] == x
 
-	ss1 = (unsigned char *)s1;
-	ss2 = (unsigned char *)s2;
-	while (*ss1 && *ss1 == *ss2)
+void	ft_ssl_err(int a, char *argv)
+{
+	if (!argv)
+		ft_printf(ER0);
+	else
 	{
-		ss1++;
-		ss2++;
-	}
-	return (*ss1 - *ss2);
-}
-
-void		ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
-
-void		ft_putstr(char *str)
-{
-	int i;
-
-	i = 0;
-	if (str)
-	{
-		while (i[str] != '\0')
+		if (a == 1)
+			ft_printf("%s%s%s%s%s%s%s%s%s%s%s%s%s%s", ER000);
+		if (a == 2)
 		{
-			ft_putchar(i[str]);
-			++i;
+			ft_printf("%s%s\n%s%s%s%s%s%s%s%s%s%s%s%s", ER001);
+			exit(1);
 		}
+		if (a == 0)
+			ft_printf("%s%s%s%s%s%s%s%s%s%s%s%s", ER002);
 	}
-}
 
+}
 
 char *b64_encode (const unsigned char *src, size_t len) {
 	int i = 0;
@@ -142,7 +144,7 @@ unsigned char *b64_decode_ex (const char *src, size_t len, size_t *decsize) {
 	while (len--) {
 		// break if char is `=' or not base64 char
 		if ('=' == src[j]) { break; }
-		if (!(isalnum(src[j]) || '+' == src[j] || '/' == src[j])) { break; }
+		if (!(ft_isalnum(src[j]) || '+' == src[j] || '/' == src[j])) { break; }
 
 		// read up to 4 bytes at a time into `tmp'
 		tmp[i++] = src[j++];
@@ -233,23 +235,89 @@ unsigned char *b64_decode_ex (const char *src, size_t len, size_t *decsize) {
 unsigned char *b64_decode (const char *src, size_t len) {
 	return (b64_decode_ex(src, len, NULL));
 }
+short		ft_check_base64_arg(int argc, char **argv)
+{
+	int		a;
+	int		b;
+	unsigned short	flag;
+	char *si;
+	char *so;
+	a = 2;
+	b = 0;
+	flag = 0;
+	while (a < argc)
+	{
+		b = 0;
+		while (argv[a][b])
+		{
+			if (CHF('-') && (CHN('e') || CHN('d') || CHN('i') || CHN('o') || CHN('h')))
+			{
+				b++;
+				if (argv[a][b] && CHF('h') && b == 1)
+					ft_ssl_err(0, "help");
+				if (argv[a][b] && CHF('e') && b == 1 && CHP('-'))
+					flag |= 1;
+				if (argv[a][b] && CHF('d') && b == 1 && CHP('-'))
+					flag |= 2;
+				if (argv[a][b] && CHF('i') && b == 1 && CHP('-'))
+				{
+					flag |= 4;
+					if (argv[a + 1] != NULL)
+					{
+						flag |= 16;
+						si = argv[a + 1];
+					}
+				}
+				if (argv[a][b] && CHF('o') && b == 1 && CHP('-'))
+				{
+					flag |= 8;
+					if (argv[a + 1] != NULL)
+					{
+						flag |= 32;
+						so = argv[a + 1];
+					}
+				}
+			}
+			b++;
+		} 
+		a++;
+	}
+	//check flags
+	ft_printf("all flags:%i\n", argc - 2);
+	if (flag & 1)
+		ft_printf("-e\n");
+	if (flag & 2)
+		ft_printf("-d\n");
+	if (flag & 4)
+		ft_printf("-i\n");
+	if (flag & 8)
+		ft_printf("-o\n");
+	if (flag & 16)
+		ft_printf("-i file:%s\n", si);
+	if (flag & 32)
+		ft_printf("-o file:%s\n", so);
+	return (0);
+}
 
 void		start_base64(int argc, char **argv)
 {
-	ft_putstr("start base64\n");
-	unsigned char *str = "brian the monkey and bradley the kinkajou are friends";
-	char *enc = b64_encode(str, strlen(str));
+	//ft_putstr("start base64\n");
+	if (argc > 7)
+		ft_ssl_err(2, argv[argc - 1]);
+	if (ft_check_base64_arg(argc, argv) > 0)
+		exit(1);
+	// char *enc = b64_encode("brian the monkey and bradley the kinkajou are friends\n", ft_strlen("brian the monkey and bradley the kinkajou are friends\n"));
 
-	printf("%s\n", enc); // YnJpYW4gdGhlIG1vbmtleSBhbmQgYnJhZGxleSB0aGUga2lua2Fqb3UgYXJlIGZyaWVuZHM=
-	if (ft_strcmp(enc, "YnJpYW4gdGhlIG1vbmtleSBhbmQgYnJhZGxleSB0aGUga2lua2Fqb3UgYXJlIGZyaWVuZHM=") == 0)
-		ft_putstr("OK\n");
-	char *dec = b64_decode(enc, strlen(enc));
+	// ft_printf("%s\n", enc); // YnJpYW4gdGhlIG1vbmtleSBhbmQgYnJhZGxleSB0aGUga2lua2Fqb3UgYXJlIGZyaWVuZHM=
+	// if (ft_strcmp(enc, "YnJpYW4gdGhlIG1vbmtleSBhbmQgYnJhZGxleSB0aGUga2lua2Fqb3UgYXJlIGZyaWVuZHM=") == 0)
+	// 	ft_putstr("OK\n");
+	// char *dec = b64_decode(enc, ft_strlen(enc));
 
-	printf("%s\n", dec); // brian the monkey and bradley the kinkajou are friends
-	if (ft_strcmp(dec, "brian the monkey and bradley the kinkajou are friends") == 0)
-		ft_putstr("OK\n");
-	free(enc);
-	free(dec);
+	// ft_printf("%s\n", dec); // brian the monkey and bradley the kinkajou are friends
+	// if (ft_strcmp(dec, "brian the monkey and bradley the kinkajou are friends") == 0)
+	// 	ft_putstr("OK\n");
+	// free(enc);
+	// free(dec);
 }
 
 void		start_des_ecb(int argc, char **argv)
@@ -273,14 +341,12 @@ int			main(int argc, char **argv)
 			start_des_ecb(argc, argv);
 		else if (ft_strcmp(argv[1], "des-cbc") == 0)
 			start_des_cbc(argc, argv);
+		else if (ft_strcmp(argv[1], "-h") == 0)
+			ft_ssl_err(0, "help");
 		else 
-		{
-			ft_putstr("ft_ssl: Error: ");
-			ft_putstr(argv[1]);
-			ft_putstr(" is an invalid command.\n\nStandard commands:\n\nMessage Digest commands:\n\nCipher commands:\nbase64\ndes\ndes-ecb\ndes-cbc\ndes3\ndes3-ecb\ndes3-cbc\n");
-		}
+			ft_ssl_err(1, argv[1]);
 	}
 	else
-		ft_putstr("usage: ft_ssl command [command opts] [command args]\n");
+		ft_ssl_err(0, NULL);
 	return (0);
 }
