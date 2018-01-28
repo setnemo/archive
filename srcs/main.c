@@ -19,14 +19,13 @@ static const char b64_table[] = {
 #define ER14 "Cipher commands:\n   base64\n   des\n   des-ecb\n   des-cbc\n"
 #define ER15 "   des3\n   des3-ecb   \n   des3-cbc\n"
 #define ER2 "ft_ssl: option requires an argument "
-#define ER30 "   -h,  display this message\n"
 #define ER31 "   -e,  encrypt mode (default, with all cipher commands)\n"
 #define ER32 "   -d,  decrypt mode (with all cipher commands)\n"
 #define ER33 "   -a,  base64 encode/decode (with DES algorithms)\n"
 #define ER34 "   -k,  key in hex is the next arguement (with DES algorithms)\n"
-#define ER35 "   -i,  input file for message\n"
-#define ER36 "   -o,  output file for message\n"
-#define ER301 ER30, ER31, ER32, ER33, ER34
+#define ER35 "   -i,  example: \"-i [input_file_name]\" (default STDIN)\n"
+#define ER36 "   -o,  example: \"-o [output_file_name]\" (default STDOUT)\n"
+#define ER301 ER31, ER32, ER33, ER34
 #define ER302 ER35, ER36
 #define ER000 ER10, argv, ER11, ER12, ER301, ER13, ER302, ER14, ER15
 #define ER001 ER2, argv, ER0, ER12, ER301, ER13, ER302, ER14, ER15
@@ -42,14 +41,12 @@ void	ft_ssl_err(int a, char *argv)
 	else
 	{
 		if (a == 1)
-			ft_printf("%s%s%s%s%s%s%s%s%s%s%s%s%s%s", ER000);
+			ft_printf("%s%s%s%s%s%s%s%s%s%s%s%s%s", ER000);
 		if (a == 2)
-		{
-			ft_printf("%s%s\n%s%s%s%s%s%s%s%s%s%s%s%s", ER001);
-			exit(1);
-		}
+			ft_printf("%s%s\n%s%s%s%s%s%s%s%s%s%s%s", ER001);
 		if (a == 0)
-			ft_printf("%s%s%s%s%s%s%s%s%s%s%s%s", ER002);
+			ft_printf("%s%s%s%s%s%s%s%s%s%s%s", ER002);
+		exit(1);
 	}
 
 }
@@ -278,6 +275,8 @@ short		ft_check_base64_arg(int argc, char **argv)
 					}
 				}
 			}
+			else if (CHF('-'))
+				ft_ssl_err(1, argv[a]);
 			b++;
 		} 
 		a++;
