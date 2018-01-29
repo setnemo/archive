@@ -1,5 +1,7 @@
-DNS proxy server with support for a "black" list of domain names.
+Тестовое задание "Simple DNS proxy with blacklist"
 
-This task was solved as a "test task".
+Файл config.txt содержит:
+	первая строка - адрес форвардера
+	каждая последующая - сайт для черного списка
 
-Writting in C.
+<i>*каждый параметр с новой строки без пробела в конце!</i>

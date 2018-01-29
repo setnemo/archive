@@ -1,4 +1,4 @@
-10.87.254.254
+192.168.0.1
 reddit.com
 info.q
 info.q

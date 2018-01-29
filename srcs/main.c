@@ -59,6 +59,19 @@ static void		tcp(void *query, t_buff *buffer, int len, t_db *db) {
 	send(sock, query, len, 0);
 	buffer->length = recv(sock, buffer->buffer, 2048, 0);
 }
+static int			check_blacklist(char *buffer, t_db *db)
+{
+	int a;
+
+	a = 0;
+	while (db->blacklist[a])
+	{
+		if (ft_strcmp(db->blacklist[a], buffer) == 0)
+			return (1);
+		a++;
+	}
+	return (0);
+}
 
 static void			udp(t_db *db) {
 	int					sock;
@@ -82,9 +95,10 @@ static void			udp(t_db *db) {
 	if(bind(sock, (struct sockaddr*)&listener, sizeof(listener)) < 0)
 		error("[!] Error binding on dns proxy");
 
-	printf("[*] No errors.\n");
-	setuid(getpwnam("omentes")->pw_uid);
-	setgid(getgrnam("omentes")->gr_gid);
+	ft_printf("[*] Start DNS proxy.\n");
+	// setuid(getpwnam("omentes")->pw_uid);
+	// setgid(getgrnam("omentes")->gr_gid);
+
 	// daemonize the process.  , backgrounding process
 	// if(fork() != 0) { exit(0); }
 	// if(fork() != 0) { exit(0); }
@@ -97,12 +111,12 @@ static void			udp(t_db *db) {
 		
 		int g = 0;
 		ft_printf("paket! char:\n");
-		while (g < 256)
+		while (g < 64)
 			ft_printf("%c", buffer->buffer[g++]);
 		ft_printf("\n");
 		g = 0;
 		ft_printf("paket! int:\n");
-		while (g < 256)
+		while (g < 64)
 			ft_printf(":%i:", buffer->buffer[g++]);
 		ft_printf("\n");
 		// lets not fork if recvfrom was interrupted
@@ -118,14 +132,14 @@ static void			udp(t_db *db) {
 		query[1] = len;
 
 		// check blacklist
-		// if ((ft_check_black(buffer->buffer)))
-		// {
-		// 	sendto(sock, buffer->buffer + 2, buffer->length - 2, 0, (struct sockaddr *)&client, sizeof(client));
-		// 	free(buffer->buffer);
-		// 	free(buffer);
-		// 	free(query);
-		// 	continue;
-		// }
+		if ((check_blacklist(buffer->buffer, db)))
+		{
+			sendto(0, NULL, 0, 0, NULL, 0);
+			free(buffer->buffer);
+			free(buffer);
+			free(query);
+			continue;
+		}
 		ft_memcpy(query + 2, buffer->buffer, len);
 
 		// forward the packet to the tcp dns server
@@ -143,9 +157,30 @@ static void			udp(t_db *db) {
 	}
 }
 
+static void		replacedot(char **blacklist)
+{
+	int a;
+	int b;
+
+	a = 0;
+	while (blacklist[a])
+	{
+		b = 0;
+		while (blacklist[a][b])
+		{
+			if (blacklist[a][b] == '.')
+				blacklist[a][b] = 3;
+			b++;
+		}
+		a++;
+	}
+	ft_printf("#%s\n",blacklist[0]);
+}
+
 static void		start(char *s, t_db *db)
 {
 	db->blacklist = ft_split(s);
+	replacedot(db->blacklist);
 	db->listen = "0.0.0.0";
 	db->sock = "0.0.0.0";
 	db->port = 53;
