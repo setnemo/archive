@@ -5,19 +5,20 @@
 #                                                     +:+ +:+         +:+      #
 #    By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/01/22 20:34:52 by apakhomo          #+#    #+#              #
-#    Updated: 2018/01/22 20:34:54 by apakhomo         ###   ########.fr        #
+#    Created: 2017/11/07 20:34:52 by apakhomo          #+#    #+#              #
+#    Updated: 2017/11/07 20:34:54 by apakhomo         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
-NAME = a.out
-FLAGS = -Wall -Werror -Wextra
+NAME = sdb
+FLAGS = -std=c99
 
-SRC_NAME = *.c
+SRC_NAME = main.c
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
 OBJ = $(addprefix $(OBJ_DIR), $(OBJ_NAME))
-INC = -I$(LIB_DIR)
+INC = -I$(INC_DIR)
 
+INC_DIR = include/
 LIB_DIR = libft/
 SRC_DIR = srcs/
 OBJ_DIR = obj/
@@ -25,6 +26,7 @@ OBJ_DIR = obj/
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	@echo "##### START MY LIB CREATE #####"
 	@make -C $(LIB_DIR) --silent
 	@echo "##### LIB CREATED #####"
 	@gcc -o $(NAME)  $(OBJ) -L $(LIB_DIR) -lft
