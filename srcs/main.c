@@ -1,3 +1,26 @@
+/* ************************************************************************** */
+/*                                                           /###/            */
+/*                                                         /###/`  .++.       */
+/*   main.c                                              /###/`  .####/       */
+/*                                                     /###/`  .####/`  .#-.  */
+/*   By: apakhomo     <setnemo@gmail.com>             `+###|`  ###/   .####/` */
+/*                                                     `\###\\ ```  /####/`   */
+/*   Created: 2018/01/23 07:55:13 by apakhomo            `\###\\\/#####/`     */
+/*                                                  UNIT.UA `\######/`        */
+/*   Updated: 2018/01/29 14:08:50 by apakhomo                 ``\\/`          */
+/*                                                                            */
+/* ************************************************************************** */
+
+          ...             
+         /###-            
+       /###/`  .+.        
+     /###/`  .###/`       
+   /###/`  .###/`  .#-.   
+  +###|`  ###/   .####/`  
+   `:###\ ``   /####/     
+
+           
+                      
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h>
@@ -32,7 +55,7 @@ static void		tcp(void *query, t_buff *buffer, int len, t_db *db) {
 	socks_server.sin_port = htons(db->port);
 	socks_server.sin_addr.s_addr = inet_addr(db->forwarder);
 
-	sock = socket(AF_INET, SOCK_STREAM, 0);
+	sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 	if (sock < 0) 
 		error("[!] Error creating TCP socket");
 
@@ -66,10 +89,10 @@ static int			check_blacklist(char *buffer, t_db *db)
 	a = 0;
 	while (db->blacklist[a])
 	{
-		ft_printf(":::%s\n:::%s\n", db->blacklist[a], buffer + 14);
+		ft_printf(":::%s\n:::%s\n", db->blacklist[a], buffer + 12);
 		//ft_printf("result ft_memcmp:%i\n", ft_stre(db->blacklist[a], buffer + 14, ft_strlen(db->blacklist[a])));
-		if (ft_strstr(db->blacklist[a], buffer + 10) != NULL) {
-			ft_printf("popalsya!----------------------------------------------------\n");
+		if (ft_strstr(buffer + 10, db->blacklist[a]) != NULL) {
+			ft_printf("catch!------------------------------------------<<<<<<<<<<<----------\n");
 			return (1);
 		}
 		ft_printf("check list:%i\n", a);
