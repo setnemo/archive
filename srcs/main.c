@@ -184,7 +184,7 @@ static void		start(char *s, t_db *db)
 	db->blacklist = ft_split(s);
 	replacedot(db->blacklist);
 	db->listen = "0.0.0.0";
-	db->sock = "0.0.0.0";
+	db->sock = "127.0.0.1";
 	db->port = 53;
 
 	if (getuid() != 0)
