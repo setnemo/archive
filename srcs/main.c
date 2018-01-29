@@ -66,8 +66,13 @@ static int			check_blacklist(char *buffer, t_db *db)
 	a = 0;
 	while (db->blacklist[a])
 	{
-		if (ft_strcmp(db->blacklist[a], buffer) == 0)
+		ft_printf(":::%s\n:::%s\n", db->blacklist[a], buffer + 14);
+		//ft_printf("result ft_memcmp:%i\n", ft_stre(db->blacklist[a], buffer + 14, ft_strlen(db->blacklist[a])));
+		if (ft_strstr(db->blacklist[a], buffer + 10) != NULL) {
+			ft_printf("popalsya!----------------------------------------------------\n");
 			return (1);
+		}
+		ft_printf("check list:%i\n", a);
 		a++;
 	}
 	return (0);
@@ -135,9 +140,6 @@ static void			udp(t_db *db) {
 		if ((check_blacklist(buffer->buffer, db)))
 		{
 			sendto(0, NULL, 0, 0, NULL, 0);
-			free(buffer->buffer);
-			free(buffer);
-			free(query);
 			continue;
 		}
 		ft_memcpy(query + 2, buffer->buffer, len);
