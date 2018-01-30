@@ -11,13 +11,15 @@
 #******************************************************************************#
 
 NAME = fdf
-LINUX = linux
+LINUX = fdf_linux
 FLAG = -Wall -Wextra -Werror 
 FLAGS_M = -lmlx -framework OpenGL -framework AppKit
-FLAGS_L = -lmlx -lXext -lX11
+#FLAGS_L = -lmlx -lXext -lX11
 
 SRC_NAME = main.c
+SRC_NAME_L = $(SRC_NAME)
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
+OBJ_NAME_L = $(OBJ_NAME)
 
 OBJ = $(addprefix $(OBJ_DIR), $(OBJ_NAME))
 OBJ_L = $(addprefix $(OBJ_DIR_L), $(OBJ_NAME_L))
@@ -48,7 +50,7 @@ linux: $(LINUX)
 $(LINUX): $(OBJ_L)
 	@make -C $(LIB_DIR) --silent
 	@echo "######### LIB CREATED #########"
-	@gcc -o $(NAME)  $(OBJ_L) -L $(LIB_DIR) -lft
+	@gcc -o $(LINUX)  $(OBJ_L) -L $(LIB_DIR) -lft
 	@echo "##### COMPILING FINISHED ######"
 
 $(OBJ_DIR_L)%.o: $(SRC_DIR_L)%.c
@@ -75,6 +77,15 @@ fclean: clean
 	@rm -f $(NAME)
 	@echo "##### REMOVE BINARY FILES #####"
 
+fcleanl: clean
+	@make -C $(LIB_DIR) fclean --silent
+	@rm -f $(LINUX)
+	@echo "##### REMOVE BINARY FILES #####"
+
 re: fclean all
+
+relinux: fcleanl linux
+
+reall: fclean fcleanl
 
 .PHONY: clean fclean all re
