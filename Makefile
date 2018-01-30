@@ -10,18 +10,24 @@
 #                                                                              #
 #******************************************************************************#
 NAME = fdf
-FLAGS = -Wall -Wextra -Werror
+LINUX = linux
+FLAG = -Wall -Wextra -Werror 
+FLAGS_M = 
+FLAGS_L =  
 
 SRC_NAME = main.c
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
 OBJ = $(addprefix $(OBJ_DIR), $(OBJ_NAME))
+OBJ_L = $(addprefix $(OBJ_DIR_L), $(OBJ_NAME_L))
 INC = -I$(INC_DIR)
 
 INC_DIR = include/
 LIB_DIR = libft/
 SRC_DIR = srcs/
 OBJ_DIR = obj/
+SRC_DIR_L = $(SRC_DIR)
+OBJ_DIR_L = $(OBJ_DIR)
 
 all: $(NAME)
 
@@ -34,7 +40,20 @@ $(NAME): $(OBJ)
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
 	@echo "##### LINKING" [ $@ ] " #######"
-	@gcc $(FLAGS) -o $@ -c  $< $(INC)
+	@gcc $(FLAG) $(FLAGS_M) -o $@ -c  $< $(INC)
+
+linux: $(LINUX)
+
+$(LINUX): $(OBJ_L)
+	@make -C $(LIB_DIR) --silent
+	@echo "######### LIB CREATED #########"
+	@gcc -o $(NAME)  $(OBJ_L) -L $(LIB_DIR) -lft
+	@echo "##### COMPILING FINISHED ######"
+
+$(OBJ_DIR_L)%.o: $(SRC_DIR_L)%.c
+	@mkdir -p $(OBJ_DIR_L)
+	@echo "##### LINKING" [ $@ ] " #######"
+	@gcc $(FLAG) $(FLAGS_L) -o $@ -c  $< $(INC)
 
 swap:
 	@cp -R ./lib ./lib1

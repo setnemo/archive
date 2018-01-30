@@ -14,6 +14,8 @@
 
 int			main(int argc, char **argv)
 {
-	
+	if (argc && argv)
+		;
+	ft_printf("test\n");
 	return (0);
 }
