@@ -9,11 +9,12 @@
 #    Updated: 2017/11/07 20:34:54 by apakhomo         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
+
 NAME = fdf
 LINUX = linux
 FLAG = -Wall -Wextra -Werror 
-FLAGS_M = 
-FLAGS_L =  
+FLAGS_M = -lmlx -framework OpenGL -framework AppKit
+FLAGS_L = -lmlx -lXext -lX11
 
 SRC_NAME = main.c
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
