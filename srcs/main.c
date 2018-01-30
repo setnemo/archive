@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                            ./###/          */
+/*                                                         ./###/`   ....     */
+/*   main.c                                              /###/`   .####/`     */
+/*                                                    /###/`    .####/`  .### */
+/*   By: apakhomo     <setnemo@gmail.com>            `+###|`  ####/    .####  */
+/*                                                     `\###\\ ```  ../###/`  */
+/*   Created: 2018/01/23 07:55:13 by apakhomo            `\###\\\/#####/`     */
+/*                                                  UNIT.UA `\######/`        */
+/*   Updated: 2018/01/29 14:08:50 by apakhomo                 ``\\/`          */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libft/include/libft.h"
 
 static const char b64_table[] = {
@@ -262,7 +275,7 @@ short		ft_check_base64_arg(int argc, char **argv)
 					if (argv[a + 1] != NULL)
 					{
 						flag |= 16;
-						si = argv[a + 1];
+						si = argv[a];
 					}
 				}
 				if (argv[a][b] && CHF('o') && b == 1 && CHP('-'))
@@ -271,7 +284,7 @@ short		ft_check_base64_arg(int argc, char **argv)
 					if (argv[a + 1] != NULL)
 					{
 						flag |= 32;
-						so = argv[a + 1];
+						so = argv[a];
 					}
 				}
 			}
