@@ -27,19 +27,23 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C $(LIB_DIR) --silent
-	@echo "##### LIB CREATED #####"
+	@echo "######### LIB CREATED #########"
 	@gcc -o $(NAME)  $(OBJ) -L $(LIB_DIR) -lft
-	@echo "##### COMPILING FINISHED #####"
+	@echo "##### COMPILING FINISHED ######"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
-	@echo "##### LINKING" [ $@ ] " #####"
+	@echo "##### LINKING" [ $@ ] " #######"
 	@gcc $(FLAGS) -o $@ -c  $< $(INC)
 
 swap:
-	@mv lib lib1  #current(mac) to temp
-	@mv lib2 lib  #linux current
-	@mv lib1 lib2 #temp(mac) to next
+	@cp -R ./lib ./lib1
+	@rm -rf ./lib
+	@cp -R ./lib2 ./lib
+	@rm -rf ./lib2
+	@cp -R ./lib1 ./lib2
+	@rm -rf ./lib1
+	@echo "#### SWAP LIB MLX FINISHED #####"
 
 clean:
 	@make -C $(LIB_DIR) clean --silent
