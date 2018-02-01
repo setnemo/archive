@@ -103,8 +103,8 @@ void			read_map(t_mlx *fdf, int fd)
 	mapstr = ft_strsplit(maptmp, 10);
 	arrstr_to_int(fdf, mapstr);
 	ft_printf("\nprint fdf->map **int:\n");
-	int lena = count_lenb(mapstr[0]);
-	int lenb = count_len(mapstr);
+	int lena = count_len(mapstr);
+	int lenb = count_lenb(mapstr[0]);
 	int a = 0;
 	int b;
 	while (a < lena)
