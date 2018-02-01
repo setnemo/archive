@@ -24,49 +24,45 @@ static int		count_len(char **mapstr)
 
 static int		count_lenb(char *mapstr)
 {
-	int a;
-	int count;
+	int		count;
+	char	**temp;
 
-	a = 0;
-	count = a;
-	while (mapstr[a])
+	count = 0;
+	temp = ft_strsplit(mapstr, 32);
+	while (temp[count] != NULL)
 	{
-		if (mapstr[a] && (ft_isdigit((int)mapstr[a]) == 1 || mapstr[a] == '-'))
-		{
-			count++;
-			while (mapstr[a])
-			{
-				if (mapstr[a] == 32)
-					break ;
-				a++;
-			}
-		}
-		a++;
+		ft_printf("free? count:%i\n", count);
+		free(temp[count]);
+		ft_printf("free! count:%i\n", count);
+		count++;
 	}
+	ft_printf("free? temp:?\n");
+	free(temp);
+	ft_printf("free!\n");
 	return (count);
 }
 
 static void		str_to_int(t_mlx *fdf, char *mapstr, int a)
 {
 	int b;
+	int c;
 
 	b = 0;
+	c = 0;
 	fdf->map[a] = (int*)malloc(sizeof(int) * count_lenb(mapstr));
-	while (*mapstr)
+	while (mapstr[c] != 0)
 	{
-		if ((ft_isdigit((int)mapstr[a])) || mapstr[a] == '-')
+		if ((ft_isdigit((int)mapstr[c]) == 1 || mapstr[c] == '-'))
 		{
-			fdf->map[a][b] = atoi(mapstr);
+			ft_printf(":::now is '%i', *mapstr = '%c'\n", a, mapstr[c]);
+			fdf->map[a][b] = ft_atoi(mapstr + c);
 			b++;
-			while (*mapstr)
-			{
-				if (*mapstr == 32)
-					break ;
-				mapstr++;
-			}
+			while (mapstr[c] != 0 && mapstr[c] != 32)
+				c++;
 		}
-		mapstr++;
+		c++;
 	}
+	ft_printf("str_to_int exit\n");
 }
 
 static void		arrstr_to_int(t_mlx *fdf, char **mapstr)
@@ -78,7 +74,7 @@ static void		arrstr_to_int(t_mlx *fdf, char **mapstr)
 	len = count_len(mapstr);
 	fdf->map = (int**)malloc((sizeof(int*) * len) + 1);
 	fdf->map[len] = NULL;
-	while (mapstr[a])
+	while (mapstr[a] != NULL)
 	{
 		str_to_int(fdf, mapstr[a], a);
 		a++;
