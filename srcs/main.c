@@ -12,55 +12,78 @@
 
 #include "fdf.h"
 
-void drawLine(int x1, int y1, int x2, int y2) {
-
+void	ft_testintstr(int a, char *name)
+{
+	ft_printf("\x1b[31m TESTING: \x1b[0m%10.10s ::: %10.i\n", name, a);
 }
 
-int     main(int argc, char **argv)
+int	get_data(char *str)
 {
-	t_mlx   *fdf;
-	int     fd;
-	void    *win;
-	void    *mlx;
+	int	count;
+	int	i;
 
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, 500, 500, "fdf 42");
-	if (argc == 2 && argv)
+	i = 0;
+	count = 0;
+	while (str[i])
 	{
-		fdf = (t_mlx*)malloc(sizeof(t_mlx));
-		fd = open(argv[1], O_RDONLY);
-		read_map(fdf, fd);
-//      ft_printf("test fdf\n");
+		if (ft_isdigit(str[i]))
+		{
+			count++;
+			while (ft_isdigit(str[i]))
+				i++;
+		}
+		if (str[i] == ',')
+		{
+			i++;
+			while (ft_isdigit(str[i]) || HEXCHAR || HEXSYMB )
+				i++;
+		}
+		i++;
+	}
+	return (count);
+}
+
+int	get_map(char **str, int point[2], int fd)
+{
+	char	*line;
+	int		ret;
+
+	point[Y] = 0;
+	while ((ret = get_next_line(fd, &line)) > 0)
+	{
+		line = ft_strjoin(line, " ");
+		if (point[Y] == 0)
+		{
+			*str = ft_strdup(line);
+			point[X] = get_data(line);
+		}
+		else
+		{
+			if (point[X] != get_data(line))
+				return (-1);
+			*str = ft_strjoin(*str, line);
+		}
+		free(line);
+		point[Y]++;
+	}
+	return (ret);
+}
+
+int main(int argc, char **argv)
+{
+	char	*map;
+	t_mlx	data;
+	int		fd;
+
+	data.isize = (argc > 2 && ft_isdigit(argv[2][0])) ? ft_atoi(argv[2]) : 1000;
+	data.colour = (argc > 3 && ft_isdigit(argv[3][0])) ? ft_atoi(argv[3]) : 0xFFFFFF;
+	fd = (argc > 1) ? open(argv[1], O_RDONLY) : 0;
+	if (fd == -1)
+		return (0);
+	get_map(&map, data.point, fd);
+	ft_testintstr(data.point[X], "x");
+	ft_testintstr(data.point[Y], "y");
+	if (argc > 2)
 		close(fd);
-	}
-	int x1 = 300;
-	int y1 = 300;
-	int x2 = 100;
-	int y2 = 300;
-	const int deltaX = abs(x2 - x1);
-	const int deltaY = abs(y2 - y1);
-	const int signX = x1 < x2 ? 1 : -1;
-	const int signY = y1 < y2 ? 1 : -1;
-	//
-	int error = deltaX - deltaY;
-	//
-	mlx_pixel_put(mlx, win, x2, y2, 0xFFFFFF);
-	while(x1 != x2 || y1 != y2) 
-	{
-		mlx_pixel_put(mlx, win, x1, y1, 0xFFFFFF);
-		const int error2 = error * 2;
-		//
-		if(error2 > -deltaY) 
-		{
-			error -= deltaY;
-			x1 += signX;
-		}
-		if(error2 < deltaX) 
-		{
-			error += deltaX;
-			y1 += signY;
-		}
-	}
-	mlx_loop(mlx);
-	return (0);
+	fdf(map, &data);
 }

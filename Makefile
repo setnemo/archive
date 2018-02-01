@@ -16,7 +16,8 @@ WWW = -Wall -Wextra -Werror
 FLAGS = -lmlx -framework OpenGL -framework AppKit
 
 SRC_NAME = 	main.c\
-			read.c
+			draw.c\
+			fdf.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 

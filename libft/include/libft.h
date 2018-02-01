@@ -29,6 +29,8 @@
 # define PLUS 8
 # define SPACE 16
 # define APOST 32
+# define HEXCHAR (str[i] >= 'a' && str[i] <= 'f') || (str[i] >= 'A' && str[i] <= 'F')
+# define HEXSYMB str[i] == 'x' || str[i] == 'X'
 
 /*
 ** ****************************************************************************
@@ -117,6 +119,8 @@ int					ft_recursive_power(int nb, int power);
 char				**ft_split(char *str);
 void				ft_print_hex(int dc);
 int					get_next_line(const int fd, char **line);
+int					ft_abs(int i);
+int					ft_atoi_base(char *str, int base);
 
 /*
 ** ****************************************************************************
