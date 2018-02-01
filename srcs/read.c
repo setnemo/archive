@@ -31,14 +31,14 @@ static int		count_lenb(char *mapstr)
 	temp = ft_strsplit(mapstr, 32);
 	while (temp[count] != NULL)
 	{
-		ft_printf("free? count:%i\n", count);
+		//ft_printf("free? count:%i\n", count);
 		free(temp[count]);
-		ft_printf("free! count:%i\n", count);
+		//ft_printf("free! count:%i\n", count);
 		count++;
 	}
-	ft_printf("free? temp:?\n");
+	//ft_printf("free? temp:?\n");
 	free(temp);
-	ft_printf("free!\n");
+	//ft_printf("free!\n");
 	return (count);
 }
 
@@ -50,11 +50,12 @@ static void		str_to_int(t_mlx *fdf, char *mapstr, int a)
 	b = 0;
 	c = 0;
 	fdf->map[a] = (int*)malloc(sizeof(int) * count_lenb(mapstr));
+	//ft_printf(";x;%i\n", count_lenb(mapstr));
 	while (mapstr[c] != 0)
 	{
 		if ((ft_isdigit((int)mapstr[c]) == 1 || mapstr[c] == '-'))
 		{
-			ft_printf(":::now is '%i', *mapstr = '%c'\n", a, mapstr[c]);
+			//ft_printf(":::now is '%i', c:%i, *mapstr = '%c'\n", a, c, mapstr[c]);
 			fdf->map[a][b] = ft_atoi(mapstr + c);
 			b++;
 			while (mapstr[c] != 0 && mapstr[c] != 32)
@@ -62,7 +63,7 @@ static void		str_to_int(t_mlx *fdf, char *mapstr, int a)
 		}
 		c++;
 	}
-	ft_printf("str_to_int exit\n");
+	//ft_printf("str_to_int exit\n");
 }
 
 static void		arrstr_to_int(t_mlx *fdf, char **mapstr)
@@ -72,9 +73,10 @@ static void		arrstr_to_int(t_mlx *fdf, char **mapstr)
 
 	a = 0;
 	len = count_len(mapstr);
+	//ft_printf(";;;%i\n", len);
 	fdf->map = (int**)malloc((sizeof(int*) * len) + 1);
 	fdf->map[len] = NULL;
-	while (mapstr[a] != NULL)
+	while (a < len)
 	{
 		str_to_int(fdf, mapstr[a], a);
 		a++;
@@ -106,10 +108,13 @@ void			read_map(t_mlx *fdf, int fd)
 	while (a < lena)
 	{
 		b = 0;
-		ft_printf("%i::: ", a);
 		while (b < lenb)
 		{
-			ft_printf("%d ", fdf->map[a][b]);
+			ft_printf("%d", fdf->map[a][b]);
+			if (fdf->map[a][b + 1] > 9)
+				ft_printf(" ");
+			else
+				ft_printf("  ");
 			b++;
 		}
 		ft_printf("\n");
