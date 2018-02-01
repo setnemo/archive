@@ -12,16 +12,13 @@
 
 NAME = fdf
 CC = gcc
-FLAG = -Wall -Wextra -Werror 
+WWW = -Wall -Wextra -Werror 
 FLAGS = -lmlx -framework OpenGL -framework AppKit
 
 SRC_NAME = main.c
-SRC_NAME_L = $(SRC_NAME)
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
-OBJ_NAME_L = $(OBJ_NAME)
 
 OBJ = $(addprefix $(OBJ_DIR), $(OBJ_NAME))
-OBJ_L = $(addprefix $(OBJ_DIR_L), $(OBJ_NAME_L))
 INC = -I$(INC_DIR)
 
 INC_DIR = include/
@@ -31,7 +28,7 @@ OBJ_DIR = obj/
 
 ifeq ($(TARGETOS), Linux)
 	FLAGS = -lm -lmlx -lXext -lX11 -L lib/ -I lib/
-	FLAG = 
+	WWW = 
 	CC = cc
 endif
 
@@ -46,7 +43,7 @@ $(NAME): $(OBJ)
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
 	@echo "##### LINKING" [ $@ ] " #######"
-	$(CC) $(FLAG) -o $@ -c  $< $(INC)
+	$(CC) $(WWW) -o $@ -c  $< $(INC)
 
 linux: $(NAME)
 
