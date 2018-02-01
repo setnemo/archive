@@ -15,7 +15,9 @@ CC = gcc
 WWW = -Wall -Wextra -Werror 
 FLAGS = -lmlx -framework OpenGL -framework AppKit
 
-SRC_NAME = main.c
+SRC_NAME = 	main.c\
+			read.c
+
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
 OBJ = $(addprefix $(OBJ_DIR), $(OBJ_NAME))

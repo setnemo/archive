@@ -19,4 +19,11 @@
 # include <unistd.h>
 # include <fcntl.h>
 
+typedef struct 	s_mlx
+{
+	int 		**map;
+}				t_mlx;
+
+void			read_map(t_mlx *fdf, int fd);
+
 #endif

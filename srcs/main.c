@@ -12,8 +12,18 @@
 
 #include "fdf.h"
 
-int		main(void)
+int		main(int argc, char **argv)
 {
-	ft_printf("test fdf\n");
+	t_mlx	*fdf;
+	int		fd;
+
+	if (argc == 2 && argv)
+	{
+		fdf = (t_mlx*)malloc(sizeof(t_mlx));
+		fd = open(argv[1], O_RDONLY);
+		read_map(fdf, fd);
+//		ft_printf("test fdf\n");
+		close(fd);
+	}
 	return (0);
 }
