@@ -28,13 +28,11 @@ INC_DIR = include/
 LIB_DIR = libft/
 SRC_DIR = srcs/
 OBJ_DIR = obj/
-SRC_DIR_L = $(SRC_DIR)
-OBJ_DIR_L = $(OBJ_DIR)
 
-ifneq ($(TARGETOS), Linux)
+ifeq ($(TARGETOS), Linux)
 	FLAGS = -lm -lmlx -lXext -lX11 -L lib/ -I lib/
 	FLAG = 
-	CC = g++
+	CC = cc
 endif
 
 all: $(NAME)
