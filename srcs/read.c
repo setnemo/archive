@@ -31,11 +31,15 @@ static int		count_lenb(char *mapstr)
 	count = a;
 	while (mapstr[a])
 	{
-		if ((ft_isdigit((int)mapstr[a])) || mapstr[a] == '-')
+		if (mapstr[a] && (ft_isdigit((int)mapstr[a]) == 1 || mapstr[a] == '-'))
 		{
 			count++;
-			while (mapstr[a] && mapstr[a] != 32)
+			while (mapstr[a])
+			{
+				if (mapstr[a] == 32)
+					break ;
 				a++;
+			}
 		}
 		a++;
 	}
@@ -54,8 +58,12 @@ static void		str_to_int(t_mlx *fdf, char *mapstr, int a)
 		{
 			fdf->map[a][b] = atoi(mapstr);
 			b++;
-			while (*mapstr && *mapstr != 32)
+			while (*mapstr)
+			{
+				if (*mapstr == 32)
+					break ;
 				mapstr++;
+			}
 		}
 		mapstr++;
 	}
@@ -102,6 +110,7 @@ void			read_map(t_mlx *fdf, int fd)
 	while (a < lena)
 	{
 		b = 0;
+		ft_printf("%i::: ", a);
 		while (b < lenb)
 		{
 			ft_printf("%d ", fdf->map[a][b]);
