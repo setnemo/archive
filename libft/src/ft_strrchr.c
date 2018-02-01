@@ -22,6 +22,7 @@ char		*ft_strrchr(const char *str, int ch)
 	check = 0;
 	a = 0;
 	s = (char*)str;
+	r = NULL;
 	while (a < (ft_strlen(str) + 1))
 	{
 		if (s[a] == (char)ch)

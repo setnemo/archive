@@ -11,10 +11,9 @@
 #******************************************************************************#
 
 NAME = fdf
-LINUX = fdf_linux
+CC = gcc
 FLAG = -Wall -Wextra -Werror 
-FLAGS_M = -lmlx -framework OpenGL -framework AppKit
-#FLAGS_L = -lmlx -lXext -lX11
+FLAGS = -lmlx -framework OpenGL -framework AppKit
 
 SRC_NAME = main.c
 SRC_NAME_L = $(SRC_NAME)
@@ -32,31 +31,26 @@ OBJ_DIR = obj/
 SRC_DIR_L = $(SRC_DIR)
 OBJ_DIR_L = $(OBJ_DIR)
 
+ifneq ($(TARGETOS), Linux)
+	FLAGS = -lm -lmlx -lXext -lX11 -L lib/ -I lib/
+	FLAG = 
+	CC = g++
+endif
+
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C $(LIB_DIR) --silent
 	@echo "######### LIB CREATED #########"
-	@gcc -o $(NAME)  $(OBJ) -L $(LIB_DIR) -lft
+	$(CC) -o $(NAME) $(OBJ) $(FLAGS) -L $(LIB_DIR) -lft
 	@echo "##### COMPILING FINISHED ######"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
 	@echo "##### LINKING" [ $@ ] " #######"
-	@gcc $(FLAG) $(FLAGS_M) -o $@ -c  $< $(INC)
+	$(CC) $(FLAG) -o $@ -c  $< $(INC)
 
-linux: $(LINUX)
-
-$(LINUX): $(OBJ_L)
-	@make -C $(LIB_DIR) --silent
-	@echo "######### LIB CREATED #########"
-	@gcc -o $(LINUX)  $(OBJ_L) -L $(LIB_DIR) -lft
-	@echo "##### COMPILING FINISHED ######"
-
-$(OBJ_DIR_L)%.o: $(SRC_DIR_L)%.c
-	@mkdir -p $(OBJ_DIR_L)
-	@echo "##### LINKING" [ $@ ] " #######"
-	@gcc $(FLAG) $(FLAGS_L) -o $@ -c  $< $(INC)
+linux: $(NAME)
 
 swap:
 	@cp -R ./lib ./lib1
@@ -77,15 +71,6 @@ fclean: clean
 	@rm -f $(NAME)
 	@echo "##### REMOVE BINARY FILES #####"
 
-fcleanl: clean
-	@make -C $(LIB_DIR) fclean --silent
-	@rm -f $(LINUX)
-	@echo "##### REMOVE BINARY FILES #####"
-
 re: fclean all
-
-relinux: fcleanl linux
-
-reall: fclean fcleanl
 
 .PHONY: clean fclean all re

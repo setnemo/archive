@@ -51,7 +51,7 @@ typedef struct		s_gnl
 	struct s_gnl	*next;
 }					t_gnl;
 
-void				ft_putchar(char c);
+char				ft_putchar(char c);
 void				ft_putstr(char *str);
 void				ft_putnbr(int a);
 void				*ft_memset(void *b, int c, size_t len);
@@ -99,7 +99,7 @@ char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_itoa(int n);
 void				ft_putendl(char const *s);
-void				ft_putchar_fd(char c, int fd);
+char				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
