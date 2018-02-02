@@ -44,8 +44,14 @@ typedef  struct	s_mlx
 	int		y;
 }				t_mlx;
 
-void	fdf(char *loc, t_mlx *input);
-void	to_win(t_mlx *input);
-void	ft_testintstr(int a, char *name);
+typedef  struct	s_buf
+{
+	char	*line;
+	char	*buf;
+	char	*lbuf;
+}				t_buf;
+
+void	fdf(char *loc, t_mlx *data);
+void	to_win(t_mlx *data);
 
 #endif

@@ -21,7 +21,7 @@ void	quit(t_mlx *data)
 		free(data->loc[i++]);
 	free(data->loc);
 	system("leaks -quiet fdf");
-	exit(1);
+	exit(0);
 }
 
 // int	deal_key(int key, t_mlx *data)
@@ -104,24 +104,22 @@ int	deal_key(int key, t_mlx *data)
 	return (key);
 }
 
-int	**get_loc(char *str, t_mlx *data)
+int	**get_loc(char *str, t_mlx *data, int i, int j)
 {
-	int		i;
 	int		**loc;
-	int		j;
 
-	j = -1;
-	i = -1;
 	if(!(loc = malloc(sizeof(int *) * (data->point[X] * data->point[Y]))))
 		return (NULL);
 	while (str[++i])
 	{
-		if (ft_isdigit(str[i]))
+		if (ft_isdigit(str[i]) || (str[i] == '-' &&  ft_isdigit(str[i + 1])))
 		{
 			loc[++j] = malloc(sizeof(int) * 4);
+			loc[j][Z] = ft_atoi(str + i);
+			if (str[i] == '-')
+				i++;
 			loc[j][X] = j % data->point[X];
 			loc[j][Y] = j / data->point[X];
-			loc[j][Z] = ft_atoi(str + i);
 			loc[j][C] = 0;
 			while (ft_isdigit(str[i]))
 				i++;
@@ -144,7 +142,7 @@ void	fdf(char *str, t_mlx *data)
 	data->rot = 1;
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, data->isize, data->isize, "FDF");
-	data->loc = get_loc(str, data);
+	data->loc = get_loc(str, data, -1, -1);
 	free(str);
 	to_win(data);
 	mlx_key_hook(data->win, deal_key, data);

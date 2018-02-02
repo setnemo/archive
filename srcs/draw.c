@@ -12,24 +12,24 @@
 
 #include "fdf.h"
 
-void	get_pixels(int *coords, int *pixel, t_mlx *data)
+void	get_pixels(int *xyz, int *pixel, t_mlx *data)
 {
 	float	div;
 	int		tmp;
 
-	div = (float)coords[Z] / 7;
+	div = (float)xyz[Z] / 7;
 	div *= data->height;
 	tmp = (int)(div * data->alt);
-	pixel[X] = data->x + (data->width * coords[X]) +
-	data->width * ((data->point[Y] - 1) - coords[Y]) + data->x_loc;
-	pixel[Y] = data->y + (data->height * coords[X]) * data->rot -
-	(data->height * ((data->point[Y] - 1) - coords[Y])) * data->rot - tmp - data->y_loc;
-	pixel[Z] = coords[Z];
+	pixel[X] = data->x + (data->width * xyz[X]) +
+	data->width * ((data->point[Y] - 1) - xyz[Y]) + data->x_loc;
+	pixel[Y] = data->y + (data->height * xyz[X]) * data->rot -
+	(data->height * ((data->point[Y] - 1) - xyz[Y])) * data->rot - tmp - data->y_loc;
+	pixel[Z] = xyz[Z];
 	if (!data->peaks)
-		pixel[C] = (coords[C]) ? coords[C] : data->colour;
+		pixel[C] = (xyz[C]) ? xyz[C] : data->colour;
 	else
-	pixel[C] = (coords[Z] && data->peaks) ?
-	5073779 + ((1 + (1 << 16)) * (coords[Z] * data->alt)) : data->colour;
+	pixel[C] = (xyz[Z] && data->peaks) ?
+	5073779 + ((1 + (1 << 16)) * (xyz[Z] * data->alt)) : data->colour;
 }
 
 void	soft_line(int p1[4], int p2[4], void *mlx, void *win)

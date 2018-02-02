@@ -121,6 +121,7 @@ void				ft_print_hex(int dc);
 int					get_next_line(const int fd, char **line);
 int					ft_abs(int i);
 int					ft_atoi_base(char *str, int base);
+void				ft_testintstr(int a, char *name);
 
 /*
 ** ****************************************************************************
