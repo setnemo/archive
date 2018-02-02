@@ -45,7 +45,7 @@ typedef  struct	s_mlx
 }				t_mlx;
 
 void	fdf(char *loc, t_mlx *input);
-void	print_toscreen(t_mlx *input);
+void	to_win(t_mlx *input);
 void	ft_testintstr(int a, char *name);
 
 #endif

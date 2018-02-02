@@ -13,7 +13,7 @@
 NAME = fdf
 CC = gcc
 WWW = -Wall -Wextra -Werror 
-FLAGS = -g -lmlx -framework OpenGL -framework AppKit
+FLAGS = -lmlx -Ilib/ -framework OpenGL -framework AppKit
 
 SRC_NAME = 	main.c\
 			draw.c\

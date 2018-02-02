@@ -46,24 +46,29 @@ int	get_data(char *str)
 int	get_map(char **str, int point[2], int fd)
 {
 	char	*line;
+	char	*buf;
+	char	*lbuf;
 	int		ret;
 
 	point[Y] = 0;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		line = ft_strjoin(line, " ");
+		lbuf = ft_strjoin(line, " ");
+		ft_strdel(&line);
 		if (point[Y] == 0)
 		{
-			*str = ft_strdup(line);
-			point[X] = get_data(line);
+			*str = ft_strdup(lbuf);
+			point[X] = get_data(lbuf);
 		}
 		else
 		{
-			if (point[X] != get_data(line))
+			if (point[X] != get_data(lbuf))
 				return (-1);
-			*str = ft_strjoin(*str, line);
+			buf = ft_strjoin(*str, lbuf);
+			ft_strdel(str);
+			*str = buf;
 		}
-		free(line);
+		free(lbuf);
 		point[Y]++;
 	}
 	return (ret);
@@ -86,4 +91,5 @@ int main(int argc, char **argv)
 	if (argc > 2)
 		close(fd);
 	fdf(map, &data);
+	system("leaks -quiet fdf");
 }

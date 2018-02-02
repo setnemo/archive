@@ -104,7 +104,7 @@ void	draw_line(int p1[4], int p2[4], void *mlx, void *win)
 		soft_line(p1_copy, p2_copy, mlx, win);
 }
 
-void	print_toscreen(t_mlx *data)
+void	to_win(t_mlx *data)
 {
 	int		j;
 	int		pixels[data->point[X] * data->point[Y]][4];

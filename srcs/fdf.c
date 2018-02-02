@@ -20,6 +20,7 @@ void	quit(t_mlx *data)
 	while (i < data->point[X] * data->point[Y])
 		free(data->loc[i++]);
 	free(data->loc);
+	system("leaks -quiet fdf");
 	exit(1);
 }
 
@@ -98,7 +99,7 @@ int	deal_key(int key, t_mlx *data)
 	if (key == 43 || key == 47 || key == 31 || key == 34 || (key >= 123 && key <= 126) || key == 8 || key == 35 || key == 24|| key == 27)
 	{
 		mlx_clear_window(data->mlx, data->win);
-		print_toscreen(data);
+		to_win(data);
 	}
 	return (key);
 }
@@ -145,7 +146,7 @@ void	fdf(char *str, t_mlx *data)
 	data->win = mlx_new_window(data->mlx, data->isize, data->isize, "FDF");
 	data->loc = get_loc(str, data);
 	free(str);
-	print_toscreen(data);
+	to_win(data);
 	mlx_key_hook(data->win, deal_key, data);
 	mlx_loop(data->mlx);
 }
