@@ -19,9 +19,9 @@
 # include <fcntl.h>
 # define UL unsigned long
 # define UC unsigned char
-# define BUFFR 1024
 # define DES_E 0
 # define DES_D 1
+# define BUFFR 1024
 # define BASE64_LINE 64
 
 /*
@@ -113,13 +113,6 @@ unsigned long	hex_to_ul64(unsigned char *str);
 
 /*
 ** ****************************************************************************
-** *****************************               ********************************
-** ****************************************************************************
-*/
-
-
-/*
-** ****************************************************************************
 ** ***************************** desecb_algo.c ********************************
 ** ****************************************************************************
 */
@@ -164,6 +157,25 @@ void			ecb_d_inp(t_ssl *data, UC **inp, UC **out, size_t *size);
 void			ecb_hex_error(void *memory);
 unsigned long	ecb_read_key(t_ssl *data);
 
+/*
+** ****************************************************************************
+** ***************************** descbc_func.c ********************************
+** ****************************************************************************
+*/
 
+unsigned long	cbc_get_iv(t_ssl *data);
+void			cbc_encrypt_inp(t_ssl *data, UC **inp, UC **out, size_t *size);
+void			cbc_decrypt_inp(t_ssl *data, UC **inp, UC **out, size_t *size);
+
+/*
+** ****************************************************************************
+** ***************************** descbc_core.c ********************************
+** ****************************************************************************
+*/
+
+void			cbc_showkey(unsigned long master_key);
+void			cbc_print_key(t_ssl ssl);
+void			cbc_encrypt(UC **inp, size_t size, t_ssl *ssl, int flag);
+void			cbc_decrypt(UC **inp, size_t size, t_ssl *ssl, int flag);
 
 #endif

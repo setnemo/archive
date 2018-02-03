@@ -12,7 +12,7 @@
 
 #include "ft_ssl_des.h"
 
-void			ecb_show_key(unsigned long master_key)
+void	ecb_show_key(unsigned long master_key)
 {
 	int				a;
 	unsigned char	c;

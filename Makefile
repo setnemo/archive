@@ -24,7 +24,9 @@ SRC_NAME =	main.c\
 			desecb_func.c\
 			desecb_algo.c\
 			desecb_keys.c\
-			
+			descbc_core.c\
+			descbc_func.c
+
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
 OBJ = $(addprefix $(OBJ_DIR), $(OBJ_NAME))

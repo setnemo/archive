@@ -97,26 +97,26 @@ void	start_ecb(int argc, char **argv)
 	free(out);
 }
 
-// void	start_cbc(int argc, char **argv)
-// {
-// 	t_ssl			data;
-// 	size_t			size;
-// 	unsigned char	*inp;
-// 	unsigned char	*out;
+void	start_cbc(int argc, char **argv)
+{
+	t_ssl			data;
+	size_t			size;
+	unsigned char	*inp;
+	unsigned char	*out;
 
-// 	handle_flags(2, argc, argv, &data);
-// 	data.master_key = ecb_read_key(&data);
-// 	data.master_iv = cbc_get_iv(&data);
-// 	if (data.print == 1)
-// 		cbc_print_key(data);
-// 	read_input(&data, &inp, &size);
-// 	if (data.dec == 1)
-// 		cbc_decrypt_inp(&data, &inp, &out, &size);
-// 	else
-// 		cbc_encrypt_inp(&data, &inp, &out, &size);
-// 	if ((data.out == NULL) || ((data.out) && (ft_strequ(data.out, "-"))))
-// 		write(1, out, size);
-// 	else
-// 		printinfile(data.out, out, size);
-// 	free(out);
-// }
+	handle_flags(2, argc, argv, &data);
+	data.master_key = ecb_read_key(&data);
+	data.master_iv = cbc_get_iv(&data);
+	if (data.print == 1)
+		cbc_print_key(data);
+	read_input(&data, &inp, &size);
+	if (data.dec == 1)
+		cbc_decrypt_inp(&data, &inp, &out, &size);
+	else
+		cbc_encrypt_inp(&data, &inp, &out, &size);
+	if ((data.out == NULL) || ((data.out) && (ft_strequ(data.out, "-"))))
+		write(1, out, size);
+	else
+		printinfile(data.out, out, size);
+	free(out);
+}

@@ -70,8 +70,8 @@ void			make_half_keys(unsigned long half_keys[16], UL starter)
 unsigned long	make_gcp(unsigned long c_half, unsigned long d_half)
 {
 	int				i;
-	unsigned long 	after;
-	unsigned long 	before;
+	unsigned long	after;
+	unsigned long	before;
 
 	before = (c_half << 28) + d_half;
 	i = 0;

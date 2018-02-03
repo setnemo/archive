@@ -40,7 +40,7 @@ void	flag_parser(int argc, char **argv)
 	else if ((ft_strequ(argv[1], "des-ecb")) || (ft_strequ(argv[1], "des")))
 		start_ecb(argc, argv);
 	else if (ft_strequ(argv[1], "des-cbc"))
-		; //start_cbc(argc, argv)
+		start_cbc(argc, argv);
 	else
 		print_error(argv);
 }
