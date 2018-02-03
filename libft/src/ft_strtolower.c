@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strtolower.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/03 09:07:27 by apakhomo          #+#    #+#             */
-/*   Updated: 2018/02/03 09:07:28 by apakhomo         ###   ########.fr       */
+/*   Created: 2018/01/30 15:51:23 by apakhomo          #+#    #+#             */
+/*   Updated: 2018/01/30 15:51:23 by apakhomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl_des.h"
+#include "libft.h"
 
-int		main(int argc, char **argv)
+unsigned char	*ft_strtolower(unsigned char *s)
 {
-	if (argc < 2)
+	int	i;
+
+	i = 0;
+	while (s[i])
 	{
-		ft_printf("usage: %s command [command opts] [command args]\n", argv[0]);
-		return (1);
+		if ((s[i] >= 'A') && (s[i] <= 'Z'))
+			s[i] += 32;
+		i++;
 	}
-	flag_parser(argc, argv);
-	return (0);
+	return (s);
 }

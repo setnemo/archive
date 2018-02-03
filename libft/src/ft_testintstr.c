@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_testintstr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/03 09:07:27 by apakhomo          #+#    #+#             */
-/*   Updated: 2018/02/03 09:07:28 by apakhomo         ###   ########.fr       */
+/*   Created: 2018/01/27 09:55:17 by apakhomo          #+#    #+#             */
+/*   Updated: 2018/01/27 09:55:17 by apakhomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl_des.h"
+#include "libft.h"
 
-int		main(int argc, char **argv)
+void	ft_testintstr(int a, char *name)
 {
-	if (argc < 2)
-	{
-		ft_printf("usage: %s command [command opts] [command args]\n", argv[0]);
-		return (1);
-	}
-	flag_parser(argc, argv);
-	return (0);
+	ft_printf("\x1b[31m TESTING: \x1b[0m%10.10s ::: %10.i\n", name, a);
 }

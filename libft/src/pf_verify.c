@@ -1,18 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   pf_verify.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 15:16:55 by apakhomo          #+#    #+#             */
-/*   Updated: 2017/11/11 15:16:56 by apakhomo         ###   ########.fr       */
+/*   Created: 2018/01/27 09:58:26 by apakhomo          #+#    #+#             */
+/*   Updated: 2018/01/27 09:58:26 by apakhomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		ft_putchar_fd(char c, int fd)
+int			flag(const char c)
 {
-	return (write(fd, &c, 1));
+	return ((int)ft_strchr("# 0'+-", c));
+}
+
+int			modfc(const char c)
+{
+	return ((int)ft_strchr("zjlh", c));
+}
+
+int			conver(const char c)
+{
+	return ((int)ft_strchr("niDdOoUuXxEeFfGgAaCcSsp%", c));
+}
+
+static int	prec(const char c)
+{
+	return ((int)ft_strchr("$.*", c));
+}
+
+int			validsymb(const char c)
+{
+	return (conver(c) || modfc(c) || flag(c) || ft_isdigit(c) || prec(c));
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   pf_ft_printf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -44,8 +44,7 @@ int			pf_transform(t_arg all, va_list arg, int i)
 
 int			pf_write(const char *str, const size_t len)
 {
-	write(1, str, len);
-	return (len);
+	return (write(1, str, len));
 }
 
 int			pf_repeat(const char c, int len)

@@ -9,10 +9,22 @@
 #    Updated: 2017/11/07 20:34:54 by apakhomo         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
-NAME = ft_ssl
-FLAGS = -O3
 
-SRC_NAME = main.c
+NAME = ft_ssl
+FLAGS = -Wall -Wextra -Werror
+
+SRC_NAME =	main.c\
+			reader_file.c\
+			supportfunc.c\
+			manageflags.c\
+			managetypes.c\
+			base64_core.c\
+			base64_func.c\
+			desecb_core.c\
+			desecb_func.c\
+			desecb_algo.c\
+			desecb_keys.c\
+			
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
 OBJ = $(addprefix $(OBJ_DIR), $(OBJ_NAME))
@@ -27,24 +39,23 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C $(LIB_DIR) --silent
-	@echo "##### LIB CREATED #####"
 	@gcc -o $(NAME)  $(OBJ) -L $(LIB_DIR) -lft
-	@echo "##### COMPILING FINISHED #####"
+	@echo "### PROJECT: COMPILING FINISHED ####"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
-	@echo "##### LINKING" [ $@ ] " #####"
+	@echo "### PROJECT: LINKING" [ $@ ] " ###"
 	@gcc $(FLAGS) -o $@ -c  $< $(INC)
 
 clean:
 	@make -C $(LIB_DIR) clean --silent
 	@rm -f $(OBJ)
-	@echo "##### REMOVE OBJECT FILES #####"
+	@echo "### PROJECT: REMOVE OBJECT FILES ###"
 
 fclean: clean
 	@make -C $(LIB_DIR) fclean --silent
 	@rm -f $(NAME)
-	@echo "##### REMOVE BINARY FILES #####"
+	@echo "### PROJECT: REMOVE BINARY FILES ###"
 
 re: fclean all
 
