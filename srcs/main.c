@@ -14,7 +14,7 @@
 
 int		main(int argc, char **argv)
 {
-	if (argc > 0 && argv)
+	if (argc > 0 && *argv)
 	{
 		ft_printf("My Filler.\n");
 		return (0);
