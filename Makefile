@@ -11,7 +11,7 @@
 #******************************************************************************#
 
 NAME = ft_ssl
-FLAGS = 
+FLAGS = -Wall -Wextra -Werror
 
 SRC_NAME =	main.c\
 			reader_file.c\
