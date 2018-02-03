@@ -15,9 +15,10 @@
 # define ER00 "ft_ssl: Error: \""
 # define ER01 "\" is an invalid command.\n"
 # define ER02 "ERROR! '"
-# define ER10 "Standard commands:\n"
-# define ER11 "Message Digest commands:\n"
+# define ER10 "Standard commands:\n\n"
+# define ER11 "Message Digest commands:\n\n"
 # define ER12 "Cipher commands:\n   base64\n   des\n   des-ecb\n   des-cbc\n"
+# define ER13 "   des3\n   des3-ecb\n   des3-cbc\n"
 # define ER30 "ft_ssl: option requires an argument\n"
 # define ER31 "   -e,  encrypt mode (default, with all cipher commands)\n"
 # define ER32 "   -d,  decrypt mode (with all cipher commands)\n"
@@ -29,6 +30,6 @@
 # define ER38 "   -o,  example: \"-o [output_file_name]\" (default STDOUT)\n"
 # define ERRS ER31, ER32, ER33, ER34, ER35, ER36
 # define ERRM ER37, ER38
-# define ERP1 ER00, argv[1], ER01, ER10, ERRS, ER11, ERRM, ER12
+# define ERP1 ER00, argv[1], ER01, ER10, ER11, ER12, ER13
 # define ERP2 ER02, str, ER01, ER30, ERRS, ERRM
 #endif

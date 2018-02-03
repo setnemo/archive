@@ -83,28 +83,6 @@ int				check_hex(unsigned char *str)
 	return (1);
 }
 
-unsigned long	str_to_ul64(unsigned char *str)
-{
-	int				a;
-	int				b;
-	unsigned char	c;
-	unsigned long	ret;
-
-	a = 0;
-	b = 0;
-	ret = 0;
-	while (a < 8)
-	{
-		if (!str[b])
-			b = 0;
-		c = str[b++];
-		ret <<= 8;
-		ret += c;
-		a++;
-	}
-	return (ret);
-}
-
 unsigned long	hex_to_ul64(unsigned char *str)
 {
 	int				a;

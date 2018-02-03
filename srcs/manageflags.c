@@ -21,7 +21,7 @@ void	error_flags(char *str)
 
 void	print_error(char **argv)
 {
-	ft_printf("%s%s%s%s%s%s%s%s%s%s%s%s%s%s", ERP1);
+	ft_printf("%s%s%s%s%s%s%s", ERP1);
 	exit(1);
 }
 
@@ -37,10 +37,14 @@ void	flag_parser(int argc, char **argv)
 {
 	if (ft_strequ(argv[1], "base64"))
 		start_base64(argc, argv);
-	else if ((ft_strequ(argv[1], "des-ecb")) || (ft_strequ(argv[1], "des")))
+	else if ((ft_strequ(argv[1], "des")) || (ft_strequ(argv[1], "des-ecb")))
 		start_ecb(argc, argv);
 	else if (ft_strequ(argv[1], "des-cbc"))
 		start_cbc(argc, argv);
+	else if ((ft_strequ(argv[1], "des3")) || (ft_strequ(argv[1], "des3-ecb")))
+		start_des3ecb(argc, argv);
+	else if (ft_strequ(argv[1], "des3-cbc"))
+		start_des3cbc(argc, argv);
 	else
 		print_error(argv);
 }

@@ -24,6 +24,9 @@ void	create_data(t_ssl *data)
 	data->iv = NULL;
 	data->inp = NULL;
 	data->out = NULL;
+	data->des3_key1 = 0;
+	data->des3_key2 = 0;
+	data->des3_key3 = 0;
 }
 
 void	handle_flags(int i, int argc, char **argv, t_ssl *data)

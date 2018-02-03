@@ -42,6 +42,9 @@ typedef struct	s_ssl
 	char	*iv;
 	char	*inp;
 	char	*out;
+	UL		des3_key1;
+	UL		des3_key2;
+	UL		des3_key3;
 }				t_ssl;
 
 /*
@@ -108,7 +111,6 @@ void			printinfile(char *file, UC *str, size_t size);
 unsigned char	*input_read(size_t *a);
 unsigned char	*input_read_line(size_t *a);
 int				check_hex(unsigned char *str);
-unsigned long	str_to_ul64(unsigned char *str);
 unsigned long	hex_to_ul64(unsigned char *str);
 
 /*
@@ -177,5 +179,45 @@ void			cbc_showkey(unsigned long master_key);
 void			cbc_print_key(t_ssl ssl);
 void			cbc_encrypt(UC **inp, size_t size, t_ssl *ssl, int flag);
 void			cbc_decrypt(UC **inp, size_t size, t_ssl *ssl, int flag);
+
+/*
+** ****************************************************************************
+** ****************************** BONUS PART **********************************
+** ****************************************************************************
+*/
+
+/*
+** ****************************************************************************
+** ***************************** ebccbc3core.c ********************************
+** ****************************************************************************
+*/
+
+void			get_triple_key(unsigned char *str, t_ssl *data);
+void			des3_get_key(t_ssl *data);
+void			des3_print_key(t_ssl *data, int show_iv);
+void			start_des3ecb(int argc, char **argv);
+void			start_des3cbc(int argc, char **argv);
+
+/*
+** ****************************************************************************
+** ***************************** desebc3algo.c ********************************
+** ****************************************************************************
+*/
+
+void			des3ecb_e(UC **inp, size_t size, t_ssl *data);
+void			des3ecb_d(UC **inp, size_t size, t_ssl *data);
+void			des3ecb_e_inp(t_ssl *data, UC **in, UC **out, size_t *size);
+void			des3ecb_d_inp(t_ssl *data, UC **in, UC **out, size_t *size);
+
+/*
+** ****************************************************************************
+** ***************************** descbc3algo.c ********************************
+** ****************************************************************************
+*/
+
+void			des3cbc_e(UC **inp, size_t size, t_ssl *data);
+void			des3cbc_d(UC **inp, size_t size, t_ssl *data, UL iv);
+void			des3cbc_e_inp(t_ssl *data, UC **inp, UC **out, size_t *size);
+void			des3cbc_d_inp(t_ssl *data, UC **inp, UC **out, size_t *size);
 
 #endif
