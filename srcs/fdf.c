@@ -109,11 +109,15 @@ int		deal_key(int key, t_mlx *data)
 		data->zoom += 0.1;
 	if (key == 27 && (data->zoom - 0.1 > 0)) //-
 		data->zoom -= 0.1;
-	if (key == 43) //< 86 88 
-		data->rad += 1.017452;
-	if (key == 47) //up 91 92
-		data->rad -= 1.017452;
-	if (key == 43 || key == 47 || key == 31 || key == 34 || (key >= 123 && key <= 126) || key == 8 || key == 35 || key == 24|| key == 27)
+	if (key == 91) //< 86 88 
+		data->rady += 0.117452;
+	if (key == 92) //up 91 92
+		data->rady -= 0.117452;
+	if (key == 86) //< 86 88 
+		data->radx += 0.117452;
+	if (key == 88) //up 91 92
+		data->radx -= 0.117452;
+	if (key == 86 || key == 88 || key == 91 || key == 92 || key == 31 || key == 34 || (key >= 123 && key <= 126) || key == 8 || key == 35 || key == 24|| key == 27)
 	{
 		mlx_clear_window(data->mlx, data->win);
 		print_toscreen(data);
@@ -160,7 +164,9 @@ void	fdf(char *str, t_mlx *data)
 	data->zoom = 1;
 	data->x_loc = 0;
 	data->rot = 1;
-	data->rad = 0;
+	data->radx = 0;
+	data->rady = 0;
+//	data->radz = 0;
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, data->isize, data->isize, "FDF");
 	data->loc = get_loc(str, data);

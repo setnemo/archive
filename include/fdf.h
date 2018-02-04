@@ -42,7 +42,8 @@ typedef  struct	s_mlx
 	int		height;
 	int		x;
 	int		y;
-	float	rad;
+	float	radx;
+	float	rady;
 	char	*strloc;
 }				t_mlx;
 
