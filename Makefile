@@ -13,7 +13,7 @@
 NAME = fdf
 CC = gcc
 WWW = -Wall -Wextra -Werror 
-FLAGS = -lmlx -Ilib/ -framework OpenGL -framework AppKit
+FLAGS = -g -lmlx -framework OpenGL -framework AppKit
 
 SRC_NAME = 	main.c\
 			draw.c\
@@ -29,7 +29,7 @@ LIB_DIR = libft/
 SRC_DIR = srcs/
 OBJ_DIR = obj/
 
-ifeq ($(TARGETOS), Linux)
+ifneq ($(TARGETOS), Linux)
 	FLAGS = -lm -lmlx -lXext -lX11 -L lib/ -I lib/
 	WWW = 
 	CC = cc

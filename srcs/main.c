@@ -12,6 +12,11 @@
 
 #include "fdf.h"
 
+void	ft_testintstr(int a, char *name)
+{
+	ft_printf("\x1b[31m TESTING: \x1b[0m%10.10s ::: %10.i\n", name, a);
+}
+
 int	get_data(char *str)
 {
 	int	count;
@@ -21,12 +26,10 @@ int	get_data(char *str)
 	count = 0;
 	while (str[i])
 	{
-		if (ft_isdigit(str[i]) || (str[i] == '-' &&  ft_isdigit(str[i + 1])))
+		if (ft_isdigit(str[i]))
 		{
-			if (str[i] == '-')
-				i++;
 			count++;
-			while (str[i] && ft_isdigit(str[i]))
+			while (ft_isdigit(str[i]))
 				i++;
 		}
 		if (str[i] == ',')
@@ -40,29 +43,27 @@ int	get_data(char *str)
 	return (count);
 }
 
-int	get_map(char **str, int point[2], int fd, t_buf *buf)
+int	get_map(char **str, int point[2], int fd)
 {
+	char	*line;
 	int		ret;
 
 	point[Y] = 0;
-	while ((ret = get_next_line(fd, &buf->line)) > 0)
+	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		buf->lbuf = ft_strjoin(buf->line, " ");
-		ft_strdel(&buf->line);
+		line = ft_strjoin(line, " ");
 		if (point[Y] == 0)
 		{
-			*str = ft_strdup(buf->lbuf);
-			point[X] = get_data(buf->lbuf);
+			*str = ft_strdup(line);
+			point[X] = get_data(line);
 		}
 		else
 		{
-			if (point[X] != get_data(buf->lbuf))
+			if (point[X] != get_data(line))
 				return (-1);
-			buf->buf = ft_strjoin(*str, buf->lbuf);
-			ft_strdel(str);
-			*str = buf->buf;
+			*str = ft_strjoin(*str, line);
 		}
-		free(buf->lbuf);
+		free(line);
 		point[Y]++;
 	}
 	return (ret);
@@ -72,7 +73,6 @@ int main(int argc, char **argv)
 {
 	char	*map;
 	t_mlx	data;
-	t_buf	buf;
 	int		fd;
 
 	data.isize = (argc > 2 && ft_isdigit(argv[2][0])) ? ft_atoi(argv[2]) : 1000;
@@ -80,15 +80,10 @@ int main(int argc, char **argv)
 	fd = (argc > 1) ? open(argv[1], O_RDONLY) : 0;
 	if (fd == -1)
 		return (0);
-	if (get_map(&map, data.point, fd, &buf) < 0)
-	{
-		ft_printf("Error\n");
-		exit(1);
-	}
+	get_map(&map, data.point, fd);
 	ft_testintstr(data.point[X], "x");
 	ft_testintstr(data.point[Y], "y");
 	if (argc > 2)
 		close(fd);
 	fdf(map, &data);
-	system("leaks -quiet fdf");
 }
