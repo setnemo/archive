@@ -42,10 +42,12 @@ typedef  struct	s_mlx
 	int		height;
 	int		x;
 	int		y;
+	float	rad;
+	char	*strloc;
 }				t_mlx;
 
 void	fdf(char *loc, t_mlx *input);
 void	print_toscreen(t_mlx *input);
 void	ft_testintstr(int a, char *name);
-
+int	**get_loc(char *str, t_mlx *data);
 #endif

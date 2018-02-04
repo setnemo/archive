@@ -63,7 +63,25 @@ void	quit(t_mlx *data)
 // 	return (key);
 // }
 
-int	deal_key(int key, t_mlx *data)
+// void	map_rotate_x(t_mlx *d, char flag)
+// {
+// 	if (flag)
+// 	{
+// 		rad 
+// 		//ft_testintstr(**d->loc[X], "test;;;");
+// 		*d->loc[X] = (*d->loc[X] * 1) + (*d->loc[X] * 0) + (*d->loc[X] * 0);
+// 		*d->loc[Y] = (*d->loc[X] * 0) + (*d->loc[X] * cos(rad)) + (*d->loc[X] * sin(rad) * -1);
+// 		*d->loc[Z] = (*d->loc[X] * 0) + (*d->loc[X] * sin(rad)) + (*d->loc[X] * cos(rad));
+// 	}
+// 	else
+// 	{
+// 		// rad -= 0.017452;
+// 		*d->loc[X] = (*d->loc[X] * 1) + (*d->loc[X] * 0) + (*d->loc[X] * 0);
+// 		*d->loc[Y] = (*d->loc[X] * 0) + (*d->loc[X] * cos(rad)) + (*d->loc[X] * sin(rad) * -1);
+// 		*d->loc[Z] = (*d->loc[X] * 0) + (*d->loc[X] * sin(rad)) + (*d->loc[X] * cos(rad));
+// 	}
+// }
+int		deal_key(int key, t_mlx *data)
 {
 	int	i;
 
@@ -92,9 +110,9 @@ int	deal_key(int key, t_mlx *data)
 	if (key == 27 && (data->zoom - 0.1 > 0)) //-
 		data->zoom -= 0.1;
 	if (key == 43) //< 86 88 
-		data->rot += 1;
+		data->rad += 1.017452;
 	if (key == 47) //up 91 92
-		data->rot -= 1;
+		data->rad -= 1.017452;
 	if (key == 43 || key == 47 || key == 31 || key == 34 || (key >= 123 && key <= 126) || key == 8 || key == 35 || key == 24|| key == 27)
 	{
 		mlx_clear_window(data->mlx, data->win);
@@ -102,6 +120,7 @@ int	deal_key(int key, t_mlx *data)
 	}
 	return (key);
 }
+
 
 int	**get_loc(char *str, t_mlx *data)
 {
@@ -141,6 +160,7 @@ void	fdf(char *str, t_mlx *data)
 	data->zoom = 1;
 	data->x_loc = 0;
 	data->rot = 1;
+	data->rad = 0;
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, data->isize, data->isize, "FDF");
 	data->loc = get_loc(str, data);

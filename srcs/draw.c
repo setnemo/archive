@@ -24,7 +24,17 @@ void	get_pixels(int *coords, int *pixel, t_mlx *data)
 	data->width * ((data->point[Y] - 1) - coords[Y]) + data->x_loc;
 	pixel[Y] = data->y + (data->height * coords[X]) * data->rot -
 	(data->height * ((data->point[Y] - 1) - coords[Y])) * data->rot - tmp - data->y_loc;
+	// pixel[X] = coords[X] + 100;
+	// pixel[Y] = coords[Y] + 100;
 	pixel[Z] = coords[Z];
+	// ft_testintstr(data->x, "data->x");
+	// ft_testintstr(coords[X], "coords[X]");
+	// ft_testintstr(data->y, "data->y");
+	// ft_testintstr(coords[Y], "coords[Y]");
+//	double test = pixel[X];
+	pixel[X] = (pixel[X] * cos(data->rad)) + (pixel[X] * 0) + (pixel[X] * -sin(data->rad));
+	pixel[Y] = (pixel[Y] * 0) + (pixel[Y] * 1) + (pixel[Y] * 0);
+	pixel[Z] = (pixel[Z] * -sin(data->rad)) + (pixel[Z] * 0) + (pixel[Z] * cos(data->rad));
 	if (!data->peaks)
 		pixel[C] = (coords[C]) ? coords[C] : data->colour;
 	else
@@ -116,8 +126,10 @@ void	print_toscreen(t_mlx *data)
 		d--;
 	data->height = ceil(((data->isize * 2) / 5) / d) * data->zoom;
 	data->width = ceil(((data->isize * 4) / 5) / d) * data->zoom;
-	data->x = (data->isize - (data->width * d)) / 2;
-	data->y = ((data->isize - (data->height * d)) * 2) / 3;
+	data->x = (data->isize - (data->width * d)) / 2; //0
+	data->y = ((data->isize - (data->height * d)) * 2) / 3; //0
+	ft_testintstr(data->x, "data->x");
+	ft_testintstr(data->x, "data->y");
 	while (++j < data->point[X] * data->point[Y])
 		get_pixels(data->loc[j], pixels[j], data);
 	while (--j > 0)
