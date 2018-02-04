@@ -62,7 +62,7 @@ unsigned long	make_gsb(unsigned long gsb)
 		temp = (gsb >> (42 - (i * 6))) & 0x3f;
 		row = ((temp >> 5) << 1) + (temp & 1);
 		col = (temp >> 1) & 0xf;
-		temp = (unsigned long)g_s_boxes[i][row * 16 + col];
+		temp = g_s_boxes[i][row * 16 + col];
 		ret <<= 4;
 		ret += temp;
 		i++;

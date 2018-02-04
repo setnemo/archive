@@ -11,7 +11,7 @@
 #******************************************************************************#
 
 NAME = libft.a
-FLAGS = -Wall -Wextra -Werror
+FLAGS = 
 DIR_S = src
 DIR_O = temp
 HEADER = include
