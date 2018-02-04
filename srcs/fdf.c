@@ -91,9 +91,9 @@ int	deal_key(int key, t_mlx *data)
 		data->zoom += 0.1;
 	if (key == 27 && (data->zoom - 0.1 > 0)) //-
 		data->zoom -= 0.1;
-	if (key == 43) //<
+	if (key == 43) //< 86 88 
 		data->rot += 1;
-	if (key == 47) //>
+	if (key == 47) //up 91 92
 		data->rot -= 1;
 	if (key == 43 || key == 47 || key == 31 || key == 34 || (key >= 123 && key <= 126) || key == 8 || key == 35 || key == 24|| key == 27)
 	{

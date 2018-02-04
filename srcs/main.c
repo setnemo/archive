@@ -72,18 +72,19 @@ int	get_map(char **str, int point[2], int fd)
 int main(int argc, char **argv)
 {
 	char	*map;
-	t_mlx	data;
+	t_mlx	*data;
 	int		fd;
 
-	data.isize = (argc > 2 && ft_isdigit(argv[2][0])) ? ft_atoi(argv[2]) : 1000;
-	data.colour = (argc > 3 && ft_isdigit(argv[3][0])) ? ft_atoi(argv[3]) : 0xFFFFFF;
+	data = (t_mlx*)malloc(sizeof(t_mlx));
+	data->isize = (argc > 2 && ft_isdigit(argv[2][0])) ? ft_atoi(argv[2]) : 1000;
+	data->colour = (argc > 3 && ft_isdigit(argv[3][0])) ? ft_atoi(argv[3]) : 0xFFFFFF;
 	fd = (argc > 1) ? open(argv[1], O_RDONLY) : 0;
 	if (fd == -1)
 		return (0);
-	get_map(&map, data.point, fd);
-	ft_testintstr(data.point[X], "x");
-	ft_testintstr(data.point[Y], "y");
+	get_map(&map, data->point, fd);
+	ft_testintstr(data->point[X], "x");
+	ft_testintstr(data->point[Y], "y");
 	if (argc > 2)
 		close(fd);
-	fdf(map, &data);
+	fdf(map, data);
 }
