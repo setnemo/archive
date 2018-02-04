@@ -29,7 +29,7 @@ LIB_DIR = libft/
 SRC_DIR = srcs/
 OBJ_DIR = obj/
 
-ifneq ($(TARGETOS), Linux)
+ifeq ($(TARGETOS), Linux)
 	FLAGS = -lm -lmlx -lXext -lX11 -L lib/ -I lib/
 	WWW = 
 	CC = cc

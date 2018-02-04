@@ -54,6 +54,8 @@ void	soft_line(int p1[4], int p2[4], void *mlx, void *win)
 			p1[Y] += neg;
 			p = p + 2 * dy - 2 * dx; 
 		}
+		// ft_testintstr(p1[X], "color p1x");
+		// ft_testintstr(p1[Y], "color p1y");
 		mlx_pixel_put(mlx, win, p1[X]++, p1[Y], col);
 	}	
 }
@@ -120,10 +122,11 @@ void	print_toscreen(t_mlx *data)
 	data->y = ((data->isize - (data->height * d)) * 2) / 3;
 	while (++j < data->point[X] * data->point[Y])
 		get_pixels(data->loc[j], pixels[j], data);
+	//ft_testintstr(pixels[j], "color p1x");
 	while (--j > 0)
 	{
 		if (j - data->point[X] >= 0) 
-			draw_line(pixels[j], pixels[j - data->point[X]], data->mlx, data->win);
+			draw_line(pixels[j - 1], pixels[j], data->mlx, data->win);
 		if (j % data->point[X])
 			draw_line(pixels[j - 1], pixels[j], data->mlx, data->win);
 	}
