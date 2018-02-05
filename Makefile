@@ -48,7 +48,11 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@echo "##### LINKING" [ $@ ] " #######"
 	$(CC) $(WWW) -o $@ -c  $< $(INC)
 
-linux: $(NAME)
+norm:
+	@norminette ./libft/include
+	@norminette ./libft/src
+	@norminette ./include
+	@norminette ./srcs
 
 swap:
 	@cp -R ./lib ./lib1

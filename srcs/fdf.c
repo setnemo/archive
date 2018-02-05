@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-void	quit(t_mlx *data)
+void	exit_free(t_mlx *data)
 {
 	int	i;
 
@@ -20,130 +20,71 @@ void	quit(t_mlx *data)
 	while (i < data->point[X] * data->point[Y])
 		free(data->loc[i++]);
 	free(data->loc);
-	exit(1);
+	system("leaks -quiet fdf");
+	exit(0);
 }
 
-// int	deal_key(int key, t_mlx *data)
-// {
-// 	int	i;
+/*
+** 53 = ESC							Exit
+** 123-126 = up/down/left/right		Move
+** 34 = i							Increment Z point
+** 31 = o							Decrement Z point
+** 35 = p							Coloring peaks
+** 8 = c							Coloring figure
+** 24 && 27 = + && -				Zoom figure
+*/
 
-// 	i = 0;
-// 	ft_testintstr(key, "key");
-// 	if (key == 65307)
-// 		quit(data);
-// 	if (key == 119)
-// 		data->y_loc += 10;
-// 	if (key == 97)
-// 		data->y_loc -= 10;
-// 	if (key == 115)
-// 		data->x_loc -= 10;
-// 	if (key == 100)
-// 		data->x_loc += 10;
-// 	if (key == 39 && data->alt < 5.6)
-// 		data->alt += 0.2;
-// 	if (key == 59)
-// 		data->alt -= 0.2;
-// 	if (key == 92)
-// 		data->peaks = (data->peaks) ? 0 : 1;
-// 	if (key == 65288)
-// 		data->colour += (5 * 1 << 16) + 5;
-// 	if (key == 61)
-// 		data->zoom += 0.1;
-// 	if (key == 45 && (data->zoom - 0.1 > 0))
-// 		data->zoom -= 0.1;
-// 	if (key == 91)
-// 		data->rot += 1;
-// 	if (key == 93)
-// 		data->rot -= 1;
-// 	if (key == 91 || key == 93 || key == 59 || key == 39 || (key >= 115 && key <= 119) || (key >= 97 && key <= 100) || key == 65288 || key == 92 || key == 61|| key == 45)
-// 	{
-// 		mlx_clear_window(data->mlx, data->win);
-// 		print_toscreen(data);
-// 	}
-// 	return (key);
-// }
-
-// void	map_rotate_x(t_mlx *d, char flag)
-// {
-// 	if (flag)
-// 	{
-// 		rad 
-// 		//ft_testintstr(**d->loc[X], "test;;;");
-// 		*d->loc[X] = (*d->loc[X] * 1) + (*d->loc[X] * 0) + (*d->loc[X] * 0);
-// 		*d->loc[Y] = (*d->loc[X] * 0) + (*d->loc[X] * cos(rad)) + (*d->loc[X] * sin(rad) * -1);
-// 		*d->loc[Z] = (*d->loc[X] * 0) + (*d->loc[X] * sin(rad)) + (*d->loc[X] * cos(rad));
-// 	}
-// 	else
-// 	{
-// 		// rad -= 0.017452;
-// 		*d->loc[X] = (*d->loc[X] * 1) + (*d->loc[X] * 0) + (*d->loc[X] * 0);
-// 		*d->loc[Y] = (*d->loc[X] * 0) + (*d->loc[X] * cos(rad)) + (*d->loc[X] * sin(rad) * -1);
-// 		*d->loc[Z] = (*d->loc[X] * 0) + (*d->loc[X] * sin(rad)) + (*d->loc[X] * cos(rad));
-// 	}
-// }
-int		deal_key(int key, t_mlx *data)
+void	restart(t_mlx *data)
 {
-	int	i;
+	mlx_clear_window(data->mlx, data->win);
+	to_window(data);
+}
 
-	i = 0;
-	ft_testintstr(key, "key");
-	if (key == 53) //ESC
-		quit(data);
-	if (key == 126) //up
+int		deal_key(int k, t_mlx *data)
+{
+	if (k == 53)
+		exit_free(data);
+	if (k == 126)
 		data->y_loc += 10;
-	if (key == 125) //down
+	if (k == 125)
 		data->y_loc -= 10;
-	if (key == 123) //left
+	if (k == 123)
 		data->x_loc -= 10;
-	if (key == 124) //right
+	if (k == 124)
 		data->x_loc += 10;
-	if (key == 34 && data->alt < 5.6) //i
+	if (k == 34 && data->alt < 5.6)
 		data->alt += 0.2;
-	if (key == 31) //o
+	if (k == 31)
 		data->alt -= 0.2;
-	if (key == 35) //p
+	if (k == 35)
 		data->peaks = (data->peaks) ? 0 : 1;
-	if (key == 8) //c
+	if (k == 8)
 		data->colour += (5 * 1 << 16) + 5;
-	if (key == 24) //+
+	if (k == 24)
 		data->zoom += 0.1;
-	if (key == 27 && (data->zoom - 0.1 > 0)) //-
+	if (k == 27 && (data->zoom - 0.1 > 0))
 		data->zoom -= 0.1;
-	if (key == 91) //< 86 88 
-		data->rady += 0.117452;
-	if (key == 92) //up 91 92
-		data->rady -= 0.117452;
-	if (key == 86) //< 86 88 
-		data->radx += 0.117452;
-	if (key == 88) //up 91 92
-		data->radx -= 0.117452;
-	if (key == 86 || key == 88 || key == 91 || key == 92 || key == 31 || key == 34 || (key >= 123 && key <= 126) || key == 8 || key == 35 || key == 24|| key == 27)
-	{
-		mlx_clear_window(data->mlx, data->win);
-		print_toscreen(data);
-	}
-	return (key);
+	if (k >= 8 && k <= 126)
+		restart(data);
+	return (k);
 }
 
-
-int	**get_loc(char *str, t_mlx *data)
+int		**get_loc(char *str, t_mlx *data, int i, int j)
 {
-	int		i;
 	int		**loc;
-	int		j;
 
-	j = -1;
-	i = -1;
-	if(!(loc = malloc(sizeof(int *) * (data->point[X] * data->point[Y]))))
+	if (!(loc = malloc(sizeof(int *) * (data->point[X] * data->point[Y]))))
 		return (NULL);
 	while (str[++i])
 	{
-		if (ft_isdigit(str[i]))
+		if (ft_isdigit(str[i]) || (str[i] == '-' && ft_isdigit(str[i + 1])))
 		{
 			loc[++j] = malloc(sizeof(int) * 4);
+			loc[j][Z] = ft_atoi(str + i);
+			if (str[i] == '-')
+				i++;
 			loc[j][X] = j % data->point[X];
 			loc[j][Y] = j / data->point[X];
-			loc[j][Z] = ft_atoi(str + i);
 			loc[j][C] = 0;
 			while (ft_isdigit(str[i]))
 				i++;
@@ -163,15 +104,11 @@ void	fdf(char *str, t_mlx *data)
 	data->peaks = 0;
 	data->zoom = 1;
 	data->x_loc = 0;
-	data->rot = 1;
-	data->radx = 0;
-	data->rady = 0;
-//	data->radz = 0;
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, data->isize, data->isize, "FDF");
-	data->loc = get_loc(str, data);
+	data->loc = get_loc(str, data, -1, -1);
 	free(str);
-	print_toscreen(data);
+	to_window(data);
 	mlx_key_hook(data->win, deal_key, data);
 	mlx_loop(data->mlx);
 }

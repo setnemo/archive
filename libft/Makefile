@@ -80,18 +80,20 @@ SOURCES = ft_atoi.c\
 		ft_recursive_power.c\
 		ft_split.c\
 		ft_print_hex.c\
-		get_next_line.c\
-		conversions.c\
-		core.c\
-		fordigits.c\
-		ft_printf.c\
-		manage.c\
-		managecharandhex.c\
-		managestrandperc.c\
-		pf_itoa.c\
-		verify.c\
 		ft_abs.c\
-		ft_atoi_base.c
+		ft_atoi_base.c\
+		get_next_line.c\
+		pf_conversions.c\
+		pf_core.c\
+		pf_fordigits.c\
+		pf_ft_printf.c\
+		pf_manage.c\
+		pf_managecharandhex.c\
+		pf_managestrandperc.c\
+		pf_itoa.c\
+		pf_verify.c\
+		ft_testintstr.c\
+		ft_strtolower.c
 
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 
@@ -106,16 +108,20 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
+	@echo "######## MAKELIB: DONE ##########"
 
 $(DIR_O)/%.o: $(DIR_S)/%.c
 	@mkdir -p temp
-	gcc $(FLAGS) -I./$(HEADER) -o $@ -c $<
+	@echo "## MAKELIB: LINKING" [ $@ ] " ###"
+	@gcc $(FLAGS) -I./$(HEADER) -o $@ -c $<
 
 clean:
 	@rm -f $(OBJS)
 	@rm -rf $(DIR_O)
+	@echo "### MAKELIB: REMOVE OBJ FILES ###"
 
 fclean: clean
 	@rm -f $(NAME)
+	@echo "### MAKELIB: REMOVE BIN FILES ###"
 
 re: fclean all

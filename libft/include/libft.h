@@ -29,7 +29,9 @@
 # define PLUS 8
 # define SPACE 16
 # define APOST 32
-# define HEXCHAR (str[i] >= 'a' && str[i] <= 'f') || (str[i] >= 'A' && str[i] <= 'F')
+# define HEXCHAR1 (str[i] >= 'a' && str[i] <= 'f')
+# define HEXCHAR2 (str[i] >= 'A' && str[i] <= 'F')
+# define HEXCHAR HEXCHAR1 || HEXCHAR2
 # define HEXSYMB str[i] == 'x' || str[i] == 'X'
 
 /*
@@ -121,6 +123,8 @@ void				ft_print_hex(int dc);
 int					get_next_line(const int fd, char **line);
 int					ft_abs(int i);
 int					ft_atoi_base(char *str, int base);
+void				ft_testintstr(int a, char *name);
+unsigned char		*ft_strtolower(unsigned char *s);
 
 /*
 ** ****************************************************************************

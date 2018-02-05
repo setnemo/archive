@@ -22,30 +22,14 @@ void	get_pixels(int *coords, int *pixel, t_mlx *data)
 	tmp = (int)(div * data->alt);
 	pixel[X] = data->x + (data->width * coords[X]) +
 	data->width * ((data->point[Y] - 1) - coords[Y]) + data->x_loc;
-	// pixel[Y] = data->y + (data->width * coords[Y]) +
-	// data->width * ((data->point[Y] - 1) - coords[X]) + data->y_loc;
-	pixel[Y] = data->y + (data->height * coords[X]) * data->rot -
-	(data->height * ((data->point[Y] - 1) - coords[Y])) * data->rot - tmp - data->y_loc;
-	// pixel[X] = coords[X] - 200;
-	// pixel[Y] = coords[Y] - 200;
+	pixel[Y] = data->y + (data->height * coords[X]) * 1 -
+	(data->height * ((data->point[Y] - 1) - coords[Y])) * 1 - tmp - data->y_loc;
 	pixel[Z] = coords[Z];
-	// ft_testintstr(data->x, "data->x");
-	// ft_testintstr(coords[X], "coords[X]");
-	// ft_testintstr(data->y, "data->y");
-	// ft_testintstr(coords[Y], "coords[Y]");
-//	double test = pixel[X];
-	pixel[X] = (pixel[X] * 1) + (pixel[X] * 0) + (pixel[X] * 0);
-	pixel[Y] = (pixel[Y] * 0) + (pixel[Y] * cos(data->radx)) + (pixel[Y] * sin(data->radx));
-	pixel[Z] = (pixel[Z] * 0) + (pixel[Z] * -sin(data->radx)) + (pixel[Z] * cos(data->radx));
-
-	pixel[X] = (pixel[X] * cos(data->rady)) + (pixel[X] * 0) + (pixel[X] * -sin(data->rady));
-	pixel[Y] = (pixel[Y] * 0) + (pixel[Y] * 1) + (pixel[Y] * 0);
-	pixel[Z] = (pixel[Z] * -sin(data->rady)) + (pixel[Z] * 0) + (pixel[Z] * cos(data->rady));
 	if (!data->peaks)
 		pixel[C] = (coords[C]) ? coords[C] : data->colour;
 	else
-	pixel[C] = (coords[Z] && data->peaks) ?
-	5073779 + ((1 + (1 << 16)) * (coords[Z] * data->alt)) : data->colour;
+		pixel[C] = (coords[Z] && data->peaks) ?
+	5073779 + ((1 + (1 << 14)) * (coords[Z] * data->alt)) : data->colour;
 }
 
 void	soft_line(int p1[4], int p2[4], void *mlx, void *win)
@@ -60,7 +44,7 @@ void	soft_line(int p1[4], int p2[4], void *mlx, void *win)
 	neg = (p2[Y] - p1[Y] > 0) ? 1 : -1;
 	dx = ft_abs(p2[X] - p1[X]);
 	dy = ft_abs(p2[Y] - p1[Y]);
-	p = 2 *dy - dx;
+	p = 2 * dy - dx;
 	while (p1[X] < p2[X])
 	{
 		if (p < 0)
@@ -68,10 +52,10 @@ void	soft_line(int p1[4], int p2[4], void *mlx, void *win)
 		else
 		{
 			p1[Y] += neg;
-			p = p + 2 * dy - 2 * dx; 
+			p = p + 2 * dy - 2 * dx;
 		}
-		mlx_pixel_put(mlx, win, p1[X]++ + 200, p1[Y]+ 200, col);
-	}	
+		mlx_pixel_put(mlx, win, p1[X]++, p1[Y], col);
+	}
 }
 
 void	sharp_line(int p1[4], int p2[4], void *mlx, void *win)
@@ -86,7 +70,7 @@ void	sharp_line(int p1[4], int p2[4], void *mlx, void *win)
 	neg = (p2[Y] - p1[Y] > 0) ? 1 : -1;
 	dx = ft_abs(p2[X] - p1[X]);
 	dy = ft_abs(p2[Y] - p1[Y]);
-	p = 2 *dx - dy;
+	p = 2 * dx - dy;
 	while (p1[X] < p2[X])
 	{
 		if (p < 0)
@@ -94,11 +78,11 @@ void	sharp_line(int p1[4], int p2[4], void *mlx, void *win)
 		else
 		{
 			p1[X]++;
-			p = p + 2 * dx - 2 * dy; 
+			p = p + 2 * dx - 2 * dy;
 		}
-		mlx_pixel_put(mlx, win, p1[X] - 1 + 200, p1[Y] + 200, col);
+		mlx_pixel_put(mlx, win, p1[X] - 1, p1[Y], col);
 		p1[Y] += neg;
-	}	
+	}
 }
 
 void	draw_line(int p1[4], int p2[4], void *mlx, void *win)
@@ -120,10 +104,10 @@ void	draw_line(int p1[4], int p2[4], void *mlx, void *win)
 		soft_line(p1_copy, p2_copy, mlx, win);
 }
 
-void	print_toscreen(t_mlx *data)
+void	to_window(t_mlx *data)
 {
 	int		j;
-	int		pixels[data->point[X] * data->point[Y]][4];
+	int		pix[data->point[X] * data->point[Y]][4];
 	int		d;
 
 	j = -1;
@@ -132,17 +116,15 @@ void	print_toscreen(t_mlx *data)
 		d--;
 	data->height = ceil(((data->isize * 2) / 5) / d) * data->zoom;
 	data->width = ceil(((data->isize * 4) / 5) / d) * data->zoom;
-	data->x = 0; //0
-	data->y = 0; //0
-	ft_testintstr(data->x, "data->x");
-	ft_testintstr(data->x, "data->y");
+	data->x = (data->isize - (data->width * d)) / 2;
+	data->y = ((data->isize - (data->height * d)) * 2) / 3;
 	while (++j < data->point[X] * data->point[Y])
-		get_pixels(data->loc[j], pixels[j], data);
+		get_pixels(data->loc[j], pix[j], data);
 	while (--j > 0)
 	{
-		if (j - data->point[X] >= 0) 
-			draw_line(pixels[j], pixels[j - data->point[X]], data->mlx, data->win);
+		if (j - data->point[X] >= 0)
+			draw_line(pix[j], pix[j - data->point[X]], data->mlx, data->win);
 		if (j % data->point[X])
-			draw_line(pixels[j - 1], pixels[j], data->mlx, data->win);
+			draw_line(pix[j - 1], pix[j], data->mlx, data->win);
 	}
 }

@@ -76,7 +76,7 @@ int				get_next_line(const int fd, char **line)
 		gnl->next = NULL;
 	}
 	ERR((buf = while_gnl(gnl, fd)));
-	while ((i = read(fd, tmp, BUFF_SIZE)))
+	while ((i = read(fd, tmp, BUFF_SIZE)) > 0)
 	{
 		NIL(tmp[i]);
 		ERR((temp = ft_strjoin(buf->str, tmp)));

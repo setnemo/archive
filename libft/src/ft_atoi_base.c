@@ -14,8 +14,8 @@
 
 static int	get_ret(char c)
 {
-	int	i;
-	char *hex;
+	int		i;
+	char	*hex;
 
 	i = 0;
 	hex = "0123456789abcdef\0";

@@ -22,33 +22,46 @@
 # define Y 1
 # define Z 2
 # define C 3
+# define FF 0xFFFFFF
 
-typedef  struct	s_mlx
+typedef struct	s_mlx
 {
-	int		point[2];
 	void	*mlx;
 	void	*win;
+	int		point[2];
 	int		**loc;
 	int		key;
 	float	alt;
 	float	zoom;
-	int		y_loc;
-	int		x_loc;
 	int		isize;
 	int		colour;
 	int		peaks;
-	int		rot;
 	int		width;
 	int		height;
 	int		x;
 	int		y;
-	float	radx;
-	float	rady;
-	char	*strloc;
+	int		y_loc;
+	int		x_loc;
 }				t_mlx;
 
-void	fdf(char *loc, t_mlx *input);
-void	print_toscreen(t_mlx *input);
-void	ft_testintstr(int a, char *name);
-int	**get_loc(char *str, t_mlx *data);
+typedef struct	s_buf
+{
+	char	*line;
+	char	*lbuf;
+	char	*buf;
+}				t_buf;
+
+int				get_data(char *str);
+int				get_map(char **str, int point[2], int fd, t_buf *buf);
+void			exit_free(t_mlx *data);
+void			restart(t_mlx *data);
+int				deal_key(int key, t_mlx *data);
+int				**get_loc(char *str, t_mlx *data, int i, int j);
+void			fdf(char *str, t_mlx *data);
+void			get_pixels(int *coords, int *pixel, t_mlx *data);
+void			soft_line(int p1[4], int p2[4], void *mlx, void *win);
+void			sharp_line(int p1[4], int p2[4], void *mlx, void *win);
+void			draw_line(int p1[4], int p2[4], void *mlx, void *win);
+void			to_window(t_mlx *data);
+
 #endif
