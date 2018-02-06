@@ -14,7 +14,8 @@ NAME = filler
 FLAGS = 
 #-Wall -Wextra -Werror
 
-SRC_NAME =	main.c
+SRC_NAME =	main.c\
+			start.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
