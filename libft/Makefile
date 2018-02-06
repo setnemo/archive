@@ -94,7 +94,8 @@ SOURCES = ft_atoi.c\
 		pf_itoa.c\
 		pf_verify.c\
 		ft_testintstr.c\
-		ft_strtolower.c
+		ft_strtolower.c\
+		ft_print_charr.c
 
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 

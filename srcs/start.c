@@ -12,9 +12,39 @@
 
 #include "filler.h"
 
+void	read_map(t_fill *game)
+{
+	int		row;
+	int		col;
+	int		a;
+	char	*line;
+
+	row = game->map_size[0];
+	col = game->map_size[1];
+	game->map = (char**)malloc((sizeof(char*) * row) + 1);
+	game->map[row] = NULL;
+	a = 0;
+	ft_printf("after malloc\n");
+	get_next_line(STDIN_FILENO, &line);
+	ft_strdel(&line);
+	ft_printf("after free\n");
+	while (a < row)
+	{
+		get_next_line(STDIN_FILENO, &line);
+		game->map[a] = ft_strdup(line + 4);
+		ft_printf("before free in while, a = %i\n", a);
+		ft_strdel(&line);
+		ft_printf("after free in while, a = %i\n", a);
+		a++;
+	}
+	ft_printf("after while\n");
+	ft_prcharr(game->map, row);
+
+}
+
 void	start_play(t_fill *game)
 {
-
+	read_map(game);
 }
 
 void	start_filler(void)
@@ -27,7 +57,7 @@ void	start_filler(void)
 	game->xo = 'X';
 	if (ft_strstr(inp, "filler") != NULL)
 		game->xo = 'O';
-	ft_printf("My symbol:%c\n", game->xo)
+	ft_printf("My symbol:%c\n", game->xo);
 	get_next_line(STDIN_FILENO, &inp);
 	get_next_line(STDIN_FILENO, &inp);
 	inp = inp + 8;
@@ -35,6 +65,6 @@ void	start_filler(void)
 	while (*inp != 32)
 		inp++;
 	game->map_size[1] = ft_atoi(inp);
-	ft_printf("Map Size:[%i][%i]", game->map_size[0], game->map_size[1])
+	ft_printf("Map Size:[%i][%i]", game->map_size[0], game->map_size[1]);
 	start_play(game);
 }
