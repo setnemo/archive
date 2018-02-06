@@ -12,6 +12,18 @@
 
 #include "filler.h"
 
+void	start_fight(t_fill *game)
+{
+	while (1)
+	{
+		read_bit(game);
+		spot_loc(game);
+		wait_enemy(game);
+		read_new_map(game);
+		check_end(game);
+	}
+}
+
 void	read_map(t_fill *game)
 {
 	int		row;
