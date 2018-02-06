@@ -20,6 +20,8 @@ typedef struct	s_fill
 	char	xo;
 	int		map_size[2];
 	char	**map;
+	int		bit_size[2];
+	char	**bit;
 }				t_fill;
 
 

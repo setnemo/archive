@@ -24,27 +24,36 @@ void	read_map(t_fill *game)
 	game->map = (char**)malloc((sizeof(char*) * row) + 1);
 	game->map[row] = NULL;
 	a = 0;
-	ft_printf("after malloc\n");
 	get_next_line(STDIN_FILENO, &line);
 	ft_strdel(&line);
-	ft_printf("after free\n");
 	while (a < row)
 	{
 		get_next_line(STDIN_FILENO, &line);
 		game->map[a] = ft_strdup(line + 4);
-		ft_printf("before free in while, a = %i\n", a);
 		ft_strdel(&line);
-		ft_printf("after free in while, a = %i\n", a);
 		a++;
 	}
-	ft_printf("after while\n");
-	ft_prcharr(game->map, row);
-
+	//ft_prcharr(game->map, row);
 }
 
 void	start_play(t_fill *game)
 {
 	read_map(game);
+	if (game->xo == 'O')
+	{
+		read_bit(game);
+		spot_loc(game);
+		wait_enemy(game);
+		read_new_map(game);
+		check_end(game);
+	}
+	else
+	{
+		wait_enemy(game);
+		read_new_map(game);
+		check_end(game);
+	}
+	start_fight(game);
 }
 
 void	start_filler(void)
