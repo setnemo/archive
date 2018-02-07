@@ -21,6 +21,7 @@
 # define BUFF_SIZE 1
 # define ERR(e) if (!e) return (-1);
 # define NOMEM(no) if (!no) return (NULL);
+# define BRK(ch) if (ch) break ;
 # define NIL(z) z = 0;
 # define WTHT 0
 # define HASH 1
@@ -50,7 +51,9 @@ typedef struct		s_list
 typedef struct		s_gnl
 {
 	int				fd;
+	int				br;
 	char			*str;
+	char			*tmp;
 	char			*after;
 	struct s_gnl	*next;
 }					t_gnl;
