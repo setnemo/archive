@@ -1,16 +1,3 @@
-/* ************************************************************************** */
-/*                                                           /###/            */
-/*                                                         /###/`  .++.       */
-/*   main.c                                              /###/`  .####/       */
-/*                                                     /###/`  .####/`  .#-.  */
-/*   By: apakhomo     <setnemo@gmail.com>             `+###|`  ###/   .####/` */
-/*                                                     `\###\\ ```  /####/`   */
-/*   Created: 2018/01/23 07:55:13 by apakhomo            `\###\\\/#####/`     */
-/*                                                  UNIT.UA `\######/`        */
-/*   Updated: 2018/01/29 14:08:50 by apakhomo                 ``\\/`          */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h>
@@ -44,33 +31,49 @@ static void		tcp(void *query, t_buff *buffer, int len, t_db *db) {
 	socks_server.sin_family = AF_INET;
 	socks_server.sin_port = htons(db->port);
 	socks_server.sin_addr.s_addr = inet_addr(db->forwarder);
-
-	sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+	sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (sock < 0) 
 		error("[!] Error creating TCP socket");
 
 	if (connect(sock, (struct sockaddr*)&socks_server, sizeof(socks_server)) < 0)
 		error("[!] Error connecting to proxy");
-  
-	// socks handshake
-	send(sock, "\x05\x01\x00", 3, 0);
-	recv(sock, tmp, 1024, 0);
 
-	srand(time(NULL));
 
-	// select dns server
+	// start dns server
 	in_addr_t remote_dns = inet_addr(db->forwarder);
-	memcpy(tmp, "\x05\x01\x00\x01", 4);
-	memcpy(tmp + 4, &remote_dns, 4);
-	memcpy(tmp + 8, "\x00\x35", 2);
-
-
-	send(sock, tmp, 10, 0);
-	recv(sock, tmp, 1024, 0);
+	// memcpy(tmp, "\x05\x01\x00\x01", 4);
+	// memcpy(tmp + 4, &remote_dns, 4);
+	// memcpy(tmp + 8, "\x00\x35", 2);
+			// for (int q = 0; q < 100; ++q)
+			// {
+			// 	ft_printf("%i ", tmp[q]);
+			// }
+			// ft_printf("\n");
+	// tmp[21] = 192;
+	// tmp[22] = 168;
+	// tmp[24] = 1;
+	// send(sock, tmp, 10, 0);
+	
+	ft_printf("tcp work?\n");
 
 	// forward dns query
 	send(sock, query, len, 0);
 	buffer->length = recv(sock, buffer->buffer, 2048, 0);
+
+	// select random dns server
+  // in_addr_t remote_dns = inet_addr(dns_servers[rand() % (NUM_DNS - 1)]);
+  // memcpy(tmp, "\x05\x01\x00\x01", 4);
+  // memcpy(tmp + 4, &remote_dns, 4);
+  // memcpy(tmp + 8, "\x00\x35", 2);
+
+  // if (LOG == 1) { fprintf(LOG_FILE, "Using DNS server: %s\n", inet_ntoa(*(struct in_addr *)&remote_dns)); }
+
+  // send(sock, tmp, 10, 0);
+  // recv(sock, tmp, 1024, 0);
+
+  // // forward dns query
+  // send(sock, query, len, 0);
+  // buffer->length = recv(sock, buffer->buffer, 2048, 0);
 }
 static int			check_blacklist(char *buffer, t_db *db)
 {
@@ -78,10 +81,22 @@ static int			check_blacklist(char *buffer, t_db *db)
 
 	a = 0;
 	while (db->blacklist[a])
-	{
-		ft_printf(":::%s\n:::%s\n", db->blacklist[a], buffer + 12);
-		//ft_printf("result ft_memcmp:%i\n", ft_stre(db->blacklist[a], buffer + 14, ft_strlen(db->blacklist[a])));
-		if (ft_strstr(buffer + 10, db->blacklist[a]) != NULL) {
+	{			
+			// ft_printf("...");
+			// for (int q = 0; q < 50; ++q)
+			// {
+			// 	ft_printf("%i ", buffer[q]);
+			// }
+			// ft_printf("...\n");
+			// ft_printf("._.");
+			// for (int f = 0; f < 10; ++f)
+			// {
+			// 	ft_printf("%i ", db->blacklist[a][f]);
+			// }
+			// ft_printf("._.\n");
+	
+
+		if (memcmp(buffer + 13, db->blacklist[a], ft_strlen(db->blacklist[a])) == 0) {
 			ft_printf("catch!------------------------------------------<<<<<<<<<<<----------\n");
 			return (1);
 		}
@@ -114,8 +129,6 @@ static void			udp(t_db *db) {
 		error("[!] Error binding on dns proxy");
 
 	ft_printf("[*] Start DNS proxy.\n");
-	// setuid(getpwnam("omentes")->pw_uid);
-	// setgid(getgrnam("omentes")->gr_gid);
 
 	// daemonize the process.  , backgrounding process
 	// if(fork() != 0) { exit(0); }
@@ -128,15 +141,15 @@ static void			udp(t_db *db) {
 		len = recvfrom(sock, buffer->buffer, 2048, 0, (struct sockaddr *)&client, &client_size);
 		
 		int g = 0;
-		ft_printf("paket! char:\n");
-		while (g < 64)
-			ft_printf("%c", buffer->buffer[g++]);
-		ft_printf("\n");
+		// ft_printf("paket! char:\n");
+		// while (g < 64)
+		// 	ft_printf("%c", buffer->buffer[g++]);
+		// ft_printf("\n");
 		g = 0;
-		ft_printf("paket! int:\n");
-		while (g < 64)
-			ft_printf(":%i:", buffer->buffer[g++]);
-		ft_printf("\n");
+		//ft_printf("paket! int:\n");
+		// while (g < 64)
+		// 	ft_printf(":%i:", buffer->buffer[g++]);
+		// ft_printf("\n");
 		// lets not fork if recvfrom was interrupted
 		if (len < 0 && errno == EINTR)
 			continue;
@@ -152,7 +165,21 @@ static void			udp(t_db *db) {
 		// check blacklist
 		if ((check_blacklist(buffer->buffer, db)))
 		{
-			sendto(0, NULL, 0, 0, NULL, 0);
+			ft_memcpy(query + 2, buffer->buffer, len);
+			tcp(query, buffer, len + 2, db);
+
+			ft_printf("test\n");
+			// 	ft_printf("..?.");
+			// for (int q = 0; q <  buffer->length; ++q)
+			// {
+			// 	ft_printf("%i ", buffer->buffer[q]);
+			// }
+			// ft_printf("...\n");
+			buffer->buffer[46] = -129;
+			buffer->buffer[47] = 0;
+			buffer->buffer[48] = 0;
+			buffer->buffer[49] = 1;
+			sendto(sock, buffer->buffer + 2, buffer->length - 2, 0, (struct sockaddr *)&client, sizeof(client));
 			continue;
 		}
 		ft_memcpy(query + 2, buffer->buffer, len);
@@ -160,7 +187,18 @@ static void			udp(t_db *db) {
 		// forward the packet to the tcp dns server
 
 		tcp(query, buffer, len + 2, db);
-
+			// ft_printf("..?.");
+			// for (int q = 0; q < 50; ++q)
+			// {
+			// 	ft_printf("%i ", buffer->buffer[q]);
+			// }
+			// ft_printf("...\n");
+			// ft_printf("._.");
+			// for (int f = 0; f < 10; ++f)
+			// {
+			// 	ft_printf("%i ", db->blacklist[a][f]);
+			// }
+			// ft_printf("._.\n");
 		// send the reply back to the client (minus the length at the beginning)
 		sendto(sock, buffer->buffer + 2, buffer->length - 2, 0, (struct sockaddr *)&client, sizeof(client));
 
@@ -172,30 +210,41 @@ static void			udp(t_db *db) {
 	}
 }
 
-static void		replacedot(char **blacklist)
+static void		replace_dot(t_db *db)
 {
-	int a;
-	int b;
+	int		a;
+	int		b;
+	int		temp;
+	char	*point;
 
 	a = 0;
-	while (blacklist[a])
+	while (db->blacklist[a])
 	{
 		b = 0;
-		while (blacklist[a][b])
+		while (db->blacklist[a][b])
 		{
-			if (blacklist[a][b] == '.')
-				blacklist[a][b] = 3;
+			if (db->blacklist[a][b] == '.')
+				{
+					temp = b;
+					point = &db->blacklist[a][b];
+					b++;
+					while (ft_isalnum(db->blacklist[a][b]))
+						b++;
+					*point = b - temp - 1;
+					b--;
+				}
 			b++;
 		}
 		a++;
 	}
-	ft_printf("#%s\n",blacklist[0]);
+	ft_printf("#%s\n",db->blacklist[0]);
+	ft_printf("#%s\n",db->blacklist[1]);
 }
 
 static void		start(char *s, t_db *db)
 {
 	db->blacklist = ft_split(s);
-	replacedot(db->blacklist);
+	replace_dot(db);
 	db->listen = "0.0.0.0";
 	db->sock = "127.0.0.1";
 	db->port = 53;
