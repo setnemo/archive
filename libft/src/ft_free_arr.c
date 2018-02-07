@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_free_arr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/03 09:07:27 by apakhomo          #+#    #+#             */
-/*   Updated: 2018/02/03 09:07:28 by apakhomo         ###   ########.fr       */
+/*   Created: 2017/11/11 13:19:05 by apakhomo          #+#    #+#             */
+/*   Updated: 2017/11/11 13:19:05 by apakhomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int		main(int argc, char **argv)
+void	ft_free_arr(char **arr)
 {
-	if (argc > 0 && *argv)
+	int a;
+
+	a = 0;
+	while (arr[a])
 	{
-		ft_printf("My Filler.\n");
-		start_filler();
-		return (0);
+		ft_strdel(&arr[a]);
+		a++;
 	}
-	return (0);
+	free(arr);
 }

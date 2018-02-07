@@ -61,7 +61,7 @@ static int		gnl_core(t_gnl *gnl, char **line)
 		return (1);
 	}
 	if (!(*gnl->str))
-		return 0;
+		return (0);
 	*line = ft_strdup(gnl->str);
 	free(gnl->str);
 	return (1);

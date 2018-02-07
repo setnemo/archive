@@ -24,10 +24,13 @@
 typedef struct	s_fill
 {
 	char	xo;
+	char	enemy;
 	int		map_size[2];
 	char	**map;
 	int		bit_size[2];
 	char	**bit;
+	int		wait;
+	int		loc[16];
 }				t_fill;
 
 /*
@@ -39,6 +42,13 @@ typedef struct	s_fill
 void			start_filler(void);
 void			start_play(t_fill *game);
 void			read_map(t_fill *game);
-void			start_fight(t_fill *game);
+void			read_bit(t_fill *game);
+void			check_map(t_fill *game);
+
+/*
+** ****************************************************************************
+** ******************************** fight.c ***********************************
+** ****************************************************************************
+*/
 
 #endif

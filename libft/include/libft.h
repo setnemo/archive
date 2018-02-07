@@ -129,6 +129,7 @@ int					ft_atoi_base(char *str, int base);
 void				ft_testintstr(int a, char *name);
 unsigned char		*ft_strtolower(unsigned char *s);
 void				ft_prcharr(char **str, int a);
+void				ft_free_arr(char **arr);
 
 /*
 ** ****************************************************************************
