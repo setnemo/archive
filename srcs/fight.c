@@ -12,76 +12,74 @@
 
 #include "filler.h"
 
-void		search_location(t_fill *game, char *str, char x, int i)
-{
-	int b;
-
-	b = 0;
-	while (b < game->map_size[1])
-	{
-		if (str[b] == x)
-			if (game->loc[i] == 0 && game->loc[i] =< a)
-				game->loc[i] = a;
-		if (str[b] == x)
-			if (game->loc[i + 1] == 0 && game->loc[i + 1] =< b)
-				game->loc[i + 1] = b;
-		if (str[b] == x)
-			if (game->loc[i + 2] < a)
-				game->loc[i + 2] = a;
-		if (str[b] == x)
-			if (game->loc[i + 3] < b)
-				game->loc[i + 3] = b;
-		if (str[b] == x)
-			if (game->loc[i] == 0 && game->loc[i] =< a)
-				game->loc[i] = a;
-		if (str[b] == x)
-			if (game->loc[i + 1] == 0 && game->loc[i + 1] =< b)
-				game->loc[i + 1] = b;
-		if (str[b] == x)
-			if (game->loc[i + 2] < a)
-				game->loc[i + 2] = a;
-		if (str[b] == x)
-			if (game->loc[i + 3] < b)
-				game->loc[i + 3] = b;
-		b++;
-	}
-}
-
-void		search_loc(t_fill *game, char x, int i)
+void		matrix_map(t_fill *g)
 {
 	int a;
+	int b;
 
 	a = 0;
-	while (a < game->map_size[0])
+	g->matrix = (size_t**)malloc(sizeof(size_t*) * g->map_size[0]);
+	while (a < g->map_size[0])
 	{
-		search_location(game, game->map[a], x, i);
+		g->matrix[a] = (size_t*)malloc(sizeof(size_t) * g->map_size[1]);
+		b = 0;
+		while (b < g->map_size[1])
+		{
+			if (g->map[a][b] == '.')
+				g->matrix[a][b] = 0;
+			else if (g->map[a][b] == g->xo)
+				g->matrix[a][b] = g->xo * g->map_size[1] * g->map_size[0];
+			else if (g->map[a][b] == g->enemy)
+				g->matrix[a][b] = g->enemy * g->map_size[1] * g->map_size[0];
+			b++;
+		}
 		a++;
 	}
 }
 
-void		enemy_dist(t_fill *game)
+void		matrix_fill(t_fill *g, char *flag)
 {
-	ft_bzero(&game->loc, sizeof(int) * 16);
-	search_loc(game, game->xo, 0);
-	search_loc(game, game->enemy, 8);
+	int a;
+	int b;
+
+	a = 0;
+	*flag = 0;
+	while (a < g->map_size[0])
+	{
+		b = 0;
+		while (b < g->map_size[1])
+		{		
+			if (g->map[a][b] == g->enemy && check_fill())
+			{
+				fill_point(g);
+				*flag = 1;
+			}
+			b++;
+		}
+		a++;
+	}
+}
+
+void		spot_loc(t_fill *g)
+{
+	char flag;
+
+	flag = 1;
+	matrix_map(g);
+	while (flag)
+		matrix_fill(g, &flag);
 
 }
 
-void		spot_loc(t_fill *game)
-{
-	enemy_dist(game);
-
-}
-
-void		wait_enemy(t_fill *game)
+void		wait_enemy(t_fill *g)
 {
 	char	*line;
 
 	get_next_line(STDIN_FILENO, &line);
 	line += 6;
-	game->wait = ft_atoi(line) + 1;
+	g->wait = ft_atoi(line) + 1;
 	ft_strdel(&line);
-	while (game->wait--)
+	while (g->wait--)
 	{
 		get_next_line(STDIN_FILENO, &line);
 		ft_strdel(&line);

@@ -30,7 +30,7 @@ typedef struct	s_fill
 	int		bit_size[2];
 	char	**bit;
 	int		wait;
-	int		loc[16];
+	size_t	**matrix;
 }				t_fill;
 
 /*
