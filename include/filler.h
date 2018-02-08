@@ -15,6 +15,10 @@
 # include <unistd.h>
 # include "../libft/include/libft.h"
 
+
+#include <stdio.h>
+#include <fcntl.h>
+
 /*
 ** ****************************************************************************
 ** **************************** struct for data *******************************
@@ -30,6 +34,7 @@ typedef struct	s_fill
 	int		bit_size[2];
 	char	**bit;
 	int		wait;
+	int		fd;
 	size_t	**matrix;
 }				t_fill;
 
@@ -51,4 +56,10 @@ void			check_map(t_fill *game);
 ** ****************************************************************************
 */
 
+void		matrix_map(t_fill *g);
+int			fill_point(t_fill *g, size_t *i, int a, int b);
+void		matrix_fill_two(t_fill *g, size_t *i, char *flag);
+void		matrix_fill_one(t_fill *g, size_t *i);
+void		spot_loc(t_fill *g);
+void		wait_enemy(t_fill *g);
 #endif
