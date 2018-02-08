@@ -37,7 +37,27 @@ void		matrix_map(t_fill *g)
 	}
 }
 
-void		matrix_fill(t_fill *g, char *flag)
+int			fill_point(t_fill *g, size_t *i, int a, int b)
+{
+	if (a > 0 && b > 0 && a < g->map_size[0] && b < g->map_size[1])
+	{
+
+	}
+	else if (a == 0 && b > 0 && b < g->map_size[1])
+	{
+		
+	}
+	else if (a > 0 && b == 0 && a < g->map_size[0])
+	{
+		
+	}
+	else if (a == 0 && b == 0)
+	{
+
+	}
+}
+
+void		matrix_fill_two(t_fill *g, size_t *i, char *flag)
 {
 	int a;
 	int b;
@@ -49,11 +69,28 @@ void		matrix_fill(t_fill *g, char *flag)
 		b = 0;
 		while (b < g->map_size[1])
 		{		
-			if (g->map[a][b] == g->enemy && check_fill())
-			{
-				fill_point(g);
-				*flag = 1;
-			}
+			if (g->matrix[a][b] == *i)
+				if (fill_point(g, i, a, b))
+					*flag = 1;
+			b++;
+		}
+		a++;
+	}
+}
+
+void		matrix_fill_one(t_fill *g, size_t *i)
+{
+	int a;
+	int b;
+
+	a = 0;
+	while (a < g->map_size[0])
+	{
+		b = 0;
+		while (b < g->map_size[1])
+		{		
+			if (g->map[a][b] == g->enemy)
+				fill_point(g, i, a, b);
 			b++;
 		}
 		a++;
@@ -62,12 +99,19 @@ void		matrix_fill(t_fill *g, char *flag)
 
 void		spot_loc(t_fill *g)
 {
-	char flag;
+	char	flag;
+	size_t	i;
 
 	flag = 1;
+	i = 1;
 	matrix_map(g);
+	matrix_fill_one(g, &i);
+	i++;
 	while (flag)
-		matrix_fill(g, &flag);
+	{
+		matrix_fill_two(g, &i, &flag);
+		i++;
+	}
 
 }
 
