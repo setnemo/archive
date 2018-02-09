@@ -12,6 +12,7 @@
 
 NAME = libft.a
 FLAGS = 
+#-Wall -Wextra -Werror
 DIR_S = src
 DIR_O = temp
 HEADER = include
@@ -93,7 +94,9 @@ SOURCES = ft_atoi.c\
 		pf_itoa.c\
 		pf_verify.c\
 		ft_testintstr.c\
-		ft_strtolower.c
+		ft_strtolower.c\
+		ft_print_charr.c\
+		ft_free_arr.c
 
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 

@@ -14,6 +14,9 @@
 
 void	create_data(t_ssl *data)
 {
+	data->income = NULL;
+	data->outcome = NULL;
+	data->size = 0;
 	data->enc = 0;
 	data->dec = 0;
 	data->b64 = 0;
@@ -42,7 +45,7 @@ void	handle_flags(int i, int argc, char **argv, t_ssl *data)
 			data->print = 1;
 		else if (ft_strequ(argv[i], "-a"))
 			data->b64 = 1;
-		else if ((ft_strequ(argv[i], "-i")) && (argv[i + 1]))
+		else if ((ft_strequ(argv[i], "-i")) && (argv[i + 1])) 
 			data->inp = argv[++i];
 		else if ((ft_strequ(argv[i], "-o")) && (argv[i + 1]))
 			data->out = argv[++i];
@@ -58,68 +61,67 @@ void	handle_flags(int i, int argc, char **argv, t_ssl *data)
 
 void	start_base64(int argc, char **argv)
 {
-	t_ssl			data;
-	size_t			size;
-	unsigned char	*inp;
-	unsigned char	*out;
+	t_ssl			*data;
 
-	handle_flags(2, argc, argv, &data);
-	read_input(&data, &inp, &size);
-	if (data.dec == 1)
-		out = base64decode(inp, &size);
+	data = (t_ssl*)malloc(sizeof(t_ssl));
+	handle_flags(2, argc, argv, data);
+	read_input(data);
+	if (data->dec == 1)
+		base64decode(data);
 	else
-		out = base64encode(inp, &size);
-	free(inp);
-	if ((data.out == NULL) || ((data.out) && (ft_strequ(data.out, "-"))))
-		write(1, out, size);
+		base64encode(data);
+	free(data->income);
+	if ((data->out == NULL) || ((data->out) && (ft_strequ(data->out, "-"))))
+		write(1, data->outcome, data->size);
 	else
-		printinfile(data.out, out, size);
-	free(out);
+		printinfile(data);
+	free(data->outcome);
 }
 
 void	start_ecb(int argc, char **argv)
 {
-	t_ssl			data;
-	size_t			size;
-	unsigned char	*inp;
-	unsigned char	*out;
+	t_ssl			*data;
 
-	handle_flags(2, argc, argv, &data);
-	data.master_key = ecb_read_key(&data);
-	if (data.print == 1)
-		ecb_show_key(data.master_key);
-	read_input(&data, &inp, &size);
-	if (data.dec == 1)
-		ecb_d_inp(&data, &inp, &out, &size);
+	data = (t_ssl*)malloc(sizeof(t_ssl));
+	ft_bzero(data, sizeof(data));
+	handle_flags(2, argc, argv, data);
+	ecb_read_key(data);
+	if (data->print == 1)
+		ecb_show_key(data);
+	read_input(data);
+	if (data->dec == 1)
+		ecb_d_inp(data);
 	else
-		ecb_e_inp(&data, &inp, &out, &size);
-	if ((data.out == NULL) || ((data.out) && (ft_strequ(data.out, "-"))))
-		write(1, out, size);
+		ecb_e_inp(data);
+	if ((data->out == NULL) || ((data->out) && (ft_strequ(data->out, "-"))))
+		write(1, data->outcome, data->size);
 	else
-		printinfile(data.out, out, size);
-	free(out);
+		printinfile(data);
+	free(data->outcome);
 }
 
 void	start_cbc(int argc, char **argv)
 {
-	t_ssl			data;
-	size_t			size;
-	unsigned char	*inp;
-	unsigned char	*out;
+	if (argc && argv)
+		;
+	// t_ssl			data;
+	// size_t			size;
+	// unsigned char	*inp;
+	// unsigned char	*out;
 
-	handle_flags(2, argc, argv, &data);
-	data.master_key = ecb_read_key(&data);
-	data.master_iv = cbc_get_iv(&data);
-	if (data.print == 1)
-		cbc_print_key(data);
-	read_input(&data, &inp, &size);
-	if (data.dec == 1)
-		cbc_decrypt_inp(&data, &inp, &out, &size);
-	else
-		cbc_encrypt_inp(&data, &inp, &out, &size);
-	if ((data.out == NULL) || ((data.out) && (ft_strequ(data.out, "-"))))
-		write(1, out, size);
-	else
-		printinfile(data.out, out, size);
-	free(out);
+	// handle_flags(2, argc, argv, &data);
+	// data.master_key = ecb_read_key(&data);
+	// data.master_iv = cbc_get_iv(&data);
+	// if (data.print == 1)
+	// 	cbc_print_key(data);
+	// read_input(&data, &inp, &size);
+	// if (data.dec == 1)
+	// 	cbc_decrypt_inp(&data, &inp, &out, &size);
+	// else
+	// 	cbc_encrypt_inp(&data, &inp, &out, &size);
+	// if ((data.out == NULL) || ((data.out) && (ft_strequ(data.out, "-"))))
+	// 	write(1, out, size);
+	// else
+	// 	printinfile(data.out, out, size);
+	// free(out);
 }

@@ -73,6 +73,7 @@ void			ecb_core(UC **inp, size_t size, UL mk, int flag)
 
 	make_keys(keys, mk, flag);
 	a = 0;
+	// ft_printf("test\n");
 	while (a < size)
 	{
 		data = ecb_get_8(*inp + a);

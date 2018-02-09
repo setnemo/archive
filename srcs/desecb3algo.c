@@ -76,7 +76,7 @@ void	des3ecb_e_inp(t_ssl *data, UC **in, UC **out, size_t *size)
 	des3ecb_e(in, *size, data);
 	if (data->b64 == 1)
 	{
-		*out = base64encode(*in, size);
+		//*out = base64encode(*in, size);
 		free(*in);
 	}
 	else
@@ -90,7 +90,7 @@ void	des3ecb_d_inp(t_ssl *data, UC **in, UC **out, size_t *size)
 
 	if (data->b64 == 1)
 	{
-		*out = base64decode(*in, size);
+		//*out = base64decode(*in, size);
 		free(*in);
 		*in = *out;
 	}

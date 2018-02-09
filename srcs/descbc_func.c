@@ -58,7 +58,7 @@ void			cbc_encrypt_inp(t_ssl *data, UC **inp, UC **out, size_t *size)
 	cbc_encrypt(inp, *size, data, DES_E);
 	if (data->b64 == 1)
 	{
-		*out = base64encode(*inp, size);
+		//*out = base64encode(*inp, size);
 		free(*inp);
 	}
 	else
@@ -72,7 +72,7 @@ void			cbc_decrypt_inp(t_ssl *data, UC **inp, UC **out, size_t *size)
 
 	if (data->b64 == 1)
 	{
-		*out = base64decode(*inp, size);
+		//*out = base64decode(*inp, size);
 		free(*inp);
 		*inp = *out;
 	}

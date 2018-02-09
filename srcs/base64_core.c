@@ -12,27 +12,7 @@
 
 #include "ft_ssl_des.h"
 
-UC		b64manage(UC c, UC *inp, UC *out)
-{
-	if ((c >= 'A') && (c <= 'Z'))
-		return (c - 'A');
-	else if ((c >= 'a') && (c <= 'z'))
-		return (c - 'a' + 26);
-	else if ((c >= '0') && (c <= '9'))
-		return (c - '0' + 52);
-	else if (c == '+')
-		return (62);
-	else if (c == '/')
-		return (63);
-	else if (c == '=')
-		return (0);
-	ft_printf("ERROR! Invalid charcter.\n");
-	free(out);
-	free(inp);
-	exit(1);
-}
-
-size_t	b64decode(UC *inp, UC *out, size_t size)
+size_t	b64decode(UC *temp, t_ssl *data)
 {
 	size_t	a;
 	size_t	b;
@@ -40,43 +20,40 @@ size_t	b64decode(UC *inp, UC *out, size_t size)
 
 	a = 0;
 	b = 0;
-	while (a < size)
+	while (a < data->size)
 	{
-		out[b] = b64manage(inp[a++], inp, out) << 2;
-		c = b64manage(inp[a++], inp, out);
-		out[b++] += (c >> 4) & 0x3;
-		out[b] = (c & 0xf) << 4;
-		c = b64manage(inp[a++], inp, out);
-		out[b++] += (c >> 2) & 0xf;
-		out[b] = (c & 0x3) << 6;
-		out[b++] += b64manage(inp[a++], inp, out) & 0x3f;
+		data->outcome[b] = b64manage(data, temp[a++], temp) << 2;
+		c = b64manage(data, temp[a++], temp);
+		data->outcome[b++] += (c >> 4) & 0x3;
+		data->outcome[b] = (c & 0xf) << 4;
+		c = b64manage(data, temp[a++], temp);
+		data->outcome[b++] += (c >> 2) & 0xf;
+		data->outcome[b] = (c & 0x3) << 6;
+		data->outcome[b++] += b64manage(data, temp[a++], temp) & 0x3f;
 	}
-	if ((inp[a - 1] == '=') && (inp[a - 2] == '='))
-		out[--b] = 0;
-	if (inp[a - 1] == '=')
-		out[--b] = 0;
+	if ((temp[a - 1] == '=') && (temp[a - 2] == '='))
+		data->outcome[--b] = 0;
+	if (temp[a - 1] == '=')
+		data->outcome[--b] = 0;
 	return (b);
 }
 
-UC		*base64decode(UC *inp, size_t *size)
+void	base64decode(t_ssl *data)
 {
-	UC		*out;
-	UC		*edit;
 	size_t	a;
 
-	edit = b64_remove_newlines(inp, size);
-	a = (*size / 4) * 3;
-	if ((out = ft_memalloc(a + 6)) == NULL)
+	b64_del(data);
+	a = (data->size / 4) * 3;
+	if ((data->outcome = ft_memalloc(a + 6)) == NULL)
 	{
-		free(edit);
-		exit_error(errno, inp);
+		free(data->temp64);
+		exit_error(errno, data->income);
 	}
-	*size = b64decode(edit, out, *size);
-	free(edit);
-	return (out);
+	data->size = b64decode(data->temp64, data);
+	free(data->temp64);
 }
 
-void	b64encode(UC *inp, UC *out, size_t size)
+void	b64encode(t_ssl *data, UC *temp)
 {
 	size_t		a;
 	size_t		b;
@@ -86,45 +63,43 @@ void	b64encode(UC *inp, UC *out, size_t size)
 	a = 0;
 	b = 0;
 	b64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-	while (a < size)
+	while (a < data->size)
 	{
-		out[b++] = b64[inp[a] >> 2];
-		c = inp[a++] << 6;
-		out[b++] = b64[(c >> 2) + (inp[a] >> 4)];
-		c = inp[a++] << 4;
-		out[b++] = b64[(c >> 2) + (inp[a] >> 6)];
-		c = ((inp[a++]) << 2);
-		out[b++] = b64[c >> 2];
+		temp[b++] = b64[data->outcome[a] >> 2];
+		c = data->outcome[a++] << 6;
+		temp[b++] = b64[(c >> 2) + (data->outcome[a] >> 4)];
+		c = data->outcome[a++] << 4;
+		temp[b++] = b64[(c >> 2) + (data->outcome[a] >> 6)];
+		c = ((data->outcome[a++]) << 2);
+		temp[b++] = b64[c >> 2];
 	}
-	if (a - 2 == size)
-		out[b - 2] = '=';
-	if (a - 1 >= size)
-		out[b - 1] = '=';
+	if (a - 2 == data->size)
+		temp[b - 2] = '=';
+	if (a - 1 >= data->size)
+		temp[b - 1] = '=';
 }
 
-UC		*base64encode(UC *inp, size_t *size)
+void	base64encode(t_ssl *data)
 {
 	UC		*temp;
-	UC		*out;
 	size_t	size_temp;
 
-	if ((out = ft_memalloc(*size + 6)) == NULL)
-		exit_error(errno, inp);
-	ft_memcpy(out, inp, *size);
-	size_temp = *size;
+	if ((data->outcome = ft_memalloc(data->size + 6)) == NULL)
+		exit_error(errno, data->income);
+	ft_memcpy(data->outcome, data->income, data->size);
+	size_temp = data->size;
 	while (size_temp % 3)
 		size_temp++;
 	size_temp /= 3;
 	size_temp *= 4;
 	if ((temp = ft_memalloc(size_temp + 1)) == NULL)
 	{
-		free(out);
-		exit_error(errno, inp);
+		free(data->outcome);
+		exit_error(errno, data->income);
 	}
-	b64encode(out, temp, *size);
-	free(out);
-	(*size) = size_temp;
-	out = b64_insert_newlines(temp, size);
+	b64encode(data, temp);
+	free(data->outcome);
+	(data->size) = size_temp;
+	data->outcome = b64_add(temp, &data->size);
 	free(temp);
-	return (out);
 }

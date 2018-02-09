@@ -12,7 +12,27 @@
 
 #include "ft_ssl_des.h"
 
-UC	*b64_insert_newlines(UC *inp, size_t *size)
+UC		b64manage(t_ssl *data, UC c, UC *temp)
+{
+	if ((c >= 'A') && (c <= 'Z'))
+		return (c - 'A');
+	else if ((c >= 'a') && (c <= 'z'))
+		return (c - 'a' + 26);
+	else if ((c >= '0') && (c <= '9'))
+		return (c - '0' + 52);
+	else if (c == '+')
+		return (62);
+	else if (c == '/')
+		return (63);
+	else if (c == '=')
+		return (0);
+	ft_printf("ERROR! Invalid charcter.\n");
+	free(data->outcome);
+	free(temp);
+	exit(1);
+}
+
+UC	*b64_add(UC *inp, size_t *size)
 {
 	size_t			a;
 	size_t			b;
@@ -36,25 +56,21 @@ UC	*b64_insert_newlines(UC *inp, size_t *size)
 	return (out);
 }
 
-UC	*b64_remove_newlines(UC *inp, size_t *size)
+void	b64_del(t_ssl *data)
 {
 	size_t			a;
 	size_t			b;
-	unsigned char	*out;
 
 	a = 0;
 	b = 0;
-	if (*size == 0)
-		return (NULL);
-	if ((out = ft_memalloc(*size + 3)) == NULL)
-		exit_error(errno, inp);
-	while (b < *size)
+	if ((data->temp64 = ft_memalloc(data->size + 3)) == NULL)
+		exit_error(errno, data->income);
+	while (b < data->size)
 	{
-		if (inp[b] == '\n')
+		if (data->income[b] == '\n')
 			b++;
 		else
-			out[a++] = inp[b++];
+			data->temp64[a++] = data->income[b++];
 	}
-	(*size) = a;
-	return (out);
+	data->size = a;
 }

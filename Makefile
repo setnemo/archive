@@ -11,10 +11,9 @@
 #******************************************************************************#
 
 NAME = ft_ssl
-FLAGS = 
+FLAGS = -Wall -Wextra -Werror
 
 SRC_NAME =	main.c\
-			reader_file.c\
 			supportfunc.c\
 			manageflags.c\
 			managetypes.c\
@@ -24,11 +23,12 @@ SRC_NAME =	main.c\
 			desecb_func.c\
 			desecb_algo.c\
 			desecb_keys.c\
-			descbc_core.c\
-			descbc_func.c\
-			ecbcbc3core.c\
-			desecb3algo.c\
-			descbc3algo.c
+
+			# descbc_core.c\
+			# descbc_func.c\
+			# ecbcbc3core.c\
+			# desecb3algo.c\
+			# descbc3algo.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 

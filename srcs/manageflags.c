@@ -39,27 +39,27 @@ void	flag_parser(int argc, char **argv)
 		start_base64(argc, argv);
 	else if ((ft_strequ(argv[1], "des")) || (ft_strequ(argv[1], "des-ecb")))
 		start_ecb(argc, argv);
-	else if (ft_strequ(argv[1], "des-cbc"))
-		start_cbc(argc, argv);
-	else if ((ft_strequ(argv[1], "des3")) || (ft_strequ(argv[1], "des3-ecb")))
-		start_des3ecb(argc, argv);
-	else if (ft_strequ(argv[1], "des3-cbc"))
-		start_des3cbc(argc, argv);
+	// else if (ft_strequ(argv[1], "des-cbc"))
+	// 	start_cbc(argc, argv);
+	// else if ((ft_strequ(argv[1], "des3")) || (ft_strequ(argv[1], "des3-ecb")))
+	// 	start_des3ecb(argc, argv);
+	// else if (ft_strequ(argv[1], "des3-cbc"))
+	// 	start_des3cbc(argc, argv);
 	else
 		print_error(argv);
 }
 
-void	read_input(t_ssl *data, UC **inp, size_t *size)
+void	read_input(t_ssl *data)
 {
 	if ((data->inp == NULL) || ((data->inp) && (ft_strequ(data->inp, "-"))))
 	{
-		*inp = input_read(size);
-		if (*size < 1)
+		input_read(data);
+		if (data->size < 1)
 		{
 			ft_printf("ERROR! No input data\n");
 			exit(1);
 		}
 	}
 	else
-		*inp = readoutfile(data->inp, size);
+		readoutfile(data);
 }

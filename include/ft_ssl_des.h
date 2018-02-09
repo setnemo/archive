@@ -32,9 +32,13 @@
 
 typedef struct	s_ssl
 {
+	UC		*income;
+	UC		*outcome;
+	size_t	size;
 	int		enc;
 	int		dec;
 	int		b64;
+	UC		*temp64;
 	int		print;
 	UL		master_key;
 	UL		master_iv;
@@ -57,7 +61,7 @@ void			error_flags(char *str);
 void			print_error(char **argv);
 void			exit_error(int err, void *memory);
 void			flag_parser(int argc, char **argv);
-void			read_input(t_ssl *opt, UC **inp, size_t *size);
+void	read_input(t_ssl *data);
 
 /*
 ** ****************************************************************************
@@ -77,11 +81,10 @@ void			start_cbc(int argc, char **argv);
 ** ****************************************************************************
 */
 
-unsigned char	b64manage(UC c, UC *inp, UC *out);
-size_t			b64decode(UC *inp, UC *out, size_t size);
-unsigned char	*base64decode(UC *inp, size_t *size);
-void			b64encode(UC *inp, UC *out, size_t size);
-unsigned char	*base64encode(UC *inp, size_t *size);
+size_t	b64decode(UC *temp, t_ssl *data);
+void	base64decode(t_ssl *data);
+void	b64encode(t_ssl *data, UC *temp);
+void	base64encode(t_ssl *data);
 
 /*
 ** ****************************************************************************
@@ -89,18 +92,19 @@ unsigned char	*base64encode(UC *inp, size_t *size);
 ** ****************************************************************************
 */
 
-unsigned char	*b64_insert_newlines(UC *inp, size_t *size);
-unsigned char	*b64_remove_newlines(UC *inp, size_t *size);
+UC		b64manage(t_ssl *data, UC c, UC *temp);
+unsigned char	*b64_add(UC *inp, size_t *size);
+void	b64_del(t_ssl *data);
 
 /*
 ** ****************************************************************************
-** ***************************** reader_file.c ********************************
+** ***************************** main.c ********************************
 ** ****************************************************************************
 */
 
-ssize_t			allocsize(char *file);
-void			*readoutfile(char *file, size_t *size);
-void			printinfile(char *file, UC *str, size_t size);
+ssize_t			allocsize(char **file);
+void	readoutfile(t_ssl *data);
+void	printinfile(t_ssl *data);
 
 /*
 ** ****************************************************************************
@@ -108,7 +112,8 @@ void			printinfile(char *file, UC *str, size_t size);
 ** ****************************************************************************
 */
 
-unsigned char	*input_read(size_t *a);
+void		input_read(t_ssl *data);
+
 unsigned char	*input_read_line(size_t *a);
 int				check_hex(unsigned char *str);
 unsigned long	hex_to_ul64(unsigned char *str);
@@ -153,11 +158,11 @@ void			make_keys(unsigned long keys[16], UL master_key, int flag);
 ** ****************************************************************************
 */
 
-void			ecb_show_key(unsigned long master_key);
-void			ecb_e_inp(t_ssl *data, UC **inp, UC **out, size_t *size);
-void			ecb_d_inp(t_ssl *data, UC **inp, UC **out, size_t *size);
+void	ecb_show_key(t_ssl *data);
+void	ecb_e_inp(t_ssl *data);
+void	ecb_d_inp(t_ssl *data);
 void			ecb_hex_error(void *memory);
-unsigned long	ecb_read_key(t_ssl *data);
+void	ecb_read_key(t_ssl *data);
 
 /*
 ** ****************************************************************************

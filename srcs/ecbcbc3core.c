@@ -76,7 +76,7 @@ void	start_des3ecb(int argc, char **argv)
 	des3_get_key(&data);
 	if (data.print == 1)
 		des3_print_key(&data, 0);
-	read_input(&data, &inp, &size);
+	//read_input(&data, &inp, &size);
 	if (data.dec == 1)
 		des3ecb_d_inp(&data, &inp, &out, &size);
 	else
@@ -84,7 +84,7 @@ void	start_des3ecb(int argc, char **argv)
 	if ((data.out == NULL) || ((data.out) && (ft_strequ(data.out, "-"))))
 		write(1, out, size);
 	else
-		printinfile(data.out, out, size);
+		//printinfile(data.out, out, size);
 	free(out);
 }
 
@@ -100,7 +100,7 @@ void	start_des3cbc(int argc, char **argv)
 	data.master_iv = cbc_get_iv(&data);
 	if (data.print == 1)
 		des3_print_key(&data, 1);
-	read_input(&data, &inp, &size);
+	//read_input(&data, &inp, &size);
 	if (data.dec == 1)
 		des3cbc_d_inp(&data, &inp, &out, &size);
 	else
@@ -108,6 +108,6 @@ void	start_des3cbc(int argc, char **argv)
 	if ((data.out == NULL) || ((data.out) && (ft_strequ(data.out, "-"))))
 		write(1, out, size);
 	else
-		printinfile(data.out, out, size);
+		//printinfile(data.out, out, size);
 	free(out);
 }

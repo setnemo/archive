@@ -12,32 +12,30 @@
 
 #include "ft_ssl_des.h"
 
-unsigned char	*input_read(size_t *a)
+void		input_read(t_ssl *data)
 {
-	unsigned char	*buf;
 	unsigned char	*newbuf;
-	ssize_t			r;
+	ssize_t			brk;
 
-	if ((buf = ft_memalloc(BUFFR)) == NULL)
+	if ((data->income = ft_memalloc(BUFFR)) == NULL)
 		exit_error(errno, NULL);
-	*a = 0;
-	r = 1;
-	while (r != 0)
+	data->size = 0;
+	brk = 1;
+	while (brk != 0)
 	{
-		if ((r = read(0, &buf[*a], 1024 - (*a % 1024))) == -1)
-			exit_error(errno, buf);
-		*a += r;
-		if ((*a) && (*a % BUFFR == 0))
+		if ((brk = read(0, &data->income[data->size], 1024 - (data->size % 1024))) == -1)
+			exit_error(errno, data->income);
+		data->size += brk;
+		if ((data->size) && (data->size % BUFFR == 0))
 		{
-			if ((newbuf = ft_memalloc(*a + BUFFR)) == NULL)
-				exit_error(errno, buf);
-			ft_memcpy(newbuf, buf, *a);
-			free(buf);
-			buf = newbuf;
-			r = 1;
+			if ((newbuf = ft_memalloc(data->size + BUFFR)) == NULL)
+				exit_error(errno, data->income);
+			ft_memcpy(newbuf, data->income, data->size);
+			free(data->income);
+			data->income = newbuf;
+			brk = 1;
 		}
 	}
-	return (buf);
 }
 
 unsigned char	*input_read_line(size_t *a)

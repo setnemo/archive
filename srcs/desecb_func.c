@@ -12,7 +12,29 @@
 
 #include "ft_ssl_des.h"
 
-void	ecb_show_key(unsigned long master_key)
+unsigned char		*ft_strdup_uc(const unsigned char *s1)
+{
+	unsigned char	*new;
+	size_t	x;
+	size_t	a;
+
+	a = 0;
+	x = 0;
+	while (s1[a] != '\0')
+		a++;
+	new = (unsigned char*)malloc(sizeof(unsigned char) * (a + 1));
+	if (new == NULL)
+		return (NULL);
+	while (s1[x] != '\0')
+	{
+		new[x] = s1[x];
+		x++;
+	}
+	new[x] = '\0';
+	return (new);
+}
+
+void	ecb_show_key(t_ssl *data)
 {
 	int				a;
 	unsigned char	c;
@@ -21,7 +43,7 @@ void	ecb_show_key(unsigned long master_key)
 	ft_printf("key=");
 	while (a < 16)
 	{
-		c = (master_key >> (60 - (a * 4))) & 0xf;
+		c = (data->master_key >> (60 - (a * 4))) & 0xf;
 		if (c < 10)
 			c += '0';
 		else
@@ -32,53 +54,56 @@ void	ecb_show_key(unsigned long master_key)
 	ft_printf("\n");
 }
 
-void	ecb_e_inp(t_ssl *data, UC **inp, UC **out, size_t *size)
+void	ecb_e_inp(t_ssl *data)
 {
 	unsigned char	*temp;
 	unsigned char	bit;
 	size_t			a;
 
-	a = ((*size / 8) + 1) * 8;
-	bit = a - *size;
+	a = ((data->size / 8) + 1) * 8;
+	bit = a - data->size;
 	if ((temp = ft_memalloc(a + 1)) == NULL)
-		exit_error(errno, *inp);
-	ft_memcpy(temp, *inp, *size);
-	free(*inp);
-	*inp = temp;
-	while (*size < a)
-		(*inp)[(*size)++] = bit;
-	ecb_core(inp, *size, data->master_key, DES_E);
+		exit_error(errno, data->income);
+	ft_memcpy(temp, data->income, data->size);
+	free(data->income);
+	data->income = temp;
+	while (data->size < a)
+		data->income[data->size++] = bit;
+	ecb_core(&data->income, data->size, data->master_key, DES_E);
 	if (data->b64 == 1)
 	{
-		*out = base64encode(*inp, size);
-		free(*inp);
+		base64encode(data);
+		free(data->income);
 	}
 	else
-		*out = *inp;
+		data->outcome = data->income;
 }
 
-void	ecb_d_inp(t_ssl *data, UC **inp, UC **out, size_t *size)
+void	ecb_d_inp(t_ssl *data)
 {
 	unsigned char	bit;
 	size_t			a;
 
 	if (data->b64 == 1)
 	{
-		*out = base64decode(*inp, size);
-		free(*inp);
-		*inp = *out;
+		base64decode(data);
+		free(data->income);
+		ft_bzero(data->income, ft_strlen((char*)data->income));
+		data->income = ft_strdup_uc(data->outcome);
+		free(data->outcome);
+		ft_bzero(data->outcome, ft_strlen((char*)data->outcome));
 	}
-	ecb_core(inp, *size, data->master_key, DES_D);
-	bit = (*inp)[(*size) - 1];
+	ecb_core(&data->income, data->size, data->master_key, DES_D);
+	bit = data->income[data->size - 1];
 	if ((bit >= 1) && (bit <= 8))
 	{
-		a = *size - bit;
-		while (((*inp)[a] == bit) && (a < *size))
+		a = data->size - bit;
+		while (((data->income)[a] == bit) && (a < data->size))
 			a++;
-		if (a == *size)
-			(*size) -= bit;
+		if (a == data->size)
+			data->size -= bit;
 	}
-	*out = *inp;
+	data->outcome = data->income;
 }
 
 void	ecb_hex_error(void *memory)
@@ -89,7 +114,7 @@ void	ecb_hex_error(void *memory)
 	exit(1);
 }
 
-UL		ecb_read_key(t_ssl *data)
+void		ecb_read_key(t_ssl *data)
 {
 	unsigned char	*str_key;
 	unsigned long	size;
@@ -102,7 +127,6 @@ UL		ecb_read_key(t_ssl *data)
 		{
 			data->master_key = hex_to_ul64(str_key);
 			free(str_key);
-			return (data->master_key);
 		}
 		else
 			ecb_hex_error(str_key);
@@ -110,9 +134,9 @@ UL		ecb_read_key(t_ssl *data)
 	else
 	{
 		if (check_hex((unsigned char *)data->key))
-			return (hex_to_ul64((unsigned char *)data->key));
+			data->master_key = hex_to_ul64((unsigned char *)data->key);
 		else
 			ecb_hex_error(NULL);
 	}
-	return (0);
+	data->master_key = 0;
 }
