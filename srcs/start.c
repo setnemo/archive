@@ -53,7 +53,7 @@ void		read_bit(t_fill *game)
 	{
 		get_next_line(STDIN_FILENO, &line);
 		game->bit[a] = ft_strdup(line);
-		// ft_strdel(&line);
+		//ft_strdel(&line);
 		a++;
 	}
 }
@@ -93,6 +93,7 @@ void	start_play(t_fill *game)
 	if (game->xo == 'O')
 	{
 		read_bit(game);
+		dprintf(game->fd, "My bit size:[%i][%i]\n", game->bit_size[0], game->bit_size[1]);
 		spot_loc(game);
 		wait_enemy(game);
 		read_map(game);
@@ -117,21 +118,22 @@ void	start_filler(void)
 	t_fill	*game;
 
 	game = (t_fill*)malloc(sizeof(t_fill));
-		game->fd = open("log", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		dprintf(game->fd, "test\n");
+	ft_bzero(game, sizeof(t_fill));
+	game->fd = open("log", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	dprintf(game->fd, "test\n");
 	get_next_line(STDIN_FILENO, &line);
 	//get_next_line(STDIN_FILENO, &line);
 	game->xo = 'X';
 	game->enemy = 'O';
-	if (ft_strstr(line, "./filler") != NULL)
+		dprintf(game->fd, "%s\n", line);
+	if (ft_strstr(line, "p1") != NULL)
 	{
 		game->xo = 'O';
 		game->enemy = 'X';
 	}
+	ft_strdel(&line);
 	//get_next_line(STDIN_FILENO, &line);
 	dprintf(game->fd,"My symbol:%c\n", game->xo);
-	dprintf(game->fd,"%s\n", line);
-	// ft_strdel(&line);
 	//get_next_line(STDIN_FILENO, &line);
 	// ft_strdel(&line);
 	start_play(game);
