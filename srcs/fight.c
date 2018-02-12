@@ -44,25 +44,25 @@ int			fill_point(t_fill *g, size_t *i, int a, int b)
 	ret = 0;
 	if (a - 1 > 0)
 	{
-		if (g->matrix[a - 1][b] < (*i) + 1 && ++ret)
+		if (g->matrix[a - 1][b] == 0 && ++ret)
 			g->matrix[a - 1][b] = (*i) + 1;
-		if (b + 1 < g->map_size[1] && g->matrix[a - 1][b + 1] < (*i) + 1 && ++ret)
+		if (b + 1 < g->map_size[1] && g->matrix[a - 1][b + 1] == 0 && ++ret)
 			g->matrix[a - 1][b + 1] = (*i) + 1;
-		if (b - 1 > 0 && g->matrix[a - 1][b - 1] < (*i) + 1  && ++ret)
+		if (b - 1 > 0 && g->matrix[a - 1][b - 1] == 0  && ++ret)
 			g->matrix[a - 1][b - 1] = (*i) + 1;
 	}
 	if (a + 1 < g->map_size[0])
 	{
-		if (g->matrix[a + 1][b] < (*i) + 1 && ++ret)
+		if (g->matrix[a + 1][b] == 0 && ++ret)
 			g->matrix[a + 1][b] = (*i) + 1;
-		if (b + 1 < g->map_size[1] && g->matrix[a + 1][b + 1] < (*i) + 1 && ++ret)
+		if (b + 1 < g->map_size[1] && g->matrix[a + 1][b + 1] == 0 && ++ret)
 			g->matrix[a + 1][b + 1] = (*i) + 1;
-		if (b - 1 > 0 && g->matrix[a + 1][b - 1] < (*i) + 1 && ++ret)
+		if (b - 1 > 0 && g->matrix[a + 1][b - 1] == 0 && ++ret)
 			g->matrix[a + 1][b - 1] = (*i) + 1;
 	}
-	if (b - 1 > 0 && g->matrix[a][b - 1] < (*i) + 1 && ++ret)
+	if (b - 1 > 0 && g->matrix[a][b - 1] == 0 && ++ret)
 		g->matrix[a][b - 1] = (*i) + 1;
-	if (b + 1 < g->map_size[1] && g->matrix[a][b + 1] < (*i) + 1 && ++ret)
+	if (b + 1 < g->map_size[1] && g->matrix[a][b + 1] == 0 && ++ret)
 		g->matrix[a][b + 1] = (*i) + 1;
 	return (ret);
 }
@@ -119,17 +119,18 @@ void		spot_loc(t_fill *g)
 	i++;
 	while (flag)
 	{
-		dprintf(g->fd, "spot\n");
-		matrix_fill_two(g, &i, &flag);
-		i++;
-	}
-	for (int i = 0; i < g->map_size[0]; ++i)
+		dprintf(g->fd, "-----------\n");
+		for (int i = 0; i < g->map_size[0]; ++i)
 	{
 		for (int j = 0; j < g->map_size[1]; ++j)
 		{
 			dprintf(g->fd, "%zu ", g->matrix[i][j]);
 		}
 		dprintf(g->fd, "\n");
+			dprintf(g->fd, "-----------\n");
+	}
+		matrix_fill_two(g, &i, &flag);
+		i++;
 	}
 
 }
