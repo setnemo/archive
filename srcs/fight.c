@@ -58,6 +58,7 @@ t_bit		*check_bit_struct(t_bit *tbit, int a, int b)
 		tbit->next->ap = a;
 		tbit->next->bp = b;
 		tbit = tbit->next;
+		tbit->next = NULL;
 	}
 	return (tbit);
 }
@@ -70,7 +71,7 @@ void		check_bit(t_fill *g, t_bit *tbit, int a, int b)
 
 	p = check_bit_struct(tbit, a, b);
 	//dprintf(g->fd, "check_bit a:%i b:%i p->ap:%i p->pb:%i\n", a, b , p->ap, p->bp);
-	if (a + g->bit_size[0] - 1 < g->map_size[0] && b + g->bit_size[1]  - 1< g->map_size[1])
+	if (a + g->bit_size[0] <= g->map_size[0] && b + g->bit_size[1] <= g->map_size[1])
 	{
 		i = 0;
 		while (i < g->bit_size[0])
@@ -113,7 +114,7 @@ void		find_spot(t_fill *g)
 		b = 0;
 		while (b < g->map_size[1])
 		{
-			//dprintf(g->fd, "fcheck_bit(%i, %i)\n", a, b);
+			dprintf(g->fd, "fcheck_bit(%i, %i)\n", a, b);
 			check_bit(g, tbit, a, b);
 			b++;
 		}
@@ -129,9 +130,11 @@ void		matrix_map(t_fill *g)
 
 	a = 0;
 	g->matrix = (size_t**)malloc(sizeof(size_t*) * g->map_size[0]);
+	ft_bzero(g->matrix, sizeof(size_t*) * g->map_size[0]);
 	while (a < g->map_size[0])
 	{
 		g->matrix[a] = (size_t*)malloc(sizeof(size_t) * g->map_size[1]);
+		ft_bzero(g->matrix[a], sizeof(size_t) * g->map_size[1]);
 		b = 0;
 		while (b < g->map_size[1])
 		{
