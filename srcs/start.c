@@ -22,6 +22,7 @@ void	check_map(t_fill *game)
 		// ft_strdel(&line);
 		exit(0);
 	}
+	dprintf(game->fd,"%s\n", line);
 	line = line + 8;
 	game->map_size[0] = ft_atoi(line);
 	while (*line != 32)
@@ -64,8 +65,10 @@ void	read_map(t_fill *game)
 	int		a;
 	char	*line;
 
-	// if (game->map != NULL)
-	// 	ft_free_arr(game->map);
+	// dprintf(game->fd, "read_map malloc check1\n");
+	if (game->map)
+		ft_free_arr(game->map);
+	// dprintf(game->fd, "read_map malloc check2\n");
 	check_map(game);
 	game->map = (char**)malloc((sizeof(char*) * game->map_size[0]) + 1);
 	game->map[game->map_size[0]] = NULL;
@@ -74,41 +77,34 @@ void	read_map(t_fill *game)
 	{
 		get_next_line(STDIN_FILENO, &line);
 		game->map[a] = ft_strdup(line + 4);
-		// ft_strdel(&line);
+		ft_strdel(&line);
 		a++;
 	}
-	int	i;
+	// int	i;
 
-	i = 0;
-	while (i < game->map_size[0])
-	{
-		dprintf(game->fd, "%s\n", game->map[i]);
-		i++;
-	}
+	// i = 0;
+	// while (i < game->map_size[0])
+	// {
+	// 	dprintf(game->fd, "%s\n", game->map[i]);
+	// 	i++;
+	// }
 }
 
 void	start_play(t_fill *game)
 {
-	read_map(game);
 	if (game->xo == 'O')
 	{
+		read_map(game);
 		read_bit(game);
 		dprintf(game->fd, "My bit size:[%i][%i]\n", game->bit_size[0], game->bit_size[1]);
 		spot_loc(game);
-		wait_enemy(game);
-		read_map(game);
-	}
-	else
-	{
-		wait_enemy(game);
-		read_map(game);
 	}
 	while (1)
 	{
-		read_bit(game);
-		spot_loc(game);
-		wait_enemy(game);
 		read_map(game);
+		read_bit(game);
+		dprintf(game->fd, "My bit size:[%i][%i]\n", game->bit_size[0], game->bit_size[1]);
+		spot_loc(game);
 	}
 }
 

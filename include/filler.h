@@ -80,5 +80,4 @@ int			fill_point(t_fill *g, size_t *i, int a, int b);
 void		matrix_fill_two(t_fill *g, size_t *i, char *flag);
 void		matrix_fill_one(t_fill *g, size_t *i);
 void		spot_loc(t_fill *g);
-void		wait_enemy(t_fill *g);
 #endif

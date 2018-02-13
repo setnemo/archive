@@ -32,6 +32,7 @@ void		find_loc(t_fill *g)
 		}
 		p = p->next;
 	}
+	dprintf(g->fd, "-----FIND_LOC------\n");
 }
 void		print_list(t_fill *g)
 {
@@ -68,15 +69,16 @@ void		check_bit(t_fill *g, t_bit *tbit, int a, int b)
 	t_bit *p;
 
 	p = check_bit_struct(tbit, a, b);
-	dprintf(g->fd, "check_bit a:%i b:%i p->ap:%i p->pb:%i\n", a, b , p->ap, p->bp);
-	if (a + g->bit_size[0] < g->map_size[0] && b + g->bit_size[1] < g->map_size[1])
+	//dprintf(g->fd, "check_bit a:%i b:%i p->ap:%i p->pb:%i\n", a, b , p->ap, p->bp);
+	if (a + g->bit_size[0] - 1 < g->map_size[0] && b + g->bit_size[1]  - 1< g->map_size[1])
 	{
 		i = 0;
-		while (i <  g->bit_size[0])
+		while (i < g->bit_size[0])
 		{
 			j = 0;
 			while (j < g->bit_size[1])
 			{
+		//	dprintf(g->fd, "check_bit i:%i j:%i g0:%i g1:%i\n", i, j, g->bit_size[0], g->bit_size[1]);
 				if ((g->bit[i][j] != '.' && g->map[a + i][b + j] == g->enemy) ||
 				(g->bit[i][j] != '.' && g->map[a + i][b + j] == g->enemy + 32))
 					p->bit_error++;
@@ -111,6 +113,7 @@ void		find_spot(t_fill *g)
 		b = 0;
 		while (b < g->map_size[1])
 		{
+			//dprintf(g->fd, "fcheck_bit(%i, %i)\n", a, b);
 			check_bit(g, tbit, a, b);
 			b++;
 		}
@@ -240,19 +243,20 @@ void		spot_loc(t_fill *g)
 	find_spot(g);
 	print_list(g);
 	find_loc(g);
+	dprintf(1, "%i %i\n", g->a_loc, g->b_loc);
+	dprintf(g->fd, "<got (%c): [%i, %i]\n", g->xo, g->a_loc, g->b_loc);
 }
 
-void		wait_enemy(t_fill *g)
-{
-	char	*line;
-
-	get_next_line(STDIN_FILENO, &line);
-	line += 6;
-	g->wait = ft_atoi(line) + 1;
-	// ft_strdel(&line);
-	while (g->wait--)
-	{
-		get_next_line(STDIN_FILENO, &line);
-		// ft_strdel(&line);
-	}
-}
+// void		wait_enemy(t_fill *g)
+// {
+// 	char	*line;
+// 	int 	w;
+	
+// 	w = g->map_size[0] + 2;
+// 	while (w--)
+// 	{
+// 		get_next_line(STDIN_FILENO, &line);
+// 		dprintf(g->fd, "::::%s\n", line);	// ft_strdel(&line);
+// 		// ft_strdel(&line);
+// 	}
+// }
