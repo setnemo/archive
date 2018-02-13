@@ -27,7 +27,7 @@ void	check_map(t_fill *game)
 	while (*line != 32)
 		line++;
 	game->map_size[1] = ft_atoi(line);
-	dprintf(game->fd,"Map Size:[%i][%i]", game->map_size[0], game->map_size[1]);
+	dprintf(game->fd,"Map Size:[%i][%i]\n", game->map_size[0], game->map_size[1]);
 	// ft_strdel(&line);
 	get_next_line(STDIN_FILENO, &line);
 	// ft_strdel(&line);
@@ -44,8 +44,8 @@ void		read_bit(t_fill *game)
 	while (*line != 32)
 		line++;
 	game->bit_size[1] = ft_atoi(line);
-	// if (game->bit != NULL)
-	// 	ft_free_arr(game->bit);
+	if (game->bit)
+		ft_free_arr(game->bit);
 	game->bit = (char**)malloc((sizeof(char*) * game->bit_size[0]) + 1);
 	game->bit[game->bit_size[0]] = NULL;
 	a = 0;
@@ -122,7 +122,6 @@ void	start_filler(void)
 	game->fd = open("log", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	dprintf(game->fd, "test\n");
 	get_next_line(STDIN_FILENO, &line);
-	//get_next_line(STDIN_FILENO, &line);
 	game->xo = 'X';
 	game->enemy = 'O';
 		dprintf(game->fd, "%s\n", line);
@@ -132,10 +131,7 @@ void	start_filler(void)
 		game->enemy = 'X';
 	}
 	ft_strdel(&line);
-	//get_next_line(STDIN_FILENO, &line);
 	dprintf(game->fd,"My symbol:%c\n", game->xo);
-	//get_next_line(STDIN_FILENO, &line);
-	// ft_strdel(&line);
 	start_play(game);
 }
 

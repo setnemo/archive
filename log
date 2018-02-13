@@ -1,54 +1,551 @@
 test
 $$$ exec p1 : [./filler]
 My symbol:O
-Map Size:[24][40]........................................
-........................................
-........................................
-...O....................................
-........................................
-........................................
-........................................
-........................................
-........................................
-........................................
-........................................
-........................................
-........................................
-........................................
-........................................
-........................................
-........................................
-........................................
-........................................
-................................X.......
-........................................
-........................................
-........................................
-........................................
-My bit size:[1][7]
+Map Size:[15][17]
+.................
+.................
+.................
+.................
+.................
+.................
+.................
+.................
+..O..............
+.................
+.................
+.................
+..............X..
+.................
+.................
+My bit size:[2][1]
 -----1-----
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 19 19 19 19 19 19 19 19 19 19 19 19 19 19 19 19 19 19 19 19 19 19 19 19 19 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 
-0 32 31 75840 29 28 27 26 25 24 23 22 21 20 19 18 17 17 17 17 17 17 17 17 17 17 17 17 17 17 17 17 17 17 17 17 17 17 17 17 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 16 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14 14 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 7 7 7 7 7 7 7 7 7 7 7 7 8 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 6 6 6 6 6 6 6 6 6 6 7 8 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 5 5 5 5 5 5 5 5 6 7 8 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 4 4 4 4 4 4 5 6 7 8 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 3 3 3 3 4 5 6 7 8 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 2 2 3 4 5 6 7 8 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 84480 2 3 4 5 6 7 8 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 2 2 3 4 5 6 7 8 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 3 3 3 3 4 5 6 7 8 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 4 4 4 4 4 4 5 6 7 8 
-0 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 5 5 5 5 5 5 5 5 6 7 8 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 14 13 12 12 12 12 12 12 12 12 12 12 12 12 12 12 
+0 14 13 12 11 11 11 11 11 11 11 11 11 11 11 11 11 
+0 14 13 12 11 10 10 10 10 10 10 10 10 10 10 10 10 
+0 14 13 12 11 10 9 9 9 9 9 9 9 9 9 9 9 
+0 14 13 12 11 10 9 8 8 8 8 8 8 8 8 8 8 
+0 14 13 12 11 10 9 8 7 7 7 7 7 7 7 7 7 
+0 14 13 12 11 10 9 8 7 6 6 6 6 6 6 6 6 
+0 14 20145 12 11 10 9 8 7 6 5 5 5 5 5 5 5 
+0 14 13 12 11 10 9 8 7 6 5 4 4 4 4 4 4 
+0 14 13 12 11 10 9 8 7 6 5 4 3 3 3 3 3 
+0 14 13 12 11 10 9 8 7 6 5 4 3 2 2 2 3 
+0 14 13 12 11 10 9 8 7 6 5 4 3 2 22440 2 3 
+0 14 13 12 11 10 9 8 7 6 5 4 3 2 2 2 3 
+0 14 13 12 11 10 9 8 7 6 5 4 3 3 3 3 3 
 -----2------
+find_spot1
+check_bit a:0 b:0 p->ap:0 p->pb:0
+check_bit a:0 b:1 p->ap:0 p->pb:1
+check_bit a:0 b:2 p->ap:0 p->pb:2
+check_bit a:0 b:3 p->ap:0 p->pb:3
+check_bit a:0 b:4 p->ap:0 p->pb:4
+check_bit a:0 b:5 p->ap:0 p->pb:5
+check_bit a:0 b:6 p->ap:0 p->pb:6
+check_bit a:0 b:7 p->ap:0 p->pb:7
+check_bit a:0 b:8 p->ap:0 p->pb:8
+check_bit a:0 b:9 p->ap:0 p->pb:9
+check_bit a:0 b:10 p->ap:0 p->pb:10
+check_bit a:0 b:11 p->ap:0 p->pb:11
+check_bit a:0 b:12 p->ap:0 p->pb:12
+check_bit a:0 b:13 p->ap:0 p->pb:13
+check_bit a:0 b:14 p->ap:0 p->pb:14
+check_bit a:0 b:15 p->ap:0 p->pb:15
+check_bit a:0 b:16 p->ap:0 p->pb:16
+check_bit a:1 b:0 p->ap:1 p->pb:0
+check_bit a:1 b:1 p->ap:1 p->pb:1
+check_bit a:1 b:2 p->ap:1 p->pb:2
+check_bit a:1 b:3 p->ap:1 p->pb:3
+check_bit a:1 b:4 p->ap:1 p->pb:4
+check_bit a:1 b:5 p->ap:1 p->pb:5
+check_bit a:1 b:6 p->ap:1 p->pb:6
+check_bit a:1 b:7 p->ap:1 p->pb:7
+check_bit a:1 b:8 p->ap:1 p->pb:8
+check_bit a:1 b:9 p->ap:1 p->pb:9
+check_bit a:1 b:10 p->ap:1 p->pb:10
+check_bit a:1 b:11 p->ap:1 p->pb:11
+check_bit a:1 b:12 p->ap:1 p->pb:12
+check_bit a:1 b:13 p->ap:1 p->pb:13
+check_bit a:1 b:14 p->ap:1 p->pb:14
+check_bit a:1 b:15 p->ap:1 p->pb:15
+check_bit a:1 b:16 p->ap:1 p->pb:16
+check_bit a:2 b:0 p->ap:2 p->pb:0
+check_bit a:2 b:1 p->ap:2 p->pb:1
+check_bit a:2 b:2 p->ap:2 p->pb:2
+check_bit a:2 b:3 p->ap:2 p->pb:3
+check_bit a:2 b:4 p->ap:2 p->pb:4
+check_bit a:2 b:5 p->ap:2 p->pb:5
+check_bit a:2 b:6 p->ap:2 p->pb:6
+check_bit a:2 b:7 p->ap:2 p->pb:7
+check_bit a:2 b:8 p->ap:2 p->pb:8
+check_bit a:2 b:9 p->ap:2 p->pb:9
+check_bit a:2 b:10 p->ap:2 p->pb:10
+check_bit a:2 b:11 p->ap:2 p->pb:11
+check_bit a:2 b:12 p->ap:2 p->pb:12
+check_bit a:2 b:13 p->ap:2 p->pb:13
+check_bit a:2 b:14 p->ap:2 p->pb:14
+check_bit a:2 b:15 p->ap:2 p->pb:15
+check_bit a:2 b:16 p->ap:2 p->pb:16
+check_bit a:3 b:0 p->ap:3 p->pb:0
+check_bit a:3 b:1 p->ap:3 p->pb:1
+check_bit a:3 b:2 p->ap:3 p->pb:2
+check_bit a:3 b:3 p->ap:3 p->pb:3
+check_bit a:3 b:4 p->ap:3 p->pb:4
+check_bit a:3 b:5 p->ap:3 p->pb:5
+check_bit a:3 b:6 p->ap:3 p->pb:6
+check_bit a:3 b:7 p->ap:3 p->pb:7
+check_bit a:3 b:8 p->ap:3 p->pb:8
+check_bit a:3 b:9 p->ap:3 p->pb:9
+check_bit a:3 b:10 p->ap:3 p->pb:10
+check_bit a:3 b:11 p->ap:3 p->pb:11
+check_bit a:3 b:12 p->ap:3 p->pb:12
+check_bit a:3 b:13 p->ap:3 p->pb:13
+check_bit a:3 b:14 p->ap:3 p->pb:14
+check_bit a:3 b:15 p->ap:3 p->pb:15
+check_bit a:3 b:16 p->ap:3 p->pb:16
+check_bit a:4 b:0 p->ap:4 p->pb:0
+check_bit a:4 b:1 p->ap:4 p->pb:1
+check_bit a:4 b:2 p->ap:4 p->pb:2
+check_bit a:4 b:3 p->ap:4 p->pb:3
+check_bit a:4 b:4 p->ap:4 p->pb:4
+check_bit a:4 b:5 p->ap:4 p->pb:5
+check_bit a:4 b:6 p->ap:4 p->pb:6
+check_bit a:4 b:7 p->ap:4 p->pb:7
+check_bit a:4 b:8 p->ap:4 p->pb:8
+check_bit a:4 b:9 p->ap:4 p->pb:9
+check_bit a:4 b:10 p->ap:4 p->pb:10
+check_bit a:4 b:11 p->ap:4 p->pb:11
+check_bit a:4 b:12 p->ap:4 p->pb:12
+check_bit a:4 b:13 p->ap:4 p->pb:13
+check_bit a:4 b:14 p->ap:4 p->pb:14
+check_bit a:4 b:15 p->ap:4 p->pb:15
+check_bit a:4 b:16 p->ap:4 p->pb:16
+check_bit a:5 b:0 p->ap:5 p->pb:0
+check_bit a:5 b:1 p->ap:5 p->pb:1
+check_bit a:5 b:2 p->ap:5 p->pb:2
+check_bit a:5 b:3 p->ap:5 p->pb:3
+check_bit a:5 b:4 p->ap:5 p->pb:4
+check_bit a:5 b:5 p->ap:5 p->pb:5
+check_bit a:5 b:6 p->ap:5 p->pb:6
+check_bit a:5 b:7 p->ap:5 p->pb:7
+check_bit a:5 b:8 p->ap:5 p->pb:8
+check_bit a:5 b:9 p->ap:5 p->pb:9
+check_bit a:5 b:10 p->ap:5 p->pb:10
+check_bit a:5 b:11 p->ap:5 p->pb:11
+check_bit a:5 b:12 p->ap:5 p->pb:12
+check_bit a:5 b:13 p->ap:5 p->pb:13
+check_bit a:5 b:14 p->ap:5 p->pb:14
+check_bit a:5 b:15 p->ap:5 p->pb:15
+check_bit a:5 b:16 p->ap:5 p->pb:16
+check_bit a:6 b:0 p->ap:6 p->pb:0
+check_bit a:6 b:1 p->ap:6 p->pb:1
+check_bit a:6 b:2 p->ap:6 p->pb:2
+check_bit a:6 b:3 p->ap:6 p->pb:3
+check_bit a:6 b:4 p->ap:6 p->pb:4
+check_bit a:6 b:5 p->ap:6 p->pb:5
+check_bit a:6 b:6 p->ap:6 p->pb:6
+check_bit a:6 b:7 p->ap:6 p->pb:7
+check_bit a:6 b:8 p->ap:6 p->pb:8
+check_bit a:6 b:9 p->ap:6 p->pb:9
+check_bit a:6 b:10 p->ap:6 p->pb:10
+check_bit a:6 b:11 p->ap:6 p->pb:11
+check_bit a:6 b:12 p->ap:6 p->pb:12
+check_bit a:6 b:13 p->ap:6 p->pb:13
+check_bit a:6 b:14 p->ap:6 p->pb:14
+check_bit a:6 b:15 p->ap:6 p->pb:15
+check_bit a:6 b:16 p->ap:6 p->pb:16
+check_bit a:7 b:0 p->ap:7 p->pb:0
+check_bit a:7 b:1 p->ap:7 p->pb:1
+check_bit a:7 b:2 p->ap:7 p->pb:2
+check_bit a:7 b:3 p->ap:7 p->pb:3
+check_bit a:7 b:4 p->ap:7 p->pb:4
+check_bit a:7 b:5 p->ap:7 p->pb:5
+check_bit a:7 b:6 p->ap:7 p->pb:6
+check_bit a:7 b:7 p->ap:7 p->pb:7
+check_bit a:7 b:8 p->ap:7 p->pb:8
+check_bit a:7 b:9 p->ap:7 p->pb:9
+check_bit a:7 b:10 p->ap:7 p->pb:10
+check_bit a:7 b:11 p->ap:7 p->pb:11
+check_bit a:7 b:12 p->ap:7 p->pb:12
+check_bit a:7 b:13 p->ap:7 p->pb:13
+check_bit a:7 b:14 p->ap:7 p->pb:14
+check_bit a:7 b:15 p->ap:7 p->pb:15
+check_bit a:7 b:16 p->ap:7 p->pb:16
+check_bit a:8 b:0 p->ap:8 p->pb:0
+check_bit a:8 b:1 p->ap:8 p->pb:1
+check_bit a:8 b:2 p->ap:8 p->pb:2
+check_bit a:8 b:3 p->ap:8 p->pb:3
+check_bit a:8 b:4 p->ap:8 p->pb:4
+check_bit a:8 b:5 p->ap:8 p->pb:5
+check_bit a:8 b:6 p->ap:8 p->pb:6
+check_bit a:8 b:7 p->ap:8 p->pb:7
+check_bit a:8 b:8 p->ap:8 p->pb:8
+check_bit a:8 b:9 p->ap:8 p->pb:9
+check_bit a:8 b:10 p->ap:8 p->pb:10
+check_bit a:8 b:11 p->ap:8 p->pb:11
+check_bit a:8 b:12 p->ap:8 p->pb:12
+check_bit a:8 b:13 p->ap:8 p->pb:13
+check_bit a:8 b:14 p->ap:8 p->pb:14
+check_bit a:8 b:15 p->ap:8 p->pb:15
+check_bit a:8 b:16 p->ap:8 p->pb:16
+check_bit a:9 b:0 p->ap:9 p->pb:0
+check_bit a:9 b:1 p->ap:9 p->pb:1
+check_bit a:9 b:2 p->ap:9 p->pb:2
+check_bit a:9 b:3 p->ap:9 p->pb:3
+check_bit a:9 b:4 p->ap:9 p->pb:4
+check_bit a:9 b:5 p->ap:9 p->pb:5
+check_bit a:9 b:6 p->ap:9 p->pb:6
+check_bit a:9 b:7 p->ap:9 p->pb:7
+check_bit a:9 b:8 p->ap:9 p->pb:8
+check_bit a:9 b:9 p->ap:9 p->pb:9
+check_bit a:9 b:10 p->ap:9 p->pb:10
+check_bit a:9 b:11 p->ap:9 p->pb:11
+check_bit a:9 b:12 p->ap:9 p->pb:12
+check_bit a:9 b:13 p->ap:9 p->pb:13
+check_bit a:9 b:14 p->ap:9 p->pb:14
+check_bit a:9 b:15 p->ap:9 p->pb:15
+check_bit a:9 b:16 p->ap:9 p->pb:16
+check_bit a:10 b:0 p->ap:10 p->pb:0
+check_bit a:10 b:1 p->ap:10 p->pb:1
+check_bit a:10 b:2 p->ap:10 p->pb:2
+check_bit a:10 b:3 p->ap:10 p->pb:3
+check_bit a:10 b:4 p->ap:10 p->pb:4
+check_bit a:10 b:5 p->ap:10 p->pb:5
+check_bit a:10 b:6 p->ap:10 p->pb:6
+check_bit a:10 b:7 p->ap:10 p->pb:7
+check_bit a:10 b:8 p->ap:10 p->pb:8
+check_bit a:10 b:9 p->ap:10 p->pb:9
+check_bit a:10 b:10 p->ap:10 p->pb:10
+check_bit a:10 b:11 p->ap:10 p->pb:11
+check_bit a:10 b:12 p->ap:10 p->pb:12
+check_bit a:10 b:13 p->ap:10 p->pb:13
+check_bit a:10 b:14 p->ap:10 p->pb:14
+check_bit a:10 b:15 p->ap:10 p->pb:15
+check_bit a:10 b:16 p->ap:10 p->pb:16
+check_bit a:11 b:0 p->ap:11 p->pb:0
+check_bit a:11 b:1 p->ap:11 p->pb:1
+check_bit a:11 b:2 p->ap:11 p->pb:2
+check_bit a:11 b:3 p->ap:11 p->pb:3
+check_bit a:11 b:4 p->ap:11 p->pb:4
+check_bit a:11 b:5 p->ap:11 p->pb:5
+check_bit a:11 b:6 p->ap:11 p->pb:6
+check_bit a:11 b:7 p->ap:11 p->pb:7
+check_bit a:11 b:8 p->ap:11 p->pb:8
+check_bit a:11 b:9 p->ap:11 p->pb:9
+check_bit a:11 b:10 p->ap:11 p->pb:10
+check_bit a:11 b:11 p->ap:11 p->pb:11
+check_bit a:11 b:12 p->ap:11 p->pb:12
+check_bit a:11 b:13 p->ap:11 p->pb:13
+check_bit a:11 b:14 p->ap:11 p->pb:14
+check_bit a:11 b:15 p->ap:11 p->pb:15
+check_bit a:11 b:16 p->ap:11 p->pb:16
+check_bit a:12 b:0 p->ap:12 p->pb:0
+check_bit a:12 b:1 p->ap:12 p->pb:1
+check_bit a:12 b:2 p->ap:12 p->pb:2
+check_bit a:12 b:3 p->ap:12 p->pb:3
+check_bit a:12 b:4 p->ap:12 p->pb:4
+check_bit a:12 b:5 p->ap:12 p->pb:5
+check_bit a:12 b:6 p->ap:12 p->pb:6
+check_bit a:12 b:7 p->ap:12 p->pb:7
+check_bit a:12 b:8 p->ap:12 p->pb:8
+check_bit a:12 b:9 p->ap:12 p->pb:9
+check_bit a:12 b:10 p->ap:12 p->pb:10
+check_bit a:12 b:11 p->ap:12 p->pb:11
+check_bit a:12 b:12 p->ap:12 p->pb:12
+check_bit a:12 b:13 p->ap:12 p->pb:13
+check_bit a:12 b:14 p->ap:12 p->pb:14
+check_bit a:12 b:15 p->ap:12 p->pb:15
+check_bit a:12 b:16 p->ap:12 p->pb:16
+check_bit a:13 b:0 p->ap:13 p->pb:0
+check_bit a:13 b:1 p->ap:13 p->pb:1
+check_bit a:13 b:2 p->ap:13 p->pb:2
+check_bit a:13 b:3 p->ap:13 p->pb:3
+check_bit a:13 b:4 p->ap:13 p->pb:4
+check_bit a:13 b:5 p->ap:13 p->pb:5
+check_bit a:13 b:6 p->ap:13 p->pb:6
+check_bit a:13 b:7 p->ap:13 p->pb:7
+check_bit a:13 b:8 p->ap:13 p->pb:8
+check_bit a:13 b:9 p->ap:13 p->pb:9
+check_bit a:13 b:10 p->ap:13 p->pb:10
+check_bit a:13 b:11 p->ap:13 p->pb:11
+check_bit a:13 b:12 p->ap:13 p->pb:12
+check_bit a:13 b:13 p->ap:13 p->pb:13
+check_bit a:13 b:14 p->ap:13 p->pb:14
+check_bit a:13 b:15 p->ap:13 p->pb:15
+check_bit a:13 b:16 p->ap:13 p->pb:16
+check_bit a:14 b:0 p->ap:14 p->pb:0
+check_bit a:14 b:1 p->ap:14 p->pb:1
+check_bit a:14 b:2 p->ap:14 p->pb:2
+check_bit a:14 b:3 p->ap:14 p->pb:3
+check_bit a:14 b:4 p->ap:14 p->pb:4
+check_bit a:14 b:5 p->ap:14 p->pb:5
+check_bit a:14 b:6 p->ap:14 p->pb:6
+check_bit a:14 b:7 p->ap:14 p->pb:7
+check_bit a:14 b:8 p->ap:14 p->pb:8
+check_bit a:14 b:9 p->ap:14 p->pb:9
+check_bit a:14 b:10 p->ap:14 p->pb:10
+check_bit a:14 b:11 p->ap:14 p->pb:11
+check_bit a:14 b:12 p->ap:14 p->pb:12
+check_bit a:14 b:13 p->ap:14 p->pb:13
+check_bit a:14 b:14 p->ap:14 p->pb:14
+check_bit a:14 b:15 p->ap:14 p->pb:15
+check_bit a:14 b:16 p->ap:14 p->pb:16
+find_spot2
+print_list: NEXT1:0x7fa760500e50
+print_list: NEXT2:0x7fa760500e70
+List: a[0] b[0] e[0] m[0] count[0]
+List: a[0] b[1] e[0] m[0] count[14]
+List: a[0] b[2] e[0] m[0] count[13]
+List: a[0] b[3] e[0] m[0] count[12]
+List: a[0] b[4] e[0] m[0] count[12]
+List: a[0] b[5] e[0] m[0] count[12]
+List: a[0] b[6] e[0] m[0] count[12]
+List: a[0] b[7] e[0] m[0] count[12]
+List: a[0] b[8] e[0] m[0] count[12]
+List: a[0] b[9] e[0] m[0] count[12]
+List: a[0] b[10] e[0] m[0] count[12]
+List: a[0] b[11] e[0] m[0] count[12]
+List: a[0] b[12] e[0] m[0] count[12]
+List: a[0] b[13] e[0] m[0] count[12]
+List: a[0] b[14] e[0] m[0] count[12]
+List: a[0] b[15] e[0] m[0] count[12]
+List: a[0] b[16] e[0] m[0] count[0]
+List: a[1] b[0] e[0] m[0] count[0]
+List: a[1] b[1] e[0] m[0] count[28]
+List: a[1] b[2] e[0] m[0] count[26]
+List: a[1] b[3] e[0] m[0] count[24]
+List: a[1] b[4] e[0] m[0] count[23]
+List: a[1] b[5] e[0] m[0] count[23]
+List: a[1] b[6] e[0] m[0] count[23]
+List: a[1] b[7] e[0] m[0] count[23]
+List: a[1] b[8] e[0] m[0] count[23]
+List: a[1] b[9] e[0] m[0] count[23]
+List: a[1] b[10] e[0] m[0] count[23]
+List: a[1] b[11] e[0] m[0] count[23]
+List: a[1] b[12] e[0] m[0] count[23]
+List: a[1] b[13] e[0] m[0] count[23]
+List: a[1] b[14] e[0] m[0] count[23]
+List: a[1] b[15] e[0] m[0] count[23]
+List: a[1] b[16] e[0] m[0] count[0]
+List: a[2] b[0] e[0] m[0] count[0]
+List: a[2] b[1] e[0] m[0] count[28]
+List: a[2] b[2] e[0] m[0] count[26]
+List: a[2] b[3] e[0] m[0] count[24]
+List: a[2] b[4] e[0] m[0] count[22]
+List: a[2] b[5] e[0] m[0] count[21]
+List: a[2] b[6] e[0] m[0] count[21]
+List: a[2] b[7] e[0] m[0] count[21]
+List: a[2] b[8] e[0] m[0] count[21]
+List: a[2] b[9] e[0] m[0] count[21]
+List: a[2] b[10] e[0] m[0] count[21]
+List: a[2] b[11] e[0] m[0] count[21]
+List: a[2] b[12] e[0] m[0] count[21]
+List: a[2] b[13] e[0] m[0] count[21]
+List: a[2] b[14] e[0] m[0] count[21]
+List: a[2] b[15] e[0] m[0] count[21]
+List: a[2] b[16] e[0] m[0] count[0]
+List: a[3] b[0] e[0] m[0] count[0]
+List: a[3] b[1] e[0] m[0] count[28]
+List: a[3] b[2] e[0] m[0] count[26]
+List: a[3] b[3] e[0] m[0] count[24]
+List: a[3] b[4] e[0] m[0] count[22]
+List: a[3] b[5] e[0] m[0] count[20]
+List: a[3] b[6] e[0] m[0] count[19]
+List: a[3] b[7] e[0] m[0] count[19]
+List: a[3] b[8] e[0] m[0] count[19]
+List: a[3] b[9] e[0] m[0] count[19]
+List: a[3] b[10] e[0] m[0] count[19]
+List: a[3] b[11] e[0] m[0] count[19]
+List: a[3] b[12] e[0] m[0] count[19]
+List: a[3] b[13] e[0] m[0] count[19]
+List: a[3] b[14] e[0] m[0] count[19]
+List: a[3] b[15] e[0] m[0] count[19]
+List: a[3] b[16] e[0] m[0] count[0]
+List: a[4] b[0] e[0] m[0] count[0]
+List: a[4] b[1] e[0] m[0] count[28]
+List: a[4] b[2] e[0] m[0] count[26]
+List: a[4] b[3] e[0] m[0] count[24]
+List: a[4] b[4] e[0] m[0] count[22]
+List: a[4] b[5] e[0] m[0] count[20]
+List: a[4] b[6] e[0] m[0] count[18]
+List: a[4] b[7] e[0] m[0] count[17]
+List: a[4] b[8] e[0] m[0] count[17]
+List: a[4] b[9] e[0] m[0] count[17]
+List: a[4] b[10] e[0] m[0] count[17]
+List: a[4] b[11] e[0] m[0] count[17]
+List: a[4] b[12] e[0] m[0] count[17]
+List: a[4] b[13] e[0] m[0] count[17]
+List: a[4] b[14] e[0] m[0] count[17]
+List: a[4] b[15] e[0] m[0] count[17]
+List: a[4] b[16] e[0] m[0] count[0]
+List: a[5] b[0] e[0] m[0] count[0]
+List: a[5] b[1] e[0] m[0] count[28]
+List: a[5] b[2] e[0] m[0] count[26]
+List: a[5] b[3] e[0] m[0] count[24]
+List: a[5] b[4] e[0] m[0] count[22]
+List: a[5] b[5] e[0] m[0] count[20]
+List: a[5] b[6] e[0] m[0] count[18]
+List: a[5] b[7] e[0] m[0] count[16]
+List: a[5] b[8] e[0] m[0] count[15]
+List: a[5] b[9] e[0] m[0] count[15]
+List: a[5] b[10] e[0] m[0] count[15]
+List: a[5] b[11] e[0] m[0] count[15]
+List: a[5] b[12] e[0] m[0] count[15]
+List: a[5] b[13] e[0] m[0] count[15]
+List: a[5] b[14] e[0] m[0] count[15]
+List: a[5] b[15] e[0] m[0] count[15]
+List: a[5] b[16] e[0] m[0] count[0]
+List: a[6] b[0] e[0] m[0] count[0]
+List: a[6] b[1] e[0] m[0] count[28]
+List: a[6] b[2] e[0] m[0] count[26]
+List: a[6] b[3] e[0] m[0] count[24]
+List: a[6] b[4] e[0] m[0] count[22]
+List: a[6] b[5] e[0] m[0] count[20]
+List: a[6] b[6] e[0] m[0] count[18]
+List: a[6] b[7] e[0] m[0] count[16]
+List: a[6] b[8] e[0] m[0] count[14]
+List: a[6] b[9] e[0] m[0] count[13]
+List: a[6] b[10] e[0] m[0] count[13]
+List: a[6] b[11] e[0] m[0] count[13]
+List: a[6] b[12] e[0] m[0] count[13]
+List: a[6] b[13] e[0] m[0] count[13]
+List: a[6] b[14] e[0] m[0] count[13]
+List: a[6] b[15] e[0] m[0] count[13]
+List: a[6] b[16] e[0] m[0] count[0]
+List: a[7] b[0] e[0] m[0] count[0]
+List: a[7] b[1] e[0] m[0] count[28]
+List: a[7] b[2] e[0] m[1] count[20158]
+List: a[7] b[3] e[0] m[0] count[24]
+List: a[7] b[4] e[0] m[0] count[22]
+List: a[7] b[5] e[0] m[0] count[20]
+List: a[7] b[6] e[0] m[0] count[18]
+List: a[7] b[7] e[0] m[0] count[16]
+List: a[7] b[8] e[0] m[0] count[14]
+List: a[7] b[9] e[0] m[0] count[12]
+List: a[7] b[10] e[0] m[0] count[11]
+List: a[7] b[11] e[0] m[0] count[11]
+List: a[7] b[12] e[0] m[0] count[11]
+List: a[7] b[13] e[0] m[0] count[11]
+List: a[7] b[14] e[0] m[0] count[11]
+List: a[7] b[15] e[0] m[0] count[11]
+List: a[7] b[16] e[0] m[0] count[0]
+List: a[8] b[0] e[0] m[0] count[0]
+List: a[8] b[1] e[0] m[0] count[28]
+List: a[8] b[2] e[0] m[1] count[20158]
+List: a[8] b[3] e[0] m[0] count[24]
+List: a[8] b[4] e[0] m[0] count[22]
+List: a[8] b[5] e[0] m[0] count[20]
+List: a[8] b[6] e[0] m[0] count[18]
+List: a[8] b[7] e[0] m[0] count[16]
+List: a[8] b[8] e[0] m[0] count[14]
+List: a[8] b[9] e[0] m[0] count[12]
+List: a[8] b[10] e[0] m[0] count[10]
+List: a[8] b[11] e[0] m[0] count[9]
+List: a[8] b[12] e[0] m[0] count[9]
+List: a[8] b[13] e[0] m[0] count[9]
+List: a[8] b[14] e[0] m[0] count[9]
+List: a[8] b[15] e[0] m[0] count[9]
+List: a[8] b[16] e[0] m[0] count[0]
+List: a[9] b[0] e[0] m[0] count[0]
+List: a[9] b[1] e[0] m[0] count[28]
+List: a[9] b[2] e[0] m[0] count[26]
+List: a[9] b[3] e[0] m[0] count[24]
+List: a[9] b[4] e[0] m[0] count[22]
+List: a[9] b[5] e[0] m[0] count[20]
+List: a[9] b[6] e[0] m[0] count[18]
+List: a[9] b[7] e[0] m[0] count[16]
+List: a[9] b[8] e[0] m[0] count[14]
+List: a[9] b[9] e[0] m[0] count[12]
+List: a[9] b[10] e[0] m[0] count[10]
+List: a[9] b[11] e[0] m[0] count[8]
+List: a[9] b[12] e[0] m[0] count[7]
+List: a[9] b[13] e[0] m[0] count[7]
+List: a[9] b[14] e[0] m[0] count[7]
+List: a[9] b[15] e[0] m[0] count[7]
+List: a[9] b[16] e[0] m[0] count[0]
+List: a[10] b[0] e[0] m[0] count[0]
+List: a[10] b[1] e[0] m[0] count[28]
+List: a[10] b[2] e[0] m[0] count[26]
+List: a[10] b[3] e[0] m[0] count[24]
+List: a[10] b[4] e[0] m[0] count[22]
+List: a[10] b[5] e[0] m[0] count[20]
+List: a[10] b[6] e[0] m[0] count[18]
+List: a[10] b[7] e[0] m[0] count[16]
+List: a[10] b[8] e[0] m[0] count[14]
+List: a[10] b[9] e[0] m[0] count[12]
+List: a[10] b[10] e[0] m[0] count[10]
+List: a[10] b[11] e[0] m[0] count[8]
+List: a[10] b[12] e[0] m[0] count[6]
+List: a[10] b[13] e[0] m[0] count[5]
+List: a[10] b[14] e[0] m[0] count[5]
+List: a[10] b[15] e[0] m[0] count[5]
+List: a[10] b[16] e[0] m[0] count[0]
+List: a[11] b[0] e[0] m[0] count[0]
+List: a[11] b[1] e[0] m[0] count[28]
+List: a[11] b[2] e[0] m[0] count[26]
+List: a[11] b[3] e[0] m[0] count[24]
+List: a[11] b[4] e[0] m[0] count[22]
+List: a[11] b[5] e[0] m[0] count[20]
+List: a[11] b[6] e[0] m[0] count[18]
+List: a[11] b[7] e[0] m[0] count[16]
+List: a[11] b[8] e[0] m[0] count[14]
+List: a[11] b[9] e[0] m[0] count[12]
+List: a[11] b[10] e[0] m[0] count[10]
+List: a[11] b[11] e[0] m[0] count[8]
+List: a[11] b[12] e[0] m[0] count[6]
+List: a[11] b[13] e[0] m[0] count[4]
+List: a[11] b[14] e[1] m[0] count[22442]
+List: a[11] b[15] e[0] m[0] count[4]
+List: a[11] b[16] e[0] m[0] count[0]
+List: a[12] b[0] e[0] m[0] count[0]
+List: a[12] b[1] e[0] m[0] count[28]
+List: a[12] b[2] e[0] m[0] count[26]
+List: a[12] b[3] e[0] m[0] count[24]
+List: a[12] b[4] e[0] m[0] count[22]
+List: a[12] b[5] e[0] m[0] count[20]
+List: a[12] b[6] e[0] m[0] count[18]
+List: a[12] b[7] e[0] m[0] count[16]
+List: a[12] b[8] e[0] m[0] count[14]
+List: a[12] b[9] e[0] m[0] count[12]
+List: a[12] b[10] e[0] m[0] count[10]
+List: a[12] b[11] e[0] m[0] count[8]
+List: a[12] b[12] e[0] m[0] count[6]
+List: a[12] b[13] e[0] m[0] count[4]
+List: a[12] b[14] e[1] m[0] count[22442]
+List: a[12] b[15] e[0] m[0] count[4]
+List: a[12] b[16] e[0] m[0] count[0]
+List: a[13] b[0] e[0] m[0] count[0]
+List: a[13] b[1] e[0] m[0] count[0]
+List: a[13] b[2] e[0] m[0] count[0]
+List: a[13] b[3] e[0] m[0] count[0]
+List: a[13] b[4] e[0] m[0] count[0]
+List: a[13] b[5] e[0] m[0] count[0]
+List: a[13] b[6] e[0] m[0] count[0]
+List: a[13] b[7] e[0] m[0] count[0]
+List: a[13] b[8] e[0] m[0] count[0]
+List: a[13] b[9] e[0] m[0] count[0]
+List: a[13] b[10] e[0] m[0] count[0]
+List: a[13] b[11] e[0] m[0] count[0]
+List: a[13] b[12] e[0] m[0] count[0]
+List: a[13] b[13] e[0] m[0] count[0]
+List: a[13] b[14] e[0] m[0] count[0]
+List: a[13] b[15] e[0] m[0] count[0]
+List: a[13] b[16] e[0] m[0] count[0]
+List: a[14] b[0] e[0] m[0] count[0]
+List: a[14] b[1] e[0] m[0] count[0]
+List: a[14] b[2] e[0] m[0] count[0]
+List: a[14] b[3] e[0] m[0] count[0]
+List: a[14] b[4] e[0] m[0] count[0]
+List: a[14] b[5] e[0] m[0] count[0]
+List: a[14] b[6] e[0] m[0] count[0]
+List: a[14] b[7] e[0] m[0] count[0]
+List: a[14] b[8] e[0] m[0] count[0]
+List: a[14] b[9] e[0] m[0] count[0]
+List: a[14] b[10] e[0] m[0] count[0]
+List: a[14] b[11] e[0] m[0] count[0]
+List: a[14] b[12] e[0] m[0] count[0]
+List: a[14] b[13] e[0] m[0] count[0]
+List: a[14] b[14] e[0] m[0] count[0]
+List: a[14] b[15] e[0] m[0] count[0]
+List: a[14] b[16] e[0] m[0] count[0]

@@ -21,21 +21,38 @@
 
 /*
 ** ****************************************************************************
+** **************************** struct for bits *******************************
+** ****************************************************************************
+*/
+
+typedef struct	s_bit
+{
+	int				ap;
+	int				bp;
+	int				bit_error;
+	int				my_point;
+	size_t			count;
+	struct s_bit 	*next;
+}				t_bit;
+
+/*
+** ****************************************************************************
 ** **************************** struct for data *******************************
 ** ****************************************************************************
 */
 
 typedef struct	s_fill
 {
-	char	xo;
-	char	enemy;
-	int		map_size[2];
-	char	**map;
-	int		bit_size[2];
-	char	**bit;
-	int		wait;
-	int		fd;
-	size_t	**matrix;
+	char			xo;
+	char			enemy;
+	int				map_size[2];
+	char			**map;
+	int				bit_size[2];
+	char			**bit;
+	int				wait;
+	int				fd;
+	size_t			**matrix;
+	struct s_bit 	*next;
 }				t_fill;
 
 /*
