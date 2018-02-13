@@ -51,6 +51,8 @@ typedef struct	s_fill
 	char			**bit;
 	int				wait;
 	int				fd;
+	int				a_loc;
+	int				b_loc;
 	size_t			**matrix;
 	struct s_bit 	*next;
 }				t_fill;

@@ -12,14 +12,33 @@
 
 #include "filler.h"
 
+void		find_loc(t_fill *g)
+{
+	t_bit	*p;
+	size_t	temp;
+
+	p = g->next;
+	temp = 0;
+	while (p->next)
+	{
+		if (p->bit_error == 0 && p->my_point == 1)
+		{
+			temp = p->count;
+			if (p->count <= temp)
+			{
+				g->a_loc = p->ap;
+				g->b_loc = p->bp;
+			}
+		}
+		p = p->next;
+	}
+}
 void		print_list(t_fill *g)
 {
 	t_bit *p;
 
 	p = g->next;
-	dprintf(g->fd, "print_list: NEXT1:%p\n", p);
-	dprintf(g->fd, "print_list: NEXT2:%p\n", p->next);
-		dprintf(g->fd, "List: a[%i] b[%i] e[%i] m[%i] count[%zu]\n", p->ap, p->bp, p->bit_error, p->my_point, p->count);
+	dprintf(g->fd, "List: a[%i] b[%i] e[%i] m[%i] count[%zu]\n", p->ap, p->bp, p->bit_error, p->my_point, p->count);
 	while (p->next)
 	{
 		p = p->next;
@@ -220,6 +239,7 @@ void		spot_loc(t_fill *g)
 	dprintf(g->fd, "-----2------\n");
 	find_spot(g);
 	print_list(g);
+	find_loc(g);
 }
 
 void		wait_enemy(t_fill *g)
