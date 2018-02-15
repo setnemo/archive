@@ -1,3 +1,1 @@
-sudo emacs /etc/hosts
-46.19.122.85 intra.42.fr
-save and exit.
+echo "46.19.122.85 intra.42.fr" >> sudo /etc/hosts

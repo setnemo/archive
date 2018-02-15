@@ -1,1 +1,1 @@
-slookup slash16.org | grep "Address" | sed 1d
+nslookup slash16.org | grep "Address" | sed 1d

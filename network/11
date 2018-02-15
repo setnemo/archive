@@ -1,2 +1,2 @@
-#in line you see IP
-traceroute slash16.org | sed '2,/end string pattern/d'
+#in first line you see IP
+traceroute slash16.org
