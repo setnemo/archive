@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_print_charr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/30 15:51:23 by apakhomo          #+#    #+#             */
-/*   Updated: 2018/01/30 15:51:23 by apakhomo         ###   ########.fr       */
+/*   Created: 2018/01/27 09:55:17 by apakhomo          #+#    #+#             */
+/*   Updated: 2018/01/27 09:55:17 by apakhomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "libft.h"
 
-# include "../libft/include/libft.h"
-# include <mlx.h>
-# include <math.h>
-# include <unistd.h>
-# include <fcntl.h>
-
-
-typedef struct	s_mlx
+void		ft_prcharr(char **str, int a)
 {
-	void	*mlx;
-	void	*win;
-	int		window;
-	int		fill;
-}				t_mlx;
+	int	i;
 
-#endif
+	i = 0;
+	while (i < a)
+	{
+		ft_printf("%s\n", str[i]);
+		i++;
+	}
+}

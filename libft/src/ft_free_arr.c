@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_free_arr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/30 15:51:23 by apakhomo          #+#    #+#             */
-/*   Updated: 2018/01/30 15:51:23 by apakhomo         ###   ########.fr       */
+/*   Created: 2017/11/11 13:19:05 by apakhomo          #+#    #+#             */
+/*   Updated: 2017/11/11 13:19:05 by apakhomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "libft.h"
 
-# include "../libft/include/libft.h"
-# include <mlx.h>
-# include <math.h>
-# include <unistd.h>
-# include <fcntl.h>
-
-
-typedef struct	s_mlx
+void	ft_free_arr(char **arr)
 {
-	void	*mlx;
-	void	*win;
-	int		window;
-	int		fill;
-}				t_mlx;
+	int a;
 
-#endif
+	a = 0;
+	while (arr[a])
+	{
+		ft_strdel(&arr[a]);
+		a++;
+	}
+	free(arr);
+}

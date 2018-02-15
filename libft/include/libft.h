@@ -21,6 +21,7 @@
 # define BUFF_SIZE 1
 # define ERR(e) if (!e) return (-1);
 # define NOMEM(no) if (!no) return (NULL);
+# define BRK(ch) if (ch) break ;
 # define NIL(z) z = 0;
 # define WTHT 0
 # define HASH 1
@@ -50,7 +51,9 @@ typedef struct		s_list
 typedef struct		s_gnl
 {
 	int				fd;
+	int				br;
 	char			*str;
+	char			*tmp;
 	char			*after;
 	struct s_gnl	*next;
 }					t_gnl;
@@ -125,6 +128,10 @@ int					ft_abs(int i);
 int					ft_atoi_base(char *str, int base);
 void				ft_testintstr(int a, char *name);
 unsigned char		*ft_strtolower(unsigned char *s);
+void				ft_prcharr(char **str, int a);
+void				ft_free_arr(char **arr);
+int					check_hex(unsigned char *str);
+unsigned long		hex_to_ul(unsigned char *str);
 
 /*
 ** ****************************************************************************

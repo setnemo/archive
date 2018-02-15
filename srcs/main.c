@@ -5,88 +5,54 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/01 14:26:19 by apakhomo          #+#    #+#             */
-/*   Updated: 2018/02/01 14:26:19 by apakhomo         ###   ########.fr       */
+/*   Created: 2018/02/15 08:28:46 by apakhomo          #+#    #+#             */
+/*   Updated: 2018/02/15 08:28:47 by apakhomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		get_data(char *str)
+int		check_flags(t_mlx *data, int argc, char **argv)
 {
-	int	count;
-	int	i;
-
-	i = 0;
-	count = 0;
-	while (str[i])
+	if (valid_fdf_map(data, argc, argv))
+		;
+	else
 	{
-		if (ft_isdigit(str[i]) || (str[i] == '-' && ft_isdigit(str[i + 1])))
-		{
-			if (str[i] == '-')
-				i++;
-			count++;
-			while (str[i] && ft_isdigit(str[i]))
-				i++;
-		}
-		if (str[i] == ',')
-		{
-			i++;
-			while (ft_isdigit(str[i]) || HEXCHAR || HEXSYMB)
-				i++;
-		}
-		i++;
+		ft_printf("%s: ERROR! Bad map!\n", argv[0]);
+		return (0);
 	}
-	return (count);
+	if (argv[2] && ft_isdigit(argv[2][0]))
+		data->window = ft_atoi(argv[2]) : 1000;
+	else
+	{
+		ft_printf("%s: ERROR! Bad window size!\n", argv[0]);
+		return (0);
+	}
+	if (argv[3] && ft_check_hex(argv[3]))
+		data->fill = ft_atoi(argv[2]) : 1000;
+	else
+	{
+		ft_printf("%s: ERROR! Bad fill color! Use HEX digits without '0x'\n", argv[0]);
+		return (0);
+	}
 }
 
-int		get_map(char **str, int point[2], int fd, t_buf *buf)
+int     main(int argc, char **argv)
 {
-	int		ret;
+	t_mlx	*data;
 
-	point[Y] = 0;
-	while (((ret = get_next_line(fd, &buf->line)) > 0))
+	data = NULL;
+	if (argc > 1)
 	{
-			buf->lbuf = ft_strjoin(buf->line, " ");
-			ft_strdel(&buf->line);
-			if (point[Y] == 0)
-			{
-				*str = ft_strdup(buf->lbuf);
-				point[X] = get_data(buf->lbuf);
-			}
-			else
-			{
-				if (point[X] != get_data(buf->lbuf))
-					return (-1);
-				buf->buf = ft_strjoin(*str, buf->lbuf);
-				ft_strdel(str);
-				*str = buf->buf;
-			}
-			ft_strdel(&buf->lbuf);
-			point[Y]++;
+		data = (t_mlx*)malloc(sizeof(t_mlx));
+		ft_bzero(t_mlx, sizeof(t_mlx));
+		if (!(check_flags(data, argc, argv)))
+			exit(1);
 	}
-	return (ret);
-}
-
-int		main(int argc, char **argv)
-{
-	char	*map;
-	t_mlx	d;
-	t_buf	*buf;
-	int		fd;
-
-	buf = (t_buf*)malloc(sizeof(t_buf));
-	d.isize = (argc > 2 && ft_isdigit(argv[2][0])) ? ft_atoi(argv[2]) : 1000;
-	d.colour = (argc > 3 && ft_isdigit(argv[3][0])) ? ft_atoi(argv[3]) : FF;
-	fd = (argc > 1) ? open(argv[1], O_RDONLY) : 0;
-	if (fd == -1 || get_map(&map, d.point, fd, buf) < 0 || (d.isize > 1400 ||
-		d.isize < 300 || (argv[2] && ft_atoi(argv[2]) == 0)))
+	else
 	{
-		ft_printf("Error\n");
+		ft_printf("usage: %s: [map_file_path] [size_window] [color]", argv[0]);
 		exit(1);
 	}
-	if (argc > 2)
-		close(fd);
-	fdf(map, &d);
-	return (1);
+	return (0);
 }
