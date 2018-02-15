@@ -19,7 +19,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-
 typedef struct	s_mlx
 {
 	void			*mlx;
@@ -27,7 +26,13 @@ typedef struct	s_mlx
 	int				window;
 	unsigned long	fill;
 	int				fd;
+	int				ret;
 	char			*str;
+	char			**map;
 }				t_mlx;
+
+void			free_data(t_mlx *data);
+int				create_fdf_map(t_mlx *data);
+int				check_fdf_map(t_mlx *data);
 
 #endif

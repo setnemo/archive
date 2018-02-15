@@ -11,29 +11,29 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <math.h>
 
 unsigned long	ft_hex_to_ul(char *str)
 {
-	int				a;
-	int				b;
-	unsigned char	c;
-	unsigned long	ret;
+	int				length;
+	unsigned long	decnum;
+	int				i;
 
-	str = ft_strtolower(str);
-	a = 0;
-	b = 0;
-	ret = 0;
-	while (a < 16)
+	length = 0;
+	decnum = 0;
+	i = 0;
+	while (str[length] && str[length] != 32)
+		length++;
+	while (i < length)
 	{
-		c = str[b];
-		if (str[b])
-			b++;
-		ret <<= 4;
-		if ((c >= '0') && (c <= '9'))
-			ret += (c - '0');
-		if ((c >= 'a') && (c <= 'f'))
-			ret += ((c - 'a') + 10);
-		a++;
+		if (*str >= 48 && *str <= 57)
+			decnum += (((int)(*str)) - 48) * pow(16, length - i - 1);
+		else if ((*str >= 65 && *str <= 70))
+			decnum += (((int)(*str)) - 55) * pow(16, length - i - 1);
+		else if (*str >= 97 && *str <= 102)
+			decnum += (((int)(*str)) - 87) * pow(16, length - i - 1);
+		i++;
+		str++;
 	}
-	return (ret);
+	return (decnum);
 }

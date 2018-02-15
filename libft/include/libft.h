@@ -131,8 +131,8 @@ unsigned char		*ft_strtolower(unsigned char *s);
 void				ft_prcharr(char **str, int a);
 void				ft_free_arr(char **arr);
 int					ft_check_hex(char *str);
+int					ft_check_hex_char(char c);
 unsigned long		ft_hex_to_ul(char *str);
-
 /*
 ** ****************************************************************************
 ** ******************************FT_PRINTF*************************************
