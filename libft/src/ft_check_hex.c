@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int				check_hex(unsigned char *str)
+int				ft_check_hex(char *str)
 {
 	int	i;
 

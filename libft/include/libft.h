@@ -130,8 +130,8 @@ void				ft_testintstr(int a, char *name);
 unsigned char		*ft_strtolower(unsigned char *s);
 void				ft_prcharr(char **str, int a);
 void				ft_free_arr(char **arr);
-int					check_hex(unsigned char *str);
-unsigned long		hex_to_ul(unsigned char *str);
+int					ft_check_hex(char *str);
+unsigned long		ft_hex_to_ul(char *str);
 
 /*
 ** ****************************************************************************

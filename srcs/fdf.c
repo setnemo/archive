@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/30 15:51:23 by apakhomo          #+#    #+#             */
-/*   Updated: 2018/01/30 15:51:23 by apakhomo         ###   ########.fr       */
+/*   Created: 2018/02/15 08:28:46 by apakhomo          #+#    #+#             */
+/*   Updated: 2018/02/15 08:28:47 by apakhomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "fdf.h"
 
-# include "../libft/include/libft.h"
-# include <mlx.h>
-# include <math.h>
-# include <unistd.h>
-# include <fcntl.h>
-
-
-typedef struct	s_mlx
+int		create_fdf_map(t_mlx *data)
 {
-	void			*mlx;
-	void			*win;
-	int				window;
-	unsigned long	fill;
-	int				fd;
-	char			*str;
-}				t_mlx;
 
-#endif
+	return (0);
+}
