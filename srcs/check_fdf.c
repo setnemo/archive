@@ -81,7 +81,26 @@ int		check_fdf_map(t_mlx *data)
 
 int		create_fdf_map(t_mlx *data)
 {
-	
+	int a;
+	int b;
+	int c;
+
+	a = 0;
+	c = 0;
+	while (data->map[a])
+	{
+		b = 0;
+		while (data->map[a][b])
+		{
+			matrix[c][X] = a;
+			matrix[c][Y] = d;
+			matrix[c][Z] = ft_atoi(data->map[a][b]);
+			matrix[c][C] = 
+			b += ;
+			c++;
+		}
+		a++;
+	}
 	// for (int i = 0; i < 22; i++)
 	// 	ft_printf("%s\n", data->map[i]);
 	return (0);
