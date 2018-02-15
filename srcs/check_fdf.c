@@ -96,7 +96,7 @@ int		create_fdf_map(t_mlx *data)
 			matrix[c][Y] = d;
 			matrix[c][Z] = ft_atoi(data->map[a][b]);
 			matrix[c][C] = 
-			b += ;
+			b += ????????????;
 			c++;
 		}
 		a++;
