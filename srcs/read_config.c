@@ -87,7 +87,7 @@ static int	valid_forwarder(t_db *db)
 
 static int	valid_url(t_db *db)
 {
-	char	rfc3986[] = ":/?#[]@!$&'()*+,;= ";
+	char	rfc3986[] = ":/?#[]@!$&'()*+,;= ~";
 	int		i;
 	int		j;
 
@@ -95,11 +95,29 @@ static int	valid_url(t_db *db)
 	while(db->blacklist[i])
 	{
 		j = 0;
+		// проверяем, что первый символ не '-'
+		if (db->blacklist[i][j] == '-')
+		{
+			printf("[!] Error: first charcter in domain name is '-'\n");
+			return (1);
+		}
+		if (strlen(db->blacklist[i]) > 63)
+		{
+			printf("[!] Error: domain name length should not exceed 63 charcters\n");
+			return (1);
+		}
 		while (db->blacklist[i][j])
 		{
+			// проверяем, что символ не заделарирован в стандрате rfc3986
 			if (strchr(rfc3986, db->blacklist[i][j]))
 			{
 				printf("[!] Error: invalaid charcters in domain name\n");
+				return (1);
+			}
+			//проверяем, что перед окончанием нет символа '-'
+			if (db->blacklist[i][j + 1] != 0 && db->blacklist[i][j + 1] == '.' && db->blacklist[i][j] == '-')
+			{
+				printf("[!] Error: last charcter in word is '-'\n");
 				return (1);
 			}
 			j++;
