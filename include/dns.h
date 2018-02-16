@@ -14,10 +14,10 @@
 # include <time.h>
 # include <errno.h>
 # include <grp.h>
-# include <fcntl.h>
 
 typedef	struct		s_db
 {
+	char			*config;
 	char			*forwarder;
 	char			*listen;
 	char			*sock;

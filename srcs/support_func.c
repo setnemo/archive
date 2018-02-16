@@ -1,11 +1,6 @@
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <errno.h>
-#include <fcntl.h>
-#include "sdb.h"
+
+#include "support_func.h"
 
 // выводим ошибку ерно и завершаем выполнение программы
 void 	error(char *err)
@@ -80,10 +75,10 @@ char		*ft_strjoin(char const *s1, char const *s2)
 	i = 0;
 	if (s1 != NULL && s2 != NULL)
 	{
-		new = (char*)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+		new = (char*)malloc(sizeof(char) * (strlen(s1) + strlen(s2) + 1));
 		if (new == NULL)
 			return (NULL);
-		if (ft_strlen(s1) + ft_strlen(s2) + 1 != 1)
+		if (strlen(s1) + strlen(s2) + 1 != 1)
 		{
 			while (*s1)
 				new[i++] = *(s1)++;
@@ -102,7 +97,7 @@ char		*ft_strnew(size_t size)
 	char	*new;
 	size_t	i;
 
-	new = ft_memalloc(size + 1);
+	new = (char*)malloc(sizeof(char) * (size + 1));
 	if (new)
 	{
 		i = 0;
@@ -114,6 +109,27 @@ char		*ft_strnew(size_t size)
 		return (new);
 	}
 	return (NULL);
+}
+
+//замолочить новую строку из строки с индекса start длиной len + '\0' и вернуть указатель
+char		*ft_strsub(char const *s, unsigned int start, size_t len)
+{
+	size_t	i;
+	char	*new;
+
+	i = 0;
+	new = (char*)malloc(sizeof(char) * (len + 1));
+	if (!new || !s)
+		return (NULL);
+	while (len > 0)
+	{
+		new[i] = s[start];
+		i++;
+		start++;
+		len--;
+	}
+	new[i] = '\0';
+	return (new);
 }
 
 //доп функция для **ft_strsplit(char const *s, char c)

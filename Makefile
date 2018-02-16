@@ -16,7 +16,7 @@ SRC_NAME =	main.c\
 			read_config.c\
 			dns.c\
 			support_func.c\
-			get_nex_line.c
+			get_next_line.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 OBJ = $(addprefix $(OBJ_DIR), $(OBJ_NAME))
