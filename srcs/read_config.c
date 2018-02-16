@@ -8,17 +8,19 @@ static int	valid_forwarder(t_db *db)
 	int dot;
 
 	i = 0;
-	dot = 0;
-
-
-		if (db->forwarder[i] && db->forwarder[i] != '.' && (isdigit(db->forwarder[i]) == 0))
+	// проверяем на сторонние символы (включая пробелы)
+	while (db->forwarder[i])
+	{
+		if (db->forwarder[i] != '.' && (isdigit(db->forwarder[i]) == 0))
 		{
-			printf("[%c] Error: \n", db->forwarder[i]);
+			printf("[%c] Error: invalid character in IP\n", db->forwarder[i]);
 			return (1);
 		}
-
-
-		
+		i++;
+	}
+	i = 0;	
+	dot = 0;
+	// проверяем корректность айпи адреса
 	while (db->forwarder[i])
 	{
 		if (atoi(&db->forwarder[i]) == 0 && dot == 0)
@@ -36,7 +38,6 @@ static int	valid_forwarder(t_db *db)
 			printf("[!] Error: broadcast address\n");
 			return (1);
 		}
-
 		//вайлим, пока существует строка и это цифра и это не точка
 		while (db->forwarder[i] && isdigit(db->forwarder[i]))
 			i++;
@@ -44,6 +45,11 @@ static int	valid_forwarder(t_db *db)
 		if (db->forwarder[i] && db->forwarder[i] == '.')
 			dot++;
 		i++;
+	}
+	if (dot > 3)
+	{
+		printf("[!] Error: forwarder's IP incorrect\n");
+		return (1);
 	}
 	return (0);
 }
