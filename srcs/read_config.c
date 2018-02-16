@@ -2,6 +2,37 @@
 #include <stdio.h>
 #include "read_config.h"
 
+// зафришить все, что существует в структуре и саму структуру
+void		free_db(t_db *db)
+{
+	int i;
+
+	i = 0;
+	printf("free forwarder\n");
+	if (db->forwarder)
+		free(db->forwarder);
+	printf("free listen\n");
+	if (db->listen)
+		free(db->listen);
+	printf("free sock\n");
+	if (db->sock)
+		free(db->sock);
+	printf("free blacklist\n");
+	if (db->blacklist)
+	{
+		while(db->blacklist[i])
+		{
+			printf("free blacklist[%i]\n", i);
+			free(db->blacklist[i]);
+			i++;
+		}
+		free(db->blacklist);
+	}
+	printf("free db\n");
+	free(db);
+}
+
+// проверяем валидность айпи форвардера
 static int	valid_forwarder(t_db *db)
 {
 	int i;
@@ -54,33 +85,28 @@ static int	valid_forwarder(t_db *db)
 	return (0);
 }
 
-// зафришить все, что существует в структуре и саму структуру
-void		free_db(t_db *db)
+static int	valid_url(t_db *db)
 {
-	int i;
+	char	rfc3986[] = ":/?#[]@!$&'()*+,;= ";
+	int		i;
+	int		j;
 
 	i = 0;
-	printf("free forwarder\n");
-	if (db->forwarder)
-		free(db->forwarder);
-	printf("free listen\n");
-	if (db->listen)
-		free(db->listen);
-	printf("free sock\n");
-	if (db->sock)
-		free(db->sock);
-	printf("free blacklist\n");
-	if (db->blacklist)
+	while(db->blacklist[i])
 	{
-		while(db->blacklist[i])
+		j = 0;
+		while (db->blacklist[i][j])
 		{
-			free(db->blacklist);
-			i++;
+			if (strchr(rfc3986, db->blacklist[i][j]))
+			{
+				printf("[!] Error: invalaid charcters in domain name\n");
+				return (1);
+			}
+			j++;
 		}
-		free(db->blacklist);
+		i++;
 	}
-	printf("free db\n");
-	free(db);
+	return (0);
 }
 
 int			read_config(t_db *db)
@@ -114,8 +140,8 @@ int			read_config(t_db *db)
 	db->blacklist = ft_strsplit(str, 10);
 
 	//если URL не валидные - вернуть 0 (ошибка)
-	// if (valid_url(db))
-	// 	return (0);
+	if (valid_url(db))
+		return (0);
 
 	replace_dot(db);
 	return (1);
