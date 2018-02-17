@@ -27,6 +27,7 @@ int				main(int argc, char **argv)
 	}
 	else
 	{
+		//сборщик мусора
 		free_db(db);
 		exit(1);
 	}
