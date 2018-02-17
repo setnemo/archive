@@ -3,14 +3,32 @@
 #include "support_func.h"
 
 // выводим ошибку ерно и завершаем выполнение программы
-void 	error(char *err)
+void 		error(char *err)
 {
 	perror(err);
 	exit(1);
 }
 
+//аналог strstr() - только для пакета запроса. Ищем совпадение
+static int	dns_memcmp(char *s1, char *s2, int len1, int len2)
+{
+	int i;
+
+	i = 0;
+	while (i < len1)
+	{
+		if (s1[i] == *s2)
+		{
+			if (memcmp(&s1[i], s2, len2) == 0)
+				return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 //сравниваем запрос со своим черным списком
-int			check_blacklist(char *buffer, t_db *db)
+int			check_blacklist(char *buffer, t_db *db, int buflen)
 {
 	int a;
 
@@ -18,7 +36,7 @@ int			check_blacklist(char *buffer, t_db *db)
 	while (db->blacklist[a])
 	{
 		// в запросе, который сохранен в буфер - адрес сайта начинается с 13 байта		
-		if (memcmp(buffer + 13, db->blacklist[a], strlen(db->blacklist[a])) == 0)
+		if (dns_memcmp(buffer, db->blacklist[a], buflen, strlen(db->blacklist[a])))
 			return (1);
 		a++;
 	}

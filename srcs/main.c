@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include <strings.h>
 #include "read_config.h"
 #include "dns.h"
 
@@ -8,7 +9,9 @@ int				main(int argc, char **argv)
 	t_db	*db;
 
 	if (argc)
+	{
 		;
+	}
 	db = (t_db*)malloc(sizeof(t_db));
 	bzero(db, sizeof(t_db));
 	db->config = argv[1];
@@ -24,13 +27,13 @@ int				main(int argc, char **argv)
 	}
 
 	// проверяем рут (для чтения 53 порта нужен рут)
-	// if (getuid() != 0)
-	// {
-	// 	printf("[!] Error: this program must be run as root! Quitting\n");
-	// 	exit(1);
-	// }
+	if (getuid() != 0)
+	{
+		printf("[!] Error: this program must be run as root! Quitting\n");
+		exit(1);
+	}
 
 	// запускаем днс прокси
-	// start_dns(db);
+	start_dns(db);
     return (0);
 }

@@ -10,7 +10,7 @@
 #                                                                              #
 #******************************************************************************#
 NAME = sdb
-FLAGS = -Wall -Wextra -Werror -std=c99
+FLAGS = -Wall -Wextra -std=c99 -o3
 
 SRC_NAME =	main.c\
 			read_config.c\

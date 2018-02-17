@@ -96,9 +96,9 @@ static int	valid_url(t_db *db)
 	{
 		j = 0;
 		// проверяем, что первый символ не '-'
-		if (db->blacklist[i][j] == '-')
+		if (db->blacklist[i][j] == '-' || db->blacklist[i][j] == '.' )
 		{
-			printf("[!] Error: first charcter in domain name is '-'\n");
+			printf("[!] Error: incorrect first charcter in domain name\n");
 			return (1);
 		}
 		if (strlen(db->blacklist[i]) > 63)
@@ -117,7 +117,7 @@ static int	valid_url(t_db *db)
 			//проверяем, что перед окончанием нет символа '-'
 			if (db->blacklist[i][j + 1] != 0 && db->blacklist[i][j + 1] == '.' && db->blacklist[i][j] == '-')
 			{
-				printf("[!] Error: last charcter in word is '-'\n");
+				printf("[!] Error: incorrect last charcter in domain name\n");
 				return (1);
 			}
 			j++;

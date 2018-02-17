@@ -1,6 +1,7 @@
 
 #include "get_next_line.h"
 #include "support_func.h"
+#include <string.h>
 
 static t_gnl	*while_gnl(int fd)
 {
