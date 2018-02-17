@@ -1,15 +1,26 @@
 
 #include "dns.h"
 #include "support_func.h"
+#define GOTOIP 15 //15 байт с конца пакета - чтобы перейти к IP в блоке Answer в днс запросе 
+
+//подменяем айпи
+static void		believeme(t_buff *buffer)
+{
+	unsigned char host[4];
+	unsigned char *pointer;
+
+	host[0] = 127;
+	host[1] = 0;
+	host[2] = 0;
+	host[3] = 1;
+	pointer = &buffer->buffer[buffer->length - GOTOIP];
+	memcpy(pointer, host, 4);
+}
  
-static int		check_malformed(t_buff *buffer)
+static void		check_malformed(t_buff *buffer)
 {
 	if (buffer->buffer[3] != 128) // проверяем флаги (128 это 1000 0000)
-	{
 		printf("[!] Query response Ox%x%x --malformed (drop)\n", buffer->buffer[0], buffer->buffer[1]);
-		return (1);
-	}
-	return (0);
 }
 
 static void		udp(t_buff *buffer, int len, t_db *db)
@@ -69,15 +80,17 @@ static void	listen_socket(t_db *db) {
 		{
 			//спрашиваем у форвардера
 			udp(buffer, len, db);
-			//если вернулся битый пакет - цикл заново(так как протокол UDP)
-			if (check_malformed(buffer))
-				continue;
-			//если с пакетом все ок - отслыаем назад клиенту
+			//если вернулся битый пакет - сообщим себе, что был битый пакет
+			check_malformed(buffer);
+			//подменяем IP на 127.0.0.1
+			believeme(buffer);
 			sendto(sock, buffer->buffer, buffer->length, 0, (struct sockaddr *)&client, sizeof(client));
 		}
 		else
 		{
 			udp(buffer, len, db);
+			//если вернулся битый пакет - сообщим себе, что был битый пакет
+			check_malformed(buffer);
 			sendto(sock, buffer->buffer, buffer->length, 0, (struct sockaddr *)&client, sizeof(client));
 		}
 		free(buffer->buffer);
