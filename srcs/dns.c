@@ -1,6 +1,16 @@
 
 #include "dns.h"
 #include "support_func.h"
+ 
+static int		check_malformed(t_buff *buffer)
+{
+	if (buffer->buffer[3] != 128) // проверяем флаги (128 это 1000 0000)
+	{
+		printf("[!] Query response Ox%x%x --malformed (drop)\n", buffer->buffer[2], buffer->buffer[1]);
+		return (1);
+	}
+	return (0);
+}
 
 static void		udp(t_buff *buffer, int len, t_db *db)
 {
@@ -25,7 +35,6 @@ static void		udp(t_buff *buffer, int len, t_db *db)
 static void	listen_socket(t_db *db) {
 	int					sock;
 	char				len;
-	char				*query;
 	struct sockaddr_in	listener;
 	struct sockaddr_in	client;
 
@@ -46,7 +55,7 @@ static void	listen_socket(t_db *db) {
 	// daemonize the process.
 	// if(fork() != 0) { exit(0); }
 	// if(fork() != 0) { exit(0); }
-	
+
 	socklen_t client_size = sizeof(struct sockaddr_in);
 	while(1)
 	{
@@ -55,15 +64,13 @@ static void	listen_socket(t_db *db) {
 			continue;
 		if (fork() != 0)
 			continue;
-		query = malloc(len);
+		// если пришел битый пакет - отправить его назад клиенту
 		if ((check_blacklist(buffer->buffer, db, len)))
 		{
 			udp(buffer, len, db);
-			for(int j = 0; j < buffer->length; j++)
-			{
-				printf("%x ", buffer->buffer[j]);
-			}
-			printf("\n");
+			//если вернулся битый пакет - цикл заново(так как протокол UDP)
+			if (check_malformed(buffer))
+				continue;
 			sendto(sock, buffer->buffer, buffer->length, 0, (struct sockaddr *)&client, sizeof(client));
 		}
 		else
@@ -72,7 +79,6 @@ static void	listen_socket(t_db *db) {
 			sendto(sock, buffer->buffer, buffer->length, 0, (struct sockaddr *)&client, sizeof(client));
 		}
 		free(buffer->buffer);
-		free(query);
 		exit(0);
 	}
 }
