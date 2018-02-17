@@ -14,7 +14,7 @@
 void		error(char *err);
 
 //сравниваем запрос со своим черным списком
-int			check_blacklist(char *buffer, t_db *db);
+int			check_blacklist(unsigned char *buffer, t_db *db, int buflen);
 
 //заменяем точки на количество байт после точки, чтобы во время проверка сравнивать через memcmp
 void		replace_dot(t_db *db);

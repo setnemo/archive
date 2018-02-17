@@ -10,7 +10,7 @@ void 		error(char *err)
 }
 
 //аналог strstr() - только для пакета запроса. Ищем совпадение
-static int	dns_memcmp(char *s1, char *s2, int len1, int len2)
+static int	dns_memcmp(unsigned char *s1, char *s2, int len1, int len2)
 {
 	int i;
 
@@ -28,7 +28,7 @@ static int	dns_memcmp(char *s1, char *s2, int len1, int len2)
 }
 
 //сравниваем запрос со своим черным списком
-int			check_blacklist(char *buffer, t_db *db, int buflen)
+int			check_blacklist(unsigned char *buffer, t_db *db, int buflen)
 {
 	int a;
 

@@ -26,8 +26,11 @@ typedef	struct		s_db
 }					t_db;
 
 typedef struct		s_buff{
-	char 			*buffer;
+	unsigned char	*buffer;
 	int				length;
 }					t_buff;
+
+
+void		start_dns(t_db *db);
 
 #endif

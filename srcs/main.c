@@ -1,6 +1,5 @@
 
 #include <stdio.h>
-#include <strings.h>
 #include "read_config.h"
 #include "dns.h"
 
@@ -8,13 +7,19 @@ int				main(int argc, char **argv)
 {
 	t_db	*db;
 
-	if (argc)
-	{
-		;
-	}
 	db = (t_db*)malloc(sizeof(t_db));
-	bzero(db, sizeof(t_db));
-	db->config = argv[1];
+	memset(db, 0, sizeof(t_db));
+	if (argc == 1)
+		db->config = "config.txt";
+	else if (argc == 2)
+		db->config = argv[1];
+	else
+	{
+		printf("[!] Error: Too many arguments\n");
+		printf("[*] usage: %s                       --run with config.txt\n", argv[0]);
+		printf("[*]        %s [path_to_config_file] --run with your config file\n", argv[0]);
+		exit(1);
+	}
 	// проверяем чтение файла, если ошибка - зафришить и выйти
 	if (read_config(db))
 	{
