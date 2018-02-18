@@ -11,36 +11,37 @@
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <stdio.h>
 
 static void		write_dot2(t_map *lines, int a, int *count, t_mlx *data)
 {
 	if (a + 1 < data->how_x)
 	{
-		lines->px1 = (a + 1) * 1.0;
-		lines->py1 = *count * 1.0;
+		lines->px1 = (a + 1);
+		lines->py1 =  *count;
 	}
 	else
 	{
-		lines->px1 = 0;
-		lines->py1 = 0;
+		lines->px1 =  0;
+		lines->py1 =  0;
 	}
 	if ((*count) + 1 < data->how_y)
 	{
-		lines->px2 = a * 1.0;
-		lines->py2 = ((*count) + 1)* 1.0;
+		lines->px2 =  a;
+		lines->py2 =  (*count) + 1;
 	}
 	else
 	{
-		lines->px2 = 0;
-		lines->py2 = 0;
+		lines->px2 =  0;
+		lines->py2 =  0;
 	}
 }
 
 static void		write_dot1(t_map *lines, int a, int *count, t_mlx *data)
 {
-	lines->px = a * 1.0;
-	lines->py = *count * 1.0;
-	lines->pz = (ft_atoi(&data->map[a][data->iter]))* 1.0;
+	lines->px =  a;
+	lines->py = *count;
+	lines->pz =  (ft_atoi(&data->map[a][data->iter]));
 	(*count)++;
 	if (data->map[a][data->iter] == '-')
 		data->iter++;
@@ -112,18 +113,18 @@ int				create_fdf_map(t_mlx *data, int a)
 		}
 		a++;
 	}
-	lines = data->line;
-	int i = 1;
-	while (lines)
-	{
-		ft_printf(":ШШШ:lines->px lines->py lines->px1 lines->py1 lines->px2 lines->py2 lines->pz lines->pc\n");
-		ft_printf(" %f         %f         %f       %f         %f         %f          %f        %f        %f\n",i, lines->px, lines->py,lines->px1, lines->py1,lines->px2, lines->py2,lines->pz,lines->pc);
-		if (lines->next)
-			lines = lines->next;
-		else
-			break ;
-		i++;
-	}
+	// lines = data->line;
+	// int i = 1;
+	// while (lines)
+	// {
+	// 	ft_printf(":ШШШ:lines->px lines->py lines->px1 lines->py1 lines->px2 lines->py2 lines->pz lines->pc\n");
+	// 	printf(" %i         %f         %f       %f         %f         %f          %f        %f        %lu\n",i, lines->px, lines->py,lines->px1, lines->py1,lines->px2, lines->py2,lines->pz,lines->pc);
+	// 	if (lines->next)
+	// 		lines = lines->next;
+	// 	else
+	// 		break ;
+	// 	i++;
+	// }
 	// free_data(data, 0);
 
 	// ft_printf("::::data->how_x = '%i'\n", data->how_x);
