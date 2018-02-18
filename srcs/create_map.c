@@ -49,7 +49,8 @@ static void		create_lines(t_mlx *data, t_map *lines, int a, int count)
 		}
 		else
 			lines->next = NULL;
-		i++;
+		if (data->map[a][i] != 0)
+			i++;
 	}
 }
 
