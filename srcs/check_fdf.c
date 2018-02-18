@@ -21,14 +21,14 @@ static int		check_fdf_str(char *str)
 
 	i = 0;
 	count = 0;
-	while (str[i])
+	while (str[i] != 0)
 	{
 		if (ft_isdigit(str[i]) || (str[i] == '-' && ft_isdigit(str[i + 1])))
 		{
 			if (str[i] == '-')
 				i++;
 			count++;
-			while (str[i] && ft_isdigit(str[i]))
+			while (str[i] && ft_isdigit(str[i]) )
 				i++;
 		}
 		if (str[i] == ',')
@@ -37,7 +37,8 @@ static int		check_fdf_str(char *str)
 			while (str[i] && ft_check_hex_char(str[i]))
 				i++;
 		}
-		i++;
+		if (str[i] != 0)
+			i++;
 	}
 	return (count);
 }
@@ -49,6 +50,7 @@ static int		check_fdf_map(t_mlx *data)
 	int nextcount;
 
 	a = 0;
+	count = 0;
 	data->map = ft_strsplit(data->str, 10);
 	nextcount = check_fdf_str(data->map[a]);
 	while (data->map[a])
@@ -102,7 +104,7 @@ static int		check_argc(t_mlx *data, char **argv, int flag)
 			data->window = ft_atoi(argv[2]);
 		else
 		{
-			free_data(data);
+			free_data(data, 0);
 			ft_printf("%s: ERROR! Bad window size!\n", argv[0]);
 			return (0);
 		}
@@ -113,7 +115,7 @@ static int		check_argc(t_mlx *data, char **argv, int flag)
 			data->fill = ft_hex_to_ul(&argv[3][2]);
 		else
 		{
-			free_data(data);
+			free_data(data, 0);
 			ft_printf("%s: ERROR! Bad fill color! '0x'/'0X' hex\n", argv[0]);
 			return (0);
 		}
@@ -125,7 +127,7 @@ int				check_flags(t_mlx *data, int argc, char **argv)
 {
 	if ((valid_fdf_map(data, argc, argv)))
 	{
-		free_data(data);
+		free_data(data, 0);
 		ft_printf("%s: ERROR! Bad map!\n", argv[0]);
 		return (0);
 	}
@@ -137,7 +139,7 @@ int				check_flags(t_mlx *data, int argc, char **argv)
 			return (0);
 	if (argc > 4)
 	{
-		free_data(data);
+		free_data(data, 0);
 		ft_printf("%s: ERROR! Too many arguments!\n", argv[0]);
 		system("leaks -quiet fdf");
 		return (0);

@@ -13,11 +13,25 @@
 #include "fdf.h"
 #define ARGSP "[map_path] [size_window] [color]"
 
-void			free_data(t_mlx *data)
+static void		free_map(t_map *lines)
 {
-	int a;
+	t_map *temp;
 
-	a = 0;
+	while (lines)
+	{
+		if (lines->next)
+		{
+			temp = lines;
+			lines = lines->next;
+			free(temp);
+		}
+		else
+			free(lines);
+	}
+	
+}
+void			free_data(t_mlx *data, int a)
+{
 	if (data->str)
 		ft_strdel(&data->str);
 	if (data->map)
@@ -29,6 +43,8 @@ void			free_data(t_mlx *data)
 		}
 		free(data->map);
 	}
+	if (data->line)
+		free_map(data->line);
 	free(data);
 }
 

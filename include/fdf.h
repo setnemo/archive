@@ -42,10 +42,11 @@ typedef struct		s_mlx
 	char			**map;
 	int				how_x;
 	int				how_y;
+	int				iter;
 	struct s_map	*line;
 }					t_mlx;
 
-void				free_data(t_mlx *data);
+void				free_data(t_mlx *data, int a);
 
 int					check_flags(t_mlx *data, int argc, char **argv);
 

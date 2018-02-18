@@ -85,8 +85,8 @@ int				create_fdf_map(t_mlx *data)
 			lines->next = NULL;
 		a++;
 	}
-	// lines = data->line;
-	// int i = 1;
+	lines = data->line;
+	int i = 1;
 	// while (lines)
 	// {
 	// 	ft_printf(":%i:lines->px1 = '%i'\n",i, lines->px1);
@@ -96,6 +96,13 @@ int				create_fdf_map(t_mlx *data)
 	// 	lines = lines->next;
 	// 	i++;
 	// }
+	while (lines)
+	{
+		ft_printf(":ШШШ:lines->px1 lines->py1 lines->pz lines->pc\n");
+		ft_printf(" %i         %i         %i         %i        %i\n",i, lines->px1, lines->py1,lines->pz,lines->pc);
+		lines = lines->next;
+		i++;
+	}
 	// ft_printf("::::data->how_x = '%i'\n", data->how_x);
 	// ft_printf("::::data->how_y = '%i'\n", data->how_y);
 	// for (int i = 0; i < 10; i++)
