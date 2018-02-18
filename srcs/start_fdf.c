@@ -18,12 +18,6 @@ static void			for_brz2(int *deltax, int *deltay, t_map *lines)
 	*deltay = fabsf(lines->py2 - lines->py);
 }
 
-static void			for_brz1(int *deltax, int *deltay, t_map *lines)
-{
-	*deltax = fabsf(lines->px1 - lines->px);
-	*deltay = fabsf(lines->py1 - lines->py);
-}
-
 static void			brz2(t_mlx *data, t_map *lines, int error, int error2)
 {
 	int deltax;
@@ -51,6 +45,12 @@ static void			brz2(t_mlx *data, t_map *lines, int error, int error2)
 			lines->py += signy;
 		}
 	}
+}
+
+static void			for_brz1(int *deltax, int *deltay, t_map *lines)
+{
+	*deltax = fabsf(lines->px1 - lines->px);
+	*deltay = fabsf(lines->py1 - lines->py);
 }
 
 static void			brz1(t_mlx *data, t_map *lines, int error, int error2)
@@ -89,8 +89,8 @@ static void			move_to_center(t_mlx *data)
 	t_map	*lines;
 
 	lines = data->line;
-	ratex = (data->window - (data->window / 3)) / data->how_x;
-	ratey = (data->window - (data->window / 3)) / data->how_y;
+	ratex = (data->window - (data->window / 5)) / data->how_x;
+	ratey = (data->window - (data->window / 5)) / data->how_y;
 	while (lines)
 	{
 		lines->px *= ratex;
@@ -99,6 +99,22 @@ static void			move_to_center(t_mlx *data)
 		lines->py1 *= ratey;
 		lines->px2 *= ratex;
 		lines->py2 *= ratey;
+		if (lines->next)
+			lines = lines->next;
+		else
+			break ;
+	}
+	lines = data->line;
+	ratex = data->window / data->how_x;
+	ratey = data->window / data->how_y;
+	while (lines)
+	{
+		lines->px += ratex;
+		lines->py += ratey;
+		lines->px1 += ratex;
+		lines->py1 += ratey;
+		lines->px2 += ratex;
+		lines->py2 += ratey;
 		if (lines->next)
 			lines = lines->next;
 		else
