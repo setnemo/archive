@@ -19,7 +19,18 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-typedef struct	s_mlx
+typedef struct		s_map
+{
+	int				px1;
+	int				py1;
+	int				px2;
+	int				py2;
+	int				pz;
+	unsigned long	pc;
+	struct s_map	*next;
+}					t_map;
+
+typedef struct		s_mlx
 {
 	void			*mlx;
 	void			*win;
@@ -29,10 +40,15 @@ typedef struct	s_mlx
 	int				ret;
 	char			*str;
 	char			**map;
-}				t_mlx;
+	int				how_x;
+	int				how_y;
+	struct s_map	*line;
+}					t_mlx;
 
-void			free_data(t_mlx *data);
-int				create_fdf_map(t_mlx *data);
-int				check_fdf_map(t_mlx *data);
+void				free_data(t_mlx *data);
+
+int					check_flags(t_mlx *data, int argc, char **argv);
+
+int					create_fdf_map(t_mlx *data);
 
 #endif
