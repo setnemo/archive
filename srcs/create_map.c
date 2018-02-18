@@ -15,26 +15,24 @@
 
 static void		write_dot2(t_map *lines, int a, int *count, t_mlx *data)
 {
-	if (a + 1 < data->how_x)
+	if (a + 1 < data->how_x && *count + 1 < data->how_y)
 	{
-		lines->px1 = a + 1;
-		lines->py1 = *count;
+		lines->px1 = a;
+		lines->py1 = *count + 1;
 		lines->flag1 = 1;
-	}
-	else
-	{
-		lines->flag1 = 1;
-		lines->px1 = a - 1;
-		lines->py1 = *count;
-	}
-	if (*count + 1 < data->how_y && a + 1 < data->how_x)
-	{
 		lines->flag2 = 1;
 		lines->px2 = a + 1;
-		lines->py2 = (*count) + 1;
+		lines->py2 = *count + 1;
 	}
 	else
-		lines->flag2 = 0;
+	{
+		lines->flag1 = 1;
+		lines->px1 = a;
+		lines->py1 = 0;
+		lines->flag2 = 1;
+		lines->px2 = *count;
+		lines->py2 = 0;
+	}
 	// if (a == 0 && *count == 0)
 	// {
 	// 	lines->flag2 = 1;

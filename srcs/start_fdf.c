@@ -105,8 +105,8 @@ static void			move_to_center(t_mlx *data)
 			break ;
 	}
 	lines = data->line;
-	ratex = data->window / data->how_x;
-	ratey = data->window / data->how_y;
+	ratex = (data->window / data->how_x)/3;
+	ratey = (data->window / data->how_y)/3;
 	while (lines)
 	{
 		lines->px += ratex;

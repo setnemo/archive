@@ -11,8 +11,7 @@
 #******************************************************************************#
 
 NAME = libft.a
-FLAGS = 
-#-Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 DIR_S = src
 DIR_O = temp
 HEADER = include
@@ -104,8 +103,8 @@ SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
 
-ifeq ($(TARGETOS), Linux)
-	FLAGS = 
+ifneq ($(TARGETOS), Linux)
+	FLAGS =
 endif
 
 all: $(NAME)
@@ -118,7 +117,7 @@ $(NAME): $(OBJS)
 $(DIR_O)/%.o: $(DIR_S)/%.c
 	@mkdir -p temp
 	@echo "## MAKELIB: LINKING" [ $@ ] " ###"
-	@gcc $(FLAGS) -I./$(HEADER) -o $@ -c $<
+	@gcc $(FLAGS) -I./$(HEADER)  -lm -o $@ -c $<
 
 clean:
 	@rm -f $(OBJS)

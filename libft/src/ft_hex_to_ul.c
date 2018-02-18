@@ -13,6 +13,19 @@
 #include "libft.h"
 #include <math.h>
 
+static int		ft_pow(int x, unsigned int y)
+{
+	int temp;
+
+	if (y == 0)
+		return (1);
+	temp = ft_pow(x, y / 2);
+	if (y % 2 == 0)
+		return (temp * temp);
+	else
+		return (x * temp * temp);
+}
+
 unsigned long	ft_hex_to_ul(char *str)
 {
 	int				length;
@@ -27,11 +40,11 @@ unsigned long	ft_hex_to_ul(char *str)
 	while (i < length)
 	{
 		if (*str >= 48 && *str <= 57)
-			decnum += (((int)(*str)) - 48) * pow(16, length - i - 1);
+			decnum += (((int)(*str)) - 48) * ft_pow(16, length - i - 1);
 		else if ((*str >= 65 && *str <= 70))
-			decnum += (((int)(*str)) - 55) * pow(16, length - i - 1);
+			decnum += (((int)(*str)) - 55) * ft_pow(16, length - i - 1);
 		else if (*str >= 97 && *str <= 102)
-			decnum += (((int)(*str)) - 87) * pow(16, length - i - 1);
+			decnum += (((int)(*str)) - 87) * ft_pow(16, length - i - 1);
 		i++;
 		str++;
 	}
