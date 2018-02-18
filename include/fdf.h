@@ -21,11 +21,13 @@
 
 typedef struct		s_map
 {
-	int				px1;
-	int				py1;
-	int				px2;
-	int				py2;
-	int				pz;
+	float			px;
+	float			py;
+	float			px1;
+	float			py1;
+	float			px2;
+	float			py2;
+	float			pz;
 	unsigned long	pc;
 	struct s_map	*next;
 }					t_map;
@@ -51,5 +53,7 @@ void				free_data(t_mlx *data, int a);
 int					check_flags(t_mlx *data, int argc, char **argv);
 
 int					create_fdf_map(t_mlx *data, int a);
+
+void				start_fdf(t_mlx *data);
 
 #endif

@@ -106,10 +106,10 @@ static int		check_argc(t_mlx *data, char **argv, int flag)
 		{
 			free_data(data, 0);
 			ft_printf("%s: ERROR! Bad window size!\n", argv[0]);
-			return (0);
+			return (1);
 		}
 	}
-	else
+	else if (flag == 3)
 	{
 		if (argv[3] != NULL && CHKAR1 && ft_check_hex(&argv[3][2]) && CHKAR2)
 			data->fill = ft_hex_to_ul(&argv[3][2]);
@@ -117,10 +117,10 @@ static int		check_argc(t_mlx *data, char **argv, int flag)
 		{
 			free_data(data, 0);
 			ft_printf("%s: ERROR! Bad fill color! '0x'/'0X' hex\n", argv[0]);
-			return (0);
+			return (1);
 		}
 	}
-	return (1);
+	return (0);
 }
 
 int				check_flags(t_mlx *data, int argc, char **argv)
@@ -129,20 +129,20 @@ int				check_flags(t_mlx *data, int argc, char **argv)
 	{
 		free_data(data, 0);
 		ft_printf("%s: ERROR! Bad map!\n", argv[0]);
-		return (0);
+		return (1);
 	}
 	if (argc > 2)
-		if (check_argc(data, argv, 2) == 0)
-			return (0);
+		if (check_argc(data, argv, 2))
+			return (1);
 	if (argc > 3)
-		if (check_argc(data, argv, 3) == 0)
-			return (0);
+		if (check_argc(data, argv, 3))
+			return (1);
 	if (argc > 4)
 	{
 		free_data(data, 0);
 		ft_printf("%s: ERROR! Too many arguments!\n", argv[0]);
 		system("leaks -quiet fdf");
-		return (0);
+		return (1);
 	}
-	return (1);
+	return (0);
 }

@@ -31,8 +31,8 @@ static void		free_map(t_map *lines)
 			lines = NULL;
 		}
 	}
-	
 }
+
 void			free_data(t_mlx *data, int a)
 {
 	if (data->str)
@@ -66,12 +66,18 @@ int				main(int argc, char **argv)
 		data->str = ft_strnew(0);
 		data->fill = 0xFFFFFF;
 		if ((check_flags(data, argc, argv)))
+		{
+			system("leaks -quiet fdf");
 			exit(1);
+		}
 	}
 	else
 	{
 		ft_printf("usage: %s: %s\n", argv[0], ARGSP);
 		exit(1);
 	}
+	start_fdf(data);
+	free_data(data, 0);
+	system("leaks -quiet fdf");
 	return (0);
 }
