@@ -29,6 +29,8 @@ typedef struct		s_map
 	float			py2;
 	float			pz;
 	unsigned long	pc;
+	int				flag1;
+	int				flag2;
 	struct s_map	*next;
 }					t_map;
 

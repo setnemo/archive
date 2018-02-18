@@ -17,31 +17,35 @@ static void		write_dot2(t_map *lines, int a, int *count, t_mlx *data)
 {
 	if (a + 1 < data->how_x)
 	{
-		lines->px1 = (a + 1);
-		lines->py1 =  *count;
+		lines->px1 = a + 1;
+		lines->py1 = *count;
+		lines->flag1 = 1;
 	}
 	else
 	{
-		lines->px1 =  0;
-		lines->py1 =  0;
+		lines->px1 = 0;
+		lines->py1 = 0;
+		lines->flag1 = 0;
 	}
-	if ((*count) + 1 < data->how_y)
+	if ((*count) + 1 < data->how_y && (a + 1 < data->how_x))
 	{
-		lines->px2 =  a;
-		lines->py2 =  (*count) + 1;
+		lines->flag2 = 1;
+		lines->px2 = a + 1;
+		lines->py2 = (*count) + 1;
 	}
 	else
 	{
-		lines->px2 =  0;
-		lines->py2 =  0;
+		lines->flag2 = 0;
+		lines->px2 = 0;
+		lines->py2 = 0;
 	}
 }
 
 static void		write_dot1(t_map *lines, int a, int *count, t_mlx *data)
 {
-	lines->px =  a;
+	lines->px = a;
 	lines->py = *count;
-	lines->pz =  (ft_atoi(&data->map[a][data->iter]));
+	lines->pz = (ft_atoi(&data->map[a][data->iter]));
 	(*count)++;
 	if (data->map[a][data->iter] == '-')
 		data->iter++;
@@ -113,6 +117,9 @@ int				create_fdf_map(t_mlx *data, int a)
 		}
 		a++;
 	}
+
+	return (0);
+}
 	// lines = data->line;
 	// int i = 1;
 	// while (lines)
@@ -131,8 +138,6 @@ int				create_fdf_map(t_mlx *data, int a)
 	// ft_printf("::::data->how_y = '%i'\n", data->how_y);
 	// for (int i = 0; i < 10; i++)
 	// 	ft_printf("%s\n", data->map[i]);
-	return (0);
-}
 
 	// while (lines)
 	// {
