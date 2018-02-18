@@ -26,7 +26,10 @@ static void		free_map(t_map *lines)
 			free(temp);
 		}
 		else
+		{
 			free(lines);
+			lines = NULL;
+		}
 	}
 	
 }
