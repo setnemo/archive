@@ -12,75 +12,141 @@
 
 #include "fdf.h"
 #include <stdio.h>
-static void			for_brz2(int *deltax, int *deltay, t_map *lines)
+
+int ft_abs(int x)
 {
-	*deltax = fabsf(lines->px2 - lines->px);
-	*deltay = fabsf(lines->py2 - lines->py);
+	if (x < 0)
+		return (-x);
+	else
+		return (x);
 }
 
 static void			brz2(t_mlx *data, t_map *lines, int error, int error2)
 {
-	int deltax;
-	int deltay;
-	int signx;
-	int signy;
+	if (error2 | error)
+		;
+	int xi = lines->py;
+	int yi = lines->px;
+	int xf = lines->py2;
+	int yf = lines->px2;
+	int dx;
+	int dy;
+	int i;
+	int xinc;
+	int yinc;
+	int cumul;
+	int x;
+	int y;
 
-	for_brz2(&deltax, &deltay, lines);
-	signx = lines->px < lines->px2 ? 1 : -1;
-	signy = lines->py < lines->py2 ? 1 : -1;
-	error = deltax - deltay;
-	mlx_pixel_put(data->mlx, data->win, lines->px2, lines->py2, lines->pc);
-	while(lines->px != lines->px2 || lines->py != lines->py2) 
+	x = xi;
+	y = yi;
+	dx = xf - xi;
+	dy = yf - yi;
+	xinc = ( dx > 0 ) ? 1 : -1;
+	yinc = ( dy > 0 ) ? 1 : -1;
+	dx = ft_abs(dx);
+	dy = ft_abs(dy);
+	mlx_pixel_put(data->mlx, data->win, x, y, lines->pc);
+	if ( dx > dy )
 	{
-		mlx_pixel_put(data->mlx, data->win, lines->px, lines->py, lines->pc);
-		error2 = error * 2;
-		if(error2 > -deltay) 
+		cumul = (dx / 2);
+		i = 1;
+		while (i <= dx)
 		{
-			error -= deltay;
-			lines->px += signx;
+			x += xinc;
+			cumul += dy;
+			i++;
+			if (cumul >= dx)
+			{
+				cumul -= dx;
+				y += yinc;
+			}
+			mlx_pixel_put(data->mlx, data->win, x, y, lines->pc);
 		}
-		if(error2 < deltax) 
+	}
+	else
+	{
+		cumul = dy / 2;
+		i = 1;
+		while (i <= dy)
 		{
-			error += deltax;
-			lines->py += signy;
+			y += yinc ;
+			cumul += dx;
+			if ( cumul >= dy)
+			{
+				cumul -= dy;
+				x += xinc;
+			}
+			mlx_pixel_put(data->mlx, data->win, x, y, lines->pc);
+			i++;
 		}
 	}
 }
 
-static void			for_brz1(int *deltax, int *deltay, t_map *lines)
-{
-	*deltax = fabsf(lines->px1 - lines->px);
-	*deltay = fabsf(lines->py1 - lines->py);
-}
 
 static void			brz1(t_mlx *data, t_map *lines, int error, int error2)
 {
-	int deltax;
-	int deltay;
-	int signx;
-	int signy;
+	if (error2 | error)
+		;
+	int xi = lines->py;
+	int yi = lines->px;
+	int xf = lines->py1;
+	int yf = lines->px1;
+	int dx;
+	int dy;
+	int i;
+	int xinc;
+	int yinc;
+	int cumul;
+	int x;
+	int y;
 
-	for_brz1(&deltax, &deltay, lines);
-	signx = lines->px < lines->px1 ? 1 : -1;
-	signy = lines->py < lines->py1 ? 1 : -1;
-	error = deltax - deltay;
-	mlx_pixel_put(data->mlx, data->win, lines->px1, lines->py1, lines->pc);
-	while(lines->px != lines->px1 || lines->py != lines->py1) 
+	x = xi;
+	y = yi;
+	dx = xf - xi;
+	dy = yf - yi;
+	xinc = ( dx > 0 ) ? 1 : -1;
+	yinc = ( dy > 0 ) ? 1 : -1;
+	dx = ft_abs(dx);
+	dy = ft_abs(dy);
+	mlx_pixel_put(data->mlx, data->win, x, y, lines->pc);
+	if ( dx > dy )
 	{
-		mlx_pixel_put(data->mlx, data->win, lines->px, lines->py, lines->pc);
-		error2 = error * 2;
-		if(error2 > -deltay) 
+		cumul = (dx / 2);
+		i = 1;
+		while (i <= dx)
 		{
-			error -= deltay;
-			lines->px += signx;
+			x += xinc;
+			cumul += dy;
+			i++;
+			if (cumul >= dx)
+			{
+				cumul -= dx;
+				y += yinc;
+			}
+			mlx_pixel_put(data->mlx, data->win, x, y, lines->pc);
 		}
-		if(error2 < deltax) 
+	}
+	else
+	{
+		cumul = dy / 2;
+		i = 1;
+		while (i <= dy)
 		{
-			error += deltax;
-			lines->py += signy;
+			y += yinc ;
+			cumul += dx;
+			if ( cumul >= dy)
+			{
+				cumul -= dy;
+				x += xinc;
+			}
+			mlx_pixel_put(data->mlx, data->win, x, y, lines->pc);
+			i++;
 		}
 	}
 }
+
+
 
 static void			move_to_center(t_mlx *data)
 {
@@ -131,27 +197,30 @@ void				start_fdf(t_mlx *data)
 	int i = 1;
 	while (lines)
 	{
+		lines->pc = data->fill;
+//		if (lines->flag1 == 1)
+			brz1(data, lines, 0, 0);
+//		if (lines->flag2 == 1)
+			brz2(data, lines, 0, 0);
+		printf("\n........lines->flag1 == |%i| lines->flag2 == |%i|\n\n", lines->flag1, lines->flag2);
 		ft_printf(":ШШШ:lines->px lines->py lines->px1 lines->py1 lines->px2 lines->py2 lines->pz lines->pc\n");
 		printf(" %i         %f         %f       %f         %f         %f          %f        %f        %lu\n",i, lines->px, lines->py,lines->px1, lines->py1,lines->px2, lines->py2,lines->pz,lines->pc);
-		if (lines->next)
-			lines = lines->next;
-		else
-			break ;
 		i++;
-	}
-	lines = data->line;
-	while (lines)
-	{
-		lines->pc = 0xFFFFFF;
-		if (lines->flag1)
-			brz1(data, lines, 0, 0);
-		if (lines->flag2)
-			brz2(data, lines, 0, 0);
 		if (lines->next)
 			lines = lines->next;
 		else
 			break ;
 	}
-	mlx_loop(data->mlx);
+		mlx_loop(data->mlx);
+	// lines = data->line;
+	// while (lines)
+	// {
+	// 	printf("lines\n");
+
+	// 	if (lines->next)
+	// 		lines = lines->next;
+	// 	else
+	// 		break ;
+	// }
 }
 

@@ -15,24 +15,28 @@
 
 static void		write_dot2(t_map *lines, int a, int *count, t_mlx *data)
 {
-	if (a + 1 < data->how_x && *count + 1 < data->how_y)
+	if (a + 1 < data->how_x)
+	{
+		lines->px1 = a + 1;
+		lines->py1 = *count;
+	}
+	else
 	{
 		lines->px1 = a;
-		lines->py1 = *count + 1;
-		lines->flag1 = 1;
-		lines->flag2 = 1;
-		lines->px2 = a + 1;
+		lines->py1 = *count;
+	}
+	if (*count + 1 < data->how_y)
+	{
+		lines->px2 = a;
 		lines->py2 = *count + 1;
 	}
 	else
 	{
-		lines->flag1 = 1;
-		lines->px1 = a;
-		lines->py1 = 0;
-		lines->flag2 = 1;
-		lines->px2 = *count;
-		lines->py2 = 0;
+		lines->px2 = a;
+		lines->py2 = *count;
 	}
+	printf("%i...%i ________data->flag1:%i ________data->flag2:%i \n", a, *count, lines->flag1, lines->flag2);
+		
 	// if (a == 0 && *count == 0)
 	// {
 	// 	lines->flag2 = 1;
@@ -67,7 +71,7 @@ static void		create_lines(t_mlx *data, t_map *lines, int a, int count)
 			while (data->map[a][data->iter] && ft_check_hex_char(data->map[a][data->iter]))
 				data->iter++;
 		}
-		if (count <= data->how_y - 1)
+		if (count < data->how_y)
 		{
 			lines->next = (t_map*)malloc(sizeof(t_map));
 			lines = lines->next;
@@ -98,15 +102,15 @@ int				create_fdf_map(t_mlx *data, int a)
 
 	data->line = (t_map*)malloc(sizeof(t_map));
 	lines = data->line;
-	ft_bzero(lines, sizeof(t_map));
+	ft_bzero(data->line, sizeof(t_map));
 	while (data->map[a])
 	{
-		if (a <= data->how_x - 1)
+		if (a < data->how_x)
 		{
 			data->iter = 0;
 			create_lines(data, lines, a, 0);
 			lines = while_lines(lines);
-			if (a < data->how_x - 1)
+			if (a < data->how_x)
 			{
 				lines->next = (t_map*)malloc(sizeof(t_map));
 				lines = lines->next;
