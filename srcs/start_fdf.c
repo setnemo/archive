@@ -21,102 +21,84 @@ int ft_abs(int x)
 		return (x);
 }
 
-static void			brz2(t_mlx *data, t_map *lines, int error, int error2)
+static void			brz2(t_mlx *data, t_map *lines, int i, int rate)
 {
-	if (error2 | error)
-		;
-	int xi = lines->py;
-	int yi = lines->px;
-	int xf = lines->py2;
-	int yf = lines->px2;
 	int dx;
 	int dy;
-	int i;
 	int xinc;
 	int yinc;
-	int cumul;
-	int x;
-	int y;
 
-	x = xi;
-	y = yi;
-	dx = xf - xi;
-	dy = yf - yi;
+	dx = lines->py2 - lines->py;
+	dy = lines->px2 - lines->px;
 	xinc = ( dx > 0 ) ? 1 : -1;
 	yinc = ( dy > 0 ) ? 1 : -1;
 	dx = ft_abs(dx);
 	dy = ft_abs(dy);
-	mlx_pixel_put(data->mlx, data->win, x, y, lines->pc);
+	mlx_pixel_put(data->mlx, data->win, lines->py, lines->px, lines->pc);
 	if ( dx > dy )
 	{
-		cumul = (dx / 2);
+		rate = (dx / 2);
 		i = 1;
 		while (i <= dx)
 		{
-			x += xinc;
-			cumul += dy;
+			lines->py += xinc;
+			rate += dy;
 			i++;
-			if (cumul >= dx)
+			if (rate >= dx)
 			{
-				cumul -= dx;
-				y += yinc;
+				rate -= dx;
+				lines->px += yinc;
 			}
-			mlx_pixel_put(data->mlx, data->win, x, y, lines->pc);
+			mlx_pixel_put(data->mlx, data->win, lines->py, lines->px, lines->pc);
 		}
 	}
 	else
 	{
-		cumul = dy / 2;
+		rate = dy / 2;
 		i = 1;
 		while (i <= dy)
 		{
-			y += yinc ;
-			cumul += dx;
-			if ( cumul >= dy)
+			lines->px += yinc ;
+			rate += dx;
+			if ( rate >= dy)
 			{
-				cumul -= dy;
-				x += xinc;
+				rate -= dy;
+				lines->py += xinc;
 			}
-			mlx_pixel_put(data->mlx, data->win, x, y, lines->pc);
+			mlx_pixel_put(data->mlx, data->win, lines->py, lines->px, lines->pc);
 			i++;
 		}
 	}
 }
 
 
-static void			brz1(t_mlx *data, t_map *lines, int error, int error2)
+static void			brz1(t_mlx *data, t_map *lines, int i, int cumul)
 {
-	if (error2 | error)
-		;
-	int xi = lines->py;
+
 	int yi = lines->px;
 	int xf = lines->py1;
 	int yf = lines->px1;
 	int dx;
 	int dy;
-	int i;
 	int xinc;
 	int yinc;
-	int cumul;
-	int x;
 	int y;
 
-	x = xi;
 	y = yi;
-	dx = xf - xi;
+	dx = xf - lines->py;
 	dy = yf - yi;
 	xinc = ( dx > 0 ) ? 1 : -1;
 	yinc = ( dy > 0 ) ? 1 : -1;
 	dx = ft_abs(dx);
 	dy = ft_abs(dy);
-	mlx_pixel_put(data->mlx, data->win, x, y, lines->pc);
+	mlx_pixel_put(data->mlx, data->win, lines->py, y, lines->pc);
 	if ( dx > dy )
 	{
 		cumul = (dx / 2);
 		i = 1;
 		while (i <= dx)
 		{
-			x += xinc;
+			lines->py += xinc;
 			cumul += dy;
 			i++;
 			if (cumul >= dx)
@@ -124,7 +106,7 @@ static void			brz1(t_mlx *data, t_map *lines, int error, int error2)
 				cumul -= dx;
 				y += yinc;
 			}
-			mlx_pixel_put(data->mlx, data->win, x, y, lines->pc);
+			mlx_pixel_put(data->mlx, data->win, lines->py, y, lines->pc);
 		}
 	}
 	else
@@ -138,9 +120,9 @@ static void			brz1(t_mlx *data, t_map *lines, int error, int error2)
 			if ( cumul >= dy)
 			{
 				cumul -= dy;
-				x += xinc;
+				lines->py += xinc;
 			}
-			mlx_pixel_put(data->mlx, data->win, x, y, lines->pc);
+			mlx_pixel_put(data->mlx, data->win, lines->py, y, lines->pc);
 			i++;
 		}
 	}
