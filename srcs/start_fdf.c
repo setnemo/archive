@@ -127,15 +127,7 @@ void				start_fdf(t_mlx *data)
 	int i = 1;
 	while (lines)
 	{
-		// lines->pc = data->fill;
-//		if (lines->flag1 == 1)
-		// float tempx = lines->px;
-		// float tempy = lines->py;
-			brz_start(data, lines);
-//		if (lines->flag2 == 1)
-			// lines->px = tempx;
-			// lines->py = tempy;
-			// brz2(data, lines, 0, 0);
+		brz_start(data, lines);
 		printf("\n........lines->flag1 == |%i| lines->flag2 == |%i|\n\n", lines->flag1, lines->flag2);
 		ft_printf(":ШШШ:lines->px lines->py lines->px1 lines->py1 lines->px2 lines->py2 lines->pz lines->pc\n");
 		printf(" %i         %f         %f       %f         %f         %f          %f        %f        %lu\n",i, lines->px, lines->py,lines->px1, lines->py1,lines->px2, lines->py2,lines->pz,lines->pc);
@@ -145,16 +137,6 @@ void				start_fdf(t_mlx *data)
 		else
 			break ;
 	}
-		mlx_loop(data->mlx);
-	// lines = data->line;
-	// while (lines)
-	// {
-	// 	printf("lines\n");
-
-	// 	if (lines->next)
-	// 		lines = lines->next;
-	// 	else
-	// 		break ;
-	// }
+	mlx_loop(data->mlx);
 }
 
