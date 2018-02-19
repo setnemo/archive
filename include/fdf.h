@@ -19,6 +19,17 @@
 # include <unistd.h>
 # include <fcntl.h>
 
+typedef struct		s_brz
+{
+	int				px;
+	int				py;
+	int				dx;
+	int				dy;
+	int				xinc;
+	int				yinc;
+	unsigned long	pc;
+}					t_brz;
+
 typedef struct		s_map
 {
 	float			px;
