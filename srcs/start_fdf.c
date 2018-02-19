@@ -72,58 +72,52 @@ static void			brz2(t_mlx *data, t_map *lines, int i, int rate)
 }
 
 
-static void			brz1(t_mlx *data, t_map *lines, int i, int cumul)
+static void			brz1(t_mlx *data, t_map *lines, int i1, int rate1)
 {
-
-	int yi = lines->px;
-	int xf = lines->py1;
-	int yf = lines->px1;
 	int dx;
 	int dy;
 	int xinc;
 	int yinc;
-	int y;
 
-	y = yi;
-	dx = xf - lines->py;
-	dy = yf - yi;
+	dx = lines->py1 - lines->py;
+	dy = lines->px1 - lines->px;
 	xinc = ( dx > 0 ) ? 1 : -1;
 	yinc = ( dy > 0 ) ? 1 : -1;
 	dx = ft_abs(dx);
 	dy = ft_abs(dy);
-	mlx_pixel_put(data->mlx, data->win, lines->py, y, lines->pc);
+	mlx_pixel_put(data->mlx, data->win, lines->py, lines->px, lines->pc);
 	if ( dx > dy )
 	{
-		cumul = (dx / 2);
-		i = 1;
-		while (i <= dx)
+		rate1 = (dx / 2);
+		i1 = 1;
+		while (i1 <= dx)
 		{
 			lines->py += xinc;
-			cumul += dy;
-			i++;
-			if (cumul >= dx)
+			rate1 += dy;
+			i1++;
+			if (rate1 >= dx)
 			{
-				cumul -= dx;
-				y += yinc;
+				rate1 -= dx;
+				lines->px += yinc;
 			}
-			mlx_pixel_put(data->mlx, data->win, lines->py, y, lines->pc);
+			mlx_pixel_put(data->mlx, data->win, lines->py, lines->px, lines->pc);
 		}
 	}
 	else
 	{
-		cumul = dy / 2;
-		i = 1;
-		while (i <= dy)
+		rate1 = dy / 2;
+		i1 = 1;
+		while (i1 <= dy)
 		{
-			y += yinc ;
-			cumul += dx;
-			if ( cumul >= dy)
+			lines->px += yinc ;
+			rate1 += dx;
+			if ( rate1 >= dy)
 			{
-				cumul -= dy;
+				rate1 -= dy;
 				lines->py += xinc;
 			}
-			mlx_pixel_put(data->mlx, data->win, lines->py, y, lines->pc);
-			i++;
+			mlx_pixel_put(data->mlx, data->win, lines->py, lines->px, lines->pc);
+			i1++;
 		}
 	}
 }
@@ -181,8 +175,12 @@ void				start_fdf(t_mlx *data)
 	{
 		lines->pc = data->fill;
 //		if (lines->flag1 == 1)
+		float tempx = lines->px;
+		float tempy = lines->py;
 			brz1(data, lines, 0, 0);
 //		if (lines->flag2 == 1)
+			lines->px = tempx;
+			lines->py = tempy;
 			brz2(data, lines, 0, 0);
 		printf("\n........lines->flag1 == |%i| lines->flag2 == |%i|\n\n", lines->flag1, lines->flag2);
 		ft_printf(":ШШШ:lines->px lines->py lines->px1 lines->py1 lines->px2 lines->py2 lines->pz lines->pc\n");
