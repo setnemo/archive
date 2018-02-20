@@ -13,17 +13,145 @@
 #include "fdf.h"
 #include <stdio.h>
 
-static void			move_to_center(t_mlx *data)
+void	restart(t_mlx *data)
 {
-	float	ratex;
-	float	ratey;
+	mlx_clear_window(data->mlx, data->win);
+	start_fdf(data);
+}
+
+void	exit_free(t_mlx *data)
+{
+	free_data(data, 0);
+	system("leaks -quiet fdf");
+	exit(0);
+}
+
+void		rotate_fdf(t_mlx *data, int l, int o)
+{
+	t_map *lines;
+
+	lines = data->line;
+	if (l == 0)
+	{
+		if (o == 0)
+		{
+			while (lines)
+			{
+				lines->py = (lines->py * cos(data->radx)) + (lines->py * sin(data->radx));
+				lines->py1 = (lines->py1 * cos(data->radx)) + (lines->py1 * sin(data->radx));
+				lines->py2 = (lines->py2 * cos(data->radx)) + (lines->py2 * sin(data->radx));
+				if (lines->next)
+					lines = lines->next;
+				else
+					break ;
+			}
+		}
+		else
+		{
+			while (lines)
+			{
+				lines->py = (lines->py * -sin(data->radx)) + (lines->py * cos(data->radx));
+				lines->py1 = (lines->py1 * -sin(data->radx)) + (lines->py1 * cos(data->radx));
+				lines->py2 = (lines->py2 * -sin(data->radx)) + (lines->py2 * cos(data->radx));
+				if (lines->next)
+					lines = lines->next;
+				else
+					break ;
+			}
+		}
+	}
+	if (l == 1)
+	{
+		if (o == 0)
+		{
+			while (lines)
+			{
+				lines->px = (lines->px * cos(data->radx)) + (lines->px * sin(data->radx));
+				lines->px1 = (lines->px1 * cos(data->radx)) + (lines->px1 * sin(data->radx));
+				lines->px2 = (lines->px2 * cos(data->radx)) + (lines->px2 * sin(data->radx));
+				if (lines->next)
+					lines = lines->next;
+				else
+					break ;
+			}
+		}
+		else
+		{
+			while (lines)
+			{
+				lines->px = (lines->px * -sin(data->radx)) + (lines->px * cos(data->radx));
+				lines->px1 = (lines->px1 * -sin(data->radx)) + (lines->px1 * cos(data->radx));
+				lines->px2 = (lines->px2 * -sin(data->radx)) + (lines->px2 * cos(data->radx));
+				if (lines->next)
+					lines = lines->next;
+				else
+					break ;
+			}
+		}
+	}
+	else if (l == 2)
+		;
+}
+
+int		deal_key(int k, t_mlx *data)
+{
+// 	if (k == 53)
+// 		exit_free(data);
+	if (k == 65307)
+		exit_free(data);
+	if (k == 122)
+	{
+		data->radx += 0.017452;
+		rotate_fdf(data, 0, 0);
+	}
+	if (k == 120)
+	{
+		data->radx -= 0.017452;
+		rotate_fdf(data, 0, 1);
+	}
+	if (k == 97)
+	{
+		data->rady += 0.017452;
+		rotate_fdf(data, 1, 0);
+	}
+	if (k == 115)
+	{
+		data->rady -= 0.017452;
+		rotate_fdf(data, 1, 1);
+	}
+	// if (k == 34 && data->alt < 5.6)
+	// 	data->alt += 0.2;
+	// if (k == 31)
+	// 	data->alt -= 0.2;
+	// if (k == 35)
+	// 	data->pxaks = (data->peaks) ? 0 : 1;
+	// if (k == 8)
+	// 	data->colour += (5 * 1 << 16) + 5;
+	// if (k == 24)
+	// 	data->zoom += 0.1;
+	// if (k == 27 && (data->zoom - 0.1 > 0))
+	// 	data->zoom -= 0.1;
+	ft_testintstr(k, "key");
+	if (k >= 8 && k <= 126000)
+		restart(data);
+	return (k);
+}
+
+void			move_to_center(t_mlx *data)
+{
+	double	ratex;
+	double	ratey;
 	t_map	*lines;
 
 	ratex = (data->window / 2) / data->how_x;
 	ratey = (data->window / 2) / data->how_y;
 	lines = data->line;
+	data->firstx = data->line->px;
+	data->firsty = data->line->py;
 	while (lines)
 	{
+		data->lastx = lines->px;
+		data->lasty = lines->py;
 		lines->px *= ratex;
 		lines->py *= ratey;
 		lines->px1 *= ratex;
@@ -36,8 +164,8 @@ static void			move_to_center(t_mlx *data)
 			break ;
 	}
 	lines = data->line;
-	ratex = data->window / 3;
-	ratey = data->window / 3;
+	ratey = ((data->window / 2) - ((data->lastx - data->firstx)/2))/2;
+	ratex = ((data->window / 2) - ((data->lasty - data->firsty)/2))/2;
 	while (lines)
 	{
 		lines->px += ratex;
@@ -118,22 +246,12 @@ static void			brz_start(t_mlx *data, t_map *lines)
 	brz2.dx > brz2.dy ? brzh1(data, &brz2, 0, 0) : brzh2(data, &brz2, 0, 0);
 }
 
-
 void				start_fdf(t_mlx *data)
 {
-	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, data->window, data->window, "FDF");
-	move_to_center(data);
+
 	t_map *lines = data->line;
+
 	int i = 1;
-	while (lines)
-	{
-		//proection(lines);
-		if (lines->next)
-			lines = lines->next;
-		else
-			break ;
-	}
 	while (lines)
 	{
 		brz_start(data, lines);
@@ -146,6 +264,5 @@ void				start_fdf(t_mlx *data)
 		else
 			break ;
 	}
-	mlx_loop(data->mlx);
 }
 

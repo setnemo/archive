@@ -23,10 +23,12 @@ static void		free_map(t_map *lines)
 		{
 			temp = lines;
 			lines = lines->next;
+			// ft_printf("temp(lines)\n");
 			free(temp);
 		}
 		else
 		{
+			// ft_printf("lines\n");
 			free(lines);
 			lines = NULL;
 		}
@@ -35,19 +37,25 @@ static void		free_map(t_map *lines)
 
 void			free_data(t_mlx *data, int a)
 {
+	// ft_printf("data->str\n");
 	if (data->str)
 		ft_strdel(&data->str);
+	// ft_printf("data->map\n");
 	if (data->map)
 	{
 		while (data->map[a])
 		{
+			// ft_printf("data->map[%i]\n", a);
 			ft_strdel(&data->map[a]);
 			a++;
 		}
+		// ft_printf("data->map()\n");
 		free(data->map);
 	}
+	// ft_printf("data->line\n");
 	if (data->line)
 		free_map(data->line);
+	// ft_printf("data()\n");
 	free(data);
 }
 
@@ -76,7 +84,16 @@ int				main(int argc, char **argv)
 		ft_printf("usage: %s: %s\n", argv[0], ARGSP);
 		exit(1);
 	}
+	data->mlx = mlx_init();
+	data->win = mlx_new_window(data->mlx, data->window, data->window, "FDF");
+	data->mlx = mlx_init();
+	data->win = mlx_new_window(data->mlx, data->window, data->window, "FDF");
+	move_to_center(data);
 	start_fdf(data);
+
+	mlx_key_hook(data->win, deal_key, data);
+
+	mlx_loop(data->mlx);
 	free_data(data, 0);
 	system("leaks -quiet fdf");
 	return (0);
