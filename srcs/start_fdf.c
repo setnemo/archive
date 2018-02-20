@@ -19,8 +19,8 @@ static void			move_to_center(t_mlx *data)
 	float	ratey;
 	t_map	*lines;
 
-	ratex = (data->window / data->how_x )/3;
-	ratey = (data->window / data->how_y )/3;
+	ratex = (data->window / 2) / data->how_x;
+	ratey = (data->window / 2) / data->how_y;
 	lines = data->line;
 	while (lines)
 	{
@@ -102,8 +102,8 @@ static void			brz_start(t_mlx *data, t_map *lines)
 	brz1.dy = lines->px1 - lines->px;
 	brz1.xinc = (brz1.dx > 0) ? 1 : -1;
 	brz1.yinc = (brz1.dy > 0 ) ? 1 : -1;
-	brz1.dx = ABS(brz1.dx); 
-	brz1.dy = ABS(brz1.dy);
+	brz1.dx = abs(brz1.dx); 
+	brz1.dy = abs(brz1.dy);
 	brz1.pc = (lines->pc == 0) ? data->fill : lines->pc;
 	brz2.py = lines->py;
 	brz2.px = lines->px;
@@ -111,12 +111,13 @@ static void			brz_start(t_mlx *data, t_map *lines)
 	brz2.dy = lines->px2 - lines->px;
 	brz2.xinc = (brz2.dx > 0) ? 1 : -1;
 	brz2.yinc = (brz2.dy > 0 ) ? 1 : -1;
-	brz2.dx = ABS(brz2.dx); 
-	brz2.dy = ABS(brz2.dy);
+	brz2.dx = abs(brz2.dx); 
+	brz2.dy = abs(brz2.dy);
 	brz2.pc = (lines->pc == 0) ? data->fill : lines->pc;
-	(brz1.dx > brz1.dy) ? brzh1(data, &brz1, 0, 0) : brzh2(data, &brz1, 0, 0);
-	(brz2.dx > brz2.dy) ? brzh1(data, &brz2, 0, 0) : brzh2(data, &brz2, 0, 0);
+	brz1.dx > brz1.dy ? brzh1(data, &brz1, 0, 0) : brzh2(data, &brz1, 0, 0);
+	brz2.dx > brz2.dy ? brzh1(data, &brz2, 0, 0) : brzh2(data, &brz2, 0, 0);
 }
+
 
 void				start_fdf(t_mlx *data)
 {
@@ -127,10 +128,18 @@ void				start_fdf(t_mlx *data)
 	int i = 1;
 	while (lines)
 	{
+		//proection(lines);
+		if (lines->next)
+			lines = lines->next;
+		else
+			break ;
+	}
+	while (lines)
+	{
 		brz_start(data, lines);
-		printf("\n........lines->flag1 == |%i| lines->flag2 == |%i|\n\n", lines->flag1, lines->flag2);
-		ft_printf(":ШШШ:lines->px lines->py lines->px1 lines->py1 lines->px2 lines->py2 lines->pz lines->pc\n");
-		printf(" %i         %f         %f       %f         %f         %f          %f        %f        %lu\n",i, lines->px, lines->py,lines->px1, lines->py1,lines->px2, lines->py2,lines->pz,lines->pc);
+	//	printf(":ШШШ:lines->px lines->py lines->px1 lines->py1 lines->px2 lines->py2 lines->pz lines->pc\n");
+		printf("%f		%f		%f		%f		%f		%f\n",i, lines->px, lines->py,lines->px1, lines->py1,lines->px2, lines->py2);
+//		printf(" %i         %f         %f       %f         %f         %f          %f        %f        %lu\n",i, lines->px, lines->py,lines->px1, lines->py1,lines->px2, lines->py2,lines->pz,lines->pc);
 		i++;
 		if (lines->next)
 			lines = lines->next;

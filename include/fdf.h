@@ -32,13 +32,13 @@ typedef struct		s_brz
 
 typedef struct		s_map
 {
-	float			px;
-	float			py;
-	float			px1;
-	float			py1;
-	float			px2;
-	float			py2;
-	float			pz;
+	double			px;
+	double			py;
+	double			px1;
+	double			py1;
+	double			px2;
+	double			py2;
+	double			pz;
 	unsigned long	pc;
 	int				flag1;
 	int				flag2;
