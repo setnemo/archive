@@ -26,109 +26,114 @@ void	exit_free(t_mlx *data)
 	exit(0);
 }
 
-void		rotate_fdf(t_mlx *data, int l, int o)
+void		rotate_x(t_mlx *data, t_map *lines)
+{
+	float x;
+	float y;
+	float z;
+	while (lines)
+	{
+	x = lines->px;
+	y = lines->py;
+	z = lines->pz;
+	lines->px = x * 1 + y * 0 + z * 0;
+	lines->py = x * 0 + y * cos(data->radx) - z * sin(data->radx);
+	lines->pz = x * 0 + y * sin(data->radx) + z * cos(data->radx);
+	if (lines->next)
+			lines = lines->next;
+		else
+			break ;		
+	}
+}
+void		rotate_y(t_mlx *data, t_map *lines)
+{
+	float x;
+	float y;
+	float z;
+	while (lines)
+	{
+	x = lines->px;
+	y = lines->py;
+	z = lines->pz;
+	lines->px = x * cos(data->rady) + y * 0 + z * sin(data->rady);
+	lines->py = x * 0 + y * 1 + z * 0;
+	lines->pz = x * -sin(data->rady) + y * 0 + z * cos(data->rady);
+	if (lines->next)
+			lines = lines->next;
+		else
+			break ;		
+	}
+}
+void		rotate_z(t_mlx *data, t_map *lines)
+{
+	float x;
+	float y;
+	float z;
+
+	while (lines)
+	{
+		x = lines->px;
+		y = lines->py;
+		z = lines->pz;
+		lines->px = x * cos(data->radz) + y * -sin(data->radz) + z * 0;
+		lines->py = x * sin(data->radz) + y * cos(data->radz) + z * 0;
+		lines->pz = x * 0 + y * 0 + z * 1;
+		if (lines->next)
+			lines = lines->next;
+		else
+			break ;		
+	}
+}
+
+void		rotate_fdf(t_mlx *data, int l)
 {
 	t_map *lines;
 
 	lines = data->line;
 	if (l == 0)
-	{
-		if (o == 0)
-		{
-			while (lines)
-			{
-				lines->py = (lines->py * cos(data->radx)) + (lines->py * sin(data->radx));
-				lines->py1 = (lines->py1 * cos(data->radx)) + (lines->py1 * sin(data->radx));
-				lines->py2 = (lines->py2 * cos(data->radx)) + (lines->py2 * sin(data->radx));
-				if (lines->next)
-					lines = lines->next;
-				else
-					break ;
-			}
-		}
-		else
-		{
-			while (lines)
-			{
-				lines->py = (lines->py * -sin(data->radx)) + (lines->py * cos(data->radx));
-				lines->py1 = (lines->py1 * -sin(data->radx)) + (lines->py1 * cos(data->radx));
-				lines->py2 = (lines->py2 * -sin(data->radx)) + (lines->py2 * cos(data->radx));
-				if (lines->next)
-					lines = lines->next;
-				else
-					break ;
-			}
-		}
-	}
+		rotate_x(data, lines);
 	if (l == 1)
-	{
-		if (o == 0)
-		{
-			while (lines)
-			{
-				lines->px = (lines->px * cos(data->radx)) + (lines->px * sin(data->radx));
-				lines->px1 = (lines->px1 * cos(data->radx)) + (lines->px1 * sin(data->radx));
-				lines->px2 = (lines->px2 * cos(data->radx)) + (lines->px2 * sin(data->radx));
-				if (lines->next)
-					lines = lines->next;
-				else
-					break ;
-			}
-		}
-		else
-		{
-			while (lines)
-			{
-				lines->px = (lines->px * -sin(data->radx)) + (lines->px * cos(data->radx));
-				lines->px1 = (lines->px1 * -sin(data->radx)) + (lines->px1 * cos(data->radx));
-				lines->px2 = (lines->px2 * -sin(data->radx)) + (lines->px2 * cos(data->radx));
-				if (lines->next)
-					lines = lines->next;
-				else
-					break ;
-			}
-		}
-	}
-	else if (l == 2)
-		l = 2;
+		rotate_y(data, lines);
+	if (l == 2)
+		rotate_z(data, lines);
 }
 
 int		deal_key(int k, t_mlx *data)
 {
 	if (k == 65307)
 		exit_free(data);
-	if (k == 65362)
+	if (k == 122)
 	{
 		data->radx += 0.017452;
-		rotate_fdf(data, 0, 0);
+		rotate_fdf(data, 0);
 	}
-	if (k == 65364)
+	if (k == 120)
 	{
 		data->radx -= 0.017452;
-		rotate_fdf(data, 0, 1);
+		rotate_fdf(data, 0);
 	}
-	if (k == 65361)
+	if (k == 99)
 	{
 		data->rady += 0.017452;
-		rotate_fdf(data, 1, 0);
+		rotate_fdf(data, 1);
 	}
-	if (k == 65363)
+	if (k == 118)
 	{
 		data->rady -= 0.017452;
-		rotate_fdf(data, 1, 1);
+		rotate_fdf(data, 1);
 	}
-	if (k == 83)
+	if (k == 98)
+	{
+		data->radz += 0.017452;
+		rotate_fdf(data, 2);
+	}
+	if (k == 110)
 	{
 		data->radz -= 0.017452;
-		rotate_fdf(data, 2, 0);
-	}
-	if (k == 85)
-	{
-		data->radz -= 0.017452;
-		rotate_fdf(data, 2, 1);
+		rotate_fdf(data, 2);
 	}
 	ft_testintstr(k, "key");
-	if (k == 53 || (k >= 123 && k <= 126) || k == 83 || k == 85)
+	if (k == 53 || (k >= 99 && k <= 126) )
 		restart(data);
 	return (k);
 }
@@ -277,15 +282,12 @@ static void			brz_core(t_mlx *data, t_map	*lines, int flag)
 	{
 		brz1.dx = (flag == 1) ? lines->next->px - lines->px : 0; 
 		brz1.dy = (flag == 1) ? lines->next->py - lines->py : 0;
-		printf("(%i):lines->px:%f\n", flag, lines->px);	
 	}
 	else if (flag == 2)
 	{
 		temp = while_temp(temp, data->how_x);
 		brz1.dx = temp->px - lines->px;
 		brz1.dy = temp->py - lines->py;
-		printf("(%i):lines->px:%f\n", flag, lines->px);	
-
 	}
 	brz1.xinc = (brz1.dx > 0) ? 1 : -1;
 	brz1.yinc = (brz1.dy > 0 ) ? 1 : -1;
@@ -328,12 +330,12 @@ void				start_fdf(t_mlx *data)
 			x++;
 		}
 		y++;
+	}
+}
+
 		// else
 		// 	y = 0;
 	//	printf(":ШШШ:lines->px lines->py lines->px1 lines->py1 lines->px2 lines->py2 lines->pz lines->pc\n");
 		//printf("%f		%f		%f		%f		%f		%f\n",lines->px, lines->py,lines->px1, lines->py1,lines->px2, lines->py2);
 //		printf(" %i         %f         %f       %f         %f         %f          %f        %f        %lu\n",i, lines->px, lines->py,lines->px1, lines->py1,lines->px2, lines->py2,lines->pz,lines->pc);
 		//i++;
-	}
-}
-
