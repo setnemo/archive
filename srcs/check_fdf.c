@@ -61,8 +61,8 @@ static int		check_fdf_map(t_mlx *data)
 			return (1);
 		a++;
 	}
-	data->how_x = a;
-	data->how_y = count;
+	data->how_y = a;
+	data->how_x = count;
 	return (0);
 }
 

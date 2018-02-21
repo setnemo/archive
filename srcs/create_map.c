@@ -19,30 +19,30 @@ static void		write_dot2(t_map *lines, int *a, int *count, t_mlx *data)
 {
 	if (*a + 1 < data->how_x)
 	{
-		lines->px1 = *a + 1;
-		lines->py1 = *count;
+		lines->px1 = *count;
+		lines->py1 = *a + 1;
 	}
 	else
 	{
-		lines->px1 = *a;
-		lines->py1 = *count;
+		lines->py1 = *a;
+		lines->px1 = *count;
 	}
 	if (*count + 1 < data->how_y)
 	{
-		lines->px2 = *a;
-		lines->py2 = *count + 1;
+		lines->py2 = *a;
+		lines->px2 = *count + 1;
 	}
 	else
 	{
-		lines->px2 = *a;
-		lines->py2 = *count;
+		lines->py2 = *a;
+		lines->px2 = *count;
 	}
 }
 
 static void		write_dot1(t_map *lines, int *a, int *count, t_mlx *data)
 {
-	lines->px = *a;
-	lines->py = *count;
+	lines->py = *a;
+	lines->px = *count;
 	lines->pz = (ft_atoi(&data->map[*a][data->iter]));
 	if (data->map[*a][data->iter] == '-')
 		data->iter++;
@@ -68,7 +68,7 @@ static void		create_lines(t_mlx *data, t_map *lines, int *a, int *count)
 		while (NORMCRM1 && NORMCRM1 == 32)
 			data->iter++;
 		data->iter--;
-		if (*count < data->how_y)
+		if (*count < data->how_x)
 		{
 			lines->next = (t_map*)malloc(sizeof(t_map));
 			lines = lines->next;
@@ -103,13 +103,13 @@ int				create_fdf_map(t_mlx *data, int a, int count)
 	while (data->map[a])
 	{
 		count = 0;
-		if (a < data->how_x)
+		if (a < data->how_y)
 		{
 			data->iter = 0;
 			create_lines(data, lines, &a, &count);
 			lines = while_lines(lines);
 			a++;
-			if (a < data->how_x)
+			if (a < data->how_y)
 			{
 				lines->next = (t_map*)malloc(sizeof(t_map));
 				lines = lines->next;

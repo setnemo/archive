@@ -219,38 +219,38 @@ void			move_to_center(t_mlx *data)
 
 static void			brzh1(t_mlx *data, t_brz *brz, int iter, int rate)
 {
-	mlx_pixel_put(data->mlx, data->win, brz->py, brz->px, brz->pc);
+	mlx_pixel_put(data->mlx, data->win, brz->px, brz->py, brz->pc);
 	rate = (brz->dx / 2);
 	iter = 1;
 	while (iter <= brz->dx)
 	{
-		brz->py += brz->xinc;
+		brz->px += brz->xinc;
 		rate += brz->dy;
 		iter++;
 		if (rate >= brz->dx)
 		{
 			rate -= brz->dx;
-			brz->px += brz->yinc;
+			brz->py += brz->yinc;
 		}
-		mlx_pixel_put(data->mlx, data->win, brz->py, brz->px, brz->pc);
+		mlx_pixel_put(data->mlx, data->win, brz->px, brz->py, brz->pc);
 	}
 }
 
 static void			brzh2(t_mlx *data, t_brz *brz, int iter, int rate)
 {
-	mlx_pixel_put(data->mlx, data->win, brz->py, brz->px, brz->pc);
+	mlx_pixel_put(data->mlx, data->win, brz->px, brz->py, brz->pc);
 	rate = brz->dy / 2;
 	iter = 1;
 	while (iter <= brz->dy)
 	{
-		brz->px += brz->yinc;
+		brz->py += brz->yinc;
 		rate += brz->dx;
 		if ( rate >= brz->dy)
 		{
 			rate -= brz->dy;
-			brz->py += brz->xinc;
+			brz->px += brz->xinc;
 		}
-		mlx_pixel_put(data->mlx, data->win, brz->py, brz->px, brz->pc);
+		mlx_pixel_put(data->mlx, data->win, brz->px, brz->py, brz->pc);
 		iter++;
 	}
 }
@@ -262,17 +262,17 @@ static void			brz_start(t_mlx *data, t_map *lines)
 
 	brz1.py = lines->py;
 	brz1.px = lines->px;
-	brz1.dx = lines->py1 - lines->py; 
-	brz1.dy = lines->px1 - lines->px;
+	brz1.dx = lines->px1 - lines->px; 
+	brz1.dy = lines->py1 - lines->py;
 	brz1.xinc = (brz1.dx > 0) ? 1 : -1;
 	brz1.yinc = (brz1.dy > 0 ) ? 1 : -1;
 	brz1.dx = abs(brz1.dx); 
 	brz1.dy = abs(brz1.dy);
 	brz1.pc = (lines->pc == 0) ? data->fill : lines->pc;
-	brz2.py = lines->py;
 	brz2.px = lines->px;
-	brz2.dx = lines->py2 - lines->py; 
-	brz2.dy = lines->px2 - lines->px;
+	brz2.py = lines->py;
+	brz2.dx = lines->px2 - lines->px; 
+	brz2.dy = lines->py2 - lines->py;
 	brz2.xinc = (brz2.dx > 0) ? 1 : -1;
 	brz2.yinc = (brz2.dy > 0 ) ? 1 : -1;
 	brz2.dx = abs(brz2.dx); 
