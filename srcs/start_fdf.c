@@ -176,11 +176,9 @@ int		deal_key(int k, t_mlx *data)
 void			move_to_center(t_mlx *data)
 {
 	float	ratex;
-	float	ratey;
 	t_map	*lines;
 
-	ratey = (data->window / 2) / data->how_y;
-	ratex = ratey;
+	ratex = (data->window / 2) / data->how_y;
 	lines = data->line;
 	data->firstx = data->line->px;
 	data->firsty = data->line->py;
@@ -189,17 +187,18 @@ void			move_to_center(t_mlx *data)
 		data->lastx = lines->px;
 		data->lasty = lines->py;
 		lines->px *= ratex;
-		lines->py *= ratey;
+		lines->py *= ratex;
 		lines->px1 *= ratex;
-		lines->py1 *= ratey;
+		lines->py1 *= ratex;
 		lines->px2 *= ratex;
-		lines->py2 *= ratey;
+		lines->py2 *= ratex;
 		if (lines->next)
 			lines = lines->next;
 		else
 			break ;
 	}
 	lines = data->line;
+	float ratey;
 	ratex = ((data->window / 2) - ((data->lastx - data->firstx)/2))/2;
 	ratey = ((data->window / 2) - ((data->lasty - data->firsty)/2))/2;
 	while (lines)
@@ -255,31 +254,57 @@ static void			brzh2(t_mlx *data, t_brz *brz, int iter, int rate)
 	}
 }
 
-static void			brz_start(t_mlx *data, t_map *lines)
+static t_map		*while_temp(t_map *temp, int how)
+{
+	int i = 0;
+	while (i < how)
+	{
+		temp = temp->next;
+		i++;
+	}
+	return (temp);
+}
+
+static void			brz_core(t_mlx *data, t_map	*lines, int flag)
 {
 	t_brz		brz1;
-	t_brz		brz2;
+	t_map		*temp;
 
+	temp = lines;
 	brz1.py = lines->py;
 	brz1.px = lines->px;
-	brz1.dx = lines->px1 - lines->px; 
-	brz1.dy = lines->py1 - lines->py;
+	if (flag == 1 || flag == 0)
+	{
+		brz1.dx = (flag == 1) ? lines->next->px - lines->px : 0; 
+		brz1.dy = (flag == 1) ? lines->next->py - lines->py : 0;
+		printf("(%i):lines->px:%f\n", flag, lines->px);	
+	}
+	else if (flag == 2)
+	{
+		temp = while_temp(temp, data->how_x);
+		brz1.dx = temp->px - lines->px;
+		brz1.dy = temp->py - lines->py;
+		printf("(%i):lines->px:%f\n", flag, lines->px);	
+
+	}
 	brz1.xinc = (brz1.dx > 0) ? 1 : -1;
 	brz1.yinc = (brz1.dy > 0 ) ? 1 : -1;
 	brz1.dx = abs(brz1.dx); 
 	brz1.dy = abs(brz1.dy);
 	brz1.pc = (lines->pc == 0) ? data->fill : lines->pc;
-	brz2.px = lines->px;
-	brz2.py = lines->py;
-	brz2.dx = lines->px2 - lines->px; 
-	brz2.dy = lines->py2 - lines->py;
-	brz2.xinc = (brz2.dx > 0) ? 1 : -1;
-	brz2.yinc = (brz2.dy > 0 ) ? 1 : -1;
-	brz2.dx = abs(brz2.dx); 
-	brz2.dy = abs(brz2.dy);
-	brz2.pc = (lines->pc == 0) ? data->fill : lines->pc;
 	brz1.dx > brz1.dy ? brzh1(data, &brz1, 0, 0) : brzh2(data, &brz1, 0, 0);
-	brz2.dx > brz2.dy ? brzh1(data, &brz2, 0, 0) : brzh2(data, &brz2, 0, 0);
+}
+
+static void			brz_start(t_mlx *data, t_map *lines, int y, int x)
+{
+	if (x + 1 < data->how_x)
+		brz_core(data, lines, 1);
+	else
+		brz_core(data, lines, 0);
+	if (y + 1 < data->how_y)
+		brz_core(data, lines, 2);
+	else
+		brz_core(data, lines, 0);
 }
 
 void				start_fdf(t_mlx *data)
@@ -287,18 +312,28 @@ void				start_fdf(t_mlx *data)
 
 	t_map *lines = data->line;
 
-	// int i = 1;
-	while (lines)
+	int x = 0;
+	int y = 0;
+	while (y < data->how_y)
 	{
-		brz_start(data, lines);
+		x = 0;
+		while (x < data->how_x)
+		{
+			brz_start(data, lines, y, x);
+			printf("y:%i x:%i\n",y, x);
+			if (lines->next)
+				lines = lines->next;
+			else
+				break ;
+			x++;
+		}
+		y++;
+		// else
+		// 	y = 0;
 	//	printf(":ШШШ:lines->px lines->py lines->px1 lines->py1 lines->px2 lines->py2 lines->pz lines->pc\n");
 		//printf("%f		%f		%f		%f		%f		%f\n",lines->px, lines->py,lines->px1, lines->py1,lines->px2, lines->py2);
 //		printf(" %i         %f         %f       %f         %f         %f          %f        %f        %lu\n",i, lines->px, lines->py,lines->px1, lines->py1,lines->px2, lines->py2,lines->pz,lines->pc);
 		//i++;
-		if (lines->next)
-			lines = lines->next;
-		else
-			break ;
 	}
 }
 
