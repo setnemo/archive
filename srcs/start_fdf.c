@@ -90,31 +90,29 @@ void		rotate_fdf(t_mlx *data, int l, int o)
 		}
 	}
 	else if (l == 2)
-		;
+		l = 2;
 }
 
 int		deal_key(int k, t_mlx *data)
 {
-// 	if (k == 53)
-// 		exit_free(data);
-	if (k == 53)
+	if (k == 65307)
 		exit_free(data);
-	if (k == 123)
+	if (k == 65362)
 	{
 		data->radx += 0.017452;
 		rotate_fdf(data, 0, 0);
 	}
-	if (k == 124)
+	if (k == 65364)
 	{
 		data->radx -= 0.017452;
 		rotate_fdf(data, 0, 1);
 	}
-	if (k == 125)
+	if (k == 65361)
 	{
 		data->rady += 0.017452;
 		rotate_fdf(data, 1, 0);
 	}
-	if (k == 126)
+	if (k == 65363)
 	{
 		data->rady -= 0.017452;
 		rotate_fdf(data, 1, 1);
@@ -129,23 +127,51 @@ int		deal_key(int k, t_mlx *data)
 		data->radz -= 0.017452;
 		rotate_fdf(data, 2, 1);
 	}
-	// if (k == 34 && data->alt < 5.6)
-	// 	data->alt += 0.2;
-	// if (k == 31)
-	// 	data->alt -= 0.2;
-	// if (k == 35)
-	// 	data->pxaks = (data->peaks) ? 0 : 1;
-	// if (k == 8)
-	// 	data->colour += (5 * 1 << 16) + 5;
-	// if (k == 24)
-	// 	data->zoom += 0.1;
-	// if (k == 27 && (data->zoom - 0.1 > 0))
-	// 	data->zoom -= 0.1;
 	ft_testintstr(k, "key");
 	if (k == 53 || (k >= 123 && k <= 126) || k == 83 || k == 85)
 		restart(data);
 	return (k);
 }
+
+// int		deal_key(int k, t_mlx *data)
+// {
+// 	if (k == 53)
+// 		exit_free(data);
+// 	if (k == 123)
+// 	{
+// 		data->radx += 0.017452;
+// 		rotate_fdf(data, 0, 0);
+// 	}
+// 	if (k == 124)
+// 	{
+// 		data->radx -= 0.017452;
+// 		rotate_fdf(data, 0, 1);
+// 	}
+// 	if (k == 125)
+// 	{
+// 		data->rady += 0.017452;
+// 		rotate_fdf(data, 1, 0);
+// 	}
+// 	if (k == 126)
+// 	{
+// 		data->rady -= 0.017452;
+// 		rotate_fdf(data, 1, 1);
+// 	}
+// 	if (k == 83)
+// 	{
+// 		data->radz -= 0.017452;
+// 		rotate_fdf(data, 2, 0);
+// 	}
+// 	if (k == 85)
+// 	{
+// 		data->radz -= 0.017452;
+// 		rotate_fdf(data, 2, 1);
+// 	}
+// 	ft_testintstr(k, "key");
+// 	if (k == 53 || (k >= 123 && k <= 126) || k == 83 || k == 85)
+// 		restart(data);
+// 	return (k);
+// }
 
 void			move_to_center(t_mlx *data)
 {
