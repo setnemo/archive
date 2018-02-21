@@ -79,5 +79,9 @@ void				start_fdf(t_mlx *data);
 
 int					deal_key(int k, t_mlx *data);
 
+void				brz_start(t_mlx *data, t_map *lines, int y, int x);
+
+void				rotate_fdf(t_mlx *data, int l);
+
 
 #endif
