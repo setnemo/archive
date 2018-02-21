@@ -28,7 +28,7 @@ static int		check_fdf_str(char *str)
 			if (str[i] == '-')
 				i++;
 			count++;
-			while (str[i] && ft_isdigit(str[i]) )
+			while (str[i] && ft_isdigit(str[i]))
 				i++;
 		}
 		if (str[i] == ',')
@@ -92,7 +92,7 @@ static int		valid_fdf_map(t_mlx *data, int argc, char **argv)
 		return (1);
 	if (check_fdf_map(data))
 		return (1);
-	return (create_fdf_map(data, 0));
+	return (create_fdf_map(data, 0, 0));
 }
 
 static int		check_argc(t_mlx *data, char **argv, int flag)

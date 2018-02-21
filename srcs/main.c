@@ -86,13 +86,9 @@ int				main(int argc, char **argv)
 	}
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, data->window, data->window, "FDF");
-	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, data->window, data->window, "FDF");
 	move_to_center(data);
 	start_fdf(data);
-
 	mlx_key_hook(data->win, deal_key, data);
-
 	mlx_loop(data->mlx);
 	free_data(data, 0);
 	system("leaks -quiet fdf");

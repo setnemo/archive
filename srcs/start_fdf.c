@@ -97,27 +97,37 @@ int		deal_key(int k, t_mlx *data)
 {
 // 	if (k == 53)
 // 		exit_free(data);
-	if (k == 65307)
+	if (k == 53)
 		exit_free(data);
-	if (k == 122)
+	if (k == 123)
 	{
 		data->radx += 0.017452;
 		rotate_fdf(data, 0, 0);
 	}
-	if (k == 120)
+	if (k == 124)
 	{
 		data->radx -= 0.017452;
 		rotate_fdf(data, 0, 1);
 	}
-	if (k == 97)
+	if (k == 125)
 	{
 		data->rady += 0.017452;
 		rotate_fdf(data, 1, 0);
 	}
-	if (k == 115)
+	if (k == 126)
 	{
 		data->rady -= 0.017452;
 		rotate_fdf(data, 1, 1);
+	}
+	if (k == 83)
+	{
+		data->radz -= 0.017452;
+		rotate_fdf(data, 2, 0);
+	}
+	if (k == 85)
+	{
+		data->radz -= 0.017452;
+		rotate_fdf(data, 2, 1);
 	}
 	// if (k == 34 && data->alt < 5.6)
 	// 	data->alt += 0.2;
@@ -132,19 +142,19 @@ int		deal_key(int k, t_mlx *data)
 	// if (k == 27 && (data->zoom - 0.1 > 0))
 	// 	data->zoom -= 0.1;
 	ft_testintstr(k, "key");
-	if (k >= 8 && k <= 126000)
+	if (k == 53 || (k >= 123 && k <= 126) || k == 83 || k == 85)
 		restart(data);
 	return (k);
 }
 
 void			move_to_center(t_mlx *data)
 {
-	double	ratex;
-	double	ratey;
+	float	ratex;
+	float	ratey;
 	t_map	*lines;
 
-	ratex = (data->window / 2) / data->how_x;
 	ratey = (data->window / 2) / data->how_y;
+	ratex = ratey;
 	lines = data->line;
 	data->firstx = data->line->px;
 	data->firsty = data->line->py;
@@ -164,8 +174,8 @@ void			move_to_center(t_mlx *data)
 			break ;
 	}
 	lines = data->line;
-	ratey = ((data->window / 2) - ((data->lastx - data->firstx)/2))/2;
-	ratex = ((data->window / 2) - ((data->lasty - data->firsty)/2))/2;
+	ratex = ((data->window / 2) - ((data->lastx - data->firstx)/2))/2;
+	ratey = ((data->window / 2) - ((data->lasty - data->firsty)/2))/2;
 	while (lines)
 	{
 		lines->px += ratex;
@@ -251,14 +261,14 @@ void				start_fdf(t_mlx *data)
 
 	t_map *lines = data->line;
 
-	int i = 1;
+	// int i = 1;
 	while (lines)
 	{
 		brz_start(data, lines);
 	//	printf(":ШШШ:lines->px lines->py lines->px1 lines->py1 lines->px2 lines->py2 lines->pz lines->pc\n");
-		printf("%f		%f		%f		%f		%f		%f\n",i, lines->px, lines->py,lines->px1, lines->py1,lines->px2, lines->py2);
+		//printf("%f		%f		%f		%f		%f		%f\n",lines->px, lines->py,lines->px1, lines->py1,lines->px2, lines->py2);
 //		printf(" %i         %f         %f       %f         %f         %f          %f        %f        %lu\n",i, lines->px, lines->py,lines->px1, lines->py1,lines->px2, lines->py2,lines->pz,lines->pc);
-		i++;
+		//i++;
 		if (lines->next)
 			lines = lines->next;
 		else

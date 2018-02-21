@@ -103,7 +103,7 @@ SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
 
-ifneq ($(TARGETOS), Linux)
+ifeq ($(TARGETOS), Linux)
 	FLAGS =
 endif
 
@@ -117,7 +117,7 @@ $(NAME): $(OBJS)
 $(DIR_O)/%.o: $(DIR_S)/%.c
 	@mkdir -p temp
 	@echo "## MAKELIB: LINKING" [ $@ ] " ###"
-	@gcc $(FLAGS) -I./$(HEADER)  -lm -o $@ -c $<
+	@gcc $(FLAGS) -I./$(HEADER) -o $@ -c $<
 
 clean:
 	@rm -f $(OBJS)

@@ -30,7 +30,7 @@ LIB_DIR = libft/
 SRC_DIR = srcs/
 OBJ_DIR = obj/
 
-ifneq ($(TARGETOS), Linux)
+ifeq ($(TARGETOS), Linux)
 	FLAGS = -lm -lmlx -lXext -lX11 -L lib/ -I lib/
 	WWW = 
 	CC = cc
@@ -41,7 +41,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@make -C $(LIB_DIR) --silent
 	@echo "######### LIB CREATED #########"
-	$(CC) -o $(NAME) $(OBJ) $(FLAGS) -lm -L $(LIB_DIR) -lft
+	$(CC) -o $(NAME) $(OBJ) $(FLAGS) -L $(LIB_DIR) -lft
 	@echo "##### COMPILING FINISHED ######"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c

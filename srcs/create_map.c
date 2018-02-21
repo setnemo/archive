@@ -12,6 +12,8 @@
 
 #include "fdf.h"
 #include <stdio.h>
+#define NORMCRM1 data->map[*a][data->iter]
+#define NORMCRM2 data->map[*a][data->iter + 1]
 
 static void		write_dot2(t_map *lines, int *a, int *count, t_mlx *data)
 {
@@ -35,13 +37,6 @@ static void		write_dot2(t_map *lines, int *a, int *count, t_mlx *data)
 		lines->px2 = *a;
 		lines->py2 = *count;
 	}
-		
-	// if (a == 0 && *count == 0)
-	// {
-	// 	lines->flag2 = 1;
-	// 	lines->px2 = a + 1;
-	// 	lines->py2 = *count;
-	// }
 }
 
 static void		write_dot1(t_map *lines, int *a, int *count, t_mlx *data)
@@ -53,24 +48,24 @@ static void		write_dot1(t_map *lines, int *a, int *count, t_mlx *data)
 		data->iter++;
 	while (data->map[*a][data->iter] && ft_isdigit(data->map[*a][data->iter]))
 		data->iter++;
+	write_dot2(lines, a, count, data);
+	(*count)++;
 }
 
 static void		create_lines(t_mlx *data, t_map *lines, int *a, int *count)
 {
-	while (data->map[*a][data->iter])
+	while (NORMCRM1)
 	{
-		if (ft_isdigit(data->map[*a][data->iter]) || (data->map[*a][data->iter] == '-' && ft_isdigit(data->map[*a][data->iter + 1])))
+		if (ft_isdigit(NORMCRM1) || (NORMCRM1 == '-' && ft_isdigit(NORMCRM2)))
 			write_dot1(lines, a, count, data);
-		write_dot2(lines, a, count, data);
-		(*count)++;
 		if (data->map[*a][data->iter] == ',')
 		{
 			data->iter += 2;
 			lines->pc = ft_hex_to_ul(&data->map[*a][data->iter]);
-			while (data->map[*a][data->iter] && ft_check_hex_char(data->map[*a][data->iter]))
+			while (NORMCRM1 && ft_check_hex_char(NORMCRM1))
 				data->iter++;
 		}
-		while (data->map[*a][data->iter] && data->map[*a][data->iter] == 32)
+		while (NORMCRM1 && NORMCRM1 == 32)
 			data->iter++;
 		data->iter--;
 		if (*count < data->how_y)
@@ -98,10 +93,9 @@ static t_map	*while_lines(t_map *lines)
 	return (lines);
 }
 
-int				create_fdf_map(t_mlx *data, int a)
+int				create_fdf_map(t_mlx *data, int a, int count)
 {
 	t_map	*lines;
-	int		count;
 
 	data->line = (t_map*)malloc(sizeof(t_map));
 	lines = data->line;
@@ -127,31 +121,3 @@ int				create_fdf_map(t_mlx *data, int a)
 	}
 	return (0);
 }
-	// lines = data->line;
-	// int i = 1;
-	// while (lines)
-	// {
-	// 	ft_printf(":ШШШ:lines->px lines->py lines->px1 lines->py1 lines->px2 lines->py2 lines->pz lines->pc\n");
-	// 	printf(" %i         %f         %f       %f         %f         %f          %f        %f        %lu\n",i, lines->px, lines->py,lines->px1, lines->py1,lines->px2, lines->py2,lines->pz,lines->pc);
-	// 	if (lines->next)
-	// 		lines = lines->next;
-	// 	else
-	// 		break ;
-	// 	i++;
-	// }
-	// free_data(data, 0);
-
-	// ft_printf("::::data->how_x = '%i'\n", data->how_x);
-	// ft_printf("::::data->how_y = '%i'\n", data->how_y);
-	// for (int i = 0; i < 10; i++)
-	// 	ft_printf("%s\n", data->map[i]);
-
-	// while (lines)
-	// {
-	// 	ft_printf(":%i:lines->px1 = '%i'\n",i, lines->px1);
-	// 	ft_printf(":%i:lines->py1 = '%i'\n",i, lines->py1);
-	// 	ft_printf(":%i:lines->pz = '%i'\n", i,lines->pz);
-	// 	ft_printf(":%i:lines->pc = '%d'\n", i,lines->pc);
-	// 	lines = lines->next;
-	// 	i++;
-	// }
