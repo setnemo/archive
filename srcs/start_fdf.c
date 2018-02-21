@@ -178,7 +178,7 @@ void			move_to_center(t_mlx *data)
 	float	ratex;
 	t_map	*lines;
 
-	ratex = (data->window / 2) / data->how_y;
+	ratex = (data->window / 2) / data->how_x;
 	lines = data->line;
 	data->firstx = data->line->px;
 	data->firsty = data->line->py;

@@ -15,30 +15,6 @@
 #define NORMCRM1 data->map[*a][data->iter]
 #define NORMCRM2 data->map[*a][data->iter + 1]
 
-static void		write_dot2(t_map *lines, int *a, int *count, t_mlx *data)
-{
-	if (*a + 1 < data->how_x)
-	{
-		lines->px1 = *count;
-		lines->py1 = *a + 1;
-	}
-	else
-	{
-		lines->py1 = *a;
-		lines->px1 = *count;
-	}
-	if (*count + 1 < data->how_y)
-	{
-		lines->py2 = *a;
-		lines->px2 = *count + 1;
-	}
-	else
-	{
-		lines->py2 = *a;
-		lines->px2 = *count;
-	}
-}
-
 static void		write_dot1(t_map *lines, int *a, int *count, t_mlx *data)
 {
 	lines->py = *a;
@@ -48,7 +24,6 @@ static void		write_dot1(t_map *lines, int *a, int *count, t_mlx *data)
 		data->iter++;
 	while (data->map[*a][data->iter] && ft_isdigit(data->map[*a][data->iter]))
 		data->iter++;
-	write_dot2(lines, a, count, data);
 	(*count)++;
 }
 
@@ -68,6 +43,8 @@ static void		create_lines(t_mlx *data, t_map *lines, int *a, int *count)
 		while (NORMCRM1 && NORMCRM1 == 32)
 			data->iter++;
 		data->iter--;
+		if (data->map[*a][data->iter] != 0)
+			data->iter++;
 		if (*count < data->how_x)
 		{
 			lines->next = (t_map*)malloc(sizeof(t_map));
@@ -76,8 +53,6 @@ static void		create_lines(t_mlx *data, t_map *lines, int *a, int *count)
 		}
 		else
 			lines->next = NULL;
-		if (data->map[*a][data->iter] != 0)
-			data->iter++;
 	}
 }
 
