@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>
 
 void	restart(t_mlx *data)
 {
@@ -26,7 +25,6 @@ void	colorize(t_mlx *data, int flag)
 	lines = data->line;
 	while (lines)
 	{
-		printf("flag:%i\n", flag);
 		if (flag == 1)
 		{
 			if (lines->z > 0)
@@ -57,29 +55,29 @@ int		deal_key(int k, t_mlx *data)
 {
 	if (k == 53)
 		exit_free(data);
-	if (k == 123)
+	if (k == 126)
 	{
 		data->radx += 0.0125;
 		rotate_fdf(data, 0);
 	}
-	if (k == 124)
+	if (k == 125)
 	{
 		data->radx -= 0.0125;
 		rotate_fdf(data, 0);
 	}
-	if (k == 125)
+	if (k == 124)
 	{
 		data->rady += 0.0125;
 		rotate_fdf(data, 1);
 	}
-	if (k == 126)
+	if (k == 123)
 	{
 		data->rady -= 0.0125;
 		rotate_fdf(data, 1);
 	}
-	if (k == 24)
+	if (k == 69)
 		scale(data, 1);
-	if (k == 27)
+	if (k == 78)
 		scale(data, 2);
 	if (k == 91)
 		data->move = 4;
@@ -97,13 +95,19 @@ int		deal_key(int k, t_mlx *data)
 			data->coloriz = 1;
 		colorize(data, data->coloriz);
 	}
+	if (k == 37)
+	{
+		if (data->show == 1)
+			data->show = 0;
+		else
+			data->show = 1;
+	}
 	if (k == 1)
 	{
 		data->radx = 0;
 		data->rady = 0;
 		data->move = 0;
 	}
-	ft_testintstr(k, "key");
 	if (k >= 1 && k <= 126)
 		restart(data);
 	return (k);
@@ -162,6 +166,34 @@ void			scale(t_mlx *data, int flag)
 	}
 }
 
+void			legend(t_mlx *data)
+{
+	mlx_string_put(data->mlx, data->win, 50, 25, 0x00CC00, "FDF @APAKHOMO");
+	mlx_string_put(data->mlx, data->win, 225, 25, 0x00CC00, "L - show legends");
+	if (data->show == 1)
+	{
+		mlx_string_put(data->mlx, data->win, 50, 70, 0xfbba00, "COLORIZE");
+		mlx_string_put(data->mlx, data->win, 50, 100, 0xff0040, "'C' - color");
+		mlx_string_put(data->mlx, data->win, 225, 70, 0xfbba00, "MOVE");
+		mlx_string_put(data->mlx, data->win, 225, 100, 0xff0040, "'8'  - move up");
+		mlx_string_put(data->mlx, data->win, 225, 130, 0xff0040, "'2'  - move down");
+		mlx_string_put(data->mlx, data->win, 225, 160, 0xff0040, "'4'  - move left");
+		mlx_string_put(data->mlx, data->win, 225, 190, 0xff0040, "'6'  - move right");
+		mlx_string_put(data->mlx, data->win, 50, 130, 0xfbba00, "ZOOM");
+		mlx_string_put(data->mlx, data->win, 50, 160, 0xff0040, "'+'  ++zoom");
+		mlx_string_put(data->mlx, data->win, 50, 190, 0xff0040, "'-'  --zoom");
+		mlx_string_put(data->mlx, data->win, 425, 70, 0xfbba00, "ROTATE");
+		mlx_string_put(data->mlx, data->win, 425, 100, 0xff0040, "'UP'    - move up");
+		mlx_string_put(data->mlx, data->win, 425, 130, 0xff0040, "'DOWN'  - move down");
+		mlx_string_put(data->mlx, data->win, 425, 160, 0xff0040, "'LEFT'  - move left");
+		mlx_string_put(data->mlx, data->win, 425, 190, 0xff0040, "'RIGHT' - move right");
+		mlx_string_put(data->mlx, data->win, 675, 70, 0xfbba00, "RESET");
+		mlx_string_put(data->mlx, data->win, 675, 100, 0xff0040, "'S'   - reset move");
+		mlx_string_put(data->mlx, data->win, 675, 130, 0xfbba00, "EXIT");
+		mlx_string_put(data->mlx, data->win, 675, 160, 0xff0040, "'ESC' - exit");
+	}
+}
+
 void				move_fdf(t_mlx *data, int flag)
 {
 	t_map	*lines;
@@ -204,6 +236,7 @@ void				start_fdf(t_mlx *data)
 	lines = data->line;
 	x = 0;
 	y = 0;
+	legend(data);
 	if (data->move == 0)
 		move_fdf(data, 0);
 	else

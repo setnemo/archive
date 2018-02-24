@@ -55,6 +55,7 @@ typedef struct		s_mlx
 	int				iter;
 	int				move;
 	int				coloriz;
+	int				show;
 	float			firstx;
 	float			firsty;
 	float			lastx;

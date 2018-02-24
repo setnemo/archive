@@ -59,18 +59,6 @@ void			free_data(t_mlx *data, int a)
 	free(data);
 }
 
-void			legend(t_mlx *data)
-{
-	mlx_string_put(data->mlx, data->win, 50, 35, 0xfbba00, "FDF @apakhomo");
-	mlx_string_put(data->mlx, data->win, 200, 35, 0xfbba00, "MOVE");
-	mlx_string_put(data->mlx, data->win, 400, 35, 0xfbba00, "ZOOM");
-	mlx_string_put(data->mlx, data->win, 600, 35, 0xfbba00, "ROTATE");
-	mlx_string_put(data->mlx, data->win, 800, 35, 0xfbba00, "EXIT");
-	mlx_string_put(data->mlx, data->win, 300, 100, 0x00CC00, "test2");
-	mlx_string_put(data->mlx, data->win, 400, 150, 0x00CC00, "test3");
-	mlx_string_put(data->mlx, data->win, 500, 200, 0x00CC00, "test4");
-}
-
 int				main(int argc, char **argv)
 {
 	t_mlx	*data;
@@ -99,7 +87,6 @@ int				main(int argc, char **argv)
 	}
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, data->window, data->window, "FDF");
-	legend(data);
 	scale(data, 0);
 	start_fdf(data);
 	mlx_key_hook(data->win, deal_key, data);
