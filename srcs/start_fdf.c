@@ -106,11 +106,9 @@ void				start_fdf(t_mlx *data)
 
 	lines = data->line;
 	y = 0;
-	legend(data);
-	if (data->move == 0)
-		move_fdf(data, 0);
-	else
-		move_fdf(data, data->move);
+	if (data->window > 899)
+		legend(data);
+	(data->move == 0) ? move_fdf(data, 0) : move_fdf(data, data->move);
 	while (y < data->how_y)
 	{
 		x = 0;
