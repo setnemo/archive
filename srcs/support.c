@@ -39,11 +39,11 @@ void		colorize(t_mlx *data, int flag)
 
 static void	scale_color_show_key(int k, t_mlx *data)
 {
-	if (k == 69)
+	if (k == 61)
 		scale(data, 1);
-	if (k == 78)
+	if (k == 45)
 		scale(data, 2);
-	if (k == 65)
+	if (k == 101)
 	{
 		if (data->coloriz == 1)
 			data->coloriz = 0;
@@ -51,7 +51,7 @@ static void	scale_color_show_key(int k, t_mlx *data)
 			data->coloriz = 1;
 		colorize(data, data->coloriz);
 	}
-	if (k == 67)
+	if (k == 114)
 	{
 		if (data->show == 1)
 			data->show = 0;
@@ -62,22 +62,22 @@ static void	scale_color_show_key(int k, t_mlx *data)
 
 static void	rotate_key(int k, t_mlx *data)
 {
-	if (k == 126)
+	if (k == 65362)
 	{
 		data->radx += 0.0125;
 		rotate_fdf(data, 0);
 	}
-	if (k == 125)
+	if (k == 65364)
 	{
 		data->radx -= 0.0125;
 		rotate_fdf(data, 0);
 	}
-	if (k == 124)
+	if (k == 65361)
 	{
 		data->rady += 0.0125;
 		rotate_fdf(data, 1);
 	}
-	if (k == 123)
+	if (k == 65363)
 	{
 		data->rady -= 0.0125;
 		rotate_fdf(data, 1);
@@ -86,40 +86,39 @@ static void	rotate_key(int k, t_mlx *data)
 
 static void	move_key(int k, t_mlx *data)
 {
-	if (k == 87)
+	if (k == 113)
 	{
 		data->radx = 0;
 		data->rady = 0;
 		data->move = 0;
 	}
-	if (k == 91)
+	if (k == 119)
 		data->move = 4;
-	if (k == 84)
+	if (k == 115)
 		data->move = 2;
-	if (k == 86)
+	if (k == 97)
 		data->move = 3;
-	if (k == 88)
+	if (k == 100)
 		data->move = 1;
 }
 
 int			deal_key(int k, t_mlx *data)
 {
-	if (k == 53)
+	if (k == 65307)
 	{
 		free_data(data, 0);
 		exit(0);
 	}
-	if (k >= 123 && k <= 126)
+	if (k >= 65361 && k <= 65364)
 		rotate_key(k, data);
-	if (k == 87 || k == 91 || k == 84 || k == 86 || k == 88)
+	if (k == 113 || k == 119 || k == 115 || k == 97 || k == 100)
 		move_key(k, data);
-	if (k == 69 || k == 78 || k == 65 || k == 67)
 		scale_color_show_key(k, data);
-	if ((k >= 123 && k <= 126) || k == 87 || k == 91 || k == 84 || k == 86 ||
-		k == 88 || k == 69 || k == 78 || k == 65 || k == 67)
+	if (k >= 1 && k <= 66666)
 	{
 		mlx_clear_window(data->mlx, data->win);
 		start_fdf(data);
 	}
+	//ft_testintstr(k, "кнопка");
 	return (k);
 }

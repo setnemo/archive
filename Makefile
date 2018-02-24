@@ -34,7 +34,7 @@ LIB_DIR = libft/
 SRC_DIR = srcs/
 OBJ_DIR = obj/
 
-ifeq ($(TARGETOS), OSX)
+ifneq ($(TARGETOS), OSX)
 	FLAGS = -lm -lmlx -lXext -lX11 -L lib/ -I lib/
 	WWW = 
 	CC = cc

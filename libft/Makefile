@@ -103,7 +103,7 @@ SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
 
-ifeq ($(TARGETOS), OSX)
+ifneq ($(TARGETOS), OSX)
 	FLAGS =
 endif
 
