@@ -11,7 +11,7 @@
 #******************************************************************************#
 
 NAME = fdf
-CC = gcc
+CC = gcc 
 WWW = -Wall -Wextra -Werror 
 FLAGS = -g -lmlx -framework OpenGL -framework AppKit
 
@@ -19,7 +19,8 @@ SRC_NAME = 	main.c\
 			check_fdf.c\
 			create_map.c\
 			start_fdf.c\
-			brznhm.c
+			brznhm.c\
+			rotate.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
@@ -31,7 +32,7 @@ LIB_DIR = libft/
 SRC_DIR = srcs/
 OBJ_DIR = obj/
 
-ifneq ($(TARGETOS), OSX)
+ifeq ($(TARGETOS), OSX)
 	FLAGS = -lm -lmlx -lXext -lX11 -L lib/ -I lib/
 	WWW = 
 	CC = cc

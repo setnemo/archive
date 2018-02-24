@@ -65,6 +65,8 @@ typedef struct		s_mlx
 	float			radx;
 	float			rady;
 	float			radz;
+	float			shiftx;
+	float			shifty;
 	struct s_map	*line;
 }					t_mlx;
 
@@ -74,7 +76,7 @@ int					check_flags(t_mlx *data, int argc, char **argv);
 
 int					create_fdf_map(t_mlx *data, int a, int count);
 
-void				move_to_center(t_mlx *data);
+void				scale(t_mlx *data);
 void				start_fdf(t_mlx *data);
 
 int					deal_key(int k, t_mlx *data);

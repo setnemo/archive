@@ -26,42 +26,82 @@ void	exit_free(t_mlx *data)
 	exit(0);
 }
 
+// int		deal_key(int k, t_mlx *data)
+// {
+// 	if (k == 65307)
+// 		exit_free(data);
+// 	if (k == 122)
+// 	{
+// 		data->radx += 0.017452;
+// 		rotate_fdf(data, 0);
+// 	}
+// 	if (k == 120)
+// 	{
+// 		data->radx -= 0.017452;
+// 		rotate_fdf(data, 0);
+// 	}
+// 	if (k == 99)
+// 	{
+// 		data->rady += 0.017452;
+// 		rotate_fdf(data, 1);
+// 	}
+// 	if (k == 118)
+// 	{
+// 		data->rady -= 0.017452;
+// 		rotate_fdf(data, 1);
+// 	}
+// 	if (k == 98)
+// 	{
+// 		data->radz += 0.017452;
+// 		rotate_fdf(data, 2);
+// 	}
+// 	if (k == 110)
+// 	{
+// 		data->radz -= 0.017452;
+// 		rotate_fdf(data, 2);
+// 	}
+// 	ft_testintstr(k, "key");
+// 	if (k == 53 || (k >= 99 && k <= 126) )
+// 		restart(data);
+// 	return (k);
+// }
+
 int		deal_key(int k, t_mlx *data)
 {
-	if (k == 65307)
+	if (k == 53)
 		exit_free(data);
-	if (k == 122)
+	if (k == 123)
 	{
-		data->radx += 0.017452;
+		data->radx += 0.025;
 		rotate_fdf(data, 0);
 	}
-	if (k == 120)
+	if (k == 124)
 	{
-		data->radx -= 0.017452;
+		data->radx -= 0.025;
 		rotate_fdf(data, 0);
 	}
-	if (k == 99)
+	if (k == 125)
 	{
-		data->rady += 0.017452;
+		data->rady += 0.025;
 		rotate_fdf(data, 1);
 	}
-	if (k == 118)
+	if (k == 126)
 	{
-		data->rady -= 0.017452;
+		data->rady -= 0.025;
 		rotate_fdf(data, 1);
 	}
-	if (k == 98)
+	if (k == 43)
 	{
-		data->radz += 0.017452;
+		data->radz += 0.025;
 		rotate_fdf(data, 2);
 	}
-	if (k == 110)
+	if (k == 47)
 	{
-		data->radz -= 0.017452;
+		data->radz -= 0.025;
 		rotate_fdf(data, 2);
 	}
 	ft_testintstr(k, "key");
-	if (k == 53 || (k >= 99 && k <= 126) )
+	if (k >= 43 && k <= 126)
 		restart(data);
 	return (k);
 }
@@ -72,7 +112,7 @@ int		deal_key(int k, t_mlx *data)
 // 		exit_free(data);
 // 	if (k == 123)
 // 	{
-// 		data->radx += 0.017452;
+// 		data->radx += 0.08;
 // 		rotate_fdf(data, 0, 0);
 // 	}
 // 	if (k == 124)
@@ -106,7 +146,7 @@ int		deal_key(int k, t_mlx *data)
 // 	return (k);
 // }
 
-void			move_to_center(t_mlx *data)
+void			scale(t_mlx *data)
 {
 	float	ratex;
 	t_map	*lines;
@@ -121,27 +161,6 @@ void			move_to_center(t_mlx *data)
 		data->lasty = lines->py;
 		lines->px *= ratex;
 		lines->py *= ratex;
-		lines->px1 *= ratex;
-		lines->py1 *= ratex;
-		lines->px2 *= ratex;
-		lines->py2 *= ratex;
-		if (lines->next)
-			lines = lines->next;
-		else
-			break ;
-	}
-	lines = data->line;
-	float ratey;
-	ratex = ((data->window / 2) - ((data->lastx - data->firstx)/2))/2;
-	ratey = ((data->window / 2) - ((data->lasty - data->firsty)/2))/2;
-	while (lines)
-	{
-		lines->px += ratex;
-		lines->py += ratey;
-		lines->px1 += ratex;
-		lines->py1 += ratey;
-		lines->px2 += ratex;
-		lines->py2 += ratey;
 		if (lines->next)
 			lines = lines->next;
 		else
@@ -149,13 +168,46 @@ void			move_to_center(t_mlx *data)
 	}
 }
 
+void				move_fdf(t_mlx *data)
+{
+	t_map	*lines;
+
+	lines = data->line;
+	data->firstx = data->line->px;
+	data->firsty = data->line->py;
+	while (lines)
+	{
+		data->lastx = lines->px;
+		data->lasty = lines->py;
+		if (lines->next)
+			lines = lines->next;
+		else
+			break ;
+	}
+	lines = data->line;
+	data->shiftx = ((data->window / 2) - ((data->lastx - data->firstx)/2));
+	data->shifty = ((data->window / 2) - ((data->lasty - data->firsty)/2));
+	// while (lines)
+	// {
+	// 	lines->px += data->shiftx;
+	// 	lines->py += data->shifty;
+	// 	if (lines->next)
+	// 		lines = lines->next;
+	// 	else
+	// 		break ;
+	// }
+}
+
 void				start_fdf(t_mlx *data)
 {
+	int x;
+	int y;
+	t_map *lines;
 
-	t_map *lines = data->line;
-
-	int x = 0;
-	int y = 0;
+	lines = data->line;
+	x = 0;
+	y = 0;
+	move_fdf(data);
 	while (y < data->how_y)
 	{
 		x = 0;
@@ -176,5 +228,5 @@ void				start_fdf(t_mlx *data)
 		// 	y = 0;
 	//	printf(":ШШШ:lines->px lines->py lines->px1 lines->py1 lines->px2 lines->py2 lines->pz lines->pc\n");
 		//printf("%f		%f		%f		%f		%f		%f\n",lines->px, lines->py,lines->px1, lines->py1,lines->px2, lines->py2);
-//		printf(" %i         %f         %f       %f         %f         %f          %f        %f        %lu\n",i, lines->px, lines->py,lines->px1, lines->py1,lines->px2, lines->py2,lines->pz,lines->pc);
+//		printf(" %i         %f %f %f %d         %f       %f         %f         %f          %f        %f        %lu\n",i, lines->px, lines->py,lines->px1, lines->py1,lines->px2, lines->py2,lines->pz,lines->pc);
 		//i++;
