@@ -68,8 +68,8 @@ static void			brz_core(t_mlx *data, t_map	*lines, int flag)
 	t_map		*temp;
 
 	temp = lines;
-	brz1.py = lines->py + data->shifty;
-	brz1.px = lines->px + data->shiftx;
+	brz1.py = lines->py * data->zoomnew + data->shifty;
+	brz1.px = lines->px * data->zoomnew + data->shiftx;
 	if (flag == 1 || flag == 0)
 	{
 		brz1.dx = (flag == 1) ? lines->next->px - lines->px : 0; 
@@ -85,7 +85,7 @@ static void			brz_core(t_mlx *data, t_map	*lines, int flag)
 	brz1.yinc = (brz1.dy > 0 ) ? 1 : -1;
 	brz1.dx = abs(brz1.dx); 
 	brz1.dy = abs(brz1.dy);
-	brz1.pc = (lines->pc == 0) ? data->fill : lines->pc;
+	brz1.pc = (lines->pc == 0 && data->coloriz == 0) ? data->fill : lines->pc;
 	brz1.dx > brz1.dy ? brzh1(data, &brz1, 0, 0) : brzh2(data, &brz1, 0, 0);
 }
 

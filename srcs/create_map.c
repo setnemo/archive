@@ -19,7 +19,7 @@ static void		write_dot1(t_map *lines, int *a, int *count, t_mlx *data)
 {
 	lines->py = *a;
 	lines->px = *count;
-	lines->pz = (ft_atoi(&data->map[*a][data->iter]));
+	lines->pz = (ft_atoi(&data->map[*a][data->iter])) * 10;
 	if (data->map[*a][data->iter] == '-')
 		data->iter++;
 	while (data->map[*a][data->iter] && ft_isdigit(data->map[*a][data->iter]))

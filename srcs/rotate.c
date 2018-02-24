@@ -31,6 +31,7 @@ static void		rotate_x(t_mlx *data, t_map *lines)
 			break ;		
 	}
 }
+
 static void		rotate_y(t_mlx *data, t_map *lines)
 {
 	float x;
@@ -50,26 +51,6 @@ static void		rotate_y(t_mlx *data, t_map *lines)
 			break ;		
 	}
 }
-static void		rotate_z(t_mlx *data, t_map *lines)
-{
-	float x;
-	float y;
-	float z;
-
-	while (lines)
-	{
-		x = lines->px;
-		y = lines->py;
-		z = lines->pz;
-		lines->px = x * cos(data->radz) + y * -sin(data->radz) + z * 0;
-		lines->py = x * sin(data->radz) + y * cos(data->radz) + z * 0;
-		lines->pz = x * 0 + y * 0 + z * 1;
-		if (lines->next)
-			lines = lines->next;
-		else
-			break ;		
-	}
-}
 
 void			rotate_fdf(t_mlx *data, int l)
 {
@@ -80,6 +61,4 @@ void			rotate_fdf(t_mlx *data, int l)
 		rotate_x(data, lines);
 	if (l == 1)
 		rotate_y(data, lines);
-	if (l == 2)
-		rotate_z(data, lines);
 }

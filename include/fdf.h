@@ -34,14 +34,9 @@ typedef struct		s_map
 {
 	float			px;
 	float			py;
-	float			px1;
-	float			py1;
-	float			px2;
-	float			py2;
 	float			pz;
+	int				z;
 	unsigned long	pc;
-	int				flag1;
-	int				flag2;
 	struct s_map	*next;
 }					t_map;
 
@@ -58,6 +53,8 @@ typedef struct		s_mlx
 	int				how_x;
 	int				how_y;
 	int				iter;
+	int				move;
+	int				coloriz;
 	float			firstx;
 	float			firsty;
 	float			lastx;
@@ -67,6 +64,8 @@ typedef struct		s_mlx
 	float			radz;
 	float			shiftx;
 	float			shifty;
+	float			zoom;
+	float			zoomnew;
 	struct s_map	*line;
 }					t_mlx;
 
@@ -76,7 +75,7 @@ int					check_flags(t_mlx *data, int argc, char **argv);
 
 int					create_fdf_map(t_mlx *data, int a, int count);
 
-void				scale(t_mlx *data);
+void				scale(t_mlx *data, int flag);
 void				start_fdf(t_mlx *data);
 
 int					deal_key(int k, t_mlx *data);

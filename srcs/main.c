@@ -73,6 +73,7 @@ int				main(int argc, char **argv)
 		data->line = NULL;
 		data->str = ft_strnew(0);
 		data->fill = 0xFFFFFF;
+		data->zoomnew = 1;
 		if ((check_flags(data, argc, argv)))
 		{
 			system("leaks -quiet fdf");
@@ -86,7 +87,7 @@ int				main(int argc, char **argv)
 	}
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, data->window, data->window, "FDF");
-	scale(data);
+	scale(data, 0);
 	start_fdf(data);
 	mlx_key_hook(data->win, deal_key, data);
 	mlx_loop(data->mlx);
