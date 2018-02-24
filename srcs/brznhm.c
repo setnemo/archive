@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>
 
 static void			brzh1(t_mlx *data, t_brz *brz, int iter, int rate)
 {
@@ -41,7 +40,7 @@ static void			brzh2(t_mlx *data, t_brz *brz, int iter, int rate)
 	{
 		brz->py += brz->yinc;
 		rate += brz->dx;
-		if ( rate >= brz->dy)
+		if (rate >= brz->dy)
 		{
 			rate -= brz->dy;
 			brz->px += brz->xinc;
@@ -53,7 +52,9 @@ static void			brzh2(t_mlx *data, t_brz *brz, int iter, int rate)
 
 static t_map		*while_temp(t_map *temp, int how)
 {
-	int i = 0;
+	int i;
+
+	i = 0;
 	while (i < how)
 	{
 		temp = temp->next;
@@ -62,7 +63,7 @@ static t_map		*while_temp(t_map *temp, int how)
 	return (temp);
 }
 
-static void			brz_core(t_mlx *data, t_map	*lines, int flag)
+static void			brz_core(t_mlx *data, t_map *lines, int flag)
 {
 	t_brz		brz1;
 	t_map		*temp;
@@ -72,7 +73,7 @@ static void			brz_core(t_mlx *data, t_map	*lines, int flag)
 	brz1.px = lines->px * data->zoomnew + data->shiftx;
 	if (flag == 1 || flag == 0)
 	{
-		brz1.dx = (flag == 1) ? lines->next->px - lines->px : 0; 
+		brz1.dx = (flag == 1) ? lines->next->px - lines->px : 0;
 		brz1.dy = (flag == 1) ? lines->next->py - lines->py : 0;
 	}
 	else if (flag == 2)
@@ -82,8 +83,8 @@ static void			brz_core(t_mlx *data, t_map	*lines, int flag)
 		brz1.dy = temp->py - lines->py;
 	}
 	brz1.xinc = (brz1.dx > 0) ? 1 : -1;
-	brz1.yinc = (brz1.dy > 0 ) ? 1 : -1;
-	brz1.dx = abs(brz1.dx); 
+	brz1.yinc = (brz1.dy > 0) ? 1 : -1;
+	brz1.dx = abs(brz1.dx);
 	brz1.dy = abs(brz1.dy);
 	brz1.pc = (lines->pc == 0 && data->coloriz == 0) ? data->fill : lines->pc;
 	brz1.dx > brz1.dy ? brzh1(data, &brz1, 0, 0) : brzh2(data, &brz1, 0, 0);

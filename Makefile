@@ -20,7 +20,9 @@ SRC_NAME = 	main.c\
 			create_map.c\
 			start_fdf.c\
 			brznhm.c\
-			rotate.c
+			rotate.c\
+			support.c\
+			scale.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 

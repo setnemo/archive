@@ -71,19 +71,12 @@ typedef struct		s_mlx
 }					t_mlx;
 
 void				free_data(t_mlx *data, int a);
-
 int					check_flags(t_mlx *data, int argc, char **argv);
-
 int					create_fdf_map(t_mlx *data, int a, int count);
-
+void				rotate_fdf(t_mlx *data, int l);
 void				scale(t_mlx *data, int flag);
 void				start_fdf(t_mlx *data);
-
-int					deal_key(int k, t_mlx *data);
-
 void				brz_start(t_mlx *data, t_map *lines, int y, int x);
-
-void				rotate_fdf(t_mlx *data, int l);
-
+int					deal_key(int k, t_mlx *data);
 
 #endif

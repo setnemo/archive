@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotate.c                                           :+:      :+:    :+:   */
+/*   scale.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,20 +12,15 @@
 
 #include "fdf.h"
 
-static void		rotate_x(t_mlx *data, t_map *lines)
+static void		scale0(t_mlx *data, t_map *lines)
 {
-	float x;
-	float y;
-	float z;
-
 	while (lines)
 	{
-		x = lines->px;
-		y = lines->py;
-		z = lines->pz;
-		lines->px = x * 1 + y * 0 + z * 0;
-		lines->py = x * 0 + y * cos(data->radx) - z * sin(data->radx);
-		lines->pz = x * 0 + y * sin(data->radx) + z * cos(data->radx);
+		lines->z = lines->pz;
+		data->lastx = lines->px;
+		data->lasty = lines->py;
+		lines->px *= data->zoom;
+		lines->py *= data->zoom;
 		if (lines->next)
 			lines = lines->next;
 		else
@@ -33,20 +28,14 @@ static void		rotate_x(t_mlx *data, t_map *lines)
 	}
 }
 
-static void		rotate_y(t_mlx *data, t_map *lines)
+static void		scale1(t_mlx *data, t_map *lines)
 {
-	float x;
-	float y;
-	float z;
-
 	while (lines)
 	{
-		x = lines->px;
-		y = lines->py;
-		z = lines->pz;
-		lines->px = x * cos(data->rady) + y * 0 + z * sin(data->rady);
-		lines->py = x * 0 + y * 1 + z * 0;
-		lines->pz = x * -sin(data->rady) + y * 0 + z * cos(data->rady);
+		data->lastx = lines->px;
+		data->lasty = lines->py;
+		lines->px *= 1.05;
+		lines->py *= 1.05;
 		if (lines->next)
 			lines = lines->next;
 		else
@@ -54,13 +43,39 @@ static void		rotate_y(t_mlx *data, t_map *lines)
 	}
 }
 
-void			rotate_fdf(t_mlx *data, int l)
+static void		scale2(t_mlx *data, t_map *lines)
 {
-	t_map *lines;
+	while (lines)
+	{
+		data->lastx = lines->px;
+		data->lasty = lines->py;
+		lines->px *= 0.95;
+		lines->py *= 0.95;
+		if (lines->next)
+			lines = lines->next;
+		else
+			break ;
+	}
+}
 
+void			scale(t_mlx *data, int flag)
+{
+	t_map	*lines;
+
+	if (flag == 0)
+		data->zoom = (data->window / 2) / data->how_x;
 	lines = data->line;
-	if (l == 0)
-		rotate_x(data, lines);
-	if (l == 1)
-		rotate_y(data, lines);
+	data->firstx = data->line->px;
+	data->firsty = data->line->py;
+	if (flag == 1)
+	{
+		scale1(data, lines);
+		return ;
+	}
+	if (flag == 2)
+	{
+		scale2(data, lines);
+		return ;
+	}
+	scale0(data, lines);
 }
