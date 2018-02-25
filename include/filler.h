@@ -21,6 +21,20 @@
 
 /*
 ** ****************************************************************************
+** **************************** struct for spot *******************************
+** ****************************************************************************
+*/
+
+typedef struct	s_spt
+{
+	int				locx;
+	int				locy;
+	int				summ;
+	struct s_spt	*next;
+}				t_spt;
+
+/*
+** ****************************************************************************
 ** **************************** struct for bits *******************************
 ** ****************************************************************************
 */
@@ -32,7 +46,7 @@ typedef struct	s_bit
 	int				bit_error;
 	int				my_point;
 	size_t			count;
-	struct s_bit 	*next;
+	struct s_bit	*next;
 }				t_bit;
 
 /*
@@ -54,7 +68,8 @@ typedef struct	s_fill
 	int				a_loc;
 	int				b_loc;
 	size_t			**matrix;
-	struct s_bit 	*next;
+	struct s_bit	*next;
+	struct s_spt	*spot;
 }				t_fill;
 
 /*

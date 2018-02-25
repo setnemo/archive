@@ -20,9 +20,9 @@ void	check_map(t_fill *game)
 	if (!(get_next_line(STDIN_FILENO, &line)))
 	{
 		// if (game->map)
-		// 	ft_free_arr(game->map);
+		// 	free_arr(game);
 		// if (game->bit)
-		// 	ft_free_arr(game->bit);
+		// 	free_arr(game);
 		exit(0);
 	}
 	temp = line;
@@ -51,8 +51,8 @@ void		read_bit(t_fill *game)
 	while (*line != 32)
 		line++;
 	game->bit_size[1] = ft_atoi(line);
-	if (game->bit)
-		ft_free_arr(game->bit);
+	// if (game->bit)
+	// 	free_arr(game);
 	game->bit = (char**)malloc((sizeof(char*) * game->bit_size[0]) + 1);
 	game->bit[game->bit_size[0]] = NULL;
 	a = 0;
@@ -73,8 +73,8 @@ void	read_map(t_fill *game)
 	char	*line;
 
 	// dprintf(game->fd, "read_map malloc check1\n");
-	if (game->map)
-		ft_free_arr(game->map);
+	// if (game->map)
+	// 	free_arr(game);
 	// dprintf(game->fd, "read_map malloc check2\n");
 	check_map(game);
 	game->map = (char**)malloc((sizeof(char*) * game->map_size[0]) + 1);
@@ -124,6 +124,9 @@ void	start_filler(void)
 
 	game = (t_fill*)malloc(sizeof(t_fill));
 	ft_bzero(game, sizeof(t_fill));
+	game->map = NULL;
+	game->bit = NULL;
+	game->spot = NULL;
 	game->a_loc = 0;
 	game->fd = open("log", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	dprintf(game->fd, "test\n");

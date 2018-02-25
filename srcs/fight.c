@@ -12,23 +12,108 @@
 
 #include "filler.h"
 
+void		matrix_fill_one2(t_fill *g) /// best??
+{
+	int a;
+	int b;
+
+	a = 0;
+	int c = 0;
+	int d;
+	while (a < g->map_size[0])
+	{
+		b = 0;
+		d = 0;
+		while (b < g->map_size[1])
+		{		
+			if (a < g->map_size[0] / 2 + 1)
+				g->matrix[a][b] = a;
+			else
+				g->matrix[a][b] = c;
+			// if (b < g->map_size[1] / 2 + 1)
+			// {
+			// 	d++;
+			// 	g->matrix[a][b] += b;
+			// }
+			// else
+			// {
+			// 	d--;
+			// 	g->matrix[a][b] += d;
+			// }
+			b++;
+		}
+		if (a < g->map_size[0] / 2)
+			c++;
+		else
+			c--;
+		a++;
+	}
+}
+
+
+
+void		find_lst(t_fill *g)
+{
+	t_spt	*lstsp;
+	t_spt	*lstsp2;
+	int		temp;
+
+	temp = lstsp->summ;
+	lstsp = g->spot;
+	while (lstsp)
+	{
+		if (lstsp->summ <= temp)
+		{
+			g->a_loc = lstsp->locx;
+			g->b_loc = lstsp->locy;
+		}
+		if (lstsp->next)
+			lstsp = lstsp->next;
+		else
+			break ;
+	}
+	lstsp = g->spot;
+	while (lstsp)
+	{
+		if (lstsp->next)
+		{
+			lstsp2 = lstsp->next;
+			free(lstsp);
+			lstsp = lstsp2;
+		}
+		else
+			break ;
+	}
+	if (lstsp)
+		free(lstsp);
+}
+
 void		find_loc(t_fill *g)
 {
 	t_bit	*p;
 	size_t	temp;
+	t_spt	*lstsp;
 
 	p = g->next;
 	temp = 0;
+	g->spot = (t_spt*)malloc(sizeof(t_spt));
+	//ft_bzero(lstsp, sizeof(t_spt));
+	lstsp = g->spot;
 	while (p->next)
 	{
 		if (p->bit_error == 0 && p->my_point == 1)
 		{
-			temp = p->count;
-			if (p->count <= temp)
+			if (lstsp->summ != 0)
 			{
-				g->a_loc = p->ap;
-				g->b_loc = p->bp;
+				lstsp->next = (t_spt*)malloc(sizeof(t_spt));
+				dprintf(g->fd, "test\n");
+				lstsp = lstsp->next;
+				ft_bzero(lstsp, sizeof(t_spt));
+				lstsp->next = NULL;	
 			}
+			lstsp->summ = p->count;
+			lstsp->locx = p->ap;
+			lstsp->locy = p->bp;
 		}
 		p = p->next;
 	}
@@ -36,14 +121,14 @@ void		find_loc(t_fill *g)
 }
 void		print_list(t_fill *g)
 {
-	t_bit *p;
+	t_spt *p;
 
-	p = g->next;
-	dprintf(g->fd, "List: a[%i] b[%i] e[%i] m[%i] count[%zu]\n", p->ap, p->bp, p->bit_error, p->my_point, p->count);
+	p = g->spot;
+	dprintf(g->fd, "List: a[%i] b[%i] count[%d]\n", p->locx, p->locy, p->summ);
 	while (p->next)
 	{
 		p = p->next;
-		dprintf(g->fd, "List: a[%i] b[%i] e[%i] m[%i] count[%zu]\n", p->ap, p->bp, p->bit_error, p->my_point, p->count);
+		dprintf(g->fd, "List: a[%i] b[%i] count[%d]\n", p->locx, p->locy, p->summ);
 	}
 
 }
@@ -114,7 +199,7 @@ void		find_spot(t_fill *g)
 		b = 0;
 		while (b < g->map_size[1])
 		{
-			dprintf(g->fd, "fcheck_bit(%i, %i)\n", a, b);
+			//dprintf(g->fd, "fcheck_bit(%i, %i)\n", a, b);
 			check_bit(g, tbit, a, b);
 			b++;
 		}
@@ -155,13 +240,13 @@ int			fill_point(t_fill *g, size_t *i, int a, int b)
 	int ret;
 
 	ret = 0;
-	if (a - 1 > 0 && a - g->map_size[0])
+	if (a - 1 >= 0 && a - g->map_size[0])
 	{
 		if (g->matrix[a - 1][b] == 0 && ++ret)
 			g->matrix[a - 1][b] = (*i) + 1;
 		if (b + 1 < g->map_size[1] && g->matrix[a - 1][b + 1] == 0 && ++ret)
 			g->matrix[a - 1][b + 1] = (*i) + 1;
-		if (b - 1 > 0 && g->matrix[a - 1][b - 1] == 0  && ++ret)
+		if (b - 1 >= 0 && g->matrix[a - 1][b - 1] == 0  && ++ret)
 			g->matrix[a - 1][b - 1] = (*i) + 1;
 	}
 	if (a + 1 < g->map_size[0])
@@ -170,10 +255,10 @@ int			fill_point(t_fill *g, size_t *i, int a, int b)
 			g->matrix[a + 1][b] = (*i) + 1;
 		if (b + 1 < g->map_size[1] && g->matrix[a + 1][b + 1] == 0 && ++ret)
 			g->matrix[a + 1][b + 1] = (*i) + 1;
-		if (b - 1 > 0 && g->matrix[a + 1][b - 1] == 0 && ++ret)
+		if (b - 1 >= 0 && g->matrix[a + 1][b - 1] == 0 && ++ret)
 			g->matrix[a + 1][b - 1] = (*i) + 1;
 	}
-	if (b - 1 > 0 && g->matrix[a][b - 1] == 0 && ++ret)
+	if (b - 1 >= 0 && g->matrix[a][b - 1] == 0 && ++ret)
 		g->matrix[a][b - 1] = (*i) + 1;
 	if (b + 1 < g->map_size[1] && g->matrix[a][b + 1] == 0 && ++ret)
 		g->matrix[a][b + 1] = (*i) + 1;
@@ -228,13 +313,13 @@ void		spot_loc(t_fill *g)
 	flag = 1;
 	i = 1;
 	matrix_map(g);
-	matrix_fill_one(g, &i);
-	i++;
-	while (flag)
-	{
-		matrix_fill_two(g, &i, &flag);
-		i++;
-	}
+	matrix_fill_one2(g);
+	// i++;
+	// while (flag)
+	// {
+	// 	matrix_fill_two(g, &i, &flag);
+	// 	i++;
+	// }
 	dprintf(g->fd, "-----1-----\n");
 	for (int i = 0; i < g->map_size[0]; ++i)
 	{
@@ -244,8 +329,9 @@ void		spot_loc(t_fill *g)
 	}
 	dprintf(g->fd, "-----2------\n");
 	find_spot(g);
-	print_list(g);
 	find_loc(g);
+	print_list(g);
+	find_lst(g);
 	dprintf(1, "%i %i\n", g->a_loc, g->b_loc);
 	dprintf(g->fd, "<got (%c): [%i, %i]\n", g->xo, g->a_loc, g->b_loc);
 }
