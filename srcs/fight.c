@@ -12,25 +12,6 @@
 
 #include "filler.h"
 
-
-void		ft_lstdl(t_bit *lst)
-{
-	t_bit *temp;
-	t_bit *list;
-
-	if (lst == NULL)
-		return ;
-	list = lst;
-	while (list)
-	{
-		if (list->next)
-			temp = list->next;
-		free(list);
-		if (list->next)
-			list = temp;
-	}
-}
-
 void		find_loc(t_fill *g)
 {
 	t_bit	*p;
@@ -42,9 +23,9 @@ void		find_loc(t_fill *g)
 	{
 		if (p->bit_error == 0 && p->my_point == 1)
 		{
-			if (p->count > temp)
+			temp = p->count;
+			if (p->count <= temp)
 			{
-				temp = p->count;
 				g->a_loc = p->ap;
 				g->b_loc = p->bp;
 			}
@@ -169,179 +150,91 @@ void		matrix_map(t_fill *g)
 	}
 }
 
-// int			fill_point(t_fill *g, size_t *i, int a, int b)
-// {
-// 	int ret;
+int			fill_point(t_fill *g, size_t *i, int a, int b)
+{
+	int ret;
 
-// 	ret = 0;
-// 	if (a - 1 >= 0 && a - g->map_size[0])
-// 	{
-// 		if (g->matrix[a - 1][b] == 0 && ++ret)
-// 			g->matrix[a - 1][b] = (*i) + 1;
-// 		if (b + 1 < g->map_size[1] && g->matrix[a - 1][b + 1] == 0 && ++ret)
-// 			g->matrix[a - 1][b + 1] = (*i) + 1;
-// 		if (b - 1 >= 0 && g->matrix[a - 1][b - 1] == 0  && ++ret)
-// 			g->matrix[a - 1][b - 1] = (*i) + 1;
-// 	}
-// 	if (a + 1 < g->map_size[0])
-// 	{
-// 		if (g->matrix[a + 1][b] == 0 && ++ret)
-// 			g->matrix[a + 1][b] = (*i) + 1;
-// 		if (b + 1 < g->map_size[1] && g->matrix[a + 1][b + 1] == 0 && ++ret)
-// 			g->matrix[a + 1][b + 1] = (*i) + 1;
-// 		if (b - 1 >= 0 && g->matrix[a + 1][b - 1] == 0 && ++ret)
-// 			g->matrix[a + 1][b - 1] = (*i) + 1;
-// 	}
-// 	if (b - 1 >= 0 && g->matrix[a][b - 1] == 0 && ++ret)
-// 		g->matrix[a][b - 1] = (*i) + 1;
-// 	if (b + 1 < g->map_size[1] && g->matrix[a][b + 1] == 0 && ++ret)
-// 		g->matrix[a][b + 1] = (*i) + 1;
-// 	return (ret);
-// }
+	ret = 0;
+	if (a - 1 > 0 && a - g->map_size[0])
+	{
+		if (g->matrix[a - 1][b] == 0 && ++ret)
+			g->matrix[a - 1][b] = (*i) + 1;
+		if (b + 1 < g->map_size[1] && g->matrix[a - 1][b + 1] == 0 && ++ret)
+			g->matrix[a - 1][b + 1] = (*i) + 1;
+		if (b - 1 > 0 && g->matrix[a - 1][b - 1] == 0  && ++ret)
+			g->matrix[a - 1][b - 1] = (*i) + 1;
+	}
+	if (a + 1 < g->map_size[0])
+	{
+		if (g->matrix[a + 1][b] == 0 && ++ret)
+			g->matrix[a + 1][b] = (*i) + 1;
+		if (b + 1 < g->map_size[1] && g->matrix[a + 1][b + 1] == 0 && ++ret)
+			g->matrix[a + 1][b + 1] = (*i) + 1;
+		if (b - 1 > 0 && g->matrix[a + 1][b - 1] == 0 && ++ret)
+			g->matrix[a + 1][b - 1] = (*i) + 1;
+	}
+	if (b - 1 > 0 && g->matrix[a][b - 1] == 0 && ++ret)
+		g->matrix[a][b - 1] = (*i) + 1;
+	if (b + 1 < g->map_size[1] && g->matrix[a][b + 1] == 0 && ++ret)
+		g->matrix[a][b + 1] = (*i) + 1;
+	return (ret);
+}
 
-// void		matrix_fill_two(t_fill *g, size_t *i, char *flag)
-// {
-// 	int a;
-// 	int b;
-
-// 	a = 0;
-// 	*flag = 0;
-// 	while (a < g->map_size[0])
-// 	{
-// 		b = 0;
-// 		while (b < g->map_size[1])
-// 		{		
-// 			if (g->matrix[a][b] == *i)
-// 				if (fill_point(g, i, a, b))
-// 					*flag = 1;
-// 			b++;
-// 		}
-// 		a++;
-// 	}
-// }
-
-// void		matrix_fill_one(t_fill *g, size_t *i)
-// {
-// 	int a;
-// 	int b;
-
-// 	a = 0;
-// 	while (a < g->map_size[0])
-// 	{
-// 		b = 0;
-// 		while (b < g->map_size[1])
-// 		{		
-// 			if (g->map[a][b] == g->enemy)
-// 				fill_point(g, i, a, b);
-// 			b++;
-// 		}
-// 		a++;
-// 	}
-// }
-
-void		matrix_fill_one2(t_fill *g) /// 
+void		matrix_fill_two(t_fill *g, size_t *i, char *flag)
 {
 	int a;
 	int b;
-	int c;
+
 	a = 0;
-	if (g->xo == 'O')
-		c = 0;
-	else
-		c = g->map_size[0] * g->map_size[1];
-	int d;
+	*flag = 0;
 	while (a < g->map_size[0])
 	{
 		b = 0;
-		d = 0;
 		while (b < g->map_size[1])
 		{		
-			g->matrix[a][b] = c;
-			if (g->xo == 'O')
-				c++;
-			else
-				c--;
+			if (g->matrix[a][b] == *i)
+				if (fill_point(g, i, a, b))
+					*flag = 1;
 			b++;
 		}
 		a++;
 	}
 }
 
-// void		matrix_fill_one2(t_fill *g) /// best??
-// {
-// 	int a;
-// 	int b;
+void		matrix_fill_one(t_fill *g, size_t *i)
+{
+	int a;
+	int b;
 
-// 	a = 0;
-// 	int c = 0;
-// 	int d;
-// 	while (a < g->map_size[0])
-// 	{
-// 		b = 0;
-// 		d = 0;
-// 		while (b < g->map_size[1])
-// 		{		
-// 			if (a < g->map_size[0] / 2 + 1)
-// 				g->matrix[a][b] = a;
-// 			else
-// 				g->matrix[a][b] = c;
-// 			// if (b < g->map_size[1] / 2 + 1)
-// 			// {
-// 			// 	d++;
-// 			// 	g->matrix[a][b] += b;
-// 			// }
-// 			// else
-// 			// {
-// 			// 	d--;
-// 			// 	g->matrix[a][b] += d;
-// 			// }
-// 			b++;
-// 		}
-// 		if (a < g->map_size[0] / 2)
-// 			c++;
-// 		else
-// 			c--;
-// 		a++;
-// 	}
-// }
+	a = 0;
+	while (a < g->map_size[0])
+	{
+		b = 0;
+		while (b < g->map_size[1])
+		{		
+			if (g->map[a][b] == g->enemy)
+				fill_point(g, i, a, b);
+			b++;
+		}
+		a++;
+	}
+}
 
-// void		spot_loc(t_fill *g)
-// {
-// 	char	flag;
-// 	size_t	i;
-
-// 	flag = 1;
-// 	i = 1;
-// 	matrix_map(g);
-// 	matrix_fill_one(g, &i);
-// 	i++;
-// 	while (flag)
-// 	{
-// 		matrix_fill_two(g, &i, &flag);
-// 		i++;
-// 	}
-// 	dprintf(g->fd, "-----1-----\n");
-// 	for (int i = 0; i < g->map_size[0]; ++i)
-// 	{
-// 		for (int j = 0; j < g->map_size[1]; ++j)
-// 			dprintf(g->fd, "%zu ", g->matrix[i][j]);
-// 		dprintf(g->fd, "\n");
-// 	}
-// 	dprintf(g->fd, "-----2------\n");
-// 	find_spot(g);
-// 	print_list(g);
-// 	find_loc(g);
-// 	dprintf(1, "%i %i\n", g->a_loc, g->b_loc);
-// 	dprintf(g->fd, "<got (%c): [%i, %i]\n", g->xo, g->a_loc, g->b_loc);
-// }
-
-// version 2
 void		spot_loc(t_fill *g)
 {
 	char	flag;
+	size_t	i;
+
 	flag = 1;
+	i = 1;
 	matrix_map(g);
-	matrix_fill_one2(g);
+	matrix_fill_one(g, &i);
+	i++;
+	while (flag)
+	{
+		matrix_fill_two(g, &i, &flag);
+		i++;
+	}
 	dprintf(g->fd, "-----1-----\n");
 	for (int i = 0; i < g->map_size[0]; ++i)
 	{
@@ -353,8 +246,6 @@ void		spot_loc(t_fill *g)
 	find_spot(g);
 	print_list(g);
 	find_loc(g);
-	// if (g->next)
-	// 	ft_lstdl(g->next);
 	dprintf(1, "%i %i\n", g->a_loc, g->b_loc);
 	dprintf(g->fd, "<got (%c): [%i, %i]\n", g->xo, g->a_loc, g->b_loc);
 }

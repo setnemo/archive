@@ -3,12 +3,14 @@
 #                                                         :::      ::::::::    #
 #    color.sh                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tlutsyk <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/01/17 17:11:16 by tlutsyk           #+#    #+#              #
-#    Updated: 2018/01/17 17:11:22 by tlutsyk          ###   ########.fr        #
+#    Created: 2018/01/29 12:10:16 by apakhomo          #+#    #+#              #
+#    Updated: 2018/01/29 12:10:55 by apakhomo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+say "New game!"
 
 gren=$(printf "\033[33mO\033[0m")
 yel=$(printf "\033[34mX\033[0m")
@@ -19,4 +21,4 @@ sed "s|O|$gren|g" |
 sed "s|X|$yel|g" |
 sed "s|x|$yel2|g" |
 sed "/^0.. /s|o|$grens|g" |
-sed "s|fin|player|g" 
+sed "s|fin|player|g" && say "Game over!"
