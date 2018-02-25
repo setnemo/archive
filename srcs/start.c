@@ -23,6 +23,8 @@ void	check_map(t_fill *game)
 		// 	free_arr(game);
 		// if (game->bit)
 		// 	free_arr(game);
+	system("leaks -quiet filler > 2");
+
 		exit(0);
 	}
 	temp = line;
@@ -106,7 +108,6 @@ void	start_play(t_fill *game)
 		dprintf(game->fd, "My bit size:[%i][%i]\n", game->bit_size[0], game->bit_size[1]);
 		spot_loc(game);
 	}
-	system("leaks -quiet filler > 2");
 
 	while (1)
 	{
