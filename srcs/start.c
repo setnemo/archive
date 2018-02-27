@@ -12,32 +12,6 @@
 
 #include "filler.h"
 
-void	free_bit(t_fill *game)
-{
-	int a;
-
-	a = 0;
-	while (a < game->bit_size[0])
-	{
-		ft_strdel(&game->bit[a]);
-		a++;
-	}
-	free(game->bit);
-}
-
-void	free_map(t_fill *game)
-{
-	int a;
-
-	a = 0;
-	while (a < game->map_size[0])
-	{
-		ft_strdel(&game->map[a]);
-		a++;
-	}
-	free(game->map);
-}
-
 void	check_map(t_fill *game)
 {
 	char	*line;
@@ -49,24 +23,20 @@ void	check_map(t_fill *game)
 			free_map(game);
 		if (game->bit)
 			free_bit(game);
-	system("leaks -quiet filler > leaks");
-
 		exit(0);
 	}
 	temp = line;
-	dprintf(game->fd,"%s\n", line);
 	line = line + 8;
 	game->map_size[0] = ft_atoi(line);
 	while (*line != 32)
 		line++;
 	game->map_size[1] = ft_atoi(line);
-	dprintf(game->fd,"Map Size:[%i][%i]\n", game->map_size[0], game->map_size[1]);
 	ft_strdel(&temp);
 	get_next_line(STDIN_FILENO, &line);
 	ft_strdel(&line);
 }
 
-void		read_bit(t_fill *game)
+void	read_bit(t_fill *game)
 {
 	int		a;
 	char	*line;
@@ -96,7 +66,6 @@ void		read_bit(t_fill *game)
 
 void	read_map(t_fill *game)
 {
-
 	int		a;
 	char	*line;
 
@@ -121,14 +90,6 @@ void	read_map(t_fill *game)
 		ft_strdel(&line);
 		a++;
 	}
-	// int	i;
-
-	// i = 0;
-	// while (i < game->map_size[0])
-	// {
-	// 	dprintf(game->fd, "%s\n", game->map[i]);
-	// 	i++;
-	// }
 }
 
 void	start_play(t_fill *game)
@@ -137,20 +98,17 @@ void	start_play(t_fill *game)
 	{
 		read_map(game);
 		read_bit(game);
-		dprintf(game->fd, "My bit size:[%i][%i]\n", game->bit_size[0], game->bit_size[1]);
 		spot_loc(game);
 	}
-	system("leaks -quiet filler > leaks");
 	while (1)
 	{
 		read_map(game);
 		read_bit(game);
-		dprintf(game->fd, "My bit size:[%i][%i]\n", game->bit_size[0], game->bit_size[1]);
 		spot_loc(game);
 	}
 }
 
-void	start_filler(void)
+int		main(void)
 {
 	char	*line;
 	t_fill	*game;
@@ -161,29 +119,15 @@ void	start_filler(void)
 	game->bit = NULL;
 	game->spot = NULL;
 	game->a_loc = 0;
-	game->fd = open("log", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	dprintf(game->fd, "test\n");
 	get_next_line(STDIN_FILENO, &line);
 	game->xo = 'X';
 	game->enemy = 'O';
-		dprintf(game->fd, "%s\n", line);
 	if (ft_strstr(line, "p1") != NULL)
 	{
 		game->xo = 'O';
 		game->enemy = 'X';
 	}
 	ft_strdel(&line);
-	dprintf(game->fd,"My symbol:%c\n", game->xo);
 	start_play(game);
-}
-
-int		main(int argc, char **argv)
-{
-	if (argc > 0 && *argv)
-	{
-		start_filler();
-		return (0);
-	}
 	return (0);
 }
-

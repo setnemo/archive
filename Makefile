@@ -11,11 +11,12 @@
 #******************************************************************************#
 
 NAME = filler
-FLAGS = 
-#-Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 
 SRC_NAME =	start.c\
-			fight.c
+			fight.c\
+			free.c\
+			spot.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 

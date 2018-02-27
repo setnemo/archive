@@ -14,10 +14,7 @@
 # define FILLER_H
 # include <unistd.h>
 # include "../libft/include/libft.h"
-
-
-#include <stdio.h>
-#include <fcntl.h>
+# include <fcntl.h>
 
 /*
 ** ****************************************************************************
@@ -68,6 +65,7 @@ typedef struct	s_fill
 	int				a_loc;
 	int				b_loc;
 	size_t			**matrix;
+	int				ret;
 	struct s_bit	*next;
 	struct s_spt	*spot;
 }				t_fill;
@@ -78,7 +76,6 @@ typedef struct	s_fill
 ** ****************************************************************************
 */
 
-void			start_filler(void);
 void			start_play(t_fill *game);
 void			read_map(t_fill *game);
 void			read_bit(t_fill *game);
@@ -90,9 +87,33 @@ void			check_map(t_fill *game);
 ** ****************************************************************************
 */
 
-void		matrix_map(t_fill *g);
-int			fill_point(t_fill *g, size_t *i, int a, int b);
-void		matrix_fill_two(t_fill *g, size_t *i, char *flag);
-void		matrix_fill_one(t_fill *g, size_t *i);
-void		spot_loc(t_fill *g);
+void			matrix_map(t_fill *g);
+int				fill_point(t_fill *g, size_t *i, int a, int b);
+void			matrix_fill_two(t_fill *g, size_t *i, char *flag);
+void			matrix_fill_one(t_fill *g, size_t *i);
+void			spot_loc(t_fill *g);
+
+/*
+** ****************************************************************************
+** ******************************** spot.c ************************************
+** ****************************************************************************
+*/
+
+void			find_lst(t_fill *g);
+void			find_loc(t_fill *g);
+t_bit			*check_bit_struct(t_bit *tbit, int a, int b);
+void			check_bit(t_fill *g, t_bit *tbit, int a, int b);
+void			find_spot(t_fill *g);
+
+/*
+** ****************************************************************************
+** ******************************** free.c ************************************
+** ****************************************************************************
+*/
+
+void			free_bit(t_fill *game);
+void			free_map(t_fill *game);
+void			free_sptlist(t_spt *lstsp);
+void			free_bitlist(t_bit *lstsp);
+
 #endif
