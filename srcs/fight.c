@@ -18,28 +18,36 @@ void		matrix_fill_one2(t_fill *g) /// best??
 	int b;
 
 	a = 0;
-	int c = 0;
-	int d;
+	int c;
+	if (g->xo == 'X')
+	{
+		while (a < g->map_size[0])
+		{
+			c = g->map_size[1] + g->map_size[0] - a;
+			b = 0;
+			while (b < g->map_size[1])
+			{		
+				g->matrix[a][b] = c;
+				b++;
+				if (c == 0)
+					c = 0;
+				else
+					c--;
+			}
+			c--;
+			a++;
+		}
+		return ;
+	}
 	while (a < g->map_size[0])
 	{
 		b = 0;
-		d = 0;
 		while (b < g->map_size[1])
 		{		
 			if (a < g->map_size[0] / 2 + 1)
 				g->matrix[a][b] = a;
 			else
 				g->matrix[a][b] = c;
-			// if (b < g->map_size[1] / 2 + 1)
-			// {
-			// 	d++;
-			// 	g->matrix[a][b] += b;
-			// }
-			// else
-			// {
-			// 	d--;
-			// 	g->matrix[a][b] += d;
-			// }
 			b++;
 		}
 		if (a < g->map_size[0] / 2)
@@ -59,6 +67,22 @@ void		find_lst(t_fill *g)
 
 	temp = lstsp->summ;
 	lstsp = g->spot;
+	if (g->xo == 'X')
+	{
+		while (lstsp)
+		{
+			if (lstsp->summ > temp)
+			{
+				g->a_loc = lstsp->locx;
+				g->b_loc = lstsp->locy;
+			}
+			if (lstsp->next)
+				lstsp = lstsp->next;
+			else
+				break ;
+		}
+		return ;
+	}
 	while (lstsp)
 	{
 		if (lstsp->summ <= temp)
@@ -71,43 +95,6 @@ void		find_lst(t_fill *g)
 		else
 			break ;
 	}
-}
-
-void		free_sptlist(t_spt *lstsp)
-{
-	t_spt	*temp;
-
-	while (lstsp)
-	{
-		if (lstsp->next)
-		{
-			temp = lstsp->next;
-			free(lstsp);
-			lstsp = temp;
-		}
-		else
-			break ;
-	}
-	free(lstsp);
-}
-
-void		free_bitlist(t_bit *bit)
-{
-	t_bit	*temp;
-
-	while (bit)
-	{
-		if (bit->next)
-		{
-			temp = bit->next;
-			free(bit);
-			bit = temp;
-		}
-		else
-			break ;
-	}
-	free(bit);
-	bit = NULL;
 }
 
 void		find_loc(t_fill *g)
@@ -210,9 +197,9 @@ void		find_spot(t_fill *g)
 	t_bit	*tbit;
 
 	a = 0;
-	g->next = (t_bit*)malloc(sizeof(t_bit));
-	tbit = g->next;
+	tbit = (t_bit*)malloc(sizeof(t_bit));
 	ft_bzero(tbit, sizeof(t_bit));
+	g->next = tbit;
 	tbit->next = NULL;
 	temp = g->xo * g->map_size[1] * g->map_size[0];
 	dprintf(g->fd, "find_spot1\n");
@@ -354,15 +341,6 @@ void		spot_loc(t_fill *g)
 	find_loc(g);
 	print_list(g);
 	find_lst(g);
-	if (g->next)
-	{
-		free_bitlist(g->next);
-	}
-	if (g->spot)
-	{
-		free_sptlist(g->spot);
-		g->spot = NULL;
-	}
 	dprintf(1, "%i %i\n", g->a_loc, g->b_loc);
 	dprintf(g->fd, "<got (%c): [%i, %i]\n", g->xo, g->a_loc, g->b_loc);
 }
