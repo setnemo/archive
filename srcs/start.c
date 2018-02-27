@@ -12,6 +12,32 @@
 
 #include "filler.h"
 
+void	free_bit(t_fill *game)
+{
+	int a;
+
+	a = 0;
+	while (a < game->bit_size[0])
+	{
+		ft_strdel(&game->bit[a]);
+		a++;
+	}
+	free(game->bit);
+}
+
+void	free_map(t_fill *game)
+{
+	int a;
+
+	a = 0;
+	while (a < game->map_size[0])
+	{
+		ft_strdel(&game->map[a]);
+		a++;
+	}
+	free(game->map);
+}
+
 void	check_map(t_fill *game)
 {
 	char	*line;
@@ -19,11 +45,11 @@ void	check_map(t_fill *game)
 
 	if (!(get_next_line(STDIN_FILENO, &line)))
 	{
-		// if (game->map)
-		// 	free_arr(game);
-		// if (game->bit)
-		// 	free_arr(game);
-	system("leaks -quiet filler > 2");
+		if (game->map)
+			free_map(game);
+		if (game->bit)
+			free_bit(game);
+	system("leaks -quiet filler > leaks");
 
 		exit(0);
 	}
@@ -46,6 +72,8 @@ void		read_bit(t_fill *game)
 	char	*line;
 	char	*temp;
 
+	if (game->bit)
+		free_bit(game);
 	get_next_line(STDIN_FILENO, &line);
 	temp = line;
 	line += 6;
@@ -53,8 +81,6 @@ void		read_bit(t_fill *game)
 	while (*line != 32)
 		line++;
 	game->bit_size[1] = ft_atoi(line);
-	// if (game->bit)
-	// 	free_arr(game);
 	game->bit = (char**)malloc((sizeof(char*) * game->bit_size[0]) + 1);
 	game->bit[game->bit_size[0]] = NULL;
 	a = 0;
@@ -74,16 +100,22 @@ void	read_map(t_fill *game)
 	int		a;
 	char	*line;
 
-	// dprintf(game->fd, "read_map malloc check1\n");
-	// if (game->map)
-	// 	free_arr(game);
-	// dprintf(game->fd, "read_map malloc check2\n");
 	check_map(game);
-	game->map = (char**)malloc((sizeof(char*) * game->map_size[0]) + 1);
-	game->map[game->map_size[0]] = NULL;
+	if (game->map == NULL)
+	{
+		game->map = (char**)malloc((sizeof(char*) * game->map_size[0]) + 1);
+		a = 0;
+		while (a < game->map_size[0])
+		{
+			game->map[a] = NULL;
+			a++;
+		}
+	}
 	a = 0;
 	while (a < game->map_size[0])
 	{
+		if (game->map[a])
+			ft_strdel(&game->map[a]);
 		get_next_line(STDIN_FILENO, &line);
 		game->map[a] = ft_strdup(line + 4);
 		ft_strdel(&line);
@@ -108,7 +140,7 @@ void	start_play(t_fill *game)
 		dprintf(game->fd, "My bit size:[%i][%i]\n", game->bit_size[0], game->bit_size[1]);
 		spot_loc(game);
 	}
-
+	system("leaks -quiet filler > leaks");
 	while (1)
 	{
 		read_map(game);

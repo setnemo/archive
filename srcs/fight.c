@@ -55,7 +55,6 @@ void		matrix_fill_one2(t_fill *g) /// best??
 void		find_lst(t_fill *g)
 {
 	t_spt	*lstsp;
-	t_spt	*lstsp2;
 	int		temp;
 
 	temp = lstsp->summ;
@@ -72,20 +71,43 @@ void		find_lst(t_fill *g)
 		else
 			break ;
 	}
-	lstsp = g->spot;
+}
+
+void		free_sptlist(t_spt *lstsp)
+{
+	t_spt	*temp;
+
 	while (lstsp)
 	{
 		if (lstsp->next)
 		{
-			lstsp2 = lstsp->next;
+			temp = lstsp->next;
 			free(lstsp);
-			lstsp = lstsp2;
+			lstsp = temp;
 		}
 		else
 			break ;
 	}
-	if (lstsp)
-		free(lstsp);
+	free(lstsp);
+}
+
+void		free_bitlist(t_bit *bit)
+{
+	t_bit	*temp;
+
+	while (bit)
+	{
+		if (bit->next)
+		{
+			temp = bit->next;
+			free(bit);
+			bit = temp;
+		}
+		else
+			break ;
+	}
+	free(bit);
+	bit = NULL;
 }
 
 void		find_loc(t_fill *g)
@@ -97,7 +119,7 @@ void		find_loc(t_fill *g)
 	p = g->next;
 	temp = 0;
 	g->spot = (t_spt*)malloc(sizeof(t_spt));
-	//ft_bzero(lstsp, sizeof(t_spt));
+	ft_bzero(lstsp, sizeof(t_spt));
 	lstsp = g->spot;
 	while (p->next)
 	{
@@ -188,9 +210,9 @@ void		find_spot(t_fill *g)
 	t_bit	*tbit;
 
 	a = 0;
-	tbit = (t_bit*)malloc(sizeof(t_bit));
+	g->next = (t_bit*)malloc(sizeof(t_bit));
+	tbit = g->next;
 	ft_bzero(tbit, sizeof(t_bit));
-	g->next = tbit;
 	tbit->next = NULL;
 	temp = g->xo * g->map_size[1] * g->map_size[0];
 	dprintf(g->fd, "find_spot1\n");
@@ -332,6 +354,15 @@ void		spot_loc(t_fill *g)
 	find_loc(g);
 	print_list(g);
 	find_lst(g);
+	if (g->next)
+	{
+		free_bitlist(g->next);
+	}
+	if (g->spot)
+	{
+		free_sptlist(g->spot);
+		g->spot = NULL;
+	}
 	dprintf(1, "%i %i\n", g->a_loc, g->b_loc);
 	dprintf(g->fd, "<got (%c): [%i, %i]\n", g->xo, g->a_loc, g->b_loc);
 }
