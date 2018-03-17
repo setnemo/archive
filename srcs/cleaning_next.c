@@ -33,10 +33,26 @@ static void	cleaning_way(t_way *ways)
 	}
 }
 
+static void	cleaning_validcoord(t_lem *data)
+{
+	int a;
+
+	a = 0;
+	while (data->validcoord[a])
+	{
+		free(data->validcoord[a]);
+		a++;
+	}
+	free(data->validcoord);
+	data->validcoord = NULL;
+}
+
 void		cleaning_next(t_lem *data)
 {
 	if (data->way)
 		cleaning_way(data->way);
+	if (data->validcoord)
+		cleaning_validcoord(data);
 	if (data->solve_path)
 		free(data->solve_path);
 	if (data->tmp)

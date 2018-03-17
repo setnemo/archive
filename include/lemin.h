@@ -35,6 +35,7 @@ typedef struct	s_lem
 	int				firstroomline;
 	size_t			how_ants;
 	char			*input;
+	char			**validcoord;
 	char			*line;
 	char			*rooms;
 	char			*temp;

@@ -46,6 +46,7 @@ static void		initialize_data(t_lem *data)
 	data->in = 1;
 	data->firstroomline = 1;
 	data->input = NULL;
+	data->validcoord = NULL;
 	data->read_room = NULL;
 	data->name_room = NULL;
 	data->xy_rooms = NULL;

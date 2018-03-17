@@ -17,19 +17,63 @@
 // #define XY data->xy_rooms
 // #define DL data->line
 
-static int			check_coords(t_lem *data)
+static void	free_validcoord(t_lem *data)
+{
+	int a;
+
+	a = 0;
+	while (data->validcoord[a])
+	{
+		free(data->validcoord[a]);
+		a++;
+	}
+	free(data->validcoord);
+	data->validcoord = NULL;
+}
+
+static int			check_coords(t_lem *data, int i, int j)
 {
 	char	*p;
-	int		i;
+	int		a[2];
+	int		b[2];
 
-	i = data->startroomline;
+	i = data->startroomline - 1;
 	p = data->input;
+	a[0] = ft_atoi(ft_strchr(data->line, 32));
+	a[1] = ft_atoi(ft_strrchr(data->line, 32));
+	ft_printf("(A) now checked===>[%i][%i]\n", a[0], a[1]);
 	while (i)
 	{
 		if (*p == 10)
 			i--;
 		p++;
 	}
+	i = 0;
+	j = ft_count_to_null((void**)p, 0) + 1;
+	data->validcoord = ft_strsplit(p, 10);
+	while (i < j)
+	{
+		if (data->validcoord[i] == NULL)
+			break ;
+		if (ft_strequ(data->validcoord[i], data->line) ||
+			data->validcoord[i][0] == '#')
+		{
+			ft_printf("--........-->%s\n", data->validcoord[i]);
+			i++;
+		}
+		else
+		{
+			ft_printf("---!!--->%s\n", data->validcoord[i]);
+
+			b[0] = ft_atoi(ft_strchr(data->validcoord[i], 32));
+			b[1] = ft_atoi(ft_strrchr(data->validcoord[i], 32));
+			ft_printf("-----(B) now checked===>[%i][%i]\n", b[0], b[1]);
+			if (a[0] == b[0] && a[1] == b[1])
+				return (1);
+			i++;
+		}
+	}
+	free_validcoord(data);
 	return (0);
 }
 
@@ -134,7 +178,7 @@ static void			manage_room(t_lem *data)
 		FCH((FCH(data->line, 32)) + 1, 32) != ft_strrchr(data->line, 32) ||
 		ft_strlen(ft_strchr(data->line, 32)) < 3)
 		manage_error(data, 7);
-	if (check_coords(data))
+	if (check_coords(data, 0, 0))
 		manage_error(data, 12);
 }
 
@@ -157,7 +201,7 @@ void				read_rooms(t_lem *data)
 	{
 		if (data->firstroomline)
 		{
-			data->startroomline = data->countline - 1;
+			data->startroomline = data->countline;
 			data->firstroomline = 0;
 		}
 		manage_room(data);
