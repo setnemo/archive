@@ -17,24 +17,21 @@
 // #define XY data->xy_rooms
 // #define DL data->line
 
-// static void			check_coords(t_lem *data, int i)
-// {
-// 	int j;
+static int			check_coords(t_lem *data)
+{
+	char	*p;
+	int		i;
 
-// 	while (i + 1 < data->how_rooms)
-// 	{
-// 		j = 0;
-// 		while (j + i + 1 < data->how_rooms)
-// 		{
-// 			if (XY[i][0] == XY[i + 1 + j][0] && XY[i][1] == XY[i + 1 + j][1])
-// 			{
-// 				manage_error(data, 7);
-// 			}
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
+	i = data->startroomline;
+	p = data->input;
+	while (i)
+	{
+		if (*p == 10)
+			i--;
+		p++;
+	}
+	return (0);
+}
 
 // static void			check_links_name(t_lem *data, int i, int flag)
 // {
@@ -90,6 +87,7 @@ static void			write_input(t_lem *data)
 	ft_strdel(&data->input);
 	data->input = ft_strjoin(data->temp, "\n");
 	ft_strdel(&data->temp);
+	data->countline++;
 }
 
 static void			check_ants(t_lem *data, int i)
@@ -113,7 +111,6 @@ static void			check_ants(t_lem *data, int i)
 void				read_links(t_lem *data)
 {
 	write_input(data);
-	ft_strdel(&data->line);
 }
 
 static void			manage_start_end(t_lem *data)
@@ -137,6 +134,8 @@ static void			manage_room(t_lem *data)
 		FCH((FCH(data->line, 32)) + 1, 32) != ft_strrchr(data->line, 32) ||
 		ft_strlen(ft_strchr(data->line, 32)) < 3)
 		manage_error(data, 7);
+	if (check_coords(data))
+		manage_error(data, 12);
 }
 
 void				read_rooms(t_lem *data)
@@ -151,16 +150,17 @@ void				read_rooms(t_lem *data)
 	}
 	write_input(data);
 	if (ft_strequ(data->line, "##start") || ft_strequ(data->line, "##end"))
-	{
 		manage_start_end(data);
-		ft_strdel(&data->line);
-	}
 	else if (data->line[0] == '#')
-		ft_strdel(&data->line);
+		;
 	else
 	{
+		if (data->firstroomline)
+		{
+			data->startroomline = data->countline - 1;
+			data->firstroomline = 0;
+		}
 		manage_room(data);
-		ft_strdel(&data->line);
 	}
 }
 
@@ -170,6 +170,7 @@ void				manage_input(t_lem *data)
 {
 	if (get_next_line(STDIN_FILENO, &data->line) > 0)
 	{
+		data->countline = 1;
 		data->input = ft_strjoin(data->line, "\n");
 		ft_strdel(&data->line);
 		check_ants(data, 0);
@@ -178,12 +179,14 @@ void				manage_input(t_lem *data)
 		while (get_next_line(STDIN_FILENO, &data->line))
 		{
 			(data->in == 1) ? read_rooms(data) : read_links(data);
+			ft_strdel(&data->line);
 			if (data->start_count > 1)
 				manage_error(data, 10);
 			if (data->end_count > 1)
 				manage_error(data, 11);
 		}
 		ft_printf("%s", data->input);
+		ft_printf("start count line:%i\n", data->startroomline);
 		//ft_printf("data->how_ants:%i\n", data->how_ants);
 		// read_rooms(data, 0);
 		// check_coords(data, 0);

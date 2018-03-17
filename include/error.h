@@ -24,5 +24,7 @@
 # define ER09 "[!] Error: invalid linking room\n"
 # define ER10 "[!] Error: start should be one\n"
 # define ER11 "[!] Error: end should be one\n"
+# define ER12 "[!] Error: duplication of coordinates\n"
+# define ER13 "[!] Error: _______\n"
 
 #endif

@@ -30,6 +30,9 @@ typedef struct	s_lem
 	int				error;
 	int				in;
 	int				bound;
+	int				countline;
+	int				startroomline;
+	int				firstroomline;
 	size_t			how_ants;
 	char			*input;
 	char			*line;

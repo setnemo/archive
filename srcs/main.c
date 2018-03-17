@@ -29,6 +29,8 @@ void			manage_error(t_lem *data, int error)
 			(error == 8) ? ft_printf(ER08) : ft_printf(ER09);
 		if (error == 10 || error == 11)
 			(error == 10) ? ft_printf(ER10) : ft_printf(ER11);
+		if (error == 12 || error == 13)
+			(error == 12) ? ft_printf(ER12) : ft_printf(ER13);
 	}
 	else
 		ft_printf("Error\n");
@@ -42,6 +44,7 @@ static void		initialize_data(t_lem *data)
 	ft_bzero(data, sizeof(t_lem));
 	data->error = 1;
 	data->in = 1;
+	data->firstroomline = 1;
 	data->input = NULL;
 	data->read_room = NULL;
 	data->name_room = NULL;
