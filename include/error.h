@@ -22,7 +22,7 @@
 # define ER07 "[!] Error: invalid room coordinates\n"
 # define ER08 "[!] Error: invalid room name in links\n"
 # define ER09 "[!] Error: invalid linking room\n"
-# define ER10 "[!] Error: __....\n"
-# define ER11 "[!] Error: _____\n"
+# define ER10 "[!] Error: start should be one\n"
+# define ER11 "[!] Error: end should be one\n"
 
 #endif

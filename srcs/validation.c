@@ -11,7 +11,9 @@
 /* ************************************************************************** */
 
 #include "lemin.h"
-#define ATDL ft_atoi(data->line) 
+#define ATDL ft_atoi(data->line)
+#define FCH ft_strchr
+
 // #define XY data->xy_rooms
 // #define DL data->line
 
@@ -123,11 +125,27 @@ static void			manage_start_end(t_lem *data)
 		data->end_count++;
 }
 
+static void			manage_room(t_lem *data)
+{
+	if (data->bound == 1)
+		data->start_room = data->how_rooms;
+	else if (data->bound == 2)
+		data->end_room = data->how_rooms;
+	data->how_rooms++;
+	data->bound = 0;
+	if (FCH(data->line, 32) == NULL ||
+		FCH((FCH(data->line, 32)) + 1, 32) != ft_strrchr(data->line, 32) ||
+		ft_strlen(ft_strchr(data->line, 32)) < 3)
+		manage_error(data, 7);
+}
+
 void				read_rooms(t_lem *data)
 {
 	if (ft_strchr(data->line, '-'))
 	{
 		data->in = 0;
+		if (data->start_count != 1 || data->end_count != 1)
+			manage_error(data, 4);
 		read_links(data);
 		return ;
 	}
@@ -141,18 +159,7 @@ void				read_rooms(t_lem *data)
 		ft_strdel(&data->line);
 	else
 	{
-		if (data->bound == 1)
-		{
-			ft_printf("(%i)start_",data->how_rooms);
-			data->start_room = data->how_rooms;
-		}
-		else if (data->bound == 2)
-		{ft_printf("(%i)end_",data->how_rooms);
-			data->end_room = data->how_rooms;
-		}
-		data->how_rooms++;
-		data->bound = 0; 
-		ft_printf("new room:%s\n", data->line);
+		manage_room(data);
 		ft_strdel(&data->line);
 	}
 }
@@ -171,6 +178,10 @@ void				manage_input(t_lem *data)
 		while (get_next_line(STDIN_FILENO, &data->line))
 		{
 			(data->in == 1) ? read_rooms(data) : read_links(data);
+			if (data->start_count > 1)
+				manage_error(data, 10);
+			if (data->end_count > 1)
+				manage_error(data, 11);
 		}
 		ft_printf("%s", data->input);
 		//ft_printf("data->how_ants:%i\n", data->how_ants);
