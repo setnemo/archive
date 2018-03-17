@@ -41,7 +41,6 @@ static int			check_coords(t_lem *data, int i, int j)
 	p = data->input;
 	a[0] = ft_atoi(ft_strchr(data->line, 32));
 	a[1] = ft_atoi(ft_strrchr(data->line, 32));
-	ft_printf("(A) now checked===>[%i][%i]\n", a[0], a[1]);
 	while (i)
 	{
 		if (*p == 10)
@@ -57,17 +56,11 @@ static int			check_coords(t_lem *data, int i, int j)
 			break ;
 		if (ft_strequ(data->validcoord[i], data->line) ||
 			data->validcoord[i][0] == '#')
-		{
-			ft_printf("--........-->%s\n", data->validcoord[i]);
 			i++;
-		}
 		else
 		{
-			ft_printf("---!!--->%s\n", data->validcoord[i]);
-
 			b[0] = ft_atoi(ft_strchr(data->validcoord[i], 32));
 			b[1] = ft_atoi(ft_strrchr(data->validcoord[i], 32));
-			ft_printf("-----(B) now checked===>[%i][%i]\n", b[0], b[1]);
 			if (a[0] == b[0] && a[1] == b[1])
 				return (1);
 			i++;
