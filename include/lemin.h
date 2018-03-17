@@ -27,7 +27,11 @@ typedef struct	s_way
 
 typedef struct	s_lem
 {
+	int				error;
+	int				in;
+	int				bound;
 	size_t			how_ants;
+	char			*input;
 	char			*line;
 	char			*rooms;
 	char			*temp;
@@ -50,7 +54,7 @@ void			cleaning(t_lem *data);
 void			cleaning_next(t_lem *data);
 void			manage_error(t_lem *data, int error);
 void			manage_input(t_lem *data);
-// void			read_rooms(t_lem *data, int count);
+void			read_rooms(t_lem *data);
 
 
 

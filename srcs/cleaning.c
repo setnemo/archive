@@ -70,6 +70,8 @@ static void	cleaning_xy_rooms(t_lem *data)
 
 void		cleaning(t_lem *data)
 {
+	if (data->input)
+		free(data->input);
 	if (data->line)
 		free(data->line);
 	if (data->rooms)

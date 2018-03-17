@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "lemin.h"
+#define ATDL ft_atoi(data->line) 
 // #define XY data->xy_rooms
 // #define DL data->line
 
@@ -81,56 +82,98 @@
 // 	data->links[b][a] = 0;
 // }
 
-// static void			check_ants(t_lem *data, int i)
-// {
-// 	while (data->line[0] == '#')
-// 	{
-// 		ft_strdel(&data->line);
-// 		get_next_line(STDIN_FILENO, &data->line);
-// 	}
-// 	while (ft_isdigit(data->line[i]))
-// 		i++;
-// 	if (data->line[i] == 0)
-// 		data->how_ants = ft_atoi(data->line);
-// 	else
-// 		manage_error(data, 2);
-// 	ft_strdel(&data->line);
-// 	if (data->how_ants < 1)
-// 		manage_error(data, 1);
-// 	if (data->how_ants > 2147483647)
-// 		manage_error(data, 3);
-// }
+static void			write_input(t_lem *data)
+{
+	data->temp = ft_strjoin(data->input, data->line);
+	ft_strdel(&data->input);
+	data->input = ft_strjoin(data->temp, "\n");
+	ft_strdel(&data->temp);
+}
 
+static void			check_ants(t_lem *data, int i)
+{
+	while (get_next_line(STDIN_FILENO, &data->line) && data->line[0] == '#')
+	{
+		write_input(data);
+		ft_strdel(&data->line);
+	}
+	write_input(data);
+	while (ft_isdigit(data->line[i]))
+		i++;
+	(data->line[i] == 0) ? data->how_ants = ATDL : manage_error(data, 2);
+	if (data->how_ants < 1)
+		manage_error(data, 1);
+	if (data->how_ants > 2147483647)
+		manage_error(data, 3);
+	ft_strdel(&data->line);
+}
 
+void				read_links(t_lem *data)
+{
+	write_input(data);
+	ft_strdel(&data->line);
+}
 
+static void			manage_start_end(t_lem *data)
+{
+	data->bound = ft_strequ(data->line, "##start") ? 1 : 2;
+	if (data->bound == 1)
+		data->start_count++;
+	else if (data->bound == 2)
+		data->end_count++;
+}
 
+void				read_rooms(t_lem *data)
+{
+	if (ft_strchr(data->line, '-'))
+	{
+		data->in = 0;
+		read_links(data);
+		return ;
+	}
+	write_input(data);
+	if (ft_strequ(data->line, "##start") || ft_strequ(data->line, "##end"))
+	{
+		manage_start_end(data);
+		ft_strdel(&data->line);
+	}
+	else if (data->line[0] == '#')
+		ft_strdel(&data->line);
+	else
+	{
+		if (data->bound == 1)
+		{
+			ft_printf("(%i)start_",data->how_rooms);
+			data->start_room = data->how_rooms;
+		}
+		else if (data->bound == 2)
+		{ft_printf("(%i)end_",data->how_rooms);
+			data->end_room = data->how_rooms;
+		}
+		data->how_rooms++;
+		data->bound = 0; 
+		ft_printf("new room:%s\n", data->line);
+		ft_strdel(&data->line);
+	}
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// ft_printf("ble\n");
 
 void				manage_input(t_lem *data)
 {
 	if (get_next_line(STDIN_FILENO, &data->line) > 0)
 	{
-		// check_ants(data, 0);
+		data->input = ft_strjoin(data->line, "\n");
+		ft_strdel(&data->line);
+		check_ants(data, 0);
+		data->rooms = ft_strnew(0);
+		data->how_rooms = 0;
+		while (get_next_line(STDIN_FILENO, &data->line))
+		{
+			(data->in == 1) ? read_rooms(data) : read_links(data);
+		}
+		ft_printf("%s", data->input);
+		//ft_printf("data->how_ants:%i\n", data->how_ants);
 		// read_rooms(data, 0);
 		// check_coords(data, 0);
 		// data->links = ft_new_int_matrix((size_t)data->how_rooms + 1);

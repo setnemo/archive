@@ -112,31 +112,4 @@
 // 	}
 // }
 
-// void			read_rooms(t_lem *data, int count)
-// {
-// 	data->rooms = ft_strnew(0);
-// 	while ((get_next_line(STDIN_FILENO, &data->line)) > 0)
-// 	{
-// 		if (ft_strchr(data->line, '-'))
-// 			break ;
-// 		while (data->line[0] == '#' && data->line[1] != '#')
-// 		{
-// 			ft_strdel(&data->line);
-// 			if (get_next_line(STDIN_FILENO, &data->line) < 1)
-// 				break ;
-// 		}
-// 		if (ft_strequ(data->line, "##start") || ft_strequ(data->line, "##end"))
-// 		{
-// 			if (check_bound(data, 0, &count))
-// 				break ;
-// 		}
-// 		else
-// 		{
-// 			if (other_rooms(data, &count))
-// 				break ;
-// 		}
-// 	}
-// 	if (data->start_count != 1 || data->end_count != 1)
-// 		manage_error(data, 4);
-// 	validation_rooms(data);
-// }
+
