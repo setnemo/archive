@@ -19,6 +19,7 @@ SRC_NAME = 	main.c\
 			cleaning_next.c\
 			validation.c\
 			read_rooms.c\
+			check_coords.c\
 
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)

@@ -40,20 +40,6 @@ static void	cleaning_links(t_lem *data)
 	data->links = NULL;
 }
 
-static void	cleaning_xy_rooms(t_lem *data)
-{
-	int a;
-
-	a = 0;
-	while (a < data->how_rooms)
-	{
-		free(data->xy_rooms[a]);
-		a++;
-	}
-	free(data->xy_rooms);
-	data->xy_rooms = NULL;
-}
-
 void		cleaning(t_lem *data)
 {
 	if (data->input)
@@ -67,7 +53,7 @@ void		cleaning(t_lem *data)
 	if (data->links)
 		cleaning_links(data);
 	if (data->xy_rooms)
-		cleaning_xy_rooms(data);
+		free(data->xy_rooms);
 	cleaning_next(data);
 	free(data);
 	ft_printf("cleaning done\n");

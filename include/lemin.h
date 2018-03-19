@@ -34,6 +34,8 @@ typedef struct	s_lem
 	int				startroomline;
 	int				firstroomline;
 	int				endroomline;
+	int				read_start;
+	int				read_end;
 	size_t			how_ants;
 	char			*input;
 	char			**validcoord;
@@ -61,6 +63,7 @@ void			manage_input(t_lem *data);
 void			read_rooms(t_lem *data);
 void			read_links(t_lem *data);
 void			write_input(t_lem *data);
-void			save_rooms_data(t_lem *data);
+int				check_coords(t_lem *data, int i, int j);
+int				check_coords_digits(char *line);
 
 #endif

@@ -26,5 +26,11 @@
 # define ER11 "[!] Error: end should be one\n"
 # define ER12 "[!] Error: duplication of coordinates\n"
 # define ER13 "[!] Error: invalid symbol in coordinates\n"
+# define ER14 "[!] Error: start command in links\n"
+# define ER15 "[!] Error: end command in links\n"
+# define ER16 "[!] Error: start command before ants\n"
+# define ER17 "[!] Error: end command before ants\n"
+# define ER18 "[!] Error: incorrect input - ##start comand\n"
+# define ER19 "[!] Error: incorrect input - ##end comand\n"
 
 #endif

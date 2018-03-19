@@ -25,3 +25,16 @@ char		*ft_strcpy(char *dst, const char *src)
 	dst[a] = '\0';
 	return (dst);
 }
+
+void		ft_strscpy(char *dst, const char *src, char stop)
+{
+	int a;
+
+	a = 0;
+	while (src[a] != stop)
+	{
+		dst[a] = src[a];
+		a++;
+	}
+	dst[a] = '\0';
+}

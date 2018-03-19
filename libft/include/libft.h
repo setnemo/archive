@@ -139,6 +139,7 @@ int					ft_count_to_null(void **data, int type);
 char				**ft_new_char_arr(size_t size);
 int					**ft_new_int_arr(size_t size);
 int					**ft_new_int_matrix(size_t size);
+void				ft_strscpy(char *dst, const char *src, char stop);
 
 /*
 ** ****************************************************************************
