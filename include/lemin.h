@@ -33,13 +33,12 @@ typedef struct	s_lem
 	int				countline;
 	int				startroomline;
 	int				firstroomline;
+	int				endroomline;
 	size_t			how_ants;
 	char			*input;
 	char			**validcoord;
 	char			*line;
-	char			*rooms;
 	char			*temp;
-	char			**read_room;
 	char			**name_room;
 	int				**xy_rooms;
 	int				**links;
@@ -56,10 +55,12 @@ typedef struct	s_lem
 
 void			cleaning(t_lem *data);
 void			cleaning_next(t_lem *data);
+void			free_validcoord(t_lem *data);
 void			manage_error(t_lem *data, int error);
 void			manage_input(t_lem *data);
 void			read_rooms(t_lem *data);
-
-
+void			read_links(t_lem *data);
+void			write_input(t_lem *data);
+void			save_rooms_data(t_lem *data);
 
 #endif

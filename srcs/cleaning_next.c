@@ -58,3 +58,17 @@ void		cleaning_next(t_lem *data)
 	if (data->tmp)
 		free(data->tmp);
 }
+
+void		free_validcoord(t_lem *data)
+{
+	int a;
+
+	a = 0;
+	while (data->validcoord[a])
+	{
+		free(data->validcoord[a]);
+		a++;
+	}
+	free(data->validcoord);
+	data->validcoord = NULL;
+}
