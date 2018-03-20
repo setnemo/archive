@@ -80,13 +80,10 @@ static void			manage_room(t_lem *data)
 	data->bound = 0;
 	if (data->line[0] == 'L')
 			manage_error(data, 5);
-	if (data->start_count != 1 || data->end_count != 1)
-	{
-		if (data->read_start)
-			data->read_start = 0;
-		if (data->read_end)
-			data->read_end = 0;
-	}
+	if (data->read_start)
+		data->read_start = 0;
+	if (data->read_end)
+		data->read_end = 0;
 	if (FCH(data->line, 32) == NULL ||
 		FCH((FCH(data->line, 32)) + 1, 32) != ft_strrchr(data->line, 32) ||
 		ft_strlen(ft_strchr(data->line, 32)) < 3)
@@ -107,7 +104,7 @@ void				read_rooms(t_lem *data)
 		data->endroomline = data->countline + 1;
 		data->xy_rooms = ft_new_int_arr(data->endroomline - data->startroomline + 1);
 		save_rooms_data(data, 0, NULL);
-		//тут будет создание матрицы для сохранения линков
+		data->links = ft_new_int_matrix((size_t)data->how_rooms + 1);
 		read_links(data);
 		return ;
 	}

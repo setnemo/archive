@@ -20,7 +20,8 @@ SRC_NAME = 	main.c\
 			validation.c\
 			read_rooms.c\
 			check_coords.c\
-
+			find_ways.c\
+			solve_ways.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 

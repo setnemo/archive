@@ -28,6 +28,7 @@ typedef struct	s_way
 typedef struct	s_lem
 {
 	int				error;
+	int				stop;
 	int				in;
 	int				bound;
 	int				countline;
@@ -55,6 +56,7 @@ typedef struct	s_lem
 	struct s_way	*way;
 }				t_lem;
 
+void			break_reading(t_lem *data, int error);
 void			cleaning(t_lem *data);
 void			cleaning_next(t_lem *data);
 void			free_validcoord(t_lem *data);
@@ -65,5 +67,13 @@ void			read_links(t_lem *data);
 void			write_input(t_lem *data);
 int				check_coords(t_lem *data, int i, int j);
 int				check_coords_digits(char *line);
+
+void			find_way(t_lem *data);
+
+int				check_valid_path(t_lem *data, t_way *ways);
+void			solve_ways(t_lem *data, t_way *ways);
+
+void			delete_nonvalid_path(t_lem *data, t_way *ways);
+void			mark_nonvalid_path(t_lem *data, t_way *ways);
 
 #endif

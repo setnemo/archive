@@ -24,7 +24,7 @@ int			**ft_new_int_matrix(size_t size)
 	{
 		if (!(new[a] = (int*)malloc(sizeof(int) * (size))))
 			return (NULL);
-		ft_bzero(new[a], sizeof(new[a]));
+		ft_bzero(new[a], sizeof(int) * size);
 		a++;
 	}
 	new[a] = NULL;
