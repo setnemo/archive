@@ -85,6 +85,7 @@ int				main(int argc, char **argv)
 		exit(-42);
 	}
 	data = (t_lem*)malloc(sizeof(t_lem));
+	ft_bzero(data, sizeof(t_lem));
 	initialize_data(data);
 	manage_input(data);
 	// int i = 0;

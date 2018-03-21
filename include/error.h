@@ -33,6 +33,6 @@
 # define ER18 "[!] Error: incorrect input - ##start comand\n"
 # define ER19 "[!] Error: incorrect input - ##end comand\n"
 # define ER20 "[!] Error: no links\n"
-# define ER21 "[!] Error: \n"
+# define ER21 "[!] Error: ^D in room name string ;)\n"
 
 #endif
