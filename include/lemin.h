@@ -72,10 +72,4 @@ int				check_coords_digits(char *line);
 
 void			find_way(t_lem *data);
 
-int				check_valid_path(t_lem *data, t_way *ways);
-void			solve_ways(t_lem *data, t_way *ways);
-
-void			delete_nonvalid_path(t_lem *data, t_way *ways);
-void			mark_nonvalid_path(t_lem *data, t_way *ways);
-
 #endif

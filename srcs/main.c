@@ -88,20 +88,20 @@ int				main(int argc, char **argv)
 	ft_bzero(data, sizeof(t_lem));
 	initialize_data(data);
 	manage_input(data);
-	// int i = 0;
-	// int j;
-	// while (i < data->how_rooms)
-	// {
-	// 	j = 0;
-	// 	while (j < data->how_rooms + 1)
-	// 	{
-	// 		ft_printf("%i ", data->links[i][j]);
-	// 		j++;
-	// 	}
-	// 	ft_printf(" %s", data->name_room[i]);
-	// 	i++;
-	// 	ft_printf("\n");
-	// }
+	int i = 0;
+	int j;
+	while (i < data->how_rooms)
+	{
+		j = 0;
+		while (j < data->how_rooms + 1)
+		{
+			ft_printf("%i ", data->links[i][j]);
+			j++;
+		}
+		ft_printf(" %s", data->name_room[i]);
+		i++;
+		ft_printf("\n");
+	}
 	find_way(data);
 	// ft_printf("CLEANING NOW, BITCHES\n");
 	cleaning(data);
