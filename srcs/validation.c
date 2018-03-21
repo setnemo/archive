@@ -24,6 +24,16 @@ static t_lst		*lst_while(t_lem *data)
 		else
 			break ;
 	}
+	if (income->flag == -1)
+		return (income);
+	else
+	{
+		income->next = (t_lst*)malloc(sizeof(t_lst));
+		income = income->next;
+		ft_bzero(income, sizeof(t_lst));
+		income->flag = 0;
+		income->next = NULL;
+	}
 	return (income);
 }
 
@@ -35,7 +45,12 @@ static void			check_data(t_lem *data)
 	if (data->stop)
 	{
 		income = lst_while(data);
-		
+ 		income->str = ft_strdup(data->line);
+		income->flag = 1; //определить что у нас там пришло и записать флаг 1 или 2
+		// if (data->status == 1)
+		// {
+
+		// }
 	}
 }
 

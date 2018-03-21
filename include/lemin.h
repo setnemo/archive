@@ -22,10 +22,10 @@ typedef struct	s_lst
 	char			*str;
 	char			*name;
 	char			*name2;
+	struct s_lst	*next;
 	int				flag;
 	int				x;
 	int				y;
-	struct s_lst	*next;
 }				t_lst;
 
 typedef struct	s_lem
