@@ -131,7 +131,9 @@ static void			check_ants(t_lem *data, int i)
 	(data->line[i] == 0) ? data->how_ants = ATDL : manage_error(data, 2);
 	if (data->how_ants < 1)
 		manage_error(data, 1);
-	if (ft_strlen(data->line) > 9)
+	if (data->how_ants > 2143483647)
+		manage_error(data, 3);
+	if (ft_strlen(data->line) > 10)
 		manage_error(data, 3);
 	ft_strdel(&data->line);
 }

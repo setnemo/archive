@@ -62,7 +62,6 @@ static int		valid_name(t_lem *data, int i, int j)
 {
 	while (i < j)
 	{
-		ft_printf("now i[%i] j[%i]\n", i, j);
 		if (data->validcoord[i] == NULL)
 			break ;
 		if (data->validcoord[i][0] == '#')
@@ -71,7 +70,6 @@ static int		valid_name(t_lem *data, int i, int j)
 		{
 			if (ft_strnequ(data->validcoord[i], data->line, ft_strchr(data->validcoord[i], 32) - data->validcoord[i]))
 				return (1);
-			ft_printf("data->line==\"%s\"data->validcoord[i]==\"%s\"\n", data->line, data->validcoord[i]);
 			i++;
 		}
 	}
@@ -93,8 +91,12 @@ int				check_room_name(t_lem *data)
 		p++;
 	}
 	i = 0;
-	j = ft_count_to_null((void**)p, 0);
 	data->validcoord = ft_strsplit(p, 10);
+	j = ft_count_to_null((void**)data->validcoord, 0);
+	int m = 0;
+	while (data->validcoord[m]){
+		m++;
+	}
 	if (valid_name(data, i, j - 1))
 		return (1);
 	free_validcoord(data);
@@ -118,8 +120,8 @@ int				check_coords(t_lem *data, int i, int j)
 		p++;
 	}
 	i = 0;
-	j = ft_count_to_null((void**)p, 0) + 1;
 	data->validcoord = ft_strsplit(p, 10);
+	j = ft_count_to_null((void**)data->validcoord, 0);
 	if (valid_coords(data, i, j, a))
 		return (1);
 	free_validcoord(data);
