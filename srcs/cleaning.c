@@ -12,52 +12,49 @@
 
 #include "lemin.h"
 
-static void	free_income(t_lst *income)
+static void	cleaning_name_room(t_lem *data)
 {
-	t_lst *temp;
+	int a;
 
-	while (income)
+	a = 0;
+	while (data->name_room[a])
 	{
-		ft_printf("cleaning income lst\n");
-		if (income->str)
-			free(income->str);
-		if (income->name)
-			free(income->name);
-		if (income->name2)
-			free(income->name2);
-		if (income->next)
-		{
-			temp = income;
-			income = income->next;
-			free(temp);
-		}
-		else
-		{
-			free(income);
-			income = NULL;
-		}
+		free(data->name_room[a]);
+		a++;
 	}
+	free(data->name_room);
+	data->name_room = NULL;
+}
+
+static void	cleaning_links(t_lem *data)
+{
+	int a;
+
+	a = 0;
+	while (a < data->how_rooms + 1)
+	{
+		free(data->links[a]);
+		a++;
+	}
+	free(data->links);
+	data->links = NULL;
 }
 
 void		cleaning(t_lem *data)
 {
-	if (data->input){
-	ft_printf("cleaning data->input\n");
+	if (data->input)
 		free(data->input);
-	}
-	if (data->line){
-	ft_printf("cleaning data->line\n");
+	if (data->line)
 		free(data->line);
-	}
-	if (data->temp){
-	ft_printf("cleaning data->temp\n");
+	if (data->temp)
 		free(data->temp);
-	}
-	if (data->next){
-	ft_printf("cleaning data->next\n");
-		free_income(data->next);
-	}
-	ft_printf("cleaning data\n");
+	if (data->name_room)
+		cleaning_name_room(data);
+	if (data->links)
+		cleaning_links(data);
+	if (data->xy_rooms)
+		free(data->xy_rooms);
+	cleaning_next(data);
 	free(data);
 	ft_printf("cleaning done\n");
 }

@@ -15,7 +15,7 @@
 # define ER00 "[!] Error: no ants.\n"
 # define ER01 "[!] Error: STDIN don't read.\n"
 # define ER02 "[!] Error: invalid ants.\n"
-# define ER03 "[!] Error: too many ants/very long string\n"
+# define ER03 "[!] Error: too many ants.\n"
 # define ER04 "[!] Error: incorrect start/end\n"
 # define ER05 "[!] Error: incorrect room name\n"
 # define ER06 "[!] Error: duplication of room name\n"

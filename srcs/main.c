@@ -12,49 +12,17 @@
 
 #include "lemin.h"
 #include "error.h"
-#define ATDL (size_t)ft_atoi(data->line)
 
-void				write_input(t_lem *data)
+void			break_reading(t_lem *data, int error)
 {
-	if (data->line[0] == 0)
+	if (data->error)
 	{
-		data->stop = 0;
-		return ;
+		if (error == 8 || error == 9)
+			(error == 8) ? ft_printf(ER08) : ft_printf(ER09);
 	}
-	data->temp = ft_strjoin(data->input, data->line);
-	ft_strdel(&data->input);
-	data->input = ft_strjoin(data->temp, "\n");
-	ft_strdel(&data->temp);
-	data->countline++;
-}
-
-void				check_ants(t_lem *data, int i)
-{
-	if (data->line[0] == '#')
-	{
-		if (ft_strequ(data->line, "##start") || ft_strequ(data->line, "##end"))
-			manage_error(data, ft_strequ(data->line, "##start") ? 16 : 17);
-		ft_strdel(&data->line);
-		while (get_next_line(STDIN_FILENO, &data->line) && data->line[0] == '#')
-		{
-			if (ft_strequ(data->line, "##start") || ft_strequ(data->line, "##end"))
-				manage_error(data, ft_strequ(data->line, "##start") ? 16 : 17);
-			write_input(data);
-			ft_strdel(&data->line);
-		}
-		write_input(data);
-	}
-	while (ft_isdigit(data->line[i]))
-		i++;
-	(data->line[i] == 0) ? data->how_ants = ATDL : manage_error(data, 2);
-	if (data->how_ants < 1)
-		manage_error(data, 1);
-	if (data->how_ants > 2143483647)
-		manage_error(data, 3);
-	if (ft_strlen(data->line) > 10)
-		manage_error(data, 3);
-	ft_strdel(&data->line);
-	data->status = 1;
+	else
+		ft_printf("Error\n");
+	ft_printf("[*] Stop reading data. Starting algorithm...\n");
 }
 
 void			manage_error(t_lem *data, int error)
@@ -91,12 +59,18 @@ static void		initialize_data(t_lem *data)
 {
 	ft_bzero(data, sizeof(t_lem));
 	data->error = 1;
+	data->in = 1;
 	data->stop = 1;
-	data->countline = 1;
+	data->firstroomline = 1;
 	data->input = NULL;
+	data->validcoord = NULL;
+	data->name_room = NULL;
+	data->xy_rooms = NULL;
 	data->temp = NULL;
-	data->line = NULL;
-	data->next = NULL;
+	data->links = NULL;
+	data->way = NULL;
+	data->solve_path = NULL;
+	data->tmp = NULL;
 }
 
 int				main(int argc, char **argv)
@@ -111,6 +85,21 @@ int				main(int argc, char **argv)
 	data = (t_lem*)malloc(sizeof(t_lem));
 	initialize_data(data);
 	manage_input(data);
+	// int i = 0;
+	// int j;
+	// while (i < data->how_rooms)
+	// {
+	// 	j = 0;
+	// 	while (j < data->how_rooms + 1)
+	// 	{
+	// 		ft_printf("%i ", data->links[i][j]);
+	// 		j++;
+	// 	}
+	// 	ft_printf(" %s", data->name_room[i]);
+	// 	i++;
+	// 	ft_printf("\n");
+	// }
+	find_way(data);
 	// ft_printf("CLEANING NOW, BITCHES\n");
 	cleaning(data);
 	// ft_printf("CLEANING DONE, BITCHES\n");
