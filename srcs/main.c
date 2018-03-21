@@ -50,6 +50,7 @@ void			manage_error(t_lem *data, int error)
 	}
 	else
 		ft_printf("Error\n");
+	ft_printf("data->how_ants:%i\n", data->how_ants);
 	cleaning(data);
 	system("leaks -quiet lem-in");
 	exit(-42);
@@ -59,18 +60,6 @@ static void		initialize_data(t_lem *data)
 {
 	ft_bzero(data, sizeof(t_lem));
 	data->error = 1;
-	data->in = 1;
-	data->stop = 1;
-	data->firstroomline = 1;
-	data->input = NULL;
-	data->validcoord = NULL;
-	data->name_room = NULL;
-	data->xy_rooms = NULL;
-	data->temp = NULL;
-	data->links = NULL;
-	data->way = NULL;
-	data->solve_path = NULL;
-	data->tmp = NULL;
 }
 
 int				main(int argc, char **argv)
@@ -85,22 +74,23 @@ int				main(int argc, char **argv)
 	data = (t_lem*)malloc(sizeof(t_lem));
 	initialize_data(data);
 	manage_input(data);
-	int i = 0;
-	int j;
-	while (i < data->how_rooms)
-	{
-		j = 0;
-		while (j < data->how_rooms + 1)
-		{
-			ft_printf("%i ", data->links[i][j]);
-			j++;
-		}
-		ft_printf(" %s", data->name_room[i]);
-		i++;
-		ft_printf("\n");
-	}
-	find_way(data);
+	// int i = 0;
+	// int j;
+	// while (i < data->how_rooms)
+	// {
+	// 	j = 0;
+	// 	while (j < data->how_rooms + 1)
+	// 	{
+	// 		ft_printf("%i ", data->links[i][j]);
+	// 		j++;
+	// 	}
+	// 	ft_printf(" %s", data->name_room[i]);
+	// 	i++;
+	// 	ft_printf("\n");
+	// }
 	// ft_printf("CLEANING NOW, BITCHES\n");
+		ft_printf("data->how_ants:%i\n", data->how_ants);
+
 	cleaning(data);
 	// ft_printf("CLEANING DONE, BITCHES\n");
 	system("leaks -quiet lem-in");

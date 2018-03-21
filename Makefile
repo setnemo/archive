@@ -16,12 +16,8 @@ WWW = -Wall -Wextra -Werror
 
 SRC_NAME = 	main.c\
 			cleaning.c\
-			cleaning_next.c\
-			validation.c\
-			read_rooms.c\
-			check_coords.c\
-			find_ways.c\
-			solve_ways.c
+			validation.c
+
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
@@ -47,12 +43,12 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@$(CC) $(WWW) -o $@ -c  $< $(INC)
 
 clean:
-	#@make -C $(LIB_DIR) clean --silent
+	# @make -C $(LIB_DIR) clean --silent
 	@rm -f $(OBJ)
 	@echo "##### REMOVE OBJECT FILES #####"
 
 fclean: clean
-	#@make -C $(LIB_DIR) fclean --silent
+	# @make -C $(LIB_DIR) fclean --silent
 	@rm -f $(NAME)
 	@echo "##### REMOVE BINARY FILES #####"
 

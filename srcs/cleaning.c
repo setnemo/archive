@@ -12,34 +12,6 @@
 
 #include "lemin.h"
 
-static void	cleaning_name_room(t_lem *data)
-{
-	int a;
-
-	a = 0;
-	while (data->name_room[a])
-	{
-		free(data->name_room[a]);
-		a++;
-	}
-	free(data->name_room);
-	data->name_room = NULL;
-}
-
-static void	cleaning_links(t_lem *data)
-{
-	int a;
-
-	a = 0;
-	while (a < data->how_rooms + 1)
-	{
-		free(data->links[a]);
-		a++;
-	}
-	free(data->links);
-	data->links = NULL;
-}
-
 void		cleaning(t_lem *data)
 {
 	if (data->input)
@@ -48,13 +20,6 @@ void		cleaning(t_lem *data)
 		free(data->line);
 	if (data->temp)
 		free(data->temp);
-	if (data->name_room)
-		cleaning_name_room(data);
-	if (data->links)
-		cleaning_links(data);
-	if (data->xy_rooms)
-		free(data->xy_rooms);
-	cleaning_next(data);
 	free(data);
 	ft_printf("cleaning done\n");
 }
