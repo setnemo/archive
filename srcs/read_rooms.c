@@ -84,9 +84,9 @@ static void			manage_room(t_lem *data)
 		data->read_start = 0;
 	if (data->read_end)
 		data->read_end = 0;
-	ft_printf("HERAK room\n");
-	if (FCH(data->line, 32) == NULL ||
-		FCH((FCH(data->line, 32)) + 1, 32) != ft_strrchr(data->line, 32) ||
+	if (FCH(data->line, 32) == NULL)
+		manage_error(data, 21);
+	if (FCH((FCH(data->line, 32)) + 1, 32) != ft_strrchr(data->line, 32) ||
 		ft_strlen(ft_strchr(data->line, 32)) < 3)
 		manage_error(data, 7);
 	if (check_room_name(data))
@@ -102,6 +102,7 @@ void				read_rooms(t_lem *data)
 	if (ft_strchr(data->line, '-'))
 	{
 		data->in = 0;
+		data->all = 0;
 		if (data->start_count != 1 || data->end_count != 1)
 			manage_error(data, 4);
 		data->endroomline = data->countline + 1;

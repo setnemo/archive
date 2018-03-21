@@ -47,6 +47,8 @@ void			manage_error(t_lem *data, int error)
 			(error == 16) ? ft_printf(ER16) : ft_printf(ER17);
 		if (error == 18 || error == 19)
 			(error == 18) ? ft_printf(ER18) : ft_printf(ER19);
+		if (error == 20 || error == 21)
+			(error == 20) ? ft_printf(ER20) : ft_printf(ER21);
 	}
 	else
 		ft_printf("Error\n");

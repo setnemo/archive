@@ -32,5 +32,7 @@
 # define ER17 "[!] Error: end command before ants\n"
 # define ER18 "[!] Error: incorrect input - ##start comand\n"
 # define ER19 "[!] Error: incorrect input - ##end comand\n"
+# define ER20 "[!] Error: no links\n"
+# define ER21 "[!] Error: \n"
 
 #endif

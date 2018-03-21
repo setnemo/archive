@@ -30,6 +30,7 @@ typedef struct	s_lem
 	int				error;
 	int				stop;
 	int				in;
+	int				all;
 	int				bound;
 	int				countline;
 	int				startroomline;

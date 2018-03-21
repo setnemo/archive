@@ -106,7 +106,10 @@ void				read_links(t_lem *data)
 			data->stop = 0;
 		}
 		else
+		{
+			data->all = 1;
 			write_matrix(data, 0);
+		}
 	}
 }
 
@@ -157,24 +160,10 @@ void				manage_input(t_lem *data)
 			if (data->stop == 0)
 				break ;
 		}
-		ft_printf("=======>exit input\n");
-		//ft_printf("%s", data->input);
-		//ft_printf("data->how_rooms:%i\n", data->how_rooms);
-		//ft_printf("start :%i\n", data->start_room);
-		//ft_printf("end   :%i\n", data->end_room);
-		//ft_printf("data->how_ants:%i\n", data->how_ants);
-		// read_rooms(data, 0);
-		// check_coords(data, 0);
-		// data->links = ft_new_int_matrix((size_t)data->how_rooms + 1);
-		// check_links_name(data, 0, 1);
-		// write_matrix(data, 0);
-		// free(data->line);
-		// while ((get_next_line(STDIN_FILENO, &data->line)) > 0)
-		// {
-		// 	check_links_name(data, 0, 1);
-		// 	write_matrix(data, 0);
-		// 	free(data->line);
-		// }
+		if (data->all)
+			ft_printf("=======>exit input\n");
+		else
+			manage_error(data, 20);
 	}
 	else
 		manage_error(data, 0);
