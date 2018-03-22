@@ -12,7 +12,28 @@
 
 #include "lemin.h"
 
-static void		breadthfirstsearch(t_lem *data, int i, int c, int *buf)
+static void		write_path_new(t_lem *data, t_way *ways, int i)
+{
+	if (data && ways && i)
+		;
+}
+
+static void		write_path_current(t_lem *data, t_way *ways, int i)
+{
+	if (data && ways && i)
+		;
+}
+
+
+static void		write_path(t_lem *data, t_way *ways, int i, int flag)
+{
+	if (flag)
+		write_path_current(data, ways, i);
+	else
+		write_path_new(data, ways, i);
+}
+
+static void		bfs(t_lem *data, int i, int c, int *buf)
 {
 	int a;
 	int b;
@@ -22,16 +43,21 @@ static void		breadthfirstsearch(t_lem *data, int i, int c, int *buf)
 	{
 		a = 0;
 		ft_printf("[%s] ==>", data->name_room[i]);
+		write_path(data, data->way, i, 0);
 		while (a < data->how_rooms && i != data->end_room)
 		{
 			if (data->links[i][a] == 1 && data->links[a][data->how_rooms] != -1 && a != data->end_room)
 			{
 				buf[b] = a;
+				write_path(data, data->way, a, 1);
 				ft_printf("[%s] ", data->name_room[buf[b]]);
 				b++;
 			}
 			if (data->links[i][a] == 1 && a == data->end_room)
-				ft_printf("[%s] <<<<<\n", data->name_room[a]);
+			{
+				write_path(data, data->way, a, 2);
+				ft_printf("[%s] <<<<<", data->name_room[a]);
+			}
 			a++;
 		}
 		if (i != data->end_room)
@@ -56,12 +82,11 @@ void			find_way(t_lem *data)
 	ways = (t_way*)malloc(sizeof(t_way));
 	data->way = ways;
 	ft_bzero(ways, sizeof(t_way));
-	ways->next = NULL;
 	ft_memset(buf, -1, (sizeof(int) * data->how_rooms));
 	//ft_printf("%s", data->input);
 	ft_printf("data->how_ants [%i]\n", data->how_ants);
 	ft_printf("data->start_room [%i]\n", data->start_room);
 	ft_printf("data->end_room [%i]\n", data->end_room);
 	ft_printf("data->how_rooms [%i]\n", data->how_rooms);
-	breadthfirstsearch(data, data->start_room, -1, buf);
+	bfs(data, data->start_room, -1, buf);
 }

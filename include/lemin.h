@@ -19,10 +19,9 @@
 
 typedef struct	s_way
 {
-	int				*path;
-	int				len;
-	int				valid;
-	struct s_way	*next;
+	int				**path;
+	int				*len;
+	int				check;
 }				t_way;
 
 typedef struct	s_lem
