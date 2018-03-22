@@ -12,21 +12,13 @@
 
 #include "lemin.h"
 
-static void		breadthfirstsearch(t_lem *data)
+static void		breadthfirstsearch(t_lem *data, int i, int c)
 {
 	int a;
 	int b;
-	int c;
-	int i;
-	int j;
 	int buf[data->how_rooms];
 
 	ft_memset(buf, -1, (sizeof(int) * data->how_rooms));
-	i = data->start_room;
-	j = data->end_room;
-	a = 0;
-	b = 0;
-	c = -1;
 	b = 0;
 	while (i != -1 && data->links[i][data->how_rooms] != -1)
 	{
@@ -49,10 +41,6 @@ static void		breadthfirstsearch(t_lem *data)
 		}
 		c++;
 		i = buf[c];
-		// if (buf[c] != -1 && buf[c] < data->how_rooms)
-		// 	ft_printf(":%s:\n", data->name_room[buf[c]]);
-		// else
-		// 	ft_printf(":...:\n");
 	}
 	ft_printf(":THE_END:\n");
 
@@ -73,5 +61,5 @@ void			find_way(t_lem *data)
 	ft_printf("data->start_room [%i]\n", data->start_room);
 	ft_printf("data->end_room [%i]\n", data->end_room);
 	ft_printf("data->how_rooms [%i]\n", data->how_rooms);
-	breadthfirstsearch(data);
+	breadthfirstsearch(data, data->start_room, -1);
 }
