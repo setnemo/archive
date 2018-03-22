@@ -52,6 +52,7 @@ void			manage_error(t_lem *data, int error)
 	}
 	else
 		ft_printf("Error\n");
+	ft_printf("%s", data->input);
 	cleaning(data);
 	system("leaks -quiet lem-in");
 	exit(-42);

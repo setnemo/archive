@@ -68,7 +68,7 @@ static int		valid_name(t_lem *data, int i, int j)
 			i++;
 		else
 		{
-			if (ft_strnequ(data->validcoord[i], data->line, ft_strchr(data->validcoord[i], 32) - data->validcoord[i]))
+			if (ft_strnequ(data->validcoord[i], data->line, ft_strchr(data->line, 32) - data->line))
 				return (1);
 			i++;
 		}
