@@ -26,28 +26,36 @@ static void		breadthfirstsearch(t_lem *data)
 	j = data->end_room;
 	a = 0;
 	b = 0;
-	c = 0;
-	ft_printf("data----\n");
-	while (i != j)
+	c = -1;
+	b = 0;
+	while (i != -1 && data->links[i][data->how_rooms] != -1)
 	{
 		a = 0;
-		while (a < data->how_rooms)
+		ft_printf("[%s] ==>", data->name_room[i]);
+		while (a < data->how_rooms && i != data->end_room)
 		{
-			if (data->links[i][a] == 1)
+			if (data->links[i][a] == 1 && data->links[a][data->how_rooms] != -1 && a != data->end_room)
 			{
 				buf[b] = a;
 				ft_printf("[%s] ", data->name_room[buf[b]]);
+				b++;
 			}
 			a++;
 		}
-		ft_printf("\n");
-		// while (buf[c] == -1 && c < data->how_rooms)
+		if (i != data->end_room)
+		{
+			data->links[i][data->how_rooms] = -1;
+			ft_printf(".\n");
+		}
 		c++;
-		if (buf[c] == j)
-			break ;
 		i = buf[c];
-		buf[c] = -1;
-	}	
+		// if (buf[c] != -1 && buf[c] < data->how_rooms)
+		// 	ft_printf(":%s:\n", data->name_room[buf[c]]);
+		// else
+		// 	ft_printf(":...:\n");
+	}
+	ft_printf(":THE_END:\n");
+
 }
 
 void			find_way(t_lem *data)
@@ -60,7 +68,7 @@ void			find_way(t_lem *data)
 	data->way = ways;
 	ft_bzero(ways, sizeof(t_way));
 	ways->next = NULL;
-	ft_printf("%s", data->input);
+	//ft_printf("%s", data->input);
 	ft_printf("data->how_ants [%i]\n", data->how_ants);
 	ft_printf("data->start_room [%i]\n", data->start_room);
 	ft_printf("data->end_room [%i]\n", data->end_room);
