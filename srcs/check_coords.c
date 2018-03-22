@@ -13,6 +13,7 @@
 #include "lemin.h"
 #define X ft_strchr(data->line, 32) - data->line
 #define Y ft_strchr(data->validcoord[i], 32) - data->validcoord[i]
+
 int				check_coords_digits(char *line)
 {
 	int i;
@@ -69,7 +70,6 @@ static int		valid_name(t_lem *data, int i, int j)
 			i++;
 		else
 		{
-			ft_printf("%s___%i___%s\n", data->validcoord[i], MIM(X, Y), data->line);
 			if (ft_strnequ(data->validcoord[i], data->line, MIM(X, Y)))
 				return (1);
 			i++;
