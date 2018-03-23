@@ -5,7 +5,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<style>
 		table.mytable {
-			width: 90%;
 			table-layout: fixed;
 			margin: 100px 10px 10px 10px;
 		}
@@ -18,486 +17,557 @@
 			padding: 5px;
 			border: 1px solid #1C6EA4;
 		}
+		table.mytable td.element{
+			width: 4vw;
+			padding: 3px;
+			border: 1px solid #1C6EA4;
+		}
 		table.mytable td.hidden {
 			border: none;
 		}
+		table.mytable td.short {
+			width: 1vw;
+			font-size: 0.9vw;
+			text-align: center;
+		}
+		.up {
+			vertical-align: top;
+			text-align: right;
+			font-size: 0.7vw;
+		}
+		.name {
+			vertical-align: center;
+			text-align: center;
+			font-size: 1vw;
+			font-family: Impact;
+		}
+		.down {
+			vertical-align: bottom;
+			text-align: left;
+			font-size: 0.7vw;
+		}
+		.diatomic-nonmetal {
+			background: #e7ff8f;
+		}
+		.noble-gas {
+			background: #c0ffff;
+		}
+		.alkali-metal {
+			background: #ff6666;
+		}
+		.alkaline-earth-metal {
+			background: #ffdead;
+		}
+		.transition-metal {
+			background: #ffc0c0;
+		}
+		.lanthanide {
+			background: #ffbfff;
+		}
+		.actinide {
+			background: #ff99cc;
+		}
+		.polyatomic-nonmetal {
+			background: #a1ffc3;
+		}
+		.metalloid {
+			background: #cccc99;
+		}
+		.post-transition-metal {
+			background: #cccccc;
+		}
+		.unknown-chemical-properties {
+			background: #e8e8e8;
+		}
+
 	</style>
 </head>
 <body>
 	<center>
 	<img style="display: block; margin: 0 auto;" src="https://upload.wikimedia.org/wikipedia/commons/c/c8/DIMendeleevCab.jpg" width="300">
-		<table class="mytable">
+		<table class="mytable" contenteditable="true">
 			<tbody>
 				<tr>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element diatomic-nonmetal">
+						<div class="up">1.0079</div>
+						<div class="name">H</div>
 						<div class="down">1</div>
 					</td>
-					<td colspan="16" class="hidden"></td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td colspan="17" class="hidden"></td>
+					<td class="element noble-gas">
+						<div class="up">4.0026</div>
+						<div class="name">He</div>
 						<div class="down">2</div>
 					</td>
 				</tr>
 				<tr>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element alkali-metal">
+						<div class="up">6.941</div>
+						<div class="name">Li</div>
 						<div class="down">3</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element alkaline-earth-metal">
+						<div class="up">9.012</div>
+						<div class="name">Be</div>
 						<div class="down">4</div>
 					</td>
-					<td colspan="10" class="hidden"></td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td colspan="11" class="hidden"></td>
+					<td class="element metalloid">
+						<div class="up">10.81</div>
+						<div class="name">B</div>
 						<div class="down">5</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element polyatomic-nonmetal">
+						<div class="up">12.01</div>
+						<div class="name">C</div>
 						<div class="down">6</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element diatomic-nonmetal">
+						<div class="up">14.01</div>
+						<div class="name">N</div>
 						<div class="down">7</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element diatomic-nonmetal">
+						<div class="up">16.00</div>
+						<div class="name">O</div>
 						<div class="down">8</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element diatomic-nonmetal">
+						<div class="up">19.00</div>
+						<div class="name">F</div>
 						<div class="down">9</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element noble-gas">
+						<div class="up">20.18</div>
+						<div class="name">Ne</div>
 						<div class="down">10</div>
 					</td>
 				</tr>
 				<tr>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element alkali-metal">
+						<div class="up">22.99</div>
+						<div class="name">Na</div>
 						<div class="down">11</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element alkaline-earth-metal">
+						<div class="up">24.31</div>
+						<div class="name">Mg</div>
 						<div class="down">12</div>
 					</td>
-					<td colspan="10" class="hidden"></td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td colspan="11" class="hidden"></td>
+					<td class="element post-transition-metal">
+						<div class="up">26.98</div>
+						<div class="name">Al</div>
 						<div class="down">13</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element metalloid">
+						<div class="up">28.09</div>
+						<div class="name">Si</div>
 						<div class="down">14</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element polyatomic-nonmetal">
+						<div class="up">30.97</div>
+						<div class="name">P</div>
 						<div class="down">15</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element polyatomic-nonmetal">
+						<div class="up">32.07</div>
+						<div class="name">S</div>
 						<div class="down">16</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element diatomic-nonmetal">
+						<div class="up">35.45</div>
+						<div class="name">Cl</div>
 						<div class="down">17</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element noble-gas">
+						<div class="up">39.95</div>
+						<div class="name">Ar</div>
 						<div class="down">18</div>
 					</td>
 				</tr>
 				<tr>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element alkali-metal">
+						<div class="up">39.10</div>
+						<div class="name">K</div>
 						<div class="down">19</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element alkaline-earth-metal">
+						<div class="up">40.08</div>
+						<div class="name">Ca</div>
 						<div class="down">20</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">44.96</div>
+						<div class="name">Sc</div>
 						<div class="down">21</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="hidden"></td>
+					<td class="element transition-metal">
+						<div class="up">47.87</div>
+						<div class="name">Ti</div>
 						<div class="down">22</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">50.94</div>
+						<div class="name">V</div>
 						<div class="down">23</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">52.00</div>
+						<div class="name">Cr</div>
 						<div class="down">24</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">54.96</div>
+						<div class="name">Mn</div>
 						<div class="down">25</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">55.84</div>
+						<div class="name">Fe</div>
 						<div class="down">26</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">58.93</div>
+						<div class="name">Co</div>
 						<div class="down">27</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">58.69</div>
+						<div class="name">Ni</div>
 						<div class="down">28</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">63.55</div>
+						<div class="name">Cu</div>
 						<div class="down">29</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element post-transition-metal">
+						<div class="up">65.41</div>
+						<div class="name">Zn</div>
 						<div class="down">30</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element post-transition-metal">
+						<div class="up">69.72</div>
+						<div class="name">Ga</div>
 						<div class="down">31</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element metalloid">
+						<div class="up">72.61</div>
+						<div class="name">Ge</div>
 						<div class="down">32</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element metalloid">
+						<div class="up">74.92</div>
+						<div class="name">As</div>
 						<div class="down">33</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element polyatomic-nonmetal">
+						<div class="up">78.96</div>
+						<div class="name">Se</div>
 						<div class="down">34</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element diatomic-nonmetal">
+						<div class="up">79.90</div>
+						<div class="name">Br</div>
 						<div class="down">35</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element noble-gas">
+						<div class="up">83.80</div>
+						<div class="name">Kr</div>
 						<div class="down">36</div>
 					</td>
 				</tr>
 				<tr>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element alkali-metal">
+						<div class="up">85.47</div>
+						<div class="name">Rb</div>
 						<div class="down">37</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element alkaline-earth-metal">
+						<div class="up">87.62</div>
+						<div class="name">Sr</div>
 						<div class="down">38</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">88.91</div>
+						<div class="name">Y</div>
 						<div class="down">39</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="hidden"></td>
+					<td class="element transition-metal">
+						<div class="up">91.22</div>
+						<div class="name">Zr</div>
 						<div class="down">40</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">92.91</div>
+						<div class="name">Nb</div>
 						<div class="down">41</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">95.94</div>
+						<div class="name">Mo</div>
 						<div class="down">42</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">99</div>
+						<div class="name">Tc</div>
 						<div class="down">43</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">101.07</div>
+						<div class="name">Ru</div>
 						<div class="down">44</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">102.91</div>
+						<div class="name">Rh</div>
 						<div class="down">45</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">106.42</div>
+						<div class="name">Pd</div>
 						<div class="down">46</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">107.87</div>
+						<div class="name">Ag</div>
 						<div class="down">47</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element post-transition-metal">
+						<div class="up">112.41</div>
+						<div class="name">Cd</div>
 						<div class="down">48</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element post-transition-metal">
+						<div class="up">114.82</div>
+						<div class="name">In</div>
 						<div class="down">49</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element post-transition-metal">
+						<div class="up">118.71</div>
+						<div class="name">Sn</div>
 						<div class="down">50</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element metalloid">
+						<div class="up">121.76</div>
+						<div class="name">Sb</div>
 						<div class="down">51</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element metalloid">
+						<div class="up">127.60</div>
+						<div class="name">Te</div>
 						<div class="down">52</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element diatomic-nonmetal">
+						<div class="up">126.90</div>
+						<div class="name">I</div>
 						<div class="down">53</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element noble-gas">
+						<div class="up">131.29</div>
+						<div class="name">Xe</div>
 						<div class="down">54</div>
 					</td>
 				</tr>
 				<tr>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element alkali-metal">
+						<div class="up">132.91</div>
+						<div class="name">Cs</div>
 						<div class="down">55</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element alkaline-earth-metal">
+						<div class="up">137.33</div>
+						<div class="name">Ba</div>
 						<div class="down">56</div>
 					</td>
-					<td class="hidden">
+					<td class="element lanthanide">
+						<div class="up">138.91</div>
+						<div class="name">La</div>
+						<div class="down">57</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+
+					<td class="hidden short">*</td>
+					<td class="element transition-metal">
+						<div class="up">178.49</div>
+						<div class="name">Hf</div>
 						<div class="down">72</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">180.95</div>
+						<div class="name">Ta</div>
 						<div class="down">73</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">183.84</div>
+						<div class="name">W</div>
 						<div class="down">74</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">186.21</div>
+						<div class="name">Re</div>
 						<div class="down">75</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">192.23</div>
+						<div class="name">Os</div>
 						<div class="down">76</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">192.22</div>
+						<div class="name">Ir</div>
 						<div class="down">77</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">195.08</div>
+						<div class="name">Pt</div>
 						<div class="down">78</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">196.97</div>
+						<div class="name">Au</div>
 						<div class="down">79</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element post-transition-metal">
+						<div class="up">200.59</div>
+						<div class="name">Hg</div>
 						<div class="down">80</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element post-transition-metal">
+						<div class="up">204.38</div>
+						<div class="name">Tl</div>
 						<div class="down">81</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element post-transition-metal">
+						<div class="up">207.2</div>
+						<div class="name">Pb</div>
 						<div class="down">82</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element post-transition-metal">
+						<div class="up">208.98</div>
+						<div class="name">Bi</div>
 						<div class="down">83</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element post-transition-metal">
+						<div class="up">209</div>
+						<div class="name">Po</div>
 						<div class="down">84</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element metalloid">
+						<div class="up">210</div>
+						<div class="name">At</div>
 						<div class="down">85</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element noble-gas">
+						<div class="up">222</div>
+						<div class="name">Rn</div>
 						<div class="down">86</div>
 					</td>
 				</tr>
 				<tr>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element alkali-metal">
+						<div class="up">223</div>
+						<div class="name">Fr</div>
 						<div class="down">87</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element alkaline-earth-metal">
+						<div class="up">226</div>
+						<div class="name">Ra</div>
 						<div class="down">88</div>
 					</td>
-					<td class="hidden">
+					<td class="element actinide">
+						<div class="up">227</div>
+						<div class="name">Ac</div>
+						<div class="down">89</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="hidden short">*<br>*</td>
+					<td class="element transition-metal">
+						<div class="up">267</div>
+						<div class="name">Rf</div>
 						<div class="down">104</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">268</div>
+						<div class="name">Db</div>
 						<div class="down">105</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">269</div>
+						<div class="name">Sg</div>
 						<div class="down">106</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">264</div>
+						<div class="name">Bh</div>
 						<div class="down">107</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element transition-metal">
+						<div class="up">270</div>
+						<div class="name">Hs</div>
 						<div class="down">108</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element unknown-chemical-properties">
+						<div class="up">278</div>
+						<div class="name">Mt</div>
 						<div class="down">109</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element unknown-chemical-properties">
+						<div class="up">281</div>
+						<div class="name">Ds</div>
 						<div class="down">110</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element unknown-chemical-properties">
+						<div class="up">282</div>
+						<div class="name">Rg</div>
 						<div class="down">111</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element post-transition-metal">
+						<div class="up">285</div>
+						<div class="name">Cn</div>
 						<div class="down">112</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element unknown-chemical-properties">
+						<div class="up">286</div>
+						<div class="name">Nh</div>
 						<div class="down">113</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element unknown-chemical-properties">
+						<div class="up">289</div>
+						<div class="name">Fl</div>
 						<div class="down">114</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element unknown-chemical-properties">
+						<div class="up">290</div>
+						<div class="name">Mc</div>
 						<div class="down">115</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element unknown-chemical-properties">
+						<div class="up">293</div>
+						<div class="name">Lv</div>
 						<div class="down">116</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element unknown-chemical-properties">
+						<div class="up">294</div>
+						<div class="name">Ts</div>
 						<div class="down">117</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element unknown-chemical-properties">
+						<div class="up">294</div>
+						<div class="name">Og</div>
 						<div class="down">118</div>
 					</td>
 				</tr>
 				<tr>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element unknown-chemical-properties">
+						<div class="up">316</div>
+						<div class="name">Uue</div>
 						<div class="down">119</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element unknown-chemical-properties">
+						<div class="up">320</div>
+						<div class="name">Ubn</div>
 						<div class="down">120</div>
 					</td>
 					<td colspan="16" class="hidden"></td>
@@ -506,159 +576,151 @@
 					<td colspan="18" class="hidden"></td>
 				</tr>
 				<tr>
-					<td colspan="2" class="hidden"></td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
-						<div class="down">57</div>
-					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td colspan="3" class="hidden"></td>
+					<td class="hidden short">*</td>
+					<td class="element lanthanide">
+						<div class="up">140.12</div>
+						<div class="name">Ce</div>
 						<div class="down">58</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element lanthanide">
+						<div class="up">140.91</div>
+						<div class="name">Pr</div>
 						<div class="down">59</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element lanthanide">
+						<div class="up">144.24</div>
+						<div class="name">Nd</div>
 						<div class="down">60</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element lanthanide">
+						<div class="up">145</div>
+						<div class="name">Pm</div>
 						<div class="down">61</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element lanthanide">
+						<div class="up">150.36</div>
+						<div class="name">Sm</div>
 						<div class="down">62</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element lanthanide">
+						<div class="up">151.96</div>
+						<div class="name">Eu</div>
 						<div class="down">63</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element lanthanide">
+						<div class="up">157.25</div>
+						<div class="name">Gd</div>
 						<div class="down">64</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element lanthanide">
+						<div class="up">158.93</div>
+						<div class="name">Tb</div>
 						<div class="down">65</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element lanthanide">
+						<div class="up">162.50</div>
+						<div class="name">Dy</div>
 						<div class="down">66</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element lanthanide">
+						<div class="up">164.93</div>
+						<div class="name">Ho</div>
 						<div class="down">67</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element lanthanide">
+						<div class="up">167.26</div>
+						<div class="name">Er</div>
 						<div class="down">68</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element lanthanide">
+						<div class="up">168.93</div>
+						<div class="name">Tm</div>
 						<div class="down">69</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element lanthanide">
+						<div class="up">173.04</div>
+						<div class="name">Yb</div>
 						<div class="down">70</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element lanthanide">
+						<div class="up">174.97</div>
+						<div class="name">Lu</div>
 						<div class="down">71</div>
 					</td>
 					<td class="hidden"></td>
 				</tr>
 				<tr>
-					<td colspan="2" class="hidden"></td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
-						<div class="down">89</div>
-					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td colspan="3" class="hidden"></td>
+					<td class="hidden short">*<br>*</td>
+					<td class="element actinide">
+						<div class="up">232.04</div>
+						<div class="name">Th</div>
 						<div class="down">90</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element actinide">
+						<div class="up">231.04</div>
+						<div class="name">Pa</div>
 						<div class="down">91</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element actinide">
+						<div class="up">238.03</div>
+						<div class="name">U</div>
 						<div class="down">92</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element actinide">
+						<div class="up">237</div>
+						<div class="name">Np</div>
 						<div class="down">93</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element actinide">
+						<div class="up">244</div>
+						<div class="name">Pu</div>
 						<div class="down">94</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element actinide">
+						<div class="up">243</div>
+						<div class="name">Am</div>
 						<div class="down">95</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element actinide">
+						<div class="up">247</div>
+						<div class="name">Cm</div>
 						<div class="down">96</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element actinide">
+						<div class="up">247</div>
+						<div class="name">Bk</div>
 						<div class="down">97</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element actinide">
+						<div class="up">251</div>
+						<div class="name">Cf</div>
 						<div class="down">98</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element actinide">
+						<div class="up">252</div>
+						<div class="name">Es</div>
 						<div class="down">99</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element actinide">
+						<div class="up">257</div>
+						<div class="name">Fm</div>
 						<div class="down">100</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element actinide">
+						<div class="up">258</div>
+						<div class="name">Md</div>
 						<div class="down">101</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element actinide">
+						<div class="up">259</div>
+						<div class="name">No</div>
 						<div class="down">102</div>
 					</td>
-					<td>
-						<div class="up"></div>
-						<div class="name"></div>
+					<td class="element actinide">
+						<div class="up">266</div>
+						<div class="name">Lr</div>
 						<div class="down">103</div>
 					</td>
 					<td class="hidden"></td>
