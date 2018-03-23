@@ -59,7 +59,8 @@ static void			write_matrix(t_lem *data, int i)
 
 	while (i < data->how_rooms)
 	{
-		if (ft_strnequ(data->name_room[i], DL, ft_strchr(DL, '-') - DL))
+		if (ft_strnequ(data->name_room[i], DL, ft_strchr(DL, '-') - DL) && 
+		ft_strlen(data->name_room[i]) == (size_t)(ft_strchr(DL, '-') - DL))
 			a = i;
 		i++;
 	}
@@ -72,6 +73,7 @@ static void			write_matrix(t_lem *data, int i)
 	}
 	if (a != b)
 	{
+		ft_printf("%s-%s\n", data->name_room[a], data->name_room[b]);
 		data->links[a][b] = 1;
 		data->links[b][a] = 1;
 	}
