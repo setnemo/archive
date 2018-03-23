@@ -24,6 +24,7 @@ static void	cleaning_way(t_way *ways)
 			free(ways->path[i]);
 			i++;
 		}
+		free(ways->path);
 	}
 	if (ways->len)
 		free(ways->len);
