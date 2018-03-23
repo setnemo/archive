@@ -73,7 +73,6 @@ static void			write_matrix(t_lem *data, int i)
 	}
 	if (a != b)
 	{
-		ft_printf("%s-%s\n", data->name_room[a], data->name_room[b]);
 		data->links[a][b] = 1;
 		data->links[b][a] = 1;
 	}
