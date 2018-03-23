@@ -1,0 +1,99 @@
+.background {
+	background-color: rgb(81, 81, 81);
+}
+
+.shadowround {
+	border-radius: 1.5em;
+	box-shadow: black 0.5em 0.5em 0.5em;
+}
+
+.up {
+	border-radius: 10px;
+	box-shadow: black 0.5em 0.5em 0.5em;
+	vertical-align: top;
+	padding: 10px;
+	margin: 0 auto;
+	width: 1420px;
+	height: 90px;
+	background-color: rgb(143, 143, 143);
+}
+
+.page {
+	position: relative;
+	width: 1360px;
+	height: 600px;
+	margin: 20px auto;
+}
+
+.left {
+	border-radius: 10px;
+	box-shadow: black 0.5em 0.5em 0.5em;
+	width: 140px;
+	height: 425px;
+	margin-right: 30px;
+	background-color: rgb(143, 143, 143);
+	float: left;
+}
+
+.wall {
+	background-image: url("resources/brick.jpg");
+	width: 122px;
+	height: 70px;
+}
+
+.center {
+	border-radius: 10px;
+	box-shadow: black 0.5em 0.5em 0.5em;
+	width: 1020px;
+	height: 580px;
+	margin-right: 30px;
+	background-color: rgb(143, 143, 143);
+	float: left;
+}
+
+.button {
+	border: 1px grey solid;
+	background-color: rgb(235, 235, 235);
+}
+
+bigstyle {
+	font-family: Georgia;
+	font-weight: 100;
+	font-size: 25pt;
+}
+
+.sdw {
+	text-shadow: 8px 6px 6px red;
+}
+
+.carre {
+	line-height: 5px;
+	font-family: Helvetica;
+	font-size: 11pt;
+	padding: 10px;
+	margin: 0 auto;
+	margin-top: 500px;
+	position: absolute;
+	background-color: rgb(179, 255, 143);
+	width: 520px;
+	height: 170px;
+	border-radius: 5px;
+	box-shadow: black 0.5em 0.5em 0.5em;
+}
+
+.cluster {
+	margin-left: 10px;
+	margin-top: 10px;
+	background-image: url("resources/cluster.jpg");
+	height: 550px;
+	width: 1000px;
+}
+
+.right {
+	border-radius: 10px;
+	box-shadow: black 0.5em 0.5em 0.5em;
+	width: 140px;
+	height: 426px;
+	background-color: rgb(143, 143, 143);
+	float: left;
+}
