@@ -22,7 +22,8 @@ SRC_NAME = 	main.c\
 			check_coords.c\
 			find_ways.c\
 			solve_ways.c\
-			calculate.c
+			calculate.c\
+			sort_ants.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 

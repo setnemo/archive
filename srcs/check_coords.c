@@ -95,10 +95,6 @@ int				check_room_name(t_lem *data)
 	i = 0;
 	data->validcoord = ft_strsplit(p, 10);
 	j = ft_count_to_null((void**)data->validcoord, 0);
-	int m = 0;
-	while (data->validcoord[m]){
-		m++;
-	}
 	if (valid_name(data, i, j - 1))
 		return (1);
 	free_validcoord(data);

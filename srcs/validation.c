@@ -71,26 +71,16 @@ static void			write_matrix(t_lem *data, int i)
 			b = i;
 		i++;
 	}
-	if (a != b)
-	{
-		data->links[a][b] = 1;
-		data->links[b][a] = 1;
-	}
-	else
-	{
-		data->links[a][b] = 0;
-		data->links[b][a] = 0;
-	}
+	data->links[a][b] = (a != b) ? 1 : 0;
+	data->links[b][a] = (a != b) ? 1 : 0;
 }
 
 void				read_links(t_lem *data)
 {
 	int flag;
 
-	if (data->read_end)
-		manage_error(data, 19);
-	if (data->read_start)
-		manage_error(data, 18);
+	if (data->read_end || data->read_start)
+		manage_error(data, data->read_end ? 19 : 18);
 	flag = 0;
 	write_input(data);
 	if (data->line[0] == '#')
@@ -162,7 +152,7 @@ void				manage_input(t_lem *data)
 				break ;
 		}
 		if (data->all)
-			ft_printf("=======>exit input\n");
+			;
 		else
 			manage_error(data, 20);
 	}

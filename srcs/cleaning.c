@@ -58,3 +58,29 @@ void		cleaning(t_lem *data)
 	free(data);
 	ft_printf("cleaning done\n");
 }
+
+void		delete_nonvalid_path(t_lem *data, t_all *ways)
+{
+	t_all	*temp;
+
+	while (ways)
+	{
+		if (ways->next)
+		{
+			if (ways->next->valid == 0)
+			{
+				temp = ways->next->next;
+				free(ways->next->path);
+				free(ways->next);
+				data->how_path -= 1;
+				ways->next = temp;
+			}
+			if (ways->next)
+				ways = ways->next;
+			else
+				break ;
+		}
+		else
+			break ;
+	}
+}

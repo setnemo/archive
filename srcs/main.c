@@ -13,6 +13,16 @@
 #include "lemin.h"
 #include "error.h"
 
+void			last_room(t_lem *data)
+{
+	data->in = 0;
+	data->all = 0;
+	if (data->start_count != 1 || data->end_count != 1)
+		manage_error(data, 4);
+	data->endroomline = data->countline + 1;
+	data->xy_rooms = ft_new_int_arr(data->endroomline - data->startroomline + 1);
+}
+
 void			break_reading(t_lem *data, int error)
 {
 	if (data->error)

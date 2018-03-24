@@ -12,6 +12,7 @@
 
 #include "lemin.h"
 #define FCH ft_strchr
+#define SCH sizeof(char)
 
 static void			save_rooms_coords(t_lem *data, char *p, int i)
 {
@@ -38,7 +39,7 @@ static void			save_rooms_data(t_lem *data, int i, char *p)
 	{
 		if (*p != '#')
 		{
-			data->name_room[i] = (char*)malloc(sizeof(char) * (FCH(p, 10) - p) + 1);
+			data->name_room[i] = (char*)malloc(SCH * (FCH(p, 10) - p) + 1);
 			ft_strscpy(data->name_room[i], p, 32);
 			save_rooms_coords(data, p, i);
 			i++;
@@ -79,7 +80,7 @@ static void			manage_room(t_lem *data)
 	data->how_rooms++;
 	data->bound = 0;
 	if (data->line[0] == 'L')
-			manage_error(data, 5);
+		manage_error(data, 5);
 	if (data->read_start)
 		data->read_start = 0;
 	if (data->read_end)
@@ -101,12 +102,7 @@ void				read_rooms(t_lem *data)
 {
 	if (ft_strchr(data->line, '-'))
 	{
-		data->in = 0;
-		data->all = 0;
-		if (data->start_count != 1 || data->end_count != 1)
-			manage_error(data, 4);
-		data->endroomline = data->countline + 1;
-		data->xy_rooms = ft_new_int_arr(data->endroomline - data->startroomline + 1);
+		last_room(data);
 		save_rooms_data(data, 0, NULL);
 		data->links = ft_new_int_matrix((size_t)data->how_rooms + 1);
 		read_links(data);

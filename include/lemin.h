@@ -17,6 +17,14 @@
 # include <unistd.h>
 # include <fcntl.h>
 
+typedef struct	s_bfs
+{
+	int				a;
+	int				b;
+	int				c;
+	int				i;
+}				t_bfs;
+
 typedef struct	s_all
 {
 	int				*path;
@@ -69,6 +77,9 @@ void			break_reading(t_lem *data, int error);
 void			cleaning(t_lem *data);
 void			cleaning_next(t_lem *data);
 void			free_validcoord(t_lem *data);
+void			delete_nonvalid_path(t_lem *data, t_all *ways);
+
+void			last_room(t_lem *data);
 void			manage_error(t_lem *data, int error);
 void			manage_input(t_lem *data);
 void			read_rooms(t_lem *data);
@@ -83,5 +94,8 @@ void			find_way(t_lem *data);
 void			manage_paths(t_lem *data);
 
 void			ints_to_list(t_lem *data);
+
+void			sort_ants(t_lem *data, t_all *ways);
+void			mark_nonvalid_path(t_lem *data, t_all *ways);
 
 #endif
