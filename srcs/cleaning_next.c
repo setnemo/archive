@@ -12,6 +12,27 @@
 
 #include "lemin.h"
 
+static void	cleaning_alls(t_all *ways)
+{
+	t_all *temp;
+
+	while (ways)
+	{
+		free(ways->path);
+		if (ways->next)
+		{
+			temp = ways;
+			ways = ways->next;
+			free(temp);
+		}
+		else
+		{
+			free(ways);
+			ways = NULL;
+		}
+	}
+}
+
 static void	cleaning_way(t_way *ways)
 {
 	int i;
@@ -47,6 +68,8 @@ static void	cleaning_validcoord(t_lem *data)
 
 void		cleaning_next(t_lem *data)
 {
+	if (data->alls)
+		cleaning_alls(data->alls);
 	if (data->way)
 		cleaning_way(data->way);
 	if (data->validcoord)

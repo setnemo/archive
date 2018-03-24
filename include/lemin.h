@@ -81,4 +81,7 @@ int				check_coords_digits(char *line);
 void			find_way(t_lem *data);
 
 void			manage_paths(t_lem *data);
+
+void			ints_to_list(t_lem *data);
+
 #endif
