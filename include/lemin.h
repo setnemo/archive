@@ -17,6 +17,14 @@
 # include <unistd.h>
 # include <fcntl.h>
 
+typedef struct	s_all
+{
+	int				*path;
+	int				len;
+	int				valid;
+	struct s_all	*next;
+}				t_all;
+
 typedef struct	s_way
 {
 	int				**path;
@@ -54,6 +62,7 @@ typedef struct	s_lem
 	int				how_path;
 	int				*solve_path;
 	struct s_way	*way;
+	struct s_all	*alls;
 }				t_lem;
 
 void			break_reading(t_lem *data, int error);
@@ -71,4 +80,5 @@ int				check_coords_digits(char *line);
 
 void			find_way(t_lem *data);
 
+void			manage_paths(t_lem *data);
 #endif

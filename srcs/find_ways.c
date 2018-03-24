@@ -23,8 +23,8 @@ static void		add_new_path(t_lem *data, int i, int j, int *copy)
 	while (path[a])
 		a++;
 	// ft_printf("\n	while (path[a])\n");
-	path[a] = (int*)malloc(sizeof(int) * data->how_rooms + 1);
-	ft_memset(path[a], -1, (sizeof(int) * data->how_rooms + 1));
+	path[a] = (int*)malloc(sizeof(int) * (data->how_rooms + 1));
+	ft_memset(path[a], -1, (sizeof(int) * (data->how_rooms + 1)));
 	b = 0;
 	// ft_printf("\nwhile (copy[b]\n");
 	while (copy[b] != i)
@@ -96,6 +96,8 @@ static void		write_path(t_lem *data, int i, int j)
 	if (flag == 0)
 	{
 		b = 0;
+		if (i != data->start_room)
+			return ;
 		// ft_printf("\nflag == 0\n");
 		while (allpath[b])
 			b++;
@@ -159,26 +161,6 @@ static void		bfs(t_lem *data, int i, int c, int *buf)
 		c++;
 	}
 	ft_printf(":THE_END:\n");
-	for (int x = 0; x < data->how_rooms + 1; ++x)
-	{
-		if (data->way->path[x])
-		{
-
-			for (int m = 0; data->way->path[x][m] != -1 && data->way->path[x][m] < data->how_rooms; ++m)
-			{
-				// if (data->way->path[x])
-				// 	ft_printf("[%i]:", data->way->path[x][m]);
-				ft_printf("[%s] ", data->name_room[data->way->path[x][m]]);
-			}
-			ft_printf("\n");
-		}
-		else
-		{
-			ft_printf("[ ] ");
-			break ;
-		}
-	}
-	ft_printf("\n");
 }
 
 void			find_way(t_lem *data)
@@ -199,6 +181,7 @@ void			find_way(t_lem *data)
 	ft_printf("data->end_room [%i]\n", data->end_room);
 	ft_printf("data->how_rooms [%i]\n", data->how_rooms);
 	bfs(data, data->start_room, 0, buf);
+	manage_paths(data);
 	// int k = 0, m = 0;
 	// while (ways->path[k] != NULL)
 	// {
