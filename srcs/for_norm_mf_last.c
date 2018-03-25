@@ -85,8 +85,7 @@ static void		one_while(t_tout *nrm, t_prnt *test, int *ants, t_lem *data)
 		}
 		if (N->check == data->how_path)
 		{
-			test = data->toout;
-			break ;
+			BRK((test = data->toout));
 		}
 	}
 }

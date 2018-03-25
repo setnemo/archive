@@ -96,7 +96,8 @@ void			manage_output2(t_lem *data, int *ants)
 	t_tout	nrm;
 	int		j;
 
-	nrm.out = ft_new_char_arr(search_max_steps(data) * 2);
+	nrm.out = ft_new_char_arr(search_max_steps(data) *
+		search_max_steps(data));
 	nrm.roomcount = search_max_steps(data);
 	if ((int)data->how_ants < data->how_path)
 		data->how_path = data->how_ants;
