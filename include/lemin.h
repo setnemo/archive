@@ -110,4 +110,5 @@ void			mark_nonvalid_path(t_lem *data, t_all *ways);
 void			last_room(t_lem *data);
 void			write_path(t_lem *data, int i, int j);
 
+void			set_flags(t_lem *data, char **argv, int flags);
 #endif

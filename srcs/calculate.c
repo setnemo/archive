@@ -104,6 +104,8 @@ void			ints_to_list(t_lem *data)
 	delete_nonvalid_path(data, result);
 	while (sort_path_result(data, result))
 		;
+	if (data->how_path == 0)
+		manage_error(data, 22);
 	ft_printf("HOW PATH???[%i]\n", data->how_path);
 	sort_ants(data, result);
 	int i = 0;

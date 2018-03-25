@@ -37,6 +37,8 @@ static void		manage_error_11(int error)
 		(error == 18) ? ft_printf(ER18) : ft_printf(ER19);
 	if (error == 20 || error == 21)
 		(error == 20) ? ft_printf(ER20) : ft_printf(ER21);
+	if (error == 22 || error == 23)
+		(error == 22) ? ft_printf(ER22) : ft_printf(ER23);
 }
 
 void			manage_error(t_lem *data, int error)
@@ -68,8 +70,8 @@ void			manage_error(t_lem *data, int error)
 static void		initialize_data(t_lem *data)
 {
 	ft_bzero(data, sizeof(t_lem));
-	data->showinput = 1;
-	data->error = 1;
+	data->showinput = 0;
+	data->error = 0;
 	data->in = 1;
 	data->stop = 1;
 	data->firstroomline = 1;
@@ -86,16 +88,22 @@ static void		initialize_data(t_lem *data)
 
 int				main(int argc, char **argv)
 {
-	t_lem *data;
+	t_lem	*data;
+	int		i;
 
-	if (argc > 1 && argv)
+	i = 0;
+	if (argc > 3 && argv)
 	{
 		ft_printf("Error\n");
 		exit(-42);
 	}
-	data = (t_lem*)malloc(sizeof(t_lem));
-	ft_bzero(data, sizeof(t_lem));
-	initialize_data(data);
+	else
+	{
+		data = (t_lem*)malloc(sizeof(t_lem));
+		ft_bzero(data, sizeof(t_lem));
+		initialize_data(data);
+		set_flags(data, ++argv, --argc);
+	}
 	manage_input(data);
 	find_way(data);
 	cleaning(data);
