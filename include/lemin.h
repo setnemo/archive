@@ -17,6 +17,17 @@
 # include <unistd.h>
 # include <fcntl.h>
 
+typedef struct	s_tout
+{
+	int				i;
+	int				j;
+	int				check;
+	int				cc;
+	int				roomcount;
+	int				k;
+	char			**out;
+}				t_tout;
+
 typedef struct	s_wp
 {
 	int				a;
@@ -120,5 +131,7 @@ void			write_path(t_lem *data, int i, int j);
 void			set_flags(t_lem *data, char **argv, int flags);
 
 void			manage_output(t_lem *data);
+
+void			norme_output_first(t_tout *nrm, t_lem *data, t_prnt *test, int *ants);
 
 #endif
