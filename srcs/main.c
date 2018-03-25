@@ -13,16 +13,6 @@
 #include "lemin.h"
 #include "error.h"
 
-void			last_room(t_lem *data)
-{
-	data->in = 0;
-	data->all = 0;
-	if (data->start_count != 1 || data->end_count != 1)
-		manage_error(data, 4);
-	data->endroomline = data->countline + 1;
-	data->xy_rooms = ft_new_int_arr(data->endroomline - data->startroomline + 1);
-}
-
 void			break_reading(t_lem *data, int error)
 {
 	if (data->error)
@@ -33,6 +23,20 @@ void			break_reading(t_lem *data, int error)
 	else
 		ft_printf("Error\n");
 	ft_printf("[*] Stop reading data. Starting algorithm...\n");
+}
+
+static void		manage_error_11(int error)
+{
+	if (error == 12 || error == 13)
+		(error == 12) ? ft_printf(ER12) : ft_printf(ER13);
+	if (error == 14 || error == 15)
+		(error == 14) ? ft_printf(ER14) : ft_printf(ER15);
+	if (error == 16 || error == 17)
+		(error == 16) ? ft_printf(ER16) : ft_printf(ER17);
+	if (error == 18 || error == 19)
+		(error == 18) ? ft_printf(ER18) : ft_printf(ER19);
+	if (error == 20 || error == 21)
+		(error == 20) ? ft_printf(ER20) : ft_printf(ER21);
 }
 
 void			manage_error(t_lem *data, int error)
@@ -49,20 +53,13 @@ void			manage_error(t_lem *data, int error)
 			(error == 6) ? ft_printf(ER06) : ft_printf(ER07);
 		if (error == 10 || error == 11)
 			(error == 10) ? ft_printf(ER10) : ft_printf(ER11);
-		if (error == 12 || error == 13)
-			(error == 12) ? ft_printf(ER12) : ft_printf(ER13);
-		if (error == 14 || error == 15)
-			(error == 14) ? ft_printf(ER14) : ft_printf(ER15);
-		if (error == 16 || error == 17)
-			(error == 16) ? ft_printf(ER16) : ft_printf(ER17);
-		if (error == 18 || error == 19)
-			(error == 18) ? ft_printf(ER18) : ft_printf(ER19);
-		if (error == 20 || error == 21)
-			(error == 20) ? ft_printf(ER20) : ft_printf(ER21);
+		if (error > 11)
+			manage_error_11(error);
 	}
 	else
 		ft_printf("Error\n");
-	ft_printf("%s", data->input);
+	if (data->showinput)
+		ft_printf("%s", data->input);
 	cleaning(data);
 	system("leaks -quiet lem-in");
 	exit(-42);
@@ -71,6 +68,7 @@ void			manage_error(t_lem *data, int error)
 static void		initialize_data(t_lem *data)
 {
 	ft_bzero(data, sizeof(t_lem));
+	data->showinput = 1;
 	data->error = 1;
 	data->in = 1;
 	data->stop = 1;
@@ -99,24 +97,8 @@ int				main(int argc, char **argv)
 	ft_bzero(data, sizeof(t_lem));
 	initialize_data(data);
 	manage_input(data);
-	// int i = 0;
-	// int j;
-	// while (i < data->how_rooms)
-	// {
-	// 	j = 0;
-	// 	while (j < data->how_rooms + 1)
-	// 	{
-	// 		ft_printf("%i ", data->links[i][j]);
-	// 		j++;
-	// 	}
-	// 	ft_printf(" %s", data->name_room[i]);
-	// 	i++;
-	// 	ft_printf("\n");
-	// }
 	find_way(data);
-	// ft_printf("CLEANING NOW, BITCHES\n");
 	cleaning(data);
-	// ft_printf("CLEANING DONE, BITCHES\n");
 	system("leaks -quiet lem-in");
 	return (0);
 }

@@ -14,15 +14,6 @@
 #define ATDL ft_atoi(data->line)
 #define DL data->line
 
-void				write_input(t_lem *data)
-{
-	data->temp = ft_strjoin(data->input, data->line);
-	ft_strdel(&data->input);
-	data->input = ft_strjoin(data->temp, "\n");
-	ft_strdel(&data->temp);
-	data->countline++;
-}
-
 static int			check_links_name(t_lem *data, int i, int flag)
 {
 	if (*data->line == 0)
@@ -59,7 +50,7 @@ static void			write_matrix(t_lem *data, int i)
 
 	while (i < data->how_rooms)
 	{
-		if (ft_strnequ(data->name_room[i], DL, ft_strchr(DL, '-') - DL) && 
+		if (ft_strnequ(data->name_room[i], DL, ft_strchr(DL, '-') - DL) &&
 		ft_strlen(data->name_room[i]) == (size_t)(ft_strchr(DL, '-') - DL))
 			a = i;
 		i++;
@@ -113,7 +104,8 @@ static void			check_ants(t_lem *data, int i)
 		ft_strdel(&data->line);
 		while (get_next_line(STDIN_FILENO, &data->line) && data->line[0] == '#')
 		{
-			if (ft_strequ(data->line, "##start") || ft_strequ(data->line, "##end"))
+			if (ft_strequ(data->line, "##start") ||
+				ft_strequ(data->line, "##end"))
 				manage_error(data, ft_strequ(data->line, "##start") ? 16 : 17);
 			write_input(data);
 			ft_strdel(&data->line);

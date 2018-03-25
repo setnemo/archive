@@ -23,7 +23,8 @@ SRC_NAME = 	main.c\
 			find_ways.c\
 			solve_ways.c\
 			calculate.c\
-			sort_ants.c
+			sort_ants.c\
+			for_norm_mf.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 

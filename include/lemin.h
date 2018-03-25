@@ -17,6 +17,15 @@
 # include <unistd.h>
 # include <fcntl.h>
 
+typedef struct	s_wp
+{
+	int				a;
+	int				b;
+	int				addnew;
+	int				flag;
+	int				**allpath;
+}				t_wp;
+
 typedef struct	s_bfs
 {
 	int				a;
@@ -47,6 +56,7 @@ typedef struct	s_lem
 	int				in;
 	int				all;
 	int				bound;
+	int				showinput;
 	int				countline;
 	int				startroomline;
 	int				firstroomline;
@@ -79,16 +89,15 @@ void			cleaning_next(t_lem *data);
 void			free_validcoord(t_lem *data);
 void			delete_nonvalid_path(t_lem *data, t_all *ways);
 
-void			last_room(t_lem *data);
 void			manage_error(t_lem *data, int error);
 void			manage_input(t_lem *data);
 void			read_rooms(t_lem *data);
 void			read_links(t_lem *data);
-void			write_input(t_lem *data);
 int				check_room_name(t_lem *data);
 int				check_coords(t_lem *data, int i, int j);
 int				check_coords_digits(char *line);
 
+void			write_input(t_lem *data);
 void			find_way(t_lem *data);
 
 void			manage_paths(t_lem *data);
@@ -97,5 +106,8 @@ void			ints_to_list(t_lem *data);
 
 void			sort_ants(t_lem *data, t_all *ways);
 void			mark_nonvalid_path(t_lem *data, t_all *ways);
+
+void			last_room(t_lem *data);
+void			write_path(t_lem *data, int i, int j);
 
 #endif

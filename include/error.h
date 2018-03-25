@@ -32,7 +32,7 @@
 # define ER17 "[!] Error: end command before ants\n"
 # define ER18 "[!] Error: incorrect input - ##start comand\n"
 # define ER19 "[!] Error: incorrect input - ##end comand\n"
-# define ER20 "[!] Error: no links\n"
-# define ER21 "[!] Error: ^D in room name string ;)\n"
+# define ER20 "[!] Error: there isn't enough data to run the algorithm\n"
+# define ER21 "[!] Error: ^D in the string and insufficient data ;)\n"
 
 #endif
