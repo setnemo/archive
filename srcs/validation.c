@@ -22,7 +22,8 @@ static int			check_links_name(t_lem *data, int i, int flag)
 		return (8);
 	while (i < data->how_rooms)
 	{
-		if (ft_strnequ(data->name_room[i], DL, ft_strchr(data->line, '-') - data->line))
+		if (ft_strnequ(data->name_room[i], DL,
+			ft_strchr(data->line, '-') - data->line))
 			flag = 0;
 		i++;
 	}

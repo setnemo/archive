@@ -21,7 +21,6 @@ void			set_flags(t_lem *data, char **argv, int flags)
 	int i;
 
 	i = 0;
-	// ft_printf("%s\n", argv[0]);
 	while (i < flags)
 	{
 		if (ft_strequ(argv[i], "-e"))
