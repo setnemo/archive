@@ -213,13 +213,13 @@ void			manage_output(t_lem *data)
 			{
 				if (test->pathshow[j])
 				{
-					if (out[j] == NULL)
-						out[j] = ft_strdup("L");
+					if (out[j+k] == NULL)
+						out[j+k] = ft_strdup("L");
 					else
-						out[j] = ft_strjoin_free(out[j], ft_strdup(" L"));
-					out[j] = ft_strjoin_free(out[j], ft_itoa(i + cc));
-					out[j] = ft_strjoin_free(out[j], ft_strdup("-"));
-					out[j] = ft_strjoin_free(out[j], ft_strdup(test->pathshow[j]));
+						out[j+k] = ft_strjoin_free(out[j+k], ft_strdup(" L"));
+					out[j+k] = ft_strjoin_free(out[j+k], ft_itoa(i + cc));
+					out[j+k] = ft_strjoin_free(out[j+k], ft_strdup("-"));
+					out[j+k] = ft_strjoin_free(out[j+k], ft_strdup(test->pathshow[j]));
 					check++;
 					cc++;
 					test = test->next;
@@ -233,13 +233,13 @@ void			manage_output(t_lem *data)
 				}
 				if (check == data->how_path)
 				{
-					k++;
 					test = data->toout;
 					break ;
 				}
 			}
 			j++;
 		}
+		k++;
 		i += cc;
 	}
 
