@@ -37,3 +37,27 @@ void			set_flags(t_lem *data, char **argv, int flags)
 		i++;
 	}
 }
+
+void			init_nrm(t_tout *nrm, int flag)
+{
+	if (flag)
+	{
+		if (flag == 1)
+		{
+			nrm->check = 0;
+			nrm->cc = 0;
+		}
+		else if (flag == 2)
+		{
+			nrm->k++;
+			nrm->i += nrm->cc;
+		}
+	}
+	else
+	{
+		nrm->i = 0;
+		nrm->k = 0;
+		nrm->check = 0;
+		nrm->cc = 0;
+	}	
+}

@@ -26,6 +26,7 @@ typedef struct	s_tout
 	int				roomcount;
 	int				k;
 	char			**out;
+	struct s_prnt	*next;
 }				t_tout;
 
 typedef struct	s_wp
@@ -134,4 +135,5 @@ void			manage_output(t_lem *data);
 
 void			norme_output_first(t_tout *nrm, t_lem *data, t_prnt *test, int *ants);
 
+void			init_nrm(t_tout *nrm, int flag);
 #endif

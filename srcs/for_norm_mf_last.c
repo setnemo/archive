@@ -12,30 +12,6 @@
 
 #include "lemin.h"
 
-static void		init_nrm(t_tout *nrm, int flag)
-{
-	if (flag)
-	{
-		if (flag == 1)
-		{
-			nrm->check = 0;
-			nrm->cc = 0;
-		}
-		else if (flag == 2)
-		{
-			nrm->k++;
-			nrm->i += nrm->cc;
-		}
-	}
-	else
-	{
-		nrm->i = 0;
-		nrm->k = 0;
-		nrm->check = 0;
-		nrm->cc = 0;
-	}	
-}
-
 static void		nrm_out_write(t_tout *nrm, t_prnt *test, int *ants)
 {
 	if (nrm->out[nrm->j + nrm->k] == NULL)
@@ -49,35 +25,57 @@ static void		nrm_out_write(t_tout *nrm, t_prnt *test, int *ants)
 	nrm->check++;
 }
 
+static int		elseifinwhile(t_tout *nrm, t_prnt *test, int *ants, t_lem *data)
+{
+	nrm->check++;
+	if (ants[nrm->cc] <= 0)
+	{
+		nrm->cc++;
+		test = data->toout;
+		return (1);
+	}
+	else
+		test = test->next;
+	nrm->cc++;
+	nrm->next = test;
+	return (0);
+}
+
+static int		firstifinwhile(t_tout *nrm, t_prnt *test, int *ants, t_lem *data)
+{
+	nrm_out_write(nrm, test, ants);
+	if (ants[nrm->cc] <= 0)
+	{
+		test = data->toout;
+		nrm->cc++;
+		return (1);
+	}
+	else
+		test = test->next;
+	nrm->cc++;
+	nrm->next = test;
+	return (0);
+}
+
 static void		one_while(t_tout *nrm, t_prnt *test, int *ants, t_lem *data)
 {
 	while (1)
 	{
 		if (test->pathshow[nrm->j])
-		{
-			nrm_out_write(nrm, test, ants);
-			if (ants[nrm->cc] <= 0)
+		{	
+			if (firstifinwhile(nrm, test, ants, data))
 			{
-				test = data->toout;
-				nrm->cc++;
+				test = nrm->next;
 				break ;
 			}
-			else
-				test = test->next;
-			nrm->cc++;
 		}
 		else
 		{
-			nrm->check++;
-			if (ants[nrm->cc] <= 0)
+			if (elseifinwhile(nrm, test, ants, data))
 			{
-				nrm->cc++;
-				test = data->toout;
+				test = nrm->next;
 				break ;
 			}
-			else
-				test = test->next;
-			nrm->cc++;
 		}
 		if (nrm->check == data->how_path)
 		{
