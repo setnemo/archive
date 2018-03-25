@@ -131,10 +131,11 @@ void				manage_input(t_lem *data)
 		data->input = ft_strjoin(data->line, "\n");
 		check_ants(data, 0);
 		data->how_rooms = 0;
-		while (get_next_line(STDIN_FILENO, &data->line) > 0 && data->stop)
+		while (get_next_line(STDIN_FILENO, &data->line) && data->stop)
 		{
 			(data->in == 1) ? read_rooms(data) : read_links(data);
-			ft_strdel(&data->line);
+			if (data->line)
+				ft_strdel(&data->line);
 			if (data->start_count > 1)
 				manage_error(data, 10);
 			if (data->end_count > 1)
@@ -142,9 +143,7 @@ void				manage_input(t_lem *data)
 			if (data->stop == 0)
 				break ;
 		}
-		if (data->all)
-			;
-		else
+		if (data->all == 0)
 			manage_error(data, 20);
 	}
 	else

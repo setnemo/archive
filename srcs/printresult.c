@@ -67,7 +67,6 @@ static t_prnt	*create_path_to_print(t_lem *data)
 		show = data->toout;
 		show->pathshow = ft_new_char_arr(search_max_steps(data));
 		show->next = NULL;
-		// ft_printf("....................\n");
 	}
 	else
 	{
@@ -79,7 +78,6 @@ static t_prnt	*create_path_to_print(t_lem *data)
 		show = show->next;
 		show->pathshow = ft_new_char_arr(search_max_steps(data));
 		show->next = NULL;
-		// ft_printf("...........2.........\n");
 	}
 	return (show);
 }
@@ -104,7 +102,6 @@ static void		put_path_in_show(t_prnt *show, t_lem *data, int i)
 	}
 }
 
-
 static void		search_ants(t_lem *data, int ants[])
 {
 	int i;
@@ -114,38 +111,11 @@ static void		search_ants(t_lem *data, int ants[])
 	j = 0;
 	while (i < data->how_path * 3)
 	{
-		ants[j] = data->solve_path[i];
+		ants[j] = data->solve_path[i] * data->solve_path[i - 1];
 		i += 3;
 		j++;
 	}
 }
-
-// void 	write_first_ants(t_prnt *show, char **out, int j, int i, t_lem *data)
-// {
-// 	int a;
-
-// 	a = i;
-// 	if (i == 0)
-// 	{
-
-// 	}
-// 	else
-// 	{
-// 		a = (a + 1) % data->how_path;
-// 		while (a)
-// 		{
-// 			show = show->next;
-// 			a--;
-// 		}
-// 		if (show->pathshow[j])
-// 		{
-// 			out[j] = ft_strjoin_free(out[j], ft_strdup(" L"));
-// 			out[j] = ft_strjoin_free(out[j], ft_itoa(i));
-// 			out[j] = ft_strjoin_free(out[j], ft_strdup("-"));
-// 			out[j] = ft_strjoin_free(out[j], ft_strdup(show->pathshow[j]));
-// 		}
-// 	}
-// }
 
 void			manage_output(t_lem *data)
 {
@@ -156,7 +126,7 @@ void			manage_output(t_lem *data)
 
 	search_ants(data, ants);
 	i = 0;
-	out = ft_new_char_arr(search_max_steps(data));
+	out = ft_new_char_arr(search_max_steps(data) + 2);
 	while (i < data->how_path)
 	{
 		if (ants[i] != 0)
@@ -168,29 +138,24 @@ void			manage_output(t_lem *data)
 			break ;
 		i++;
 	}
-	show = data->toout;
-	for (int i = 0; i < data->how_path; ++i)
-		ft_printf("[%i] ", ants[i]);
-	ft_printf("\n");
-	while (show)
-	{
-		for (int i = 0; show->pathshow[i]; ++i)
-			ft_printf("%s ", show->pathshow[i]);
-		ft_printf("\n");
-		if (show->next)
-			show = show->next;
-		else
-			break ;
-	}
+	// show = data->toout;
+	// for (int i = 0; i < data->how_path; ++i)
+	// 	ft_printf("[%i] ", ants[i]);
+	// ft_printf("\n");
+	// while (show)
+	// {
+	// 	for (int i = 0; show->pathshow[i]; ++i)
+	// 		ft_printf("%s ", show->pathshow[i]);
+	// 	ft_printf("\n");
+	// 	if (show->next)
+	// 		show = show->next;
+	// 	else
+	// 		break ;
+	// }
 
 	i = 0;
 	int roomcount = search_max_steps(data);
-	// while (i < (int)data->how_ants)
-	// {
-	// 	while (j < roomcount)
-	// 	{
 
-	// 	}
 	int j;
 	show = data->toout;
 	j = 0;
@@ -202,6 +167,8 @@ void			manage_output(t_lem *data)
 
 	int cc;
 	test = data->toout;
+	if ((int)data->how_ants < data->how_path)
+		data->how_path = data->how_ants;
 	while (i < (int)data->how_ants)
 	{
 		j = 0;
@@ -213,22 +180,34 @@ void			manage_output(t_lem *data)
 			{
 				if (test->pathshow[j])
 				{
-					if (out[j+k] == NULL)
-						out[j+k] = ft_strdup("L");
+					if (out[j + k] == NULL)
+						out[j + k] = ft_strdup("L");
 					else
-						out[j+k] = ft_strjoin_free(out[j+k], ft_strdup(" L"));
-					out[j+k] = ft_strjoin_free(out[j+k], ft_itoa(i + cc));
-					out[j+k] = ft_strjoin_free(out[j+k], ft_strdup("-"));
-					out[j+k] = ft_strjoin_free(out[j+k], ft_strdup(test->pathshow[j]));
+						out[j + k] = ft_strjoin_free(out[j + k], ft_strdup(" L"));
+					out[j + k] = ft_strjoin_free(out[j + k], ft_itoa(i + cc));
+					out[j + k] = ft_strjoin_free(out[j + k], ft_strdup("-"));
+					out[j + k] = ft_strjoin_free(out[j + k], ft_strdup(test->pathshow[j]));
+					ants[cc]--;
 					check++;
 					cc++;
-					test = test->next;
-					//ft_printf("%s\n", out[j]);
+					if (ants[cc] == 0)
+					{
+						test = data->toout;
+						break ;
+					}
+					else
+						test = test->next;
 				}
 				else
 				{
-					test = test->next;
 					cc++;
+					if (ants[cc] == 0)
+					{
+						test = data->toout;
+						break ;
+					}
+					else
+						test = test->next;
 					check++;
 				}
 				if (check == data->how_path)
@@ -244,15 +223,16 @@ void			manage_output(t_lem *data)
 	}
 
 	j = 0;
-	while (j < roomcount)
-		ft_printf("%s\n", out[j++]);
+	while (out[j])
+	{
+		ft_printf("%s\n", out[j]);
+		free(out[j]);
+		j++;
+	}
 
 	show = data->toout;
 	clean_lst_out(data->toout, 0);
-	free(out[0]);
-	free(out[1]);
-	free(out[2]);
-	free(out[3]);
+
 	free(out);
 	i = 0;
 }

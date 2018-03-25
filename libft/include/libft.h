@@ -20,7 +20,7 @@
 # include <stdint.h>
 # define ABS(x) (x < 0 ? -x : x)
 # define MIM(x, y) (x < y ? y : x)
-# define BUFF_SIZE 1024
+# define BUFF_SIZE 1
 # define ERR(e) if (!e) return (-1);
 # define NOMEM(no) if (!no) return (NULL);
 # define BRK(ch) if (ch) break ;

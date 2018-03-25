@@ -105,7 +105,9 @@ int				main(int argc, char **argv)
 		initialize_data(data);
 		set_flags(data, ++argv, --argc);
 	}
+	ft_printf("manage_input\n");
 	manage_input(data);
+	ft_printf("manage_input\n");
 	ft_printf("find_way\n");
 	find_way(data);
 	cleaning(data);
