@@ -126,7 +126,7 @@ void			manage_output(t_lem *data)
 
 	search_ants(data, ants);
 	i = 0;
-	out = ft_new_char_arr(search_max_steps(data) + 2);
+	out = ft_new_char_arr(search_max_steps(data) * 2);
 	while (i < data->how_path)
 	{
 		if (ants[i] != 0)
@@ -189,26 +189,28 @@ void			manage_output(t_lem *data)
 					out[j + k] = ft_strjoin_free(out[j + k], ft_strdup(test->pathshow[j]));
 					ants[cc]--;
 					check++;
-					cc++;
-					if (ants[cc] == 0)
+					if (ants[cc] <= 0)
 					{
 						test = data->toout;
+						cc++;
 						break ;
 					}
 					else
 						test = test->next;
+					cc++;
 				}
 				else
 				{
-					cc++;
-					if (ants[cc] == 0)
+					check++;
+					if (ants[cc] <= 0)
 					{
+						cc++;
 						test = data->toout;
 						break ;
 					}
 					else
 						test = test->next;
-					check++;
+					cc++;
 				}
 				if (check == data->how_path)
 				{
