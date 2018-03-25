@@ -204,7 +204,7 @@ void			manage_output(t_lem *data)
 	test = data->toout;
 	while (i < (int)data->how_ants)
 	{
-		j = k;
+		j = 0;
 		while (j < roomcount)
 		{
 			check = 0;
@@ -225,9 +225,10 @@ void			manage_output(t_lem *data)
 					test = test->next;
 					//ft_printf("%s\n", out[j]);
 				}
-				else if (j < roomcount)
+				else
 				{
 					test = test->next;
+					cc++;
 					check++;
 				}
 				if (check == data->how_path)
@@ -239,7 +240,7 @@ void			manage_output(t_lem *data)
 			}
 			j++;
 		}
-		i++;
+		i += cc;
 	}
 
 	j = 0;
