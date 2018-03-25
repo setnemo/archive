@@ -20,7 +20,7 @@
 # include <stdint.h>
 # define ABS(x) (x < 0 ? -x : x)
 # define MIM(x, y) (x < y ? y : x)
-# define BUFF_SIZE 1
+# define BUFF_SIZE 1024
 # define ERR(e) if (!e) return (-1);
 # define NOMEM(no) if (!no) return (NULL);
 # define BRK(ch) if (ch) break ;
@@ -104,7 +104,6 @@ int					ft_strequ(char const *s1, char const *s2);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
-char				*ft_strjoin_free(char *s1, char *s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_itoa(int n);
@@ -141,6 +140,7 @@ char				**ft_new_char_arr(size_t size);
 int					**ft_new_int_arr(size_t size);
 int					**ft_new_int_matrix(size_t size);
 void				ft_strscpy(char *dst, const char *src, char stop);
+char				*ft_strjoin_free(char *s1, char *s2);
 
 /*
 ** ****************************************************************************

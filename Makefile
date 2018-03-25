@@ -25,7 +25,8 @@ SRC_NAME = 	main.c\
 			calculate.c\
 			sort_ants.c\
 			for_norm_mf.c\
-			manage_flags.c
+			manage_flags.c\
+			printresult.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 

@@ -106,8 +106,9 @@ void			ints_to_list(t_lem *data)
 		;
 	if (data->how_path == 0)
 		manage_error(data, 22);
-	ft_printf("HOW PATH???[%i]\n", data->how_path);
+	ft_printf("sort_ants\n");
 	sort_ants(data, result);
+	ft_printf("HOW PATH???[%i]\n", data->how_path);
 	int i = 0;
 	while (i < data->how_path * 3)
 	{
@@ -117,4 +118,8 @@ void			ints_to_list(t_lem *data)
 			ft_printf("%i ", data->solve_path[i]);
 		i++;
 	}
+	ft_printf("\n");
+	ft_printf("manage_output\n");
+
+	manage_output(data);
 }

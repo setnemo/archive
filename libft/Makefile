@@ -11,8 +11,7 @@
 #******************************************************************************#
 
 NAME = libft.a
-FLAGS =
-# -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 DIR_S = src
 DIR_O = temp
 HEADER = include
@@ -109,10 +108,6 @@ SOURCES = ft_atoi.c\
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
-
-ifeq ($(TARGETOS), OSX)
-	FLAGS =
-endif
 
 all: $(NAME)
 

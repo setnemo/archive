@@ -12,9 +12,9 @@
 
 #include "lemin.h"
 #define USAGE "%s%s%s", USAGE1, USAGE2, USAGE3
-#define USAGE1 "usage: ./lemin [flag1] [flag2] [redirect file (use '<')]\n"
+#define USAGE1 "usage: ./lemin [flag1] [flagN] [redirect file, use '<']\n"
 #define USAGE2 "               -e       Error managment\n"
-#define USAGE3 "               -s       Print input string\n"
+#define USAGE3 "               -s       Print input string if error in data\n"
 
 void			set_flags(t_lem *data, char **argv, int flags)
 {

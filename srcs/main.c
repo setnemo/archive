@@ -84,6 +84,7 @@ static void		initialize_data(t_lem *data)
 	data->way = NULL;
 	data->solve_path = NULL;
 	data->tmp = NULL;
+	data->toout = NULL;
 }
 
 int				main(int argc, char **argv)
@@ -105,6 +106,7 @@ int				main(int argc, char **argv)
 		set_flags(data, ++argv, --argc);
 	}
 	manage_input(data);
+	ft_printf("find_way\n");
 	find_way(data);
 	cleaning(data);
 	system("leaks -quiet lem-in");

@@ -44,18 +44,15 @@ static t_gnl	*while_gnl(int fd)
 static int		gnl_core(t_gnl *gnl, char **line)
 {
 	char	*p;
+	int		a;
 
-	if (gnl->after)
-	{
-		gnl->str = ft_strjoin(gnl->after, gnl->str);
-		free(gnl->after);
-	}
+	a = ft_strlen(gnl->str);
 	p = ft_strchr(gnl->str, 10);
 	if (p)
 	{
 		*p = 0;
 		*line = ft_strdup(gnl->str);
-		if (ft_strlen(gnl->str) + gnl->str > p)
+		if (gnl->str + a + 1 > p)
 			gnl->after = ft_strdup(p + 1);
 		free(gnl->str);
 		return (1);
@@ -76,6 +73,8 @@ int				get_next_line(const int fd, char **line)
 		return (-1);
 	ERR((buf = while_gnl(fd)));
 	buf->tmp = ft_strnew(BUFF_SIZE);
+	if (buf->after)
+		buf->str = ft_strjoin_free(buf->after, buf->str);
 	while ((buf->br = read(fd, buf->tmp, BUFF_SIZE)))
 	{
 		temp = ft_strjoin(buf->str, buf->tmp);

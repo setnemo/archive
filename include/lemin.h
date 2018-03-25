@@ -34,6 +34,12 @@ typedef struct	s_bfs
 	int				i;
 }				t_bfs;
 
+typedef struct	s_prnt
+{
+	char			**pathshow;
+	struct s_prnt	*next;
+}				t_prnt;
+
 typedef struct	s_all
 {
 	int				*path;
@@ -81,6 +87,7 @@ typedef struct	s_lem
 	int				*solve_path;
 	struct s_way	*way;
 	struct s_all	*alls;
+	struct s_prnt	*toout;
 }				t_lem;
 
 void			break_reading(t_lem *data, int error);
@@ -111,4 +118,7 @@ void			last_room(t_lem *data);
 void			write_path(t_lem *data, int i, int j);
 
 void			set_flags(t_lem *data, char **argv, int flags);
+
+void			manage_output(t_lem *data);
+
 #endif
