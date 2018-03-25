@@ -72,6 +72,7 @@ static void		one_while(t_tout *nrm, t_prnt *test, int *ants, t_lem *data)
 				test = N->next;
 				break ;
 			}
+			test = N->next;
 		}
 		else
 		{
@@ -80,6 +81,7 @@ static void		one_while(t_tout *nrm, t_prnt *test, int *ants, t_lem *data)
 				test = N->next;
 				break ;
 			}
+			test = N->next;
 		}
 		if (N->check == data->how_path)
 		{

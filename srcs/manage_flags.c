@@ -11,10 +11,11 @@
 /* ************************************************************************** */
 
 #include "lemin.h"
-#define USAGE "%s%s%s", USAGE1, USAGE2, USAGE3
+#define USAGE "%s%s%s%s", USAGE1, USAGE2, USAGE3, USAGE4
 #define USAGE1 "usage: ./lemin [flag1] [flagN] [redirect file, use '<']\n"
 #define USAGE2 "               -e       Error managment\n"
 #define USAGE3 "               -s       Print input string if error in data\n"
+#define USAGE4 "               -algo    Best algo enable\n"
 
 void			set_flags(t_lem *data, char **argv, int flags)
 {
@@ -97,12 +98,13 @@ void			manage_output2(t_lem *data, int *ants)
 
 	nrm.out = ft_new_char_arr(search_max_steps(data) * 2);
 	nrm.roomcount = search_max_steps(data);
-	// if ((int)data->how_ants < data->how_path)
-	// 	data->how_path = data->how_ants;
-	// if (data->algo == 0)
-	// 	data->how_path = 1;
+	if ((int)data->how_ants < data->how_path)
+		data->how_path = data->how_ants;
+	if (data->algo == 0)
+		data->how_path = 1;
 	norme_output_first(&nrm, data, data->toout, ants);
 	j = 0;
+	ft_printf("%s\n", data->input);
 	while (nrm.out[j])
 	{
 		ft_printf("%s\n", nrm.out[j]);
