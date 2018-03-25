@@ -69,6 +69,7 @@ typedef struct	s_way
 
 typedef struct	s_lem
 {
+	int				algo;
 	int				error;
 	int				stop;
 	int				in;

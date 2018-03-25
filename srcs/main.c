@@ -71,6 +71,7 @@ static void		initialize_data(t_lem *data)
 {
 	ft_bzero(data, sizeof(t_lem));
 	data->showinput = 0;
+	data->algo = 0;
 	data->error = 0;
 	data->in = 1;
 	data->stop = 1;
@@ -105,11 +106,8 @@ int				main(int argc, char **argv)
 		initialize_data(data);
 		set_flags(data, ++argv, --argc);
 	}
-	ft_printf("manage_input\n");
 	manage_input(data);
-	ft_printf("find_way\n");
 	find_way(data);
 	cleaning(data);
-	system("leaks -quiet lem-in");
 	return (0);
 }

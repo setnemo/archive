@@ -120,6 +120,5 @@ void			manage_paths(t_lem *data)
 	result->path = (int*)malloc(sizeof(int) * (data->how_rooms + 1));
 	ft_memset((void*)result->path, -1, (sizeof(int) * (data->how_rooms + 1)));
 	result->valid = 0;
-	ft_printf("ints_to_list\n");
 	ints_to_list(data);
 }

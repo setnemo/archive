@@ -27,11 +27,12 @@ void			set_flags(t_lem *data, char **argv, int flags)
 			data->error = 1;
 		else if (ft_strequ(argv[i], "-s"))
 			data->showinput = 1;
+		else if (ft_strequ(argv[i], "-algo"))
+			data->algo = 1;
 		else
 		{
 			ft_printf(USAGE);
 			cleaning(data);
-			system("leaks -quiet lem-in");
 			exit(-42);
 		}
 		i++;
@@ -96,8 +97,10 @@ void			manage_output2(t_lem *data, int *ants)
 
 	nrm.out = ft_new_char_arr(search_max_steps(data) * 2);
 	nrm.roomcount = search_max_steps(data);
-	if ((int)data->how_ants < data->how_path)
-		data->how_path = data->how_ants;
+	// if ((int)data->how_ants < data->how_path)
+	// 	data->how_path = data->how_ants;
+	// if (data->algo == 0)
+	// 	data->how_path = 1;
 	norme_output_first(&nrm, data, data->toout, ants);
 	j = 0;
 	while (nrm.out[j])

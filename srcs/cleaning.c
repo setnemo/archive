@@ -56,7 +56,6 @@ void		cleaning(t_lem *data)
 		free(data->xy_rooms);
 	cleaning_next(data);
 	free(data);
-	ft_printf("cleaning done\n");
 }
 
 void		delete_nonvalid_path(t_lem *data, t_all *ways)
