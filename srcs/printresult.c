@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-static int		search_max_steps(t_lem *data)
+int				search_max_steps(t_lem *data)
 {
 	int i;
 	int steps;
@@ -27,34 +27,6 @@ static int		search_max_steps(t_lem *data)
 	}
 	return (steps);
 }
-
-static void		clean_lst_out(t_prnt *show, int i)
-{
-	t_prnt	*temp;
-
-	while (show)
-	{
-		if (show->pathshow)
-		{
-			i = 0;
-			while (show->pathshow[i])
-				free(show->pathshow[i++]);
-			free(show->pathshow);
-		}
-		if (show->next)
-		{
-			temp = show;
-			show = show->next;
-			free(temp);
-		}
-		else
-		{
-			free(show);
-			break ;
-		}
-	}
-}
-
 
 static t_prnt	*create_path_to_print(t_lem *data)
 {
@@ -90,7 +62,7 @@ static void		put_path_in_show(t_prnt *show, t_lem *data, int i)
 
 	old = data->alls;
 	a = 0;
-	while(a++ < i)
+	while (a++ < i)
 		old = old->next;
 	a = 0;
 	b = 1;
@@ -117,12 +89,12 @@ static void		search_ants(t_lem *data, int ants[])
 	}
 }
 
-
 void			manage_output(t_lem *data)
 {
 	int		ants[data->how_path];
 	int		i;
 	t_prnt	*show;
+	int		*antsup;
 
 	search_ants(data, ants);
 	i = 0;
@@ -137,38 +109,6 @@ void			manage_output(t_lem *data)
 			break ;
 		i++;
 	}
-
-	i = 0;
-	// int roomcount = search_max_steps(data);
-
-	int j;
-	show = data->toout;
-	j = 0;
-
-	t_tout nrm;
-	int *antsup;
-
 	antsup = ants;
-	nrm.out = ft_new_char_arr(search_max_steps(data) * 2);
-	nrm.roomcount = search_max_steps(data);
-	if ((int)data->how_ants < data->how_path)
-		data->how_path = data->how_ants;
-	norme_output_first(&nrm, data, data->toout, antsup);
-
-	j = 0;
-	while (nrm.out[j])
-	{
-		ft_printf("%s\n", nrm.out[j]);
-		free(nrm.out[j]);
-		j++;
-	}
-
-	show = data->toout;
-	clean_lst_out(data->toout, 0);
-
-	free(nrm.out);
-	i = 0;
+	manage_output2(data, antsup);
 }
-
-
-

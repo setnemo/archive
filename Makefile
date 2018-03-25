@@ -53,12 +53,12 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@$(CC) $(WWW) -o $@ -c  $< $(INC)
 
 clean:
-	# @make -C $(LIB_DIR) clean --silent
+	@make -C $(LIB_DIR) clean --silent
 	@rm -f $(OBJ)
 	@echo "##### REMOVE OBJECT FILES #####"
 
 fclean: clean
-	# @make -C $(LIB_DIR) fclean --silent
+	@make -C $(LIB_DIR) fclean --silent
 	@rm -f $(NAME)
 	@echo "##### REMOVE BINARY FILES #####"
 

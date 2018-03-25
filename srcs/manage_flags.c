@@ -59,5 +59,53 @@ void			init_nrm(t_tout *nrm, int flag)
 		nrm->k = 0;
 		nrm->check = 0;
 		nrm->cc = 0;
-	}	
+	}
+}
+
+static void		clean_lst_out(t_prnt *show, int i)
+{
+	t_prnt	*temp;
+
+	while (show)
+	{
+		if (show->pathshow)
+		{
+			i = 0;
+			while (show->pathshow[i])
+				free(show->pathshow[i++]);
+			free(show->pathshow);
+		}
+		if (show->next)
+		{
+			temp = show;
+			show = show->next;
+			free(temp);
+		}
+		else
+		{
+			free(show);
+			break ;
+		}
+	}
+}
+
+void			manage_output2(t_lem *data, int *ants)
+{
+	t_tout	nrm;
+	int		j;
+
+	nrm.out = ft_new_char_arr(search_max_steps(data) * 2);
+	nrm.roomcount = search_max_steps(data);
+	if ((int)data->how_ants < data->how_path)
+		data->how_path = data->how_ants;
+	norme_output_first(&nrm, data, data->toout, ants);
+	j = 0;
+	while (nrm.out[j])
+	{
+		ft_printf("%s\n", nrm.out[j]);
+		free(nrm.out[j]);
+		j++;
+	}
+	clean_lst_out(data->toout, 0);
+	free(nrm.out);
 }

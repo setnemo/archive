@@ -11,49 +11,53 @@
 /* ************************************************************************** */
 
 #include "lemin.h"
+#define N nrm
+#define NO N->out
+#define SJF ft_strjoin_free
 
 static void		nrm_out_write(t_tout *nrm, t_prnt *test, int *ants)
 {
-	if (nrm->out[nrm->j + nrm->k] == NULL)
-		nrm->out[nrm->j + nrm->k] = ft_strdup("L");
+	if (NO[N->j + N->k] == NULL)
+		NO[N->j + N->k] = ft_strdup("L");
 	else
-		nrm->out[nrm->j + nrm->k] = ft_strjoin_free(nrm->out[nrm->j + nrm->k], ft_strdup(" L"));
-	nrm->out[nrm->j + nrm->k] = ft_strjoin_free(nrm->out[nrm->j + nrm->k], ft_itoa(nrm->i + nrm->cc + 1));
-	nrm->out[nrm->j + nrm->k] = ft_strjoin_free(nrm->out[nrm->j + nrm->k], ft_strdup("-"));
-	nrm->out[nrm->j + nrm->k] = ft_strjoin_free(nrm->out[nrm->j + nrm->k], ft_strdup(test->pathshow[nrm->j]));
-	ants[nrm->cc]--;
-	nrm->check++;
+		NO[N->j + N->k] = SJF(NO[N->j + N->k], ft_strdup(" L"));
+	NO[N->j + N->k] = SJF(NO[N->j + N->k], ft_itoa(N->i + N->cc + 1));
+	NO[N->j + N->k] = SJF(NO[N->j + N->k], ft_strdup("-"));
+	NO[N->j + N->k] = SJF(NO[N->j + N->k], ft_strdup(test->pathshow[N->j]));
+	ants[N->cc]--;
+	N->check++;
 }
 
 static int		elseifinwhile(t_tout *nrm, t_prnt *test, int *ants, t_lem *data)
 {
-	nrm->check++;
-	if (ants[nrm->cc] <= 0)
+	N->check++;
+	if (ants[N->cc] <= 0)
 	{
-		nrm->cc++;
+		N->cc++;
 		test = data->toout;
 		return (1);
 	}
 	else
 		test = test->next;
-	nrm->cc++;
-	nrm->next = test;
+	N->cc++;
+	N->next = test;
 	return (0);
 }
 
-static int		firstifinwhile(t_tout *nrm, t_prnt *test, int *ants, t_lem *data)
+static int		firstifinwhile(t_tout *nrm, t_prnt *test,
+	int *ants, t_lem *data)
 {
 	nrm_out_write(nrm, test, ants);
-	if (ants[nrm->cc] <= 0)
+	if (ants[N->cc] <= 0)
 	{
 		test = data->toout;
-		nrm->cc++;
+		N->cc++;
 		return (1);
 	}
 	else
 		test = test->next;
-	nrm->cc++;
-	nrm->next = test;
+	N->cc++;
+	N->next = test;
 	return (0);
 }
 
@@ -61,11 +65,11 @@ static void		one_while(t_tout *nrm, t_prnt *test, int *ants, t_lem *data)
 {
 	while (1)
 	{
-		if (test->pathshow[nrm->j])
-		{	
+		if (test->pathshow[N->j])
+		{
 			if (firstifinwhile(nrm, test, ants, data))
 			{
-				test = nrm->next;
+				test = N->next;
 				break ;
 			}
 		}
@@ -73,11 +77,11 @@ static void		one_while(t_tout *nrm, t_prnt *test, int *ants, t_lem *data)
 		{
 			if (elseifinwhile(nrm, test, ants, data))
 			{
-				test = nrm->next;
+				test = N->next;
 				break ;
 			}
 		}
-		if (nrm->check == data->how_path)
+		if (N->check == data->how_path)
 		{
 			test = data->toout;
 			break ;
@@ -85,17 +89,18 @@ static void		one_while(t_tout *nrm, t_prnt *test, int *ants, t_lem *data)
 	}
 }
 
-void			norme_output_first(t_tout *nrm, t_lem *data, t_prnt *test, int *ants)
+void			norme_output_first(t_tout *nrm, t_lem *data,
+	t_prnt *test, int *ants)
 {
 	init_nrm(nrm, 0);
-	while (nrm->i < (int)data->how_ants)
+	while (N->i < (int)data->how_ants)
 	{
-		nrm->j = 0;
-		while (nrm->j < nrm->roomcount)
+		N->j = 0;
+		while (N->j < N->roomcount)
 		{
 			init_nrm(nrm, 1);
 			one_while(nrm, test, ants, data);
-			nrm->j++;
+			N->j++;
 		}
 		init_nrm(nrm, 2);
 	}
