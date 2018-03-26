@@ -93,7 +93,7 @@ int				main(int argc, char **argv)
 	int		i;
 
 	i = 0;
-	if (argc > 3 && argv)
+	if (argc > 4 && argv)
 	{
 		ft_printf("Error\n");
 		exit(-42);

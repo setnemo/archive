@@ -83,7 +83,7 @@ static void		search_ants(t_lem *data, int ants[])
 	j = 0;
 	while (i < data->how_path * 3)
 	{
-		ants[j] = data->solve_path[i] * data->solve_path[i - 1];
+		ants[j] = (data->solve_path[i] * data->solve_path[i - 1]);
 		i += 3;
 		j++;
 	}

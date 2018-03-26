@@ -15,8 +15,17 @@
 #define NO N->out
 #define SJF ft_strjoin_free
 
-static void		nrm_out_write(t_tout *nrm, t_prnt *test, int *ants)
+static void		nrm_out_write(t_tout *nrm, t_prnt *test, int *ants, t_lem *data)
 {
+	if (N->i + N->cc - 1 == (int)data->how_ants)
+	{
+		if (ants[N->cc] <= 0)
+		{
+			test = data->toout;
+			return ;
+		}
+		return ;
+	}
 	if (NO[N->j + N->k] == NULL)
 		NO[N->j + N->k] = ft_strdup("L");
 	else
@@ -31,7 +40,7 @@ static void		nrm_out_write(t_tout *nrm, t_prnt *test, int *ants)
 static int		elseifinwhile(t_tout *nrm, t_prnt *test, int *ants, t_lem *data)
 {
 	N->check++;
-	if (ants[N->cc] <= 0)
+	if (ants[N->cc] == 0)
 	{
 		N->cc++;
 		test = data->toout;
@@ -47,8 +56,8 @@ static int		elseifinwhile(t_tout *nrm, t_prnt *test, int *ants, t_lem *data)
 static int		firstifinwhile(t_tout *nrm, t_prnt *test,
 	int *ants, t_lem *data)
 {
-	nrm_out_write(nrm, test, ants);
-	if (ants[N->cc] <= 0)
+	nrm_out_write(nrm, test, ants, data);
+	if (ants[N->cc] == 0)
 	{
 		test = data->toout;
 		N->cc++;
