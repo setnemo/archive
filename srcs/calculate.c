@@ -100,6 +100,7 @@ void			ints_to_list(t_lem *data)
 	result = data->alls;
 	data->how_path = 0;
 	ints_to_list_start(data, data->way, result);
+	ft_printf("HOW PATH???[%i]\n", data->how_path);
 	mark_nonvalid_path(data, result);
 	delete_nonvalid_path(data, result);
 	while (sort_path_result(data, result))

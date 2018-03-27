@@ -57,6 +57,8 @@ void			sort_ants(t_lem *data, t_all *ways)
 	int j;
 
 	i = 0;
+	if ((int)data->how_ants < data->how_path)
+		data->how_path = data->how_ants;
 	data->solve_path = (int*)malloc(sizeof(int) * data->how_path * 3);
 	ft_bzero(data->solve_path, sizeof(int) * data->how_path * 3);
 	while (i < data->how_path * 3)

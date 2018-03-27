@@ -19,11 +19,13 @@
 
 typedef struct	s_tout
 {
+	int				jc;
 	int				i;
 	int				j;
 	int				check;
 	int				cc;
 	int				roomcount;
+	int				linecount;
 	int				k;
 	char			**out;
 	struct s_prnt	*next;
