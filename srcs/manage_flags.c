@@ -116,24 +116,26 @@ int				search_max_steps2(t_lem *data)
 	return (steps);
 }
 void			norme_output_first(t_tout *nrm, t_lem *data,
-	t_prnt *test, int *ants);
+	t_prnt *test);
 void			manage_output2(t_lem *data, int *ants)
 {
 	t_tout	nrm;
 	int		j;
 
+	if (ants)
+		;
 	// if ((int)data->how_ants < data->how_path)
 	// 	data->how_path = data->how_ants;
 	ft_bzero(&nrm, sizeof(t_tout));
 	nrm.out = ft_new_char_arr(search_max_steps(data) *
 		search_max_steps(data));
-	nrm.roomcount = search_max_steps2(data);
+	// nrm.roomcount = search_max_steps2(data);
 	nrm.linecount = search_max_steps(data);
 	if (data->algo == 0)
 		data->how_path = 1;
-	norme_output_first(&nrm, data, data->toout, ants);
+	norme_output_first(&nrm, data, data->toout);
 	j = 0;
-	ft_printf("%s\n", data->input);
+	// ft_printf("%s\n", data->input);
 	while (nrm.out[j])
 	{
 		ft_printf("%s\n", nrm.out[j]);
@@ -144,45 +146,57 @@ void			manage_output2(t_lem *data, int *ants)
 	free(nrm.out);
 }
 
-static t_prnt	*returntestlist(t_prnt *show, int i)
+static t_prnt	*returntestlist(t_prnt *show, int *i)
 {
-	while (i--)
+	while ((*i)-- && show->next->howa)
 		show = show->next;
 	return (show);
 }
 
-void			norme_output_first(t_tout *nrm, t_lem *data,
-	t_prnt *test, int *ants)
+void			norme_output_first(t_tout *nrm, t_lem *data, t_prnt *test)
 {
-	ft_printf("[%i][%i][%i]\n", ants[0], ants[1], ants[2]);
+	int mod;
+
 	nrm->ant = 0;
+	nrm->correct = 0;
+	nrm->path = 0;
 	while (nrm->ant < (int)data->how_ants)
 	{
-		nrm->path = 0;
-		while (nrm->path < data->how_path)
+		mod = nrm->ant % data->how_path;
+		test = returntestlist(data->toout, &mod);
+		ft_printf("mod|%i|\n",mod);
+		if (mod > 0)
+			nrm->correct++;
+		nrm->line = 0 + nrm->correct;
+		nrm->name = 0;
+		while (nrm->line < nrm->linecount)
 		{
-			nrm->line = 0;
-			nrm->name = 0;
-			test = returntestlist(data->toout, nrm->ant % data->how_path);
-			while (nrm->line < nrm->linecount)
+			ft_printf("boom!\n");
+			if (test->pathshow[nrm->name])
 			{
-				if (test->pathshow[nrm->name])
+				if (nrm->name == 0)
 				{
-					if (nrm->out[nrm->line] == NULL)
-						nrm->out[nrm->line] = ft_strdup("L");
-					else
-						nrm->out[nrm->line] = ft_strjoin_free(nrm->out[nrm->line], ft_strdup(" L"));
-					nrm->out[nrm->line] = ft_strjoin_free(nrm->out[nrm->line], ft_itoa(nrm->ant + 1));
-					nrm->out[nrm->line] = ft_strjoin_free(nrm->out[nrm->line], ft_strdup("-"));
-					nrm->out[nrm->line] = ft_strjoin_free(nrm->out[nrm->line], ft_strdup(test->pathshow[nrm->name]));
+					nrm->path++;
+					test->howa--;
 				}
-				nrm->line++;
-				nrm->name++;
+				if (nrm->out[nrm->line] == NULL)
+					nrm->out[nrm->line] = ft_strdup("L");
+				else
+					nrm->out[nrm->line] = ft_strjoin_free(nrm->out[nrm->line], ft_strdup(" L"));
+				nrm->out[nrm->line] = ft_strjoin_free(nrm->out[nrm->line], ft_itoa(nrm->ant + 1));
+				nrm->out[nrm->line] = ft_strjoin_free(nrm->out[nrm->line], ft_strdup("-"));
+				nrm->out[nrm->line] = ft_strjoin_free(nrm->out[nrm->line], ft_strdup(test->pathshow[nrm->name]));
 			}
-			nrm->ant++;
-			nrm->path++;
+			nrm->line++;
+			nrm->name++;
 		}
+		ft_printf("HERAK!%i!\n",nrm->path);
+		if (nrm->path == data->how_path)
+		{
+			nrm->path = 0;
+			nrm->correct++;
+		}
+		nrm->ant++;
 	}
-	ft_printf("[%i][%i][%i]\n", ants[0], ants[1], ants[2]);
 }
 

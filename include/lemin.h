@@ -23,7 +23,7 @@ typedef struct	s_tout
 	int				line;
 	int				name;
 	int				path;
-	int				roomcount;
+	int				correct;
 	int				linecount;
 	char			**out;
 	struct s_prnt	*next;
@@ -49,6 +49,7 @@ typedef struct	s_bfs
 typedef struct	s_prnt
 {
 	char			**pathshow;
+	int				howa;
 	struct s_prnt	*next;
 }				t_prnt;
 
@@ -136,8 +137,8 @@ int				search_max_steps(t_lem *data);
 void			manage_output(t_lem *data);
 void			manage_output2(t_lem *data, int *ants);
 
-void			norme_output_first(t_tout *nrm, t_lem *data,
-	t_prnt *test, int *ants);
-void			init_nrm(t_tout *nrm, int flag);
+// void			norme_output_first(t_tout *nrm, t_lem *data,
+// 	t_prnt *test, int *ants);
+// void			init_nrm(t_tout *nrm, int flag);
 
 #endif

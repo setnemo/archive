@@ -72,6 +72,8 @@ static void		put_path_in_show(t_prnt *show, t_lem *data, int i)
 		a++;
 		b++;
 	}
+	a = 1 + (i * 3);
+	show->howa = data->solve_path[a];
 }
 
 static void		search_ants(t_lem *data, int ants[])
@@ -109,6 +111,20 @@ void			manage_output(t_lem *data)
 			break ;
 		i++;
 	}
+	show =  data->toout;
+	// while (show)
+	// {
+	// 	i = -1;
+	// 	ft_printf("NEW PATH!\n");
+	// 	while (show->pathshow[++i])
+	// 		ft_printf("room: %s\n", show->pathshow[i]);
+	// 	ft_printf("how a?: %i!\n", show->howa);
+	// 	ft_printf("PATH END!\n\n");
+	// 	if (show->next)
+	// 		show = show->next;
+	// 	else
+	// 		break ;
+	// }
 	antsup = ants;
 	manage_output2(data, antsup);
 }
