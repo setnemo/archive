@@ -96,7 +96,7 @@ int				main(int argc, char **argv)
 	i = 0;
 	if (argc > 5 && argv)
 	{
-		ft_printf("Error\n");
+		ft_printf("[!] Error! Too few arguments.\n");
 		exit(-42);
 	}
 	else

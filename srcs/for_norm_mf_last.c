@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "lemin.h"
+#include "showinfo.h"
 
 static void		clean_lst_out(t_prnt *show, int i)
 {
@@ -132,22 +133,22 @@ void			print_info(t_lem *data)
 {
 	if (data->oneway)
 	{
-		ft_printf("\nNumber of steps for one ant - %i steps\n", search_min_steps(data));
-		ft_printf("All the ants have reached the end for the %i steps\n", (search_min_steps(data) + data->how_ants) - 1);
-		ft_printf("The sum of all the steps of all ants - %i steps\n", search_min_steps(data) * data->how_ants);
+		ft_printf(SI00, search_min_steps(data));
+		ft_printf(SI01, (search_min_steps(data) + data->how_ants) - 1);
+		ft_printf(SI02, search_min_steps(data) * data->how_ants);
 	}
 	else
 	{
-		ft_printf("\nMinimum number of steps for one ant - %i steps\n", search_min_steps(data));
-		ft_printf("Maximum number of steps for one ant - %i steps\n", search_max_steps2(data));
-		ft_printf("All the ants have reached the end for the %i steps\n", data->howprintlines);
-		ft_printf("The sum of all the steps of all ants - %i steps\n", search_all_steps(data));
-		ft_printf("\nInformation on how many ants went on each path and path length (without start room):\n\n");
+		ft_printf(SI03, search_min_steps(data));
+		ft_printf(SI04, search_max_steps2(data));
+		ft_printf(SI05, data->howprintlines);
+		ft_printf(SI06, search_all_steps(data));
+		ft_printf("%s%s", SI07);
 		int i = 0;
 		int j = 0;
 		while (j < data->how_path * 3)
 		{
-			ft_printf("Way          [%i]\nLength       [%i]\nAnts in path [%i]\n\n", i + 1, data->solve_path[j], data->solve_path[j + 1]);
+			ft_printf(SI10, i + 1, data->solve_path[j], data->solve_path[j + 1]);
 			i++;
 			j += 3;
 		}
@@ -185,8 +186,16 @@ void			manage_output2(t_lem *data)
 
 static t_prnt	*returntestlist(t_prnt *show, int *i)
 {
-	while ((*i)-- && show->next->howa)
-		show = show->next;
+	if (show->next)
+	{
+		while ((*i)-- && show->next->howa)
+		{
+			if (show->next)
+				show = show->next;
+			else
+				break ;
+		}
+	}
 	return (show);
 }
 
