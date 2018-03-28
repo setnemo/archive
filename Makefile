@@ -27,6 +27,7 @@ SRC_NAME = 	main.c\
 			for_norm_mf.c\
 			manage_flags.c\
 			printresult.c\
+			for_norm_mf_last2.c\
 			for_norm_mf_last.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
@@ -53,12 +54,12 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@$(CC) $(WWW) -o $@ -c  $< $(INC)
 
 clean:
-	# @make -C $(LIB_DIR) clean --silent
+	@make -C $(LIB_DIR) clean --silent
 	@rm -f $(OBJ)
 	@echo "##### REMOVE OBJECT FILES #####"
 
 fclean: clean
-	# @make -C $(LIB_DIR) fclean --silent
+	@make -C $(LIB_DIR) fclean --silent
 	@rm -f $(NAME)
 	@echo "##### REMOVE BINARY FILES #####"
 

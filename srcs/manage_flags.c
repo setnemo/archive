@@ -18,6 +18,7 @@
 #define USAGE4 "               -one     Use one shortest path\n"
 #define USAGE5 "               -info    Show information\n"
 #define USAGE6 "               -h       Show this is message\n"
+#define MAXINTVALUE 2147483647
 
 void			set_flags(t_lem *data, char **argv, int flags)
 {
@@ -42,4 +43,51 @@ void			set_flags(t_lem *data, char **argv, int flags)
 		}
 		i++;
 	}
+}
+
+int				search_max_steps2(t_lem *data)
+{
+	int		i;
+	int		steps;
+	t_prnt	*show;
+
+	steps = 0;
+	show = data->toout;
+	ft_printf("");
+	while (show)
+	{
+		i = 0;
+		while (show->pathshow[i])
+			i++;
+		if (i > steps)
+			steps = i;
+		if (show->next)
+			show = show->next;
+		else
+			break ;
+	}
+	return (steps);
+}
+
+int				search_min_steps(t_lem *data)
+{
+	int		i;
+	int		steps;
+	t_prnt	*show;
+
+	steps = MAXINTVALUE;
+	show = data->toout;
+	while (show)
+	{
+		i = 0;
+		while (show->pathshow[i])
+			i++;
+		if (i < steps)
+			steps = i;
+		if (show->next)
+			show = show->next;
+		else
+			break ;
+	}
+	return (steps);
 }

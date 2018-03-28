@@ -111,7 +111,6 @@ void			cleaning(t_lem *data);
 void			cleaning_next(t_lem *data);
 void			free_validcoord(t_lem *data);
 void			delete_nonvalid_path(t_lem *data, t_all *ways);
-
 void			manage_error(t_lem *data, int error);
 void			manage_input(t_lem *data);
 void			read_rooms(t_lem *data);
@@ -119,24 +118,20 @@ void			read_links(t_lem *data);
 int				check_room_name(t_lem *data);
 int				check_coords(t_lem *data, int i, int j);
 int				check_coords_digits(char *line);
-
 void			write_input(t_lem *data);
 void			find_way(t_lem *data);
-
 void			manage_paths(t_lem *data);
-
 void			ints_to_list(t_lem *data);
-
 void			sort_ants(t_lem *data, t_all *ways);
 void			mark_nonvalid_path(t_lem *data, t_all *ways);
-
 void			last_room(t_lem *data);
 void			write_path(t_lem *data, int i, int j);
-
 void			set_flags(t_lem *data, char **argv, int flags);
-
 int				search_max_steps(t_lem *data);
+int				search_max_steps2(t_lem *data);
 void			manage_output(t_lem *data);
 void			manage_output2(t_lem *data);
+int				search_min_steps(t_lem *data);
+void			output_first(t_tout *nrm, t_lem *data, t_prnt *test);
 
 #endif
