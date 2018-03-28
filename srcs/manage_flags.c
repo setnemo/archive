@@ -164,14 +164,12 @@ void			norme_output_first(t_tout *nrm, t_lem *data, t_prnt *test)
 	{
 		mod = nrm->ant % data->how_path;
 		test = returntestlist(data->toout, &mod);
-		ft_printf("mod|%i|\n",mod);
 		if (mod > 0)
 			nrm->correct++;
-		nrm->line = 0 + nrm->correct;
+		nrm->line = 0;
 		nrm->name = 0;
 		while (nrm->line < nrm->linecount)
 		{
-			ft_printf("boom!\n");
 			if (test->pathshow[nrm->name])
 			{
 				if (nrm->name == 0)
@@ -179,18 +177,17 @@ void			norme_output_first(t_tout *nrm, t_lem *data, t_prnt *test)
 					nrm->path++;
 					test->howa--;
 				}
-				if (nrm->out[nrm->line] == NULL)
-					nrm->out[nrm->line] = ft_strdup("L");
+				if (nrm->out[nrm->line + nrm->correct] == NULL)
+					nrm->out[nrm->line + nrm->correct] = ft_strdup("L");
 				else
-					nrm->out[nrm->line] = ft_strjoin_free(nrm->out[nrm->line], ft_strdup(" L"));
-				nrm->out[nrm->line] = ft_strjoin_free(nrm->out[nrm->line], ft_itoa(nrm->ant + 1));
-				nrm->out[nrm->line] = ft_strjoin_free(nrm->out[nrm->line], ft_strdup("-"));
-				nrm->out[nrm->line] = ft_strjoin_free(nrm->out[nrm->line], ft_strdup(test->pathshow[nrm->name]));
+					nrm->out[nrm->line + nrm->correct] = ft_strjoin_free(nrm->out[nrm->line + nrm->correct], ft_strdup(" L"));
+				nrm->out[nrm->line + nrm->correct] = ft_strjoin_free(nrm->out[nrm->line + nrm->correct], ft_itoa(nrm->ant + 1));
+				nrm->out[nrm->line + nrm->correct] = ft_strjoin_free(nrm->out[nrm->line + nrm->correct], ft_strdup("-"));
+				nrm->out[nrm->line + nrm->correct] = ft_strjoin_free(nrm->out[nrm->line + nrm->correct], ft_strdup(test->pathshow[nrm->name]));
 			}
 			nrm->line++;
 			nrm->name++;
 		}
-		ft_printf("HERAK!%i!\n",nrm->path);
 		if (nrm->path == data->how_path)
 		{
 			nrm->path = 0;

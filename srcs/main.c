@@ -70,7 +70,7 @@ static void		initialize_data(t_lem *data)
 {
 	ft_bzero(data, sizeof(t_lem));
 	data->showinput = 0;
-	data->algo = 1;
+	data->algo = 0;
 	data->error = 0;
 	data->in = 1;
 	data->stop = 1;
