@@ -10,129 +10,229 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "lemin.h"
-// #define N nrm
-// #define NO N->out
-// #define SJF ft_strjoin_free
+#include "lemin.h"
 
-// static void		nrm_out_write(t_tout *nrm, t_prnt *test, int *ants, t_lem *data)
-// {
-// 	if (ants[N->cc] == 0)
-// 	{
-// 		test = data->toout;
-// 		return ;
-// 	}
-// 	if (N->i + N->cc == (int)data->how_ants)
-// 		return ;
-// 	if (N->j == N->cc && N->j == 0)
-// 	{
-// 		ants[N->cc]--;
-// 		// if (ants[N->cc] == 0)
-// 		// 	return ;
-// 	}
-// 	if (NO[N->j] == NULL)
-// 		NO[N->j] = ft_strdup("L");
-// 	else
-// 		NO[N->j] = SJF(NO[N->j], ft_strdup(" L"));
-// 	NO[N->j] = SJF(NO[N->j], ft_itoa(N->i + N->cc + 1));
-// 	NO[N->j] = SJF(NO[N->j], ft_strdup("-"));
-// 	NO[N->j] = SJF(NO[N->j], ft_strdup(test->pathshow[N->k]));
-// 	N->k++;
-// 	if ((N->i + N->cc + 1) % data->how_path == 0)
-// 		N->jc++;
-// 	ft_printf("///%i\n",N->jc);
-// 	//ft_printf("%i[%i]\n",N->cc,ants[N->cc]);
-// 	N->check++;
-// }
+static void		clean_lst_out(t_prnt *show, int i)
+{
+	t_prnt	*temp;
 
-// static int		elseifinwhile(t_tout *nrm, t_prnt *test, int *ants, t_lem *data)
-// {
-// 	N->check++;
-// 	if (ants[N->cc] == 0)
-// 	{
-// 		N->cc++;
-// 		test = data->toout;
-// 		return (1);
-// 	}
-// 	else
-// 	{
-// 		if (test->next)
-// 			test = test->next;
-// 		else
-// 			test = data->toout;
-// 	}
-// 	N->cc++;
-// 	N->next = test;
-// 	return (0);
-// }
+	while (show)
+	{
+		if (show->pathshow)
+		{
+			i = 0;
+			while (show->pathshow[i])
+				free(show->pathshow[i++]);
+			free(show->pathshow);
+		}
+		if (show->next)
+		{
+			temp = show;
+			show = show->next;
+			free(temp);
+		}
+		else
+		{
+			free(show);
+			break ;
+		}
+	}
+}
 
-// static int		firstifinwhile(t_tout *nrm, t_prnt *test,
-// 	int *ants, t_lem *data)
-// {
-// 	nrm_out_write(nrm, test, ants, data);
-// 	if (ants[N->cc] == 0)
-// 	{
-// 		test = data->toout;
-// 		N->cc++;
-// 		return (1);
-// 	}
-// 	else
-// 	{
-// 		if (test->next)
-// 			test = test->next;
-// 		else
-// 			test = data->toout;
-// 	}
-// 	N->cc++;
-// 	N->next = test;
-// 	return (0);
-// }
+int				search_all_steps(t_lem *data)
+{
+	int i;
+	int steps;
 
-// static void		one_while(t_tout *nrm, t_prnt *test, int *ants, t_lem *data)
-// {
-// 	while (N->k <N->linecount)
-// 	{
-// 		if (test->pathshow[N->j])
-// 		{
-// 			if (firstifinwhile(nrm, test, ants, data))
-// 			{
-// 				test = N->next;
-// 				break ;
-// 			}
-// 			test = N->next;
-// 		}
-// 		else
-// 		{
-// 			if (elseifinwhile(nrm, test, ants, data))
-// 			{
-// 				test = N->next;
-// 				break ;
-// 			}
-// 			test = N->next;
-// 		}
-// 		if (N->check == data->how_path)
-// 		{
-// 			BRK((test = data->toout));
-// 		}
-// 	}
-// }
+	i = 2;
+	steps = 0;
+	while (i < data->how_path * 3)
+	{
+		if (data->solve_path[i - 1] != 0)
+			steps += data->solve_path[i - 2] *
+		data->solve_path[i - 1];
+		i += 3;
+	}
+	return (steps);
+}
 
-// void			norme_output_first(t_tout *nrm, t_lem *data,
-// 	t_prnt *test, int *ants)
-// {
-// 	N->jc =0;
-// 	init_nrm(nrm, 0);
-// 	while (N->i < (int)data->how_ants)
-// 	{
-// 		N->j = 0 + N->jc;
-// 		ft_printf("{{%i}}\n",N->j);
-// 		while (N->j < N->roomcount)
-// 		{
-// 			N->k = 0;
-// 			init_nrm(nrm, 1);
-// 			one_while(nrm, test, ants, data);
-// 			N->j++;
-// 		}
-// 		init_nrm(nrm, 2);
-// 	}
-// }
+int				search_max_steps2(t_lem *data)
+{
+	int		i;
+	int		steps;
+	t_prnt	*show;
+
+	steps = 0;
+	show = data->toout;
+	ft_printf("");
+	while (show)
+	{
+		i = 0;
+		while (show->pathshow[i])
+			i++;
+		if (i > steps)
+			steps = i;
+		if (show->next)
+			show = show->next;
+		else
+			break ;
+	}
+	return (steps);
+}
+int				search_min_steps(t_lem *data)
+{
+	int		i;
+	int		steps;
+	t_prnt	*show;
+
+	steps = 2147483647;
+	show = data->toout;
+	ft_printf("");
+	while (show)
+	{
+		i = 0;
+		while (show->pathshow[i])
+			i++;
+		if (i < steps)
+			steps = i;
+		if (show->next)
+			show = show->next;
+		else
+			break ;
+	}
+	return (steps);
+}
+void			norme_output_first(t_tout *nrm, t_lem *data,
+	t_prnt *test);
+
+void			print_all_path(t_lem *data)
+{
+	t_prnt	*show;
+	int		i;
+	int		j;
+	
+	show =  data->toout;
+	ft_printf("All path (without start room name)\n");
+	j = 1;
+	while (show)
+	{
+		i = -1;
+		ft_printf("Path %i  ", j++);
+		while (show->pathshow[++i])
+			ft_printf("[%s] ", show->pathshow[i]);
+		ft_printf("\n", show->howa);
+		if (show->next)
+			show = show->next;
+		else
+			break ;
+	}
+}
+
+void			print_info(t_lem *data)
+{
+	if (data->oneway)
+	{
+		ft_printf("\nNumber of steps for one ant - %i steps\n", search_min_steps(data));
+		ft_printf("All the ants have reached the end for the %i steps\n", (search_min_steps(data) + data->how_ants) - 1);
+		ft_printf("The sum of all the steps of all ants - %i steps\n", search_min_steps(data) * data->how_ants);
+	}
+	else
+	{
+		ft_printf("\nMinimum number of steps for one ant - %i steps\n", search_min_steps(data));
+		ft_printf("Maximum number of steps for one ant - %i steps\n", search_max_steps2(data));
+		ft_printf("All the ants have reached the end for the %i steps\n", data->howprintlines);
+		ft_printf("The sum of all the steps of all ants - %i steps\n", search_all_steps(data));
+		ft_printf("\nInformation on how many ants went on each path and path length (without start room):\n\n");
+		int i = 0;
+		int j = 0;
+		while (j < data->how_path * 3)
+		{
+			ft_printf("Way          [%i]\nLength       [%i]\nAnts in path [%i]\n\n", i + 1, data->solve_path[j], data->solve_path[j + 1]);
+			i++;
+			j += 3;
+		}
+		print_all_path(data);
+	}
+}
+
+
+void			manage_output2(t_lem *data)
+{
+	t_tout	nrm;
+	int		j;
+
+	ft_bzero(&nrm, sizeof(t_tout));
+	nrm.out = ft_new_char_arr(search_max_steps(data) *
+		search_max_steps(data));
+	nrm.linecount = search_max_steps(data);
+	if (data->oneway == 1)
+		data->how_path = 1;
+	norme_output_first(&nrm, data, data->toout);
+	j = 0;
+	ft_printf("%s\n", data->input);
+	while (nrm.out[j])
+	{
+		ft_printf("%s\n", nrm.out[j]);
+		free(nrm.out[j]);
+		j++;
+	}
+	data->howprintlines = j;
+	if (data->info)
+		print_info(data);
+	clean_lst_out(data->toout, 0);
+	free(nrm.out);
+}
+
+static t_prnt	*returntestlist(t_prnt *show, int *i)
+{
+	while ((*i)-- && show->next->howa)
+		show = show->next;
+	return (show);
+}
+
+void			norme_output_first(t_tout *nrm, t_lem *data, t_prnt *test)
+{
+	int mod;
+
+	nrm->ant = 0;
+	nrm->correct = 0;
+	nrm->path = 0;
+	while (nrm->ant < (int)data->how_ants)
+	{
+		mod = nrm->ant % data->how_path;
+		test = returntestlist(data->toout, &mod);
+		if (mod > 0)
+			nrm->correct++;
+		nrm->line = 0;
+		nrm->name = 0;
+		while (nrm->line < nrm->linecount)
+		{
+			if (test->pathshow[nrm->name])
+			{
+				if (nrm->name == 0)
+				{
+					nrm->path++;
+					test->howa--;
+				}
+				if (nrm->out[nrm->line + nrm->correct] == NULL)
+					nrm->out[nrm->line + nrm->correct] = ft_strdup("L");
+				else
+					nrm->out[nrm->line + nrm->correct] = ft_strjoin_free(nrm->out[nrm->line + nrm->correct], ft_strdup(" L"));
+				nrm->out[nrm->line + nrm->correct] = ft_strjoin_free(nrm->out[nrm->line + nrm->correct], ft_itoa(nrm->ant + 1));
+				nrm->out[nrm->line + nrm->correct] = ft_strjoin_free(nrm->out[nrm->line + nrm->correct], ft_strdup("-"));
+				nrm->out[nrm->line + nrm->correct] = ft_strjoin_free(nrm->out[nrm->line + nrm->correct], ft_strdup(test->pathshow[nrm->name]));
+			}
+			nrm->line++;
+			nrm->name++;
+		}
+		if (nrm->path == data->how_path)
+		{
+			nrm->path = 0;
+			nrm->correct++;
+		}
+		if (data->how_path == 1)
+			if (test->pathshow[1] == NULL)
+				nrm->correct = 0;
+		nrm->ant++;
+	}
+}

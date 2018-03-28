@@ -35,6 +35,6 @@
 # define ER20 "[!] Error: there isn't enough data to run the algorithm\n"
 # define ER21 "[!] Error: ^D in the string and insufficient data ;)\n"
 # define ER22 "[!] Error: no way from start to end ;(\n"
-# define ER23 "[!] Error: ----------\n"
+# define ER23 "[!] Error: Sorry, algo dont work with 300+ rooms\n"
 
 #endif

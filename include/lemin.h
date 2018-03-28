@@ -70,7 +70,9 @@ typedef struct	s_way
 
 typedef struct	s_lem
 {
-	int				algo;
+	int				howprintlines;
+	int				info;
+	int				oneway;
 	int				error;
 	int				stop;
 	int				in;
@@ -135,10 +137,6 @@ void			set_flags(t_lem *data, char **argv, int flags);
 
 int				search_max_steps(t_lem *data);
 void			manage_output(t_lem *data);
-void			manage_output2(t_lem *data, int *ants);
-
-// void			norme_output_first(t_tout *nrm, t_lem *data,
-// 	t_prnt *test, int *ants);
-// void			init_nrm(t_tout *nrm, int flag);
+void			manage_output2(t_lem *data);
 
 #endif

@@ -96,7 +96,6 @@ void			manage_output(t_lem *data)
 	int		ants[data->how_path];
 	int		i;
 	t_prnt	*show;
-	int		*antsup;
 
 	search_ants(data, ants);
 	i = 0;
@@ -111,20 +110,5 @@ void			manage_output(t_lem *data)
 			break ;
 		i++;
 	}
-	show =  data->toout;
-	// while (show)
-	// {
-	// 	i = -1;
-	// 	ft_printf("NEW PATH!\n");
-	// 	while (show->pathshow[++i])
-	// 		ft_printf("room: %s\n", show->pathshow[i]);
-	// 	ft_printf("how a?: %i!\n", show->howa);
-	// 	ft_printf("PATH END!\n\n");
-	// 	if (show->next)
-	// 		show = show->next;
-	// 	else
-	// 		break ;
-	// }
-	antsup = ants;
-	manage_output2(data, antsup);
+	manage_output2(data);
 }

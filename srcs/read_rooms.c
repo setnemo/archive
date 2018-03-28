@@ -77,6 +77,8 @@ static void			manage_room(t_lem *data)
 		data->start_room = data->how_rooms;
 	else if (data->bound == 2)
 		data->end_room = data->how_rooms;
+	if (data->how_rooms > 301)
+		manage_error(data, 23);
 	data->how_rooms++;
 	data->bound = 0;
 	if (data->line[0] == 'L')

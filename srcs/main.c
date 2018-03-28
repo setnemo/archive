@@ -70,8 +70,9 @@ static void		initialize_data(t_lem *data)
 {
 	ft_bzero(data, sizeof(t_lem));
 	data->showinput = 0;
-	data->algo = 0;
+	data->oneway = 0;
 	data->error = 0;
+	data->info = 0;
 	data->in = 1;
 	data->stop = 1;
 	data->firstroomline = 1;
@@ -93,7 +94,7 @@ int				main(int argc, char **argv)
 	int		i;
 
 	i = 0;
-	if (argc > 4 && argv)
+	if (argc > 5 && argv)
 	{
 		ft_printf("Error\n");
 		exit(-42);
