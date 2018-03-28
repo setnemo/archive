@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm.h                                              :+:      :+:    :+:   */
+/*   error_asm.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,22 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ASM_H
-# define ASM_H
-# include "../libft/include/libft.h"
-# include "op.h"
+#ifndef ERROR_ASM_H
+# define ERROR_ASM_H
+# define USAGE "usage: ./asm mychampion.s\n"
+# define ER00 "Error 0\n"
+# define ER01 "Error 1\n"
+# define ER02 "Error 2\n"
+# define ER03 "Error 3\n"
+# define ER04 "Error 4\n"
+# define ER05 "Error 5\n"
+# define ER06 "Error 6\n"
+# define ER07 "Error 7\n"
+# define ER08 "Error 8\n"
+# define ER09 "Error 9\n"
 
-typedef struct				s_asm
-{
-	header_t				header;
-	int						dotsfd;
-	char					*dotsname;
-	int						dotcorfd;
-	char					*dotcorname;
-}							t_asm;
-
-void				manage_error(t_asm *data, char error);
-
-int					manage_argv(t_asm *data, char **argv);
 
 #endif
