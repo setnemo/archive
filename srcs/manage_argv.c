@@ -31,8 +31,19 @@ int					manage_argv(t_asm *data, char **argv)
 	ft_strncpy(data->dotcorname, data->dotsname, len - 1);
 	ft_strcpy(ft_strchr(data->dotcorname, '.') + 1, "cor");
 	// проверяю полученное имя для сравнения с аргументом
-	// ft_printf("%s\n", data->dotcorname);
+	// ft_printf("data->dotcorname:%s\n", data->dotcorname);
+	// если имя с папками - обрезать лишнее
+	if (ft_strrchr(data->dotcorname, '/'))
+	{
+		str = ft_strdup(ft_strrchr(data->dotcorname, '/') + 1);
+		ft_strdel(&data->dotcorname);
+		data->dotcorname = ft_strdup(str);
+		ft_strdel(&str);
+	}
+	// ft_printf("data->dotcorname:%s\n", data->dotcorname);
+	// проверяю чтение файла и сохраняю его фд
 	if((data->dotsfd = open(data->dotsname, O_RDONLY)) < 0)
 		manage_error(data, 1);
+	// ft_printf("FD{%i}:%s\n", data->dotsfd, data->dotsname);
 	return (0);
 }

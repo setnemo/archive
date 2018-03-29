@@ -24,5 +24,4 @@
 # define ER08 "[!] Error! 8\n"
 # define ER09 "[!] Error! 9\n"
 
-
 #endif
