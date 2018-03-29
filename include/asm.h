@@ -14,6 +14,8 @@
 # define ASM_H
 # include "../libft/include/libft.h"
 # include "op.h"
+# include <unistd.h>
+# include <fcntl.h>
 
 typedef struct				s_asm
 {

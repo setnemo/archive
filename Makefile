@@ -12,8 +12,7 @@
 
 NAME = asm
 CC = gcc 
-WWW =
-#-Wall -Wextra -Werror 
+WWW = -Wall -Wextra -Werror 
 
 SRC_NAME = 	main.c\
 			manage_argv.c
@@ -32,7 +31,7 @@ OBJ_DIR = obj/
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@make -C $(LIB_DIR) --silent
+	# @make -C $(LIB_DIR) --silent
 	@echo "######### LIB CREATED #########"
 	@$(CC) -o $(NAME) $(OBJ) -L $(LIB_DIR) -lft
 	@echo "##### COMPILING FINISHED ######"
@@ -43,12 +42,13 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@$(CC) $(WWW) -o $@ -c  $< $(INC)
 
 clean:
-	@make -C $(LIB_DIR) clean --silent
+	# @make -C $(LIB_DIR) clean --silent
 	@rm -f $(OBJ)
+	@rm -rf $(OBJ_DIR)
 	@echo "##### REMOVE OBJECT FILES #####"
 
 fclean: clean
-	@make -C $(LIB_DIR) fclean --silent
+	# @make -C $(LIB_DIR) fclean --silent
 	@rm -f $(NAME)
 	@echo "##### REMOVE BINARY FILES #####"
 

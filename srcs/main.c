@@ -12,6 +12,13 @@
 
 #include "asm.h"
 #include "error_asm.h"
+static void			cleaning_asm(t_asm *data)
+{
+	if (data->dotsname)
+		ft_strdel(&data->dotsname);
+	if (data->dotcorname)
+		ft_strdel(&data->dotcorname);
+}
 
 void				manage_error(t_asm *data, char error)
 {
@@ -25,10 +32,9 @@ void				manage_error(t_asm *data, char error)
 		(error == 6) ? ft_printf(ER06) : ft_printf(ER07);
 	if (error == 8 || error == 9)
 		(error == 8) ? ft_printf(ER08) : ft_printf(ER09);
-	if (data->dotsname)
-		ft_strdel(&data->dotsname);
-	if (data->dotcorname)
-		ft_strdel(&data->dotcorname);
+	cleaning_asm(data);
+	system("leaks -quiet asm");
+	exit(-42);
 }
 
 static void			init_data(t_asm *data)
@@ -48,10 +54,17 @@ int					main(int argc, char **argv)
 	if (argc)
 	{
 		if (argc == 2)
-			if (manage_argv(data, ++argv))
-				manage_error(data, 0);
+		{
+			if (manage_argv(&data, ++argv))
+				manage_error(&data, 0);
+		}
 		else
+		{
 			ft_printf(USAGE);
+			system("leaks -quiet asm");
+			exit(-42);
+		}
 	}
-	return (0);
+	system("leaks -quiet asm");
+	return (42);
 }
