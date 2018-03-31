@@ -28,6 +28,6 @@ typedef struct				s_asm
 
 void				manage_error(t_asm *data, char error);
 
-int					manage_argv(t_asm *data, char **argv);
+int					start_reading_file(t_asm *data);
 
 #endif
