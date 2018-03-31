@@ -12,16 +12,17 @@
 
 #ifndef ERROR_ASM_H
 # define ERROR_ASM_H
-# define USAGE "usage: ./asm mychampion.s\n"
-# define ER00 "[!] Error! Invalid filename\n"
-# define ER01 "[!] Error! File not found\n"
-# define ER02 "[!] Error! 2\n"
-# define ER03 "[!] Error! 3\n"
-# define ER04 "[!] Error! 4\n"
-# define ER05 "[!] Error! 5\n"
-# define ER06 "[!] Error! 6\n"
-# define ER07 "[!] Error! 7\n"
-# define ER08 "[!] Error! 8\n"
-# define ER09 "[!] Error! 9\n"
+# define AR AR1 == 'r' && AR2 == 'o' && AR3 == 'c' && AR4 == '.'
+# define AR1 *(*argv + (data.len - 1))
+# define AR2 *(*argv + (data.len - 2))
+# define AR3 *(*argv + (data.len - 3))
+# define AR4 *(*argv + (data.len - 4))
+# define DDC "[*] Done! '%s' decompiled to '%s'\n"
+# define DDS "[*] Done! '%s' compiled to '%s'\n"
+# define USAGE USAGE1, USAGE2, USAGE3, USAGE4
+# define USAGE1 "usage: ./asm [filename1] [filename2] [filenameN]\n"
+# define USAGE2 "       ./asm filename.s    compiled to filename.cor\n"
+# define USAGE3 "       ./asm filename.cor  decompiled to disasm_filename.s\n"
+# define USAGE4 "       ./asm -h            show this message\n"
 
 #endif

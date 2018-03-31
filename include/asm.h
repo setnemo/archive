@@ -20,6 +20,7 @@
 typedef struct				s_asm
 {
 	header_t				header;
+	size_t					len;
 	int						dotsfd;
 	char					*dotsname;
 	int						dotcorfd;
