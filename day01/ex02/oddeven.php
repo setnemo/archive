@@ -4,13 +4,11 @@
 	{
 		echo "Enter a number: ";
 		$line = trim(fgets(STDIN));
-		if (feof(STDIN))
-		{
+		if (feof(STDIN)) {
 			echo PHP_EOL;
-			break;
+			break ;
 		}
-		if (ctype_digit($line))
-		{
+		if (ctype_digit($line)) {
 			if ($line % 2 == 0)
 				echo "The number $line is even\n";
 			else
