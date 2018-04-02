@@ -26,12 +26,44 @@
 				$i++;
 			}
 		}
-		for ($i=0; $arr1[$i]; $i++) { 
-			$arrstr1 .= $arr1[$i];
+		foreach ($arr1 as $item) {
+		 	$arrstr1 .= $item;
 		}
 		$arrstr2 = $arr2[0];
-		for ($i=0; $arr3[$i]; $i++) { 
-			$arrstr3 .= $arr3[$i];
+		foreach ($arr3 as $item) {
+		 	$arrstr3 .= $item;
+		}
+		if (!$arrstr3)
+			$arrstr3 = '0';
+		if (!is_numeric($arrstr1) || !is_numeric($arrstr3)){
+			echo "Syntax Error" . PHP_EOL;
+		}
+		else {
+			switch ($arrstr2) {
+				case '+':
+					echo $arrstr1 + $arrstr3 . PHP_EOL;
+					break ;
+				case '-':
+					echo $arrstr1 - $arrstr3 . PHP_EOL;
+					break ;
+				case '*':
+					echo $arrstr1 * $arrstr3 . PHP_EOL;
+					break ;
+				case '/':
+					if ($arrstr3 == 0) {
+						echo 'Incorrect Parameters' . PHP_EOL;
+						break ;
+					}
+					echo $arrstr1 / $arrstr3 . PHP_EOL;
+					break ;
+				case '%':
+					if ($arrstr3 == 0) {
+						echo 'Incorrect Parameters' . PHP_EOL;
+						break ;
+					}
+					echo $arrstr1 % $arrstr3 . PHP_EOL;
+					break ;
+			}
 		}
 		}
 		else {
