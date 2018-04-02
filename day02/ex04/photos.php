@@ -15,7 +15,7 @@
 		{
 			$img[$i] = trim(preg_replace("( +)", " ", preg_replace("(\n+)", " ", $line)));
 			preg_match_all('/src=("[^"]*")/i',$line, $img[$line]);
-			$i++;// 
+			$i++;
 		}
 		if(!is_dir($name)) {
 			mkdir($name, 0777, true);
