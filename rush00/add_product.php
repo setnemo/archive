@@ -13,7 +13,7 @@
             file_put_contents($name_img, null);
         $account = unserialize(file_get_contents('../product/product'));
         if ($account) {
-            move_uploaded_file($name_img, $_FILE);
+            file_get_contents($_FILE, $name_img);
             $exist = 0;
             foreach ($account as $k =>$v) {
                 if ($v['name_of_product'] === $_POST['name_of_product']) {
