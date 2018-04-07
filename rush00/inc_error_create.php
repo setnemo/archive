@@ -64,7 +64,7 @@ else {
 ?>
 <div id="login-modal-form5" class="modal" style="display:block">
 		<div id="loginform" class="login-page">
-			<form class="form" method="POST">
+			<form class="form">
 			<div class="imgcontainer">
 			  <span onclick="document.getElementById('login-modal-form5').style.display='none'" class="close" title="Close Modal">&times;</span>
 			</div>

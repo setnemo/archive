@@ -153,8 +153,16 @@
 					<button class="adm" onclick="window.location.href='admin.php'">ADM</button>
 					<?php
 					}
+					if ($_SESSION['authorized_user']) {
+					?>
+					<button onclick="window.location.href='logout.php'" style="width:auto;">Logout</button>
+					<?php
+					} else {
 					?>
 					<button onclick="document.getElementById('login-modal-form').style.display='block'" style="width:auto;">Login</button>
+					<?php 
+					}
+					?>
 					<div id="login-modal-form" class="modal">
 						<div id="loginform" class="login-page">
 							<form class="form" action="login.php" method="POST">

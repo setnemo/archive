@@ -1,7 +1,3 @@
-<?php
-	session_start();
-	if ($_SESSION['authorized_user']) {
-?>
 <html>
 	<head>
 		<title>ft_minishop</title>
@@ -203,10 +199,38 @@
 	</head>
 	<body>
 		<div class="container">
+		<?php
+			function admcheck($login) {
+				$arr = unserialize(file_get_contents("../private/passwd"));
+				foreach ($arr as $key => $inarr) {
+					if ($inarr['login'] === $login && $inarr['admin'] === 1) {
+						return (true);
+					}
+				}
+				return (false);
+			}
+			session_start();
+			if (admcheck($_SESSION['authorized_user'])) {
+		?>
 			<h1>Project Shop Admin Panel</h1>
 				<div class="login-b">
 					<button class="adm" onclick="window.location.href='index.php'">Shop</button>
+					<?php
+					if ($_SESSION['authorized_user'] === 'admin') {
+					?>
+					<button class="adm" onclick="window.location.href='admin.php'">ADM</button>
+					<?php
+					}
+					if ($_SESSION['authorized_user']) {
+					?>
+					<button onclick="window.location.href='logout.php'" style="width:auto;">Logout</button>
+					<?php
+					} else {
+					?>
 					<button onclick="document.getElementById('login-modal-form').style.display='block'" style="width:auto;">Login</button>
+					<?php 
+					}
+					?>
 					<div id="login-modal-form" class="modal">
 						<div id="loginform" class="login-page">
 							<form class="form" action="login.php" method="POST">
@@ -263,6 +287,17 @@
 </div>
 
 
+		<?php }
+		else { ?>
+		<div id="login-modal-form5" class="modal" style="display:block">
+				<div id="loginform" class="login-page">
+					<form class="form">
+						<h2>Only authorized user!</h2>
+						<a class="submit" onclick="window.location.href='index.php'">HOME PAGE</a>
+					</form>
+				</div>
+		</div>
+		<?php } ?>
 		</div>
 
 
@@ -278,4 +313,3 @@ function opentab(tabname) {
 </script>
 	</body>
 </html>
-<?php }?>
