@@ -37,6 +37,18 @@
 				top: 3px;
 				position: absolute;
 			}
+			.login-b .adm {
+				background-color: #565454;
+				color: white;
+				float: right;
+				padding: 14px 20px;
+				margin: 8px 0;
+				border: none;
+				cursor: pointer;
+				right: 100px;
+				top: 3px;
+				position: absolute;
+			}
 			.modal {
 				display: none; /* Hidden by default */
 				position: fixed; /* Stay in place */
@@ -102,7 +114,7 @@
 				transition: all 0.3 ease;
 				cursor: pointer;
 			}
-			.login-b button:hover, .form .submit:hover,.form .submit:active,.form .submit:focus {
+			.adm, .login-b button:hover, .form .submit:hover,.form .submit:active,.form .submit:focus {
 				background: #fbba00;
 			}
 			.form .message {
@@ -135,6 +147,13 @@
 		<div class="container">
 			<h1>Project Shop</h1>
 				<div class="login-b">
+					<?php
+					if ($_SESSION['authorized_user'] === 'admin') {
+					?>
+					<button class="adm" onclick="window.location.href='admin.php'">ADM</button>
+					<?php
+					}
+					?>
 					<button onclick="document.getElementById('login-modal-form').style.display='block'" style="width:auto;">Login</button>
 					<div id="login-modal-form" class="modal">
 						<div id="loginform" class="login-page">
@@ -157,6 +176,8 @@
 								<h2>Create account</h2>
 								<input type="text" placeholder="login" name="login" value="" />
 								<input type="password" placeholder="password" name="passwd" value="" />
+								<input type="text" placeholder="e-mail" name="email" value="" />
+								<input type="text" placeholder="telephone" name="phone" value="" />
 								<input class="submit" type="submit" name="submit" value="OK" />
 								<p class="message">Are you registered? <a onclick="opentab('loginform')">Sign in</a></p>
 							</form>
@@ -176,12 +197,12 @@ window.onclick = function(event) {
 	}
 }
 function opentab(tabname) {
-    var i;
-    var x = document.getElementsByClassName("login-page");
-    for (i = 0; i < x.length; i++) {
-       x[i].style.display = "none";  
-    }
-    document.getElementById(tabname).style.display = "block";  
+	var i;
+	var x = document.getElementsByClassName("login-page");
+	for (i = 0; i < x.length; i++) {
+	   x[i].style.display = "none";  
+	}
+	document.getElementById(tabname).style.display = "block";  
 }
 </script>
 	</body>

@@ -10,6 +10,8 @@
 			if (!(file_exists("../private")))
 				mkdir("../private", 0777, true);
 			$login = $_POST['login'];
+			$email = $_POST['email'];
+			$phone = $_POST['phone'];
 			$passwd = hash("whirlpool", $_POST['passwd']);
 			$arr = unserialize(file_get_contents("../private/passwd"));
 			foreach ($arr as $inarr) {
@@ -18,7 +20,7 @@
 				exit ;
 				}
 			}
-			$new_arr = array('login' => $login, 'passwd' => $passwd);
+			$new_arr = array('login' => $login, 'passwd' => $passwd, 'admin' => 0, 'email' => $email, 'phone' => $phone);
 			$arr[] = $new_arr;
 			file_put_contents('../private/passwd', serialize($arr));
 			echo "OK" . PHP_EOL;
