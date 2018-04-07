@@ -20,7 +20,7 @@
 				exit ;
 				}
 			}
-			$new_arr = array('login' => $login, 'passwd' => $passwd, 'admin' => 0, 'email' => $email, 'phone' => $phone);
+			$new_arr = array('login' => $login, 'passwd' => $passwd, 'email' => $email, 'phone' => $phone, 'admin' => 2);
 			$arr[] = $new_arr;
 			file_put_contents('../private/passwd', serialize($arr));
 			echo "OK" . PHP_EOL;

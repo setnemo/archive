@@ -4,7 +4,30 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<style>
+#userstable {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+}
 
+#userstable td, #userstable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#userstable tr:nth-child(even){background-color: #f2f2f2;}
+
+#userstable tr:hover {background-color: #ddd;}
+#userstable img {width: 20px;}
+#userstable .admin {width: 100px;}
+#userstable .pic {width: 20px;}
+
+#userstable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #fbba00;
+    color: white;
+}
 			.drop {
 				width: 98%;
 				display: block;
@@ -89,6 +112,32 @@
 				top: 3px;
 				position: absolute;
 			}
+			#products, #users {
+				width: 98%;
+				margin: 0 auto;
+			}
+			#products .addproductb {
+				background-color: #565454;
+				color: white;
+				padding: 14px 20px;
+				margin: auto 3px;
+				border: none;
+				cursor: pointer;
+				right: 20px;
+				top: 3px;
+				float: left;
+			}
+			#products .delproductb {
+				background-color: #565454;
+				color: white;
+				padding: 14px 20px;
+				margin: auto 3px;
+				border: none;
+				cursor: pointer;
+				right: 20px;
+				top: 3px;
+				float: left;
+			}
 			.login-b .adm {
 				background-color: #565454;
 				color: white;
@@ -104,7 +153,7 @@
 			.modal {
 				display: none; /* Hidden by default */
 				position: fixed; /* Stay in place */
-				z-index: 1; /* Sit on top */
+				z-index: 5; /* Sit on top */
 				left: 0;
 				top: 0;
 				width: 100%; /* Full width */
@@ -135,7 +184,7 @@
 			}
 			.form {
 				position: relative;
-				z-index: 2;
+				z-index: 12;
 				background: #FFFFFF;
 				max-width: 360px;
 				margin: 0 auto 100px;
@@ -214,11 +263,11 @@
 		?>
 			<h1>Project Shop Admin Panel</h1>
 				<div class="login-b">
-					<button class="adm" onclick="window.location.href='index.php'">Shop</button>
+					
 					<?php
 					if ($_SESSION['authorized_user'] === 'admin') {
 					?>
-					<button class="adm" onclick="window.location.href='admin.php'">ADM</button>
+					<button class="adm" onclick="window.location.href='index.php'">Shop</button>
 					<?php
 					}
 					if ($_SESSION['authorized_user']) {
@@ -271,16 +320,128 @@
 <hr>
 <div class="content" id="users">
 <?php
-	echo "<pre>";
+	echo "<table id=\"userstable\"><tbody><tr><th>login</th><th>email</th><th>telephone</th><th class=\"admin\">admin rights</th><th class=\"pic\">edit</th><th class=\"pic\">del</th></tr>";
 	$arr = unserialize(file_get_contents("../private/passwd"));
 	foreach ($arr as $key => $inarr) {
-		print_r($inarr);
+			echo "<tr>";
+			foreach ($inarr as $line => $value) {
+				if ($line != 'passwd' && $line != 'admin') {
+					echo "<td>" . $inarr[$line] . "</td>";
+					}
+				if ($line == 'admin') {
+					if ($inarr[$line] === 1) {
+						echo "<td class=\"admin\"> + </td>";
+					}
+					else {
+						echo "<td class=\"admin\"> - </td>";
+					}
+				echo "<td class=\"pic\">
+						<a onclick=\"document.getElementById('edit-" . $inarr['login'] . "-modal-form').style.display='block'\"><img src=\"./img/edit.png\"></a>
+						</td><td class=\"pic\">
+						<a><img src=\"./img/delete.png\"><a>
+						</td></tr>";
+				}
 			}
-	echo "</pre>";
+			}
+	echo "</tbody></table>";
+
+	foreach ($arr as $key => $inarr) {
+			foreach ($inarr as $line => $value) {
+			echo "	
+			<div class=\"login-b\">
+			<div id=\"edit-" . $inarr['login'] . "-modal-form\" class=\"modal\" >
+			<div class=\"login-page\">
+			<form class=\"form\" action=\"modif.php\" method=\"POST\">
+			<div class=\"imgcontainer\">
+			<span onclick=\"document.getElementById('edit-" . $inarr['login'] . "-modal-form').style.display='none'\" class=\"close\" title=\"Close Modal\">&times;</span>
+			</div>
+			<h2>USER: " . $inarr['login'] . "</h2>
+			<h3>e-mail: " . $inarr['email'] . "</h3>
+			<h3>phone: " . $inarr['phone'] . "</h3>
+			<input type=\"text\" placeholder=\"new e-mail\" name=\"login\" style=\"display:none;\" value=\"" . $inarr['login'] . "\" />
+			<input type=\"text\" placeholder=\"new e-mail\" name=\"email\" value=\"\" />
+			<input type=\"text\" placeholder=\"new telephone\" name=\"phone\" value=\"\" />
+			<input class=\"submit\" type=\"submit\" name=\"submit\" value=\"OK\" />
+			</form>
+			</div>
+			</div>
+			</div>
+			";
+			}
+			}
+
+
 ?>
 </div>
 <div class="content" id="products" style="display:none">
-2
+
+
+				<div class="products-tab">
+					<button class="addproductb" onclick="document.getElementById('addproduct').style.display='block'" style="width:auto;">add product</button>
+					<div id="addproduct" class="modal">
+						<div id="loginform" class="login-page">
+							<form class="form" action="add_product.php" method="POST">
+							<div class="imgcontainer">
+							  <span onclick="document.getElementById('addproduct').style.display='none'" class="close"  title="Close Modal">&times;</span>
+							</div>
+								<h2>add product</h2>
+								<input type="type_of_product" placeholder="type_of_product" name="type_of_product" value="" />
+								<input type="name_of_product" placeholder="name_of_product" name="name_of_product" value="" />
+									<input type="hidden" name="MAX_FILE_SIZE" value="30000">
+									<input enctype="multipart/form-data" name="userfile" type="file">
+									<input class="submit" type="submit" name="submit" value="OK" />
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="delproduct">
+					<button class="delproductb" onclick="document.getElementById('delproduct').style.display='block'" style="width:auto;">del_products</button>
+					<div id="delproduct" class="modal">
+						<div id="delproduct" class="delзroducts">
+							<form class="form" action="del_product.php" method="POST">
+							<div class="imgcontainer">
+							  <span onclick="document.getElementById('delproduct').style.display='none'" class="close"  title="Close Modal">&times;</span>
+							</div>
+								<h2>Delit priduct</h2>
+								<input type="type_of_product" placeholder="type_of_product" name="type_of_product" value="" />
+								<input type="name_of_product" placeholder="name_of_product" name="name_of_product" value="" />
+								<input class="submit" type="submit" name="submit" value="OK" />
+							</form>
+						</div>
+					</div>
+				</div> <hr style="clear:left; margin:auto 3px">
+				<div class="product_tabl">
+					<?php
+							if (!file_exists('../private/product')) {
+								mkdir("../private/product");
+							}
+							if (!file_exists('../private/product/product')) {
+								file_put_contents('../private/product/product', null);
+							}
+						$txt = unserialize(file_get_contents('../private/product/product'));
+							echo "<table id=\"userstable\">" . "<th>NAME</th><th>CATEGORY</th><th>IMAGE</th>";
+						foreach ($txt as $k => $v) {
+							echo "<tr>";
+							echo "<td>name=".$v['name_of_product']."   </td>";
+							echo "<td>type_of_product=";
+							foreach ($v['type_of_product'] as $key => $value) {
+								echo"$value   ";
+							}
+							echo "</td>";
+							echo "<td>".$txt['img']."</td>";
+							echo "</tr>";
+							echo "</br>";
+						}
+						echo "</table>";
+					?>
+				</div>
+
+
+
+
+
+
+
 </div>
 <div class="content" id="another" style="display:none">
 3
