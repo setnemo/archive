@@ -5,8 +5,7 @@
 		$line = preg_replace("( +)", " ", $line);
 		$arr = array();
 		if ($line)
-			$arr =  explode(' ', $line);
-		sort($arr);
+			$arr = explode(' ', $line);
 		return ($arr);
 	}
 	$rostring = ft_split($argv[1]);
@@ -14,6 +13,5 @@
 		return ;
 	for ($i = 1; $i < count($rostring); $i++)
 		echo "$rostring[$i] ";
-	if ($argc > 1)
-		echo "$rostring[0]", PHP_EOL;
+	echo $rostring[0], PHP_EOL;
 ?>

@@ -9,34 +9,81 @@
 		sort($arr);
 		return ($arr);
 	}
-	$arr = array();
-	for ($i = 1; $i < $argc; $i++) {
-		$split = ft_split($argv[$i]);
-		foreach ($split as $elem) {
-			array_push($arr, $elem);
+	function pri1($a , $b)
+	{
+		$f1 = 0;
+		$f2 = 0;
+		if ( $a >= 97 && $a <= 122) {
+			$f1 = 1;
+			$a = $a - 32;
+		}
+		if($b >= 97 && $b <= 122) {
+			$f2 = 1;
+			$b = $b - 32;
+		}
+		if($a == $b)
+		{
+			if($f1 == 1 && $f2 != 1) {
+				return (1);
+			}
+			if($f1 == 1 && $f2 == 1) {
+				return(0);
+			}
+			if($f1 != 1 && $f2 == 1) {
+				return(-1);
+			}
+			if($f1 != 1 && $f2 != 1){
+				return(0);
+			}
+		}
+		return ($a < $b) ? -1 : 1;
+	}
+
+	function pri($it)
+	{
+		$ti = ord($it);
+		if(($ti >= 65 && $ti <= 90) || ($ti >= 97 && $ti <= 122)) {
+			return (1);
+		}
+		else if($ti >= 48 && $ti <= 57) {
+			return(2);
+		}
+		else {
+			return(3);
 		}
 	}
-	foreach ($array as $line) {
-		if (ctype_alpha($line))
-			$alpha[] = $line;
-		else if (is_numeric($line))
-			$digits[] = $line;
-		else
-			$ascii[] = $line;
+
+	function cmp($a, $b)
+	{
+		$c = pri($a);
+		$d = pri($b);
+		if($c == $d)
+		{
+			if (ord($a) ==  ord($b)) {
+				return 0;
+			}
+			if($c == 1) {
+				return(pri1(ord($a), ord($b)));
+			}
+			return (ord($a) < ord($b)) ? -1 : 1;
+		}
+		return ($c < $d) ? -1 : 1;
 	}
-	if (!(empty($alpha))) {
-		sort($alpha, SORT_FLAG_CASE | SORT_STRING);
-		foreach ($alpha as $line)
-			echo $line . PHP_EOL;
-	}
-	if (!(empty($digits))) {
-		sort($digits, SORT_STRING);
-		foreach ($digits as $line)
-			echo $line . PHP_EOL;
-	}
-	if (!(empty($ascii))) {
-		sort($ascii, SORT_STRING);
-		foreach ($ascii as $line)
-			echo $line . PHP_EOL;
+
+	if ($argc > 1)
+	{
+		$array = array();
+		foreach ($argv as $elem)
+		{
+			$split = array_filter(explode(" ", $elem), 'strlen');
+			$array = array_merge($array, $split);
+		}
+		$array = array_filter($array, 'strlen');
+		array_shift($array);
+		usort($array, "cmp");
+		if (!(empty($array))) {
+			foreach ($array as $line)
+				echo $line . PHP_EOL;
+		}
 	}
 ?>
