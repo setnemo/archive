@@ -1,5 +1,5 @@
 <?php
-	if ($_GET['create']) {
+	if (isset($_GET['create'])) {
 		if ($_GET['create'] == 'success') {
 ?>
 <div id="login-modal-form2" class="modal" style="display:block">
@@ -14,7 +14,7 @@
 </div>
 <?php
 }
-else if ($_GET['create'] == 'erroroldlogin') {
+else if (isset($_GET['create']) && $_GET['create'] == 'erroroldlogin') {
 ?>
 <div id="login-modal-form3" class="modal" style="display:block">
 		<div id="loginform" class="login-page">

@@ -11,7 +11,7 @@
 		}
 		$basket = unserialize(file_get_contents($path1));
 		$tmp['name_of_product'] = $_POST['name_of_product'];
-		$tmp['type_of_product'] = $_POST['name_of_product'];
+		$tmp['type_of_product'] = $_POST['type_of_product'];
 		$tmp['price'] = $_POST['price'];
 		$basket[] = $tmp;
 		file_put_contents($path1, serialize($basket));
@@ -27,8 +27,7 @@
 		}
 		$basket = unserialize(file_get_contents($path1));
 		$tmp['name_of_product'] = $_POST['name_of_product'];
-		$arrayName = preg_split("/ *, */", $_POST['type_of_product']);
-		$tmp['type_of_product'] = $arrayName;
+		$tmp['type_of_product'] = $_POST['type_of_product'];
 		$tmp['price'] = $_POST['price'];
 		$basket[] = $tmp;
 		file_put_contents($path1, serialize($basket));

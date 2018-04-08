@@ -9,6 +9,34 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<style>
+#userstable {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    margin: auto;
+}
+
+#userstable td, #userstable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#userstable tr:nth-child(even){background-color: #f2f2f2;}
+
+#userstable tr:hover {background-color: #ddd;}
+#userstable img {width: 20px;}
+#userstable .admin {width: 100px;}
+#userstable .pic {width: 20px;}
+
+#userstable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #fbba00;
+    color: white;
+}
 		.footer {
 			left: 0;
 			bottom: 0;
@@ -175,6 +203,36 @@
 				margin: auto;
 				font-family: "Roboto", sans-serif;
 			}
+			.busket-form {
+				width: 360px;
+				padding: 8% 0 0;
+				margin: auto;
+				z-index: 100;
+				font-family: "Roboto", sans-serif;
+			}
+			#busket-modal-form {
+				z-index: 200!important;
+				display: none; /* Hidden by default */
+				position: fixed; /* Stay in place */
+				left: 0;
+				top: 0;
+				width: 100%; /* Full width */
+				height: 100%; /* Full height */
+				overflow: auto; /* Enable scroll if needed */
+				background-color: rgb(0,0,0); /* Fallback color */
+				background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+				padding-top: 60px;
+			}
+			#busket-modal-form #formb {
+				position: relative;
+				z-index: 201;
+				background: #FFFFFF;
+				max-width: 100%;
+				margin: 0 auto 100px;
+				padding: 45px;
+				text-align: center;
+				box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+			}
 			.form {
 				position: relative;
 				z-index: 2;
@@ -204,6 +262,7 @@
 				width: 100%;
 				border: 0;
 				padding: 15px;
+				margin: 10px;
 				color: #FFFFFF;
 				font-size: 14px;
 				-webkit-transition: all 0.3 ease;
@@ -253,7 +312,7 @@
 	</head>
 	<body>
 		<div class="forbasket">
-		<img class="basket" src="img/basket.png">
+		<img class="basket" src="img/basket.png"  onclick="document.getElementById('busket-modal-form').style.display='block'"">
 		</div>
 		<div style="clear:left">
 		<div class="container">
@@ -269,12 +328,12 @@
 						}
 						return (false);
 					}
-					if (admcheck($_SESSION['authorized_user'])) {
+					if (isset($_SESSION['authorized_user']) && admcheck($_SESSION['authorized_user'])) {
 					?>
 					<button class="adm" onclick="window.location.href='admin.php'">ADM</button>
 					<?php
 					}
-					if ($_SESSION['authorized_user']) {
+					if (isset($_SESSION['authorized_user']) && $_SESSION['authorized_user']) {
 					?>
 					<button onclick="window.location.href='logout.php'" style="width:auto;">Logout</button>
 					<?php
@@ -370,5 +429,51 @@ function opentab(tabname) {
 	document.getElementById(tabname).style.display = "block";  
 }
 </script>
+		<div id="busket-modal-form" class="modal">
+			<div id="busket-form" class="busket-form">
+				<div style="clear:both;"></div>
+				<form id="formb" class="form" action="make_order.php" method="POST">
+				<h2>shopping cart</h2>
+				<table id="userstable">
+				<tr><th>PRODUCT</th><th>CATEGORY</th><th>PRICE</th></tr>
+				<?php
+				if ($_SESSION['authorized_user'])
+				{
+					if (!file_exists('../private/user_basket')) {
+						mkdir("../private/user_basket");
+					}
+					$path1 = "../private/user_basket/" . $_SESSION['authorized_user'] . "_user_basket";
+					if (!file_exists($path1)) {
+						file_put_contents($path1, null);
+					}
+					$basket = unserialize(file_get_contents($path1));
+					foreach ($basket as $key => $value) {
+						echo "<tr><td>" . $value['name_of_product']. "</td><td>" . $value['type_of_product']. "</td><td>" . $value['price']. "</td></tr>";
+					}
+					echo "<tr><td colspan=\"2\"></td><td>". $_SESSION['price'] ."</td></tr>";
+				}
+				else {
+					if (!file_exists('../private/tmp_basket')) {
+						mkdir("../private/tmp_basket");
+					}
+					$path1 = "../private/tmp_basket/" . session_id() . "_basket";
+					if (!file_exists($path1)) {
+						file_put_contents($path1, null);
+					}
+					$basket = unserialize(file_get_contents($path1));
+					foreach ($basket as $key => $value) {
+						echo "<tr><td>" . $value['name_of_product']. "</td><td>" . $value['type_of_product']. "</td><td>" . $value['price']. "</td></tr>";
+					}
+					echo "<tr><td colspan=\"2\"></td><td>". $_SESSION['price'] ."</td></tr>";
+				}
+				?>
+				</table>
+				<div class="imgcontainer">
+				  <span onclick="document.getElementById('busket-modal-form').style.display='none'" class="close" title="Close Modal">&times;</span>
+				</div>
+					<input class="submit" type="submit" name="submit" value="OK" />
+				</form>
+			</div>
+		</div>
 	</body>
 </html>

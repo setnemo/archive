@@ -1,3 +1,4 @@
+<?php session_start();?>
 <html>
 	<head>
 		<title>ft_minishop</title>
@@ -11,7 +12,7 @@
 }
 .custom-select select {
   display: none;
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 .select-selected {
   background-color: #565454;
@@ -56,14 +57,14 @@
 
 
 #userstable {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    margin-top: 10px;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	margin-top: 10px;
 }
 
 #userstable td, #userstable th {
-    border: 1px solid #ddd;
-    padding: 8px;
+	border: 1px solid #ddd;
+	padding: 8px;
 }
 
 #userstable tr:nth-child(even){background-color: #f2f2f2;}
@@ -74,11 +75,11 @@
 #userstable .pic {width: 20px;}
 
 #userstable th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #fbba00;
-    color: white;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: #fbba00;
+	color: white;
 }
 			.drop {
 				width: 98%;
@@ -164,7 +165,7 @@
 				top: 3px;
 				position: absolute;
 			}
-			#products, #users {
+			#products, #users, #another {
 				width: 98%;
 				margin: 0 auto;
 			}
@@ -320,7 +321,6 @@
 				}
 				return (false);
 			}
-			session_start();
 			if (admcheck($_SESSION['authorized_user'])) {
 		?>
 			<h1>Project Shop Admin Panel</h1>
@@ -350,7 +350,7 @@
 <ul class="drop_menu">
 	<li><a onclick="opentab('users')" >USERS</a>
 	<li><a onclick="opentab('products')">PRODUCTS</a>
-	<li><a onclick="opentab('another')">ANOTHER</a>
+	<li><a onclick="opentab('another')">ORDERS</a>
 </ul>
 </div>
 <hr>
@@ -476,7 +476,7 @@ include 'inc_error_add.php';
 							<div class="imgcontainer">
 							  <span onclick="document.getElementById('addproduct').style.display='none'" class="close"  title="Close Modal">&times;</span>
 							</div>
-								<h2>add product</h2>
+								<h2>Add product</h2>
 								<input type="text" placeholder="type_of_product" name="type_of_product" value="" />
 								<input type="text" placeholder="name_of_product" name="name_of_product" value="" />
 								<input type="text" placeholder="description" name="description" value="" />
@@ -488,16 +488,31 @@ include 'inc_error_add.php';
 					</div>
 				</div>
 				<div class="delproduct">
-					<button class="delproductb" onclick="document.getElementById('delproduct').style.display='block'" style="width:auto;">del_products</button>
+					<button class="delproductb" onclick="document.getElementById('delproduct').style.display='block'" style="width:auto;">Delete product</button>
 					<div id="delproduct" class="modal">
 						<div id="delproduct" class="delзroducts">
 							<form class="form" action="del_product.php" method="POST">
 							<div class="imgcontainer">
 							  <span onclick="document.getElementById('delproduct').style.display='none'" class="close"  title="Close Modal">&times;</span>
 							</div>
-								<h2>Delit priduct</h2>
+								<h2>Delete product</h2>
 								<input type="type_of_product" placeholder="type_of_product" name="type_of_product" value="" />
 								<input type="name_of_product" placeholder="name_of_product" name="name_of_product" value="" />
+								<input class="submit" type="submit" name="submit" value="OK" />
+							</form>
+						</div>
+					</div>
+				</div> <div style="clear:left;"></div>
+				<div class="delproduct">
+					<button class="delproductb" onclick="document.getElementById('delcat').style.display='block'" style="width:auto; margin-top:3px;">Delete category</button>
+					<div id="delcat" class="modal">
+						<div id="delcat" class="delзroducts">
+							<form class="form" action="del_type.php" method="POST">
+							<div class="imgcontainer">
+							  <span onclick="document.getElementById('delcat').style.display='none'" class="close"  title="Close Modal">&times;</span>
+							</div>
+								<h2>Delete category</h2>
+								<input type="type_of_product" placeholder="type_of_product" name="type_of_product" value="" />
 								<input class="submit" type="submit" name="submit" value="OK" />
 							</form>
 						</div>
@@ -578,11 +593,61 @@ echo "	<div class=\"login-b\">
 
 ";
 						}
-					?>
+					
+
+
+echo "<table id=\"userstable\">" . "<th>NAME CATEGORY</th>";
+
+
+$list = unserialize(file_get_contents('../private/p_l/p_l'));
+foreach ($list as $key => $value) {
+echo "<tr><td>". $value ."</td></tr>";
+}
+echo "</table>";
+
+?>
 				</div>
 </div>
 <div class="content" id="another" style="display:none">
-3
+
+<div class="orders">
+<?php
+							if (!file_exists('../private/user_order/user_order')) {
+								file_put_contents('../private/user_order/user_order', null);
+							}
+							$all_order = unserialize(file_get_contents('../private/user_order/user_order'));
+							echo "<table id=\"userstable\">" . "<th>NAME</th><th>CATEGORY</th><th>PRICE</th><th>PRICE</th>";
+							if (isset($all_order)) {
+								foreach ($all_order as $k => $v) {
+										echo "<tr>";
+										$i = 1;
+										$summ = 0;
+										foreach ($v as $key => $value) {
+											if (isset($value['name_of_product']) && isset($value['type_of_product']) && isset($value['price']) && 
+												$value['name_of_product'] && $value['type_of_product'] && $value['price']) {
+												echo "<td>".$value['name_of_product']."</td>";
+												echo "<td>".$value['type_of_product']."</td>";
+												echo "<td>".$value['price']."</td>";
+												$summ += $value['price'];
+											}
+											if (isset($value['name_of_product']) && isset($value['type_of_product']) && isset($value['price']) && 
+												$summ && $value['name_of_product'] && $value['type_of_product'] && $value['price']) {
+												echo "<td>$summ</td></tr>";
+											}
+											if (isset($value['login']) && $value['login']) {
+												$summ = 0;
+												$i++;
+												echo "<tr><td colspan=". ++$i . " >Ordered:</td><td>".$value['login']."</td></tr>";
+											}
+										}
+							}
+								
+							}
+						echo "</table>";
+
+?>
+</div>
+
 </div>
 
 
@@ -622,46 +687,46 @@ for (i = 0; i < x.length; i++) {
   b = document.createElement("DIV");
   b.setAttribute("class", "select-items select-hide");
   for (j = 1; j < selElmnt.length; j++) {
-    c = document.createElement("DIV");
-    c.innerHTML = selElmnt.options[j].innerHTML;
-    c.addEventListener("click", function(e) {
-        var i, s, h;
-        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
-        h = this.parentNode.previousSibling;
-        for (i = 0; i < s.length; i++) {
-          if (s.options[i].innerHTML == this.innerHTML) {
-            s.selectedIndex = i;
-            h.innerHTML = this.innerHTML;
-            break;
-          }
-        }
-        h.click();
-    });
-    b.appendChild(c);
+	c = document.createElement("DIV");
+	c.innerHTML = selElmnt.options[j].innerHTML;
+	c.addEventListener("click", function(e) {
+		var i, s, h;
+		s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+		h = this.parentNode.previousSibling;
+		for (i = 0; i < s.length; i++) {
+		  if (s.options[i].innerHTML == this.innerHTML) {
+			s.selectedIndex = i;
+			h.innerHTML = this.innerHTML;
+			break;
+		  }
+		}
+		h.click();
+	});
+	b.appendChild(c);
   }
   x[i].appendChild(b);
   a.addEventListener("click", function(e) {
-      e.stopPropagation();
-      closeAllSelect(this);
-      this.nextSibling.classList.toggle("select-hide");
-      this.classList.toggle("select-arrow-active");
-    });
+	  e.stopPropagation();
+	  closeAllSelect(this);
+	  this.nextSibling.classList.toggle("select-hide");
+	  this.classList.toggle("select-arrow-active");
+	});
 }
 function closeAllSelect(elmnt) {
   var x, y, i, arrNo = [];
   x = document.getElementsByClassName("select-items");
   y = document.getElementsByClassName("select-selected");
   for (i = 0; i < y.length; i++) {
-    if (elmnt == y[i]) {
-      arrNo.push(i)
-    } else {
-      y[i].classList.remove("select-arrow-active");
-    }
+	if (elmnt == y[i]) {
+	  arrNo.push(i)
+	} else {
+	  y[i].classList.remove("select-arrow-active");
+	}
   }
   for (i = 0; i < x.length; i++) {
-    if (arrNo.indexOf(i)) {
-      x[i].classList.add("select-hide");
-    }
+	if (arrNo.indexOf(i)) {
+	  x[i].classList.add("select-hide");
+	}
   }
 }
 document.addEventListener("click", closeAllSelect);

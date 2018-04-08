@@ -1,5 +1,5 @@
 <?php
-	if ($_GET['create']) {
+	if (isset($_GET['create']) && $_GET['create']) {
 		if ($_GET['create'] == 'success') {
 ?>
 <div id="login-modal-form2" class="modal" style="display:block">
@@ -63,7 +63,7 @@ else {
 <?php
 }
 }
-	if ($_GET['signin']) {
+	if (isset($_GET['signin']) && $_GET['signin']) {
 		if ($_GET['signin'] == 'success') {
 ?>
 <div id="login-modal-form5" class="modal" style="display:block">
