@@ -4,6 +4,57 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<style>
+
+.custom-select {
+  position: relative;
+  margin-bottom: 20px;
+}
+.custom-select select {
+  display: none;
+    margin-bottom: 20px;
+}
+.select-selected {
+  background-color: #565454;
+}
+
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+.select-items div,.select-selected {
+  color: #FFFFFF;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+  user-select: none;
+}
+.select-items {
+  position: absolute;
+  background-color: #fbba00;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+.select-hide {
+  display: none;
+}
+.select-items div:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+
 #userstable {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -151,16 +202,16 @@
 				position: absolute;
 			}
 			.modal {
-				display: none; /* Hidden by default */
-				position: fixed; /* Stay in place */
-				z-index: 5; /* Sit on top */
+				display: none;
+				position: fixed;
+				z-index: 5;
 				left: 0;
 				top: 0;
-				width: 100%; /* Full width */
-				height: 100%; /* Full height */
-				overflow: auto; /* Enable scroll if needed */
-				background-color: rgb(0,0,0); /* Fallback color */
-				background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+				width: 100%;
+				height: 100%;
+				overflow: auto;
+				background-color: rgb(0,0,0);
+				background-color: rgba(0,0,0,0.4);
 				padding-top: 60px;
 			}
 			.container {
@@ -252,7 +303,7 @@
 			function admcheck($login) {
 				$arr = unserialize(file_get_contents("../private/passwd"));
 				foreach ($arr as $key => $inarr) {
-					if ($inarr['login'] === $login && $inarr['admin'] === 1) {
+					if ($inarr['login'] === $login && $inarr['admin'] == 1) {
 						return (true);
 					}
 				}
@@ -265,7 +316,7 @@
 				<div class="login-b">
 					
 					<?php
-					if ($_SESSION['authorized_user'] === 'admin') {
+					if (admcheck($_SESSION['authorized_user'])) {
 					?>
 					<button class="adm" onclick="window.location.href='index.php'">Shop</button>
 					<?php
@@ -329,7 +380,7 @@
 					echo "<td>" . $inarr[$line] . "</td>";
 					}
 				if ($line == 'admin') {
-					if ($inarr[$line] === 1) {
+					if ($inarr[$line] == 1) {
 						echo "<td class=\"admin\"> + </td>";
 					}
 					else {
@@ -360,12 +411,20 @@
 			<h3>phone: " . $inarr['phone'] . "</h3>
 			<input type=\"text\" placeholder=\"new e-mail\" name=\"login\" style=\"display:none;\" value=\"" . $inarr['login'] . "\" />
 			<input type=\"text\" placeholder=\"new e-mail\" name=\"email\" value=\"\" />
-			<input type=\"text\" placeholder=\"new telephone\" name=\"phone\" value=\"\" />
-			<input class=\"submit\" type=\"submit\" name=\"submit\" value=\"OK\" />
+			<input type=\"text\" placeholder=\"new telephone\" name=\"phone\" value=\"\" />";
+			if ($inarr['login'] != "admin") {
+				echo "<div class=\"custom-select\" ><select name=\"select\">
+				<option value=\"0\">do not choose</option>
+				<option value=\"2\">USER</option>
+				<option value=\"1\">ADMIN</option>
+			</select></div>";
+			}
+			echo "<input class=\"submit\" type=\"submit\" name=\"submit\" value=\"OK\" />
 			</form>
 			</div>
 			</div>
 			</div>
+			
 			";
 			}
 			}
@@ -472,5 +531,62 @@ function opentab(tabname) {
 	document.getElementById(tabname).style.display = "block";  
 }
 </script>
+<script>
+var x, i, j, selElmnt, a, b, c;
+x = document.getElementsByClassName("custom-select");
+for (i = 0; i < x.length; i++) {
+  selElmnt = x[i].getElementsByTagName("select")[0];
+  a = document.createElement("DIV");
+  a.setAttribute("class", "select-selected");
+  a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+  x[i].appendChild(a);
+  b = document.createElement("DIV");
+  b.setAttribute("class", "select-items select-hide");
+  for (j = 1; j < selElmnt.length; j++) {
+    c = document.createElement("DIV");
+    c.innerHTML = selElmnt.options[j].innerHTML;
+    c.addEventListener("click", function(e) {
+        var i, s, h;
+        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+        h = this.parentNode.previousSibling;
+        for (i = 0; i < s.length; i++) {
+          if (s.options[i].innerHTML == this.innerHTML) {
+            s.selectedIndex = i;
+            h.innerHTML = this.innerHTML;
+            break;
+          }
+        }
+        h.click();
+    });
+    b.appendChild(c);
+  }
+  x[i].appendChild(b);
+  a.addEventListener("click", function(e) {
+      e.stopPropagation();
+      closeAllSelect(this);
+      this.nextSibling.classList.toggle("select-hide");
+      this.classList.toggle("select-arrow-active");
+    });
+}
+function closeAllSelect(elmnt) {
+  var x, y, i, arrNo = [];
+  x = document.getElementsByClassName("select-items");
+  y = document.getElementsByClassName("select-selected");
+  for (i = 0; i < y.length; i++) {
+    if (elmnt == y[i]) {
+      arrNo.push(i)
+    } else {
+      y[i].classList.remove("select-arrow-active");
+    }
+  }
+  for (i = 0; i < x.length; i++) {
+    if (arrNo.indexOf(i)) {
+      x[i].classList.add("select-hide");
+    }
+  }
+}
+document.addEventListener("click", closeAllSelect);
+</script>
+
 	</body>
 </html>

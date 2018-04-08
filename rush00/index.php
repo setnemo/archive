@@ -148,7 +148,16 @@
 			<h1>Project Shop</h1>
 				<div class="login-b">
 					<?php
-					if ($_SESSION['authorized_user'] === 'admin') {
+					function admcheck($login) {
+						$arr = unserialize(file_get_contents("../private/passwd"));
+						foreach ($arr as $key => $inarr) {
+							if ($inarr['login'] === $login && $inarr['admin'] == 1) {
+								return (true);
+							}
+						}
+						return (false);
+					}
+					if (admcheck($_SESSION['authorized_user'])) {
 					?>
 					<button class="adm" onclick="window.location.href='admin.php'">ADM</button>
 					<?php
@@ -184,7 +193,7 @@
 								<h2>Create account</h2>
 								<input type="text" placeholder="login" name="login" value="" />
 								<input type="password" placeholder="password" name="passwd" value="" />
-								<input type="text" placeholder="e-mail" name="email" value="" />
+								<input type="text" placeholder="e-mail" class="email-ch" name="email" value="" />
 								<input type="text" placeholder="telephone" name="phone" value="" />
 								<input class="submit" type="submit" name="submit" value="OK" />
 								<p class="message">Are you registered? <a onclick="opentab('loginform')">Sign in</a></p>
