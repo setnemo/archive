@@ -10,7 +10,6 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<style>
 		.footer {
-			position: fixed;
 			left: 0;
 			bottom: 0;
 			width: 100%;
@@ -18,6 +17,11 @@
 			color: white;
 			cursor: unset;
 			text-align: center;
+		}
+		.footer p {
+			display: block;
+			margin: 0 auto;
+			padding: 10px;
 		}
 			body {
 				background: #fbba00;
@@ -307,18 +311,18 @@
 		}
 		$list = unserialize(file_get_contents('../private/p_l/p_l'));
 		foreach ($list as $key => $value) {
-			echo "<div class=\"content-products\"><h2>" . $value . "</h2><div class=\"product-line\">"  . PHP_EOL ;
+			echo "<hr><div class=\"content-products\"><h2>" . $value . "</h2><div class=\"product-line\">"  . PHP_EOL ;
 			$account = unserialize(file_get_contents('../private/product/product'));
 			foreach ($account as $val) {
 				$i = 0;
 				if (in_array($value, $val['type_of_product'])) {
-					echo "<div class=\"product\"><img src=\"" . $val['url'] ."\"><h3>" . $val['name_of_product'] . "</h3><h4>" . $val['price'] ."UAH</h4><button>BUY</button></div>"  . PHP_EOL ;
+					echo "<div class=\"product\"><img title=\"" . $val['description'] ."\" src=\"" . $val['url'] ."\"><h3>" . $val['name_of_product'] . "</h3><h4>" . $val['price'] ."UAH</h4><button>BUY</button></div>"  . PHP_EOL ;
 				}
 			}
-			echo "</div></div><div style=\"clear:left\"></div></div>" . PHP_EOL ;
+			echo "</div></div><div style=\"clear:left\"><hr>" . PHP_EOL ;
 		}	
 		?>
-
+</div></div>
 
 <?php include 'inc_error_create.php';
 ?>
