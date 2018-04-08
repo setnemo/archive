@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	// echo session_id() . PHP_EOL;
+	include 'busket_price2.php';
 ?>
 <html>
 	<head>
@@ -25,6 +25,7 @@
 		}
 			body {
 				background: #fbba00;
+				position: relative;
 			}
 			.container h1 {
 				padding: 17px 17px 0px 27px ;
@@ -45,8 +46,9 @@
 			}
 			.content-products {
 				width: 98%;
-				margin: 15px;
 				padding: 15px;
+				display: block;
+				margin: 15px auto;
 			}
 			.content-products h2 {
 				color: #565454;
@@ -96,7 +98,7 @@
 				font-weight: 900;
 				text-shadow:5px 5px 30px #fbba00;
 			}
-			.product button {
+			.product input {
 				background-color: #565454;
 				color: white;
 				padding: 10px 40px;
@@ -106,7 +108,7 @@
 				cursor: pointer;
 			}
 			@media (max-width : 758px) {
-				.product button {
+				.product input {
 				background-color: #565454;
 				color: white;
 				padding: 5px 20px;
@@ -235,9 +237,25 @@
 			.form .message a:hover {
 				cursor: pointer;
 			}
+			.basket {
+				position: fixed;
+				right: 20px;
+				float: right;
+				z-index: 222;
+				top: 500px;
+			}
+			.forbasket img {
+				background: #565454;
+				padding: 10px;
+				border-radius: 20px;
+			}
 		</style>
 	</head>
 	<body>
+		<div class="forbasket">
+		<img class="basket" src="img/basket.png">
+		</div>
+		<div style="clear:left">
 		<div class="container">
 			<h1>Project Shop</h1>
 				<div class="login-b">
@@ -316,7 +334,11 @@
 			foreach ($account as $val) {
 				$i = 0;
 				if (in_array($value, $val['type_of_product'])) {
-					echo "<div class=\"product\"><img title=\"" . $val['description'] ."\" src=\"" . $val['url'] ."\"><h3>" . $val['name_of_product'] . "</h3><h4>" . $val['price'] ."UAH</h4><button>BUY</button></div>"  . PHP_EOL ;
+					echo "<div class=\"product\"><img title=\"" . $val['description'] ."\" src=\"" . $val['url'] ."\"><h3>" . $val['name_of_product'] . "</h3><h4>" . $val['price'] ."UAH</h4><form  action=\"put_in_busket.php\" method=\"POST\">
+				<input type=\"text\" style=\"display:none;\" placeholder=\"type_of_product\" name=\"type_of_product\" value=\"" . $val['type_of_product'][0] . "\" />
+				<input type=\"text\" style=\"display:none;\" placeholder=\"name_of_product\" name=\"name_of_product\" value=\"" . $val['name_of_product'] . "\" />
+				<input type=\"text\" style=\"display:none;\" placeholder=\"name_of_product\" name=\"price\" value=\"" . $val['price'] . "\" />
+					<input class=\"submit\" type=\"submit\" name=\"submit\" value=\"BUY\" ></form></div>"  . PHP_EOL ;
 				}
 			}
 			echo "</div></div><div style=\"clear:left\"><hr>" . PHP_EOL ;
