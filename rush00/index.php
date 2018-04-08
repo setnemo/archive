@@ -9,6 +9,16 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<style>
+		.footer {
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			background-color: #fbba00;
+			color: white;
+			cursor: unset;
+			text-align: center;
+		}
 			body {
 				background: #fbba00;
 			}
@@ -45,7 +55,6 @@
 			}
 			.content-products .product-line .product{
 				width: 19%;
-				/*height: 200px;*/
 				margin: 10px;
 				border: 1px solid #E2E2E2;
 				border: 5px solid #ffffff;
@@ -61,6 +70,10 @@
 				max-width: 100%;
 				display: block;
 				margin: 0 auto;
+				border: 1px solid #ffffff;
+				-webkit-box-shadow: 0 0 13px rgba(0, 0, 0, 1);
+				-moz-box-shadow: 0 0 13px rgba(0, 0, 0, 1);
+				box-shadow: 0 0 13px rgba(0, 0, 0, 1);
 			}
 			.product h3 {
 				text-align: center;
@@ -279,110 +292,40 @@
 					</div>
 				</div>
 			<hr>
-		<div class="content-products">
-			<h2>Category name</h2>
-			<div class="product-line">
-				<div class="product">
-					<img src="https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
-					<h3>Product Name</h3>
-					<h4>1000 UAH</h4>
-					<button>BUY</button>
-				</div>
-				<div class="product">
-					<img src="https://images.pexels.com/photos/53501/rose-pink-green-flowers-53501.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
-					<h3>Product Name</h3>
-					<h4>1000 UAH</h4>
-					<button>BUY</button>
-				</div>
-				<div class="product">
-					<img src="https://images.pexels.com/photos/53397/rose-orange-red-flower-53397.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
-					<h3>Product Name</h3>
-					<h4>1000 UAH</h4>
-					<button>BUY</button>
-				</div>
-				<div class="product">
-					<img src="https://images.pexels.com/photos/64252/rose-petal-flower-macro-64252.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
-					<h3>Product Name</h3>
-					<h4>1000 UAH</h4>
-					<button>BUY</button>
-				</div>
-				<div class="product">
-					<img src="https://images.pexels.com/photos/64252/rose-petal-flower-macro-64252.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
-					<h3>Product Name</h3>
-					<h4>1000 UAH</h4>
-					<button>BUY</button>
-				</div>
-				<div class="product">
-					<img src="https://images.pexels.com/photos/64252/rose-petal-flower-macro-64252.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
-					<h3>Product Name</h3>
-					<h4>1000 UAH</h4>
-					<button>BUY</button>
-				</div>
-				<div class="product">
-					<img src="https://images.pexels.com/photos/64252/rose-petal-flower-macro-64252.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
-					<h3>Product Name</h3>
-					<h4>1000 UAH</h4>
-					<button>BUY</button>
-				</div>
-				<div class="product">
-					<img src="https://images.pexels.com/photos/64252/rose-petal-flower-macro-64252.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
-					<h3>Product Name</h3>
-					<h4>1000 UAH</h4>
-					<button>BUY</button>
-				</div>
-				<div class="product">
-					<img src="https://images.pexels.com/photos/64252/rose-petal-flower-macro-64252.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
-					<h3>Product Name</h3>
-					<h4>1000 UAH</h4>
-					<button>BUY</button>
-				</div>
-				<div class="product">
-					<img src="https://images.pexels.com/photos/64252/rose-petal-flower-macro-64252.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
-					<h3>Product Name</h3>
-					<h4>1000 UAH</h4>
-					<button>BUY</button>
-				</div>
-			</div>
-			<div style="clear:left"></div>
-		</div>
-
-		<div class="content-products">
-			<h2>Category name</h2>
-			<div class="product-line">
-				<div class="product">
-					<img src="https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
-					<h3>Product Name</h3>
-					<h4>1000 UAH</h4>
-					<button>BUY</button>
-				</div>
-				<div class="product">
-					<img src="https://images.pexels.com/photos/53501/rose-pink-green-flowers-53501.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
-					<h3>Product Name</h3>
-					<h4>1000 UAH</h4>
-					<button>BUY</button>
-				</div>
-				<div class="product">
-					<img src="https://images.pexels.com/photos/53397/rose-orange-red-flower-53397.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
-					<h3>Product Name</h3>
-					<h4>1000 UAH</h4>
-					<button>BUY</button>
-				</div>
-				<div class="product">
-					<img src="https://images.pexels.com/photos/64252/rose-petal-flower-macro-64252.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260">
-					<h3>Product Name</h3>
-					<h4>1000 UAH</h4>
-					<button>BUY</button>
-				</div>
-			</div>
-			<div style="clear:left"></div>
-		</div>
-
-
-
+	<?php 
+		if (!file_exists('../private/product')) {
+		mkdir("../private/product");
+		}
+		if (!file_exists('../private/product/product')) {
+			file_put_contents('../private/product/product', null);
+		}
+		if (!file_exists('../private/p_l')) {
+			mkdir("../private/p_l");
+		}
+		if (!file_exists('../private/p_l/p_l')) {
+			file_put_contents('../private/p_l/p_l', null);
+		}
+		$list = unserialize(file_get_contents('../private/p_l/p_l'));
+		foreach ($list as $key => $value) {
+			echo "<div class=\"content-products\"><h2>" . $value . "</h2><div class=\"product-line\">"  . PHP_EOL ;
+			$account = unserialize(file_get_contents('../private/product/product'));
+			foreach ($account as $val) {
+				$i = 0;
+				if (in_array($value, $val['type_of_product'])) {
+					echo "<div class=\"product\"><img src=\"" . $val['url'] ."\"><h3>" . $val['name_of_product'] . "</h3><h4>" . $val['price'] ."UAH</h4><button>BUY</button></div>"  . PHP_EOL ;
+				}
+			}
+			echo "</div></div><div style=\"clear:left\"></div></div>" . PHP_EOL ;
+		}	
+		?>
 
 
 <?php include 'inc_error_create.php';
 ?>
+
+<div class="footer">
+	<p>ft_minishop &copy; apakhomo:bgres
+</div>
 		</div>
 
 <script>

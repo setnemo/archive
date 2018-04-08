@@ -230,7 +230,6 @@
 				width: 90%;
 				min-height: 90%;
 				max-width: 90%;
-				max-height: 90%;
 				margin: auto;
 				font-family: "Roboto", sans-serif;]
 				box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
@@ -478,11 +477,12 @@ include 'inc_error_add.php';
 							  <span onclick="document.getElementById('addproduct').style.display='none'" class="close"  title="Close Modal">&times;</span>
 							</div>
 								<h2>add product</h2>
-								<input type="type_of_product" placeholder="type_of_product" name="type_of_product" value="" />
-								<input type="name_of_product" placeholder="name_of_product" name="name_of_product" value="" />
-									<input type="hidden" name="MAX_FILE_SIZE" value="30000">
-									<input enctype="multipart/form-data" name="userfile" type="file">
-									<input class="submit" type="submit" name="submit" value="OK" />
+								<input type="text" placeholder="type_of_product" name="type_of_product" value="" />
+								<input type="text" placeholder="name_of_product" name="name_of_product" value="" />
+								<input type="text" placeholder="description" name="description" value="" />
+								<input type="number" min="0" placeholder="price" name="price" value="" />
+								<input type="url" placeholder="img/image.png" name="url">
+								<input class="submit" type="submit" name="submit" value="OK" />
 							</form>
 						</div>
 					</div>
@@ -502,8 +502,7 @@ include 'inc_error_add.php';
 							</form>
 						</div>
 					</div>
-				</div>
-				<div style="clear:left;"></div>
+				</div> <div style="clear:left;"></div>
 				<div class="product_tabl">
 					<?php
 							if (!file_exists('../private/product')) {
@@ -512,24 +511,75 @@ include 'inc_error_add.php';
 							if (!file_exists('../private/product/product')) {
 								file_put_contents('../private/product/product', null);
 							}
-						$txt = unserialize(file_get_contents('../private/product/product'));
-							echo "<table id=\"userstable\">" . "<th>NAME</th><th>CATEGORY</th><th>IMAGE</th>";
+							$txt = unserialize(file_get_contents('../private/product/product'));
+							echo "<table id=\"userstable\">" . "<th>NAME</th><th>CATEGORY</th><th>DESCRIPTION</th><th>PRICE</th><th>IMAGE</th><th>EDIT</th><th>DEL</th>";
 						foreach ($txt as $k => $v) {
 							echo "<tr>";
-							echo "<td>name=".$v['name_of_product']."   </td>";
-							echo "<td>type_of_product=";
+							echo "<td>".$v['name_of_product']."</td>";
+							echo "<td>";
 							foreach ($v['type_of_product'] as $key => $value) {
-								echo"$value   ";
+								echo"$value, ";
 							}
 							echo "</td>";
-							echo "<td>".$txt['img']."</td>";
+							echo "<td>".$v['description']."</td>";
+							echo "<td>".$v['price']."</td>";
+							echo "<td><img  style=\"width:100px!important\" src=\"".$v['url']."\"</td>
+							";
+							echo "<td>
+							<a onclick=\"document.getElementById('edit-" . $v['name_of_product'] . "-" . $v['type_of_product'][0] . "-modal-form').style.display='block'\">
+							<img style=\"width:20px!important; margin: 0 auto; display: block;\" src=\"./img/edit.png\"></a></td>";
+							echo "<td>
+							<a onclick=\"document.getElementById('del-" . $v['name_of_product'] . "-" . $v['type_of_product'][0] . "-modal-form').style.display='block'\">
+							<img style=\"width:20px!important; margin: 0 auto; display: block;\" src=\"./img/delete.png\"></a></td>";
 							echo "</tr>";
-							echo "</br>";
 						}
 						echo "</table>";
+						$txt = unserialize(file_get_contents('../private/product/product'));
+						foreach ($txt as $k => $v) {
+echo "	
+<div class=\"login-b\">
+<div id=\"edit-" . $v['name_of_product'] . "-" . $v['type_of_product'][0] . "-modal-form\" class=\"modal\" >
+<div class=\"login-page\">
+<form class=\"form\" action=\"edit_product.php\" method=\"POST\">
+<div class=\"imgcontainer\">
+<span onclick=\"document.getElementById('edit-" . $v['name_of_product'] . "-" . $v['type_of_product'][0] . "-modal-form').style.display='none'\" class=\"close\" title=\"Close Modal\">&times;</span>
+</div>
+<h2>Edit product</h2>
+<h3>\"" . $v['name_of_product'] . "\"</h3>
+<input type=\"text\" style=\"display:none;\" placeholder=\"type_of_product\" name=\"type_of_product\" value=\"" . $v['type_of_product'][0] . "\" />
+<input type=\"text\" style=\"display:none;\" placeholder=\"name_of_product\" name=\"name_of_product\" value=\"" . $v['name_of_product'] . "\" />
+<input type=\"text\" placeholder=\"name_of_product\" name=\"new_name_of_product\" value=\"\" />
+<input type=\"text\" placeholder=\"description\" name=\"new_description\" value=\"\" />
+<input type=\"number\" min=\"0\" placeholder=\"price\" name=\"new_price\" value=\"\" />
+<input type=\"url\" placeholder=\"img/image.png\" name=\"new_url\">
+<input class=\"submit\" type=\"submit\" name=\"submit\" value=\"OK\" />
+</form>
+</div>
+</div>
+</div>
+
+";
+echo "	<div class=\"login-b\">
+<div id=\"del-" . $v['name_of_product'] . "-" . $v['type_of_product'][0] . "-modal-form\" class=\"modal\" >
+<div class=\"login-page\">
+<form class=\"form\" action=\"del_product.php\" method=\"POST\">
+<div class=\"imgcontainer\">
+<span onclick=\"document.getElementById('del-" . $v['name_of_product'] . "-" . $v['type_of_product'][0] . "-modal-form').style.display='none'\" class=\"close\" title=\"Close Modal\">&times;</span>
+</div>
+<h2>Are you sure?</h2>
+<h3>Delete \"" . $v['name_of_product'] . "\" from category \"" . $v['type_of_product'][0] . "\"</h3>
+<input type=\"text\" style=\"display:none;\" name=\"type_of_product\" value=\"" . $v['type_of_product'][0] . "\" />
+<input type=\"text\" style=\"display:none;\" name=\"name_of_product\" value=\"" . $v['name_of_product'] . "\" />
+<input class=\"submit\" type=\"submit\" name=\"submit\" value=\"OK\" />
+</form>
+</div>
+</div>
+</div>
+
+";
+						}
 					?>
 				</div>
-
 </div>
 <div class="content" id="another" style="display:none">
 3
