@@ -58,6 +58,7 @@
 #userstable {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
+    margin-top: 10px;
 }
 
 #userstable td, #userstable th {
@@ -167,6 +168,17 @@
 				width: 98%;
 				margin: 0 auto;
 			}
+			#users .adduser {
+				background-color: #565454;
+				color: white;
+				padding: 14px 20px;
+				margin: auto 3px;
+				border: none;
+				cursor: pointer;
+				right: 20px;
+				top: 3px;
+				float: left;
+			}
 			#products .addproductb {
 				background-color: #565454;
 				color: white;
@@ -268,7 +280,7 @@
 				transition: all 0.3 ease;
 				cursor: pointer;
 			}
-			.login-b button:hover, .form .submit:hover,.form .submit:active,.form .submit:focus {
+			#products .addproductb:hover , #products .delproductb:hover , #users .adduser:hover, .login-b button:hover, .form .submit:hover,.form .submit:active,.form .submit:focus {
 				background: #fbba00;
 			}
 			.form .message {
@@ -331,32 +343,6 @@
 					<?php 
 					}
 					?>
-					<div id="login-modal-form" class="modal">
-						<div id="loginform" class="login-page">
-							<form class="form" action="login.php" method="POST">
-							<div class="imgcontainer">
-							  <span onclick="document.getElementById('login-modal-form').style.display='none'" class="close" title="Close Modal">&times;</span>
-							</div>
-								<h2>Sign in</h2>
-								<input type="text" placeholder="login" name="login" value="" />
-								<input type="password" placeholder="password" name="passwd" value="" />
-								<input class="submit" type="submit" name="submit" value="OK" />
-								<p class="message">Are you not registered? <a onclick="opentab('createform')">Create account</a></p>
-							</form>
-						</div>
-						<div id="createform" class="login-page" style="display:none">
-							<form class="form" action="create.php" method="POST">
-							<div class="imgcontainer">
-							  <span onclick="document.getElementById('login-modal-form').style.display='none'" class="close" title="Close Modal">&times;</span>
-							</div>
-								<h2>Create account</h2>
-								<input type="text" placeholder="login" name="login" value="" />
-								<input type="password" placeholder="password" name="passwd" value="" />
-								<input class="submit" type="submit" name="submit" value="OK" />
-								<p class="message">Are you registered? <a onclick="opentab('loginform')">Sign in</a></p>
-							</form>
-						</div>
-					</div>
 				</div>
 			<hr>
 
@@ -370,7 +356,34 @@
 </div>
 <hr>
 <div class="content" id="users">
+	<button class="adduser" onclick="document.getElementById('adduser-modal-form').style.display='block'" style="width:auto;">add user</button>
+	<div id="adduser-modal-form" class="modal" style="display:none">
+		<div id="adduser-modal" class="login-page" >
+			<form class="form" action="adduser.php" method="POST">
+			<div class="imgcontainer">
+			  <span onclick="document.getElementById('adduser-modal-form').style.display='none'" class="close" title="Close Modal">&times;</span>
+			</div>
+				<h2>Add user</h2>
+				<input type="text" placeholder="login" name="login" value="" />
+				<input type="password" placeholder="password" name="passwd" value="" />
+				<input type="text" placeholder="e-mail" class="email-ch" name="email" value="" />
+				<input type="text" placeholder="telephone" name="phone" value="" />
+				<div class="custom-select" ><select name="select">
+					<option value="0">do not choose</option>
+					<option value="2">USER</option>
+					<option value="1">ADMIN</option>
+				</select></div>
+				<input class="submit" type="submit" name="submit" value="OK" />
+			</form>
+		</div>
+	</div>
+
+
+
+	<div style="clear:left"></div>
 <?php
+include 'inc_error_add.php';
+
 	echo "<table id=\"userstable\"><tbody><tr><th>login</th><th>email</th><th>telephone</th><th class=\"admin\">admin rights</th><th class=\"pic\">edit</th><th class=\"pic\">del</th></tr>";
 	$arr = unserialize(file_get_contents("../private/passwd"));
 	foreach ($arr as $key => $inarr) {
@@ -389,7 +402,7 @@
 				echo "<td class=\"pic\">
 						<a onclick=\"document.getElementById('edit-" . $inarr['login'] . "-modal-form').style.display='block'\"><img src=\"./img/edit.png\"></a>
 						</td><td class=\"pic\">
-						<a><img src=\"./img/delete.png\"><a>
+						<a onclick=\"document.getElementById('del-" . $inarr['login'] . "-modal-form').style.display='block'\"><img src=\"./img/delete.png\"><a>
 						</td></tr>";
 				}
 			}
@@ -409,7 +422,7 @@
 			<h2>USER: " . $inarr['login'] . "</h2>
 			<h3>e-mail: " . $inarr['email'] . "</h3>
 			<h3>phone: " . $inarr['phone'] . "</h3>
-			<input type=\"text\" placeholder=\"new e-mail\" name=\"login\" style=\"display:none;\" value=\"" . $inarr['login'] . "\" />
+			<input type=\"text\" name=\"login\" style=\"display:none;\" value=\"" . $inarr['login'] . "\" />
 			<input type=\"text\" placeholder=\"new e-mail\" name=\"email\" value=\"\" />
 			<input type=\"text\" placeholder=\"new telephone\" name=\"phone\" value=\"\" />";
 			if ($inarr['login'] != "admin") {
@@ -420,6 +433,27 @@
 			</select></div>";
 			}
 			echo "<input class=\"submit\" type=\"submit\" name=\"submit\" value=\"OK\" />
+			</form>
+			</div>
+			</div>
+			</div>
+			
+			";
+			echo "	
+			<div class=\"login-b\">
+			<div id=\"del-" . $inarr['login'] . "-modal-form\" class=\"modal\" >
+			<div class=\"login-page\">
+			<form class=\"form\" action=\"del_user.php\" method=\"POST\">
+			<div class=\"imgcontainer\">
+			<span onclick=\"document.getElementById('del-" . $inarr['login'] . "-modal-form').style.display='none'\" class=\"close\" title=\"Close Modal\">&times;</span>
+			</div>
+			<h2>DELETE USER </h2>
+			<h3>login: " . $inarr['login'] . "</h3>
+			<input type=\"text\" name=\"login\" style=\"display:none;\" value=\"" . $inarr['login'] . "\" />";
+			if ($inarr['login'] != "admin") {
+				echo "<input class=\"submit\" type=\"submit\" name=\"submit\" value=\"OK\" />";
+			}
+			echo "
 			</form>
 			</div>
 			</div>
@@ -468,7 +502,8 @@
 							</form>
 						</div>
 					</div>
-				</div> <hr style="clear:left; margin:auto 3px">
+				</div>
+				<div style="clear:left;"></div>
 				<div class="product_tabl">
 					<?php
 							if (!file_exists('../private/product')) {
@@ -494,12 +529,6 @@
 						echo "</table>";
 					?>
 				</div>
-
-
-
-
-
-
 
 </div>
 <div class="content" id="another" style="display:none">

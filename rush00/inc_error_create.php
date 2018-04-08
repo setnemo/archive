@@ -30,6 +30,8 @@ else if ($_GET['create'] == 'erroroldlogin') {
 					<h3>Please, try with another login</h3>
 					<input type="text" placeholder="login" name="login" value="" />
 					<input type="password" placeholder="password" name="passwd" value="" />
+					<input type="text" placeholder="e-mail" class="email-ch" name="email" value="" />
+					<input type="text" placeholder="telephone" name="phone" value="" />
 					<input class="submit" type="submit" name="submit" value="OK" />
 				</form>
 			</div>
@@ -50,6 +52,8 @@ else {
 					<h3>Please, try again</h3>
 					<input type="text" placeholder="login" name="login" value="" />
 					<input type="password" placeholder="password" name="passwd" value="" />
+					<input type="text" placeholder="e-mail" class="email-ch" name="email" value="" />
+					<input type="text" placeholder="telephone" name="phone" value="" />
 					<input class="submit" type="submit" name="submit" value="OK" />
 				</form>
 			</div>
@@ -68,7 +72,7 @@ else {
 			<div class="imgcontainer">
 			  <span onclick="document.getElementById('login-modal-form5').style.display='none'" class="close" title="Close Modal">&times;</span>
 			</div>
-				<h2>Wellcome!</h2>
+				<h2>Welcome!</h2>
 			</form>
 		</div>
 </div>
