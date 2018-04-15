@@ -1,40 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_free_arr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 13:04:12 by apakhomo          #+#    #+#             */
-/*   Updated: 2017/11/11 13:04:12 by apakhomo         ###   ########.fr       */
+/*   Created: 2017/11/11 13:19:05 by apakhomo          #+#    #+#             */
+/*   Updated: 2017/11/11 13:19:05 by apakhomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strcpy(char *dst, const char *src)
+void	ft_free_arr(char **arr)
 {
 	int a;
 
 	a = 0;
-	while (src[a] != '\0')
+	while (arr[a])
 	{
-		dst[a] = src[a];
+		ft_strdel(&arr[a]);
 		a++;
 	}
-	dst[a] = '\0';
-	return (dst);
-}
-
-void		ft_strscpy(char *dst, const char *src, char stop)
-{
-	int a;
-
-	a = 0;
-	while (src[a] != stop)
-	{
-		dst[a] = src[a];
-		a++;
-	}
-	dst[a] = '\0';
+	free(arr);
 }

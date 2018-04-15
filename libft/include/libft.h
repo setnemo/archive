@@ -18,9 +18,12 @@
 # include <limits.h>
 # include <stdarg.h>
 # include <stdint.h>
+# define ABS(x) (x < 0 ? -x : x)
+# define MIM(x, y) (x < y ? y : x)
 # define BUFF_SIZE 1
 # define ERR(e) if (!e) return (-1);
 # define NOMEM(no) if (!no) return (NULL);
+# define BRK(ch) if (ch) break ;
 # define NIL(z) z = 0;
 # define WTHT 0
 # define HASH 1
@@ -50,7 +53,9 @@ typedef struct		s_list
 typedef struct		s_gnl
 {
 	int				fd;
+	int				br;
 	char			*str;
+	char			*tmp;
 	char			*after;
 	struct s_gnl	*next;
 }					t_gnl;
@@ -125,12 +130,24 @@ int					ft_abs(int i);
 int					ft_atoi_base(char *str, int base);
 void				ft_testintstr(int a, char *name);
 unsigned char		*ft_strtolower(unsigned char *s);
+void				ft_prcharr(char **str, int a);
+void				ft_free_arr(char **arr);
+int					ft_check_hex(char *str);
+int					ft_check_hex_char(char c);
+unsigned long		ft_hex_to_ul(char *str);
+int					ft_count_to_null(void **data, int type);
+char				**ft_new_char_arr(size_t size);
+int					**ft_new_int_arr(size_t size);
+int					**ft_new_int_matrix(size_t size);
+void				ft_strscpy(char *dst, const char *src, char stop);
+char				*ft_strjoin_free(char *s1, char *s2);
 
 /*
 ** ****************************************************************************
 ** ******************************FT_PRINTF*************************************
 ** ****************************************************************************
 */
+
 typedef struct		s_pfs
 {
 	const char		*str;

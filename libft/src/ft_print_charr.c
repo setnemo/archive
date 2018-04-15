@@ -1,40 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_print_charr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 13:04:12 by apakhomo          #+#    #+#             */
-/*   Updated: 2017/11/11 13:04:12 by apakhomo         ###   ########.fr       */
+/*   Created: 2018/01/27 09:55:17 by apakhomo          #+#    #+#             */
+/*   Updated: 2018/01/27 09:55:17 by apakhomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strcpy(char *dst, const char *src)
+void		ft_prcharr(char **str, int a)
 {
-	int a;
+	int	i;
 
-	a = 0;
-	while (src[a] != '\0')
+	i = 0;
+	while (i < a)
 	{
-		dst[a] = src[a];
-		a++;
+		ft_printf("%s\n", str[i]);
+		i++;
 	}
-	dst[a] = '\0';
-	return (dst);
-}
-
-void		ft_strscpy(char *dst, const char *src, char stop)
-{
-	int a;
-
-	a = 0;
-	while (src[a] != stop)
-	{
-		dst[a] = src[a];
-		a++;
-	}
-	dst[a] = '\0';
 }

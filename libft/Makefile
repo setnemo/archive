@@ -11,7 +11,7 @@
 #******************************************************************************#
 
 NAME = libft.a
-FLAGS = 
+FLAGS = -Wall -Wextra -Werror
 DIR_S = src
 DIR_O = temp
 HEADER = include
@@ -50,6 +50,7 @@ SOURCES = ft_atoi.c\
 		ft_striter.c\
 		ft_striteri.c\
 		ft_strjoin.c\
+		ft_strjoin_free.c\
 		ft_strlcat.c\
 		ft_strlen.c\
 		ft_strmap.c\
@@ -93,15 +94,20 @@ SOURCES = ft_atoi.c\
 		pf_itoa.c\
 		pf_verify.c\
 		ft_testintstr.c\
-		ft_strtolower.c
+		ft_strtolower.c\
+		ft_print_charr.c\
+		ft_free_arr.c\
+		ft_check_hex.c\
+		ft_hex_to_ul.c\
+		ft_count_to_null.c\
+		ft_new_int_arr.c\
+		ft_new_char_arr.c\
+		ft_new_int_matrix.c
+
 
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
-
-ifeq ($(TARGETOS), Linux)
-	FLAGS = 
-endif
 
 all: $(NAME)
 

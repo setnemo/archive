@@ -1,40 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_new_int_arr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 13:04:12 by apakhomo          #+#    #+#             */
-/*   Updated: 2017/11/11 13:04:12 by apakhomo         ###   ########.fr       */
+/*   Created: 2017/11/11 15:09:31 by apakhomo          #+#    #+#             */
+/*   Updated: 2017/11/11 15:09:31 by apakhomo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strcpy(char *dst, const char *src)
+int			**ft_new_int_arr(size_t size)
 {
-	int a;
+	int		**new;
+	size_t	a;
 
 	a = 0;
-	while (src[a] != '\0')
+	if (!(new = (int**)malloc(sizeof(int*) * (size + 1))))
+		return (NULL);
+	while (a < size)
 	{
-		dst[a] = src[a];
+		new[a] = NULL;
 		a++;
 	}
-	dst[a] = '\0';
-	return (dst);
-}
-
-void		ft_strscpy(char *dst, const char *src, char stop)
-{
-	int a;
-
-	a = 0;
-	while (src[a] != stop)
-	{
-		dst[a] = src[a];
-		a++;
-	}
-	dst[a] = '\0';
+	new[a] = NULL;
+	return (new);
 }
