@@ -45,6 +45,14 @@ void	flag_parser(int argc, char **argv)
 		start_des3cbc(argc, argv);
 	else if (ft_strequ(argv[1], "des3-ecb"))
 		start_des3ecb(argc, argv);
+	else if (ft_strequ(argv[1], "sha256"))
+		start_md(argc - 2, argv + 2, 1);
+	else if (ft_strequ(argv[1], "sha512"))
+		start_md(argc - 2, argv + 2, 2);
+	else if (ft_strequ(argv[1], "md5"))
+		start_md(argc - 2, argv + 2, 0);
+	else if (ft_strequ(argv[1], "whirlpool"))
+		start_md(argc - 2, argv + 2, 3);
 	else
 		print_error(argv);
 }

@@ -11,7 +11,7 @@
 #******************************************************************************#
 
 NAME = ft_ssl
-FLAGS = 
+FLAGS = -Wall -Wextra -Werror
 
 SRC_NAME =	main.c\
 			reader_file.c\
@@ -28,7 +28,9 @@ SRC_NAME =	main.c\
 			descbc_func.c\
 			ecbcbc3core.c\
 			desecb3algo.c\
-			descbc3algo.c
+			descbc3algo.c\
+			managemdtps.c\
+			supportmdcd.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
@@ -43,7 +45,7 @@ OBJ_DIR = obj/
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@make -C $(LIB_DIR) --silent
+	# @make -C $(LIB_DIR) --silent
 	@gcc -o $(NAME)  $(OBJ) -L $(LIB_DIR) -lft
 	@echo "### PROJECT: COMPILING FINISHED ####"
 
@@ -53,12 +55,12 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@gcc $(FLAGS) -o $@ -c  $< $(INC)
 
 clean:
-	@make -C $(LIB_DIR) clean --silent
+	# @make -C $(LIB_DIR) clean --silent
 	@rm -f $(OBJ)
 	@echo "### PROJECT: REMOVE OBJECT FILES ###"
 
 fclean: clean
-	@make -C $(LIB_DIR) fclean --silent
+	# @make -C $(LIB_DIR) fclean --silent
 	@rm -f $(NAME)
 	@echo "### PROJECT: REMOVE BINARY FILES ###"
 
