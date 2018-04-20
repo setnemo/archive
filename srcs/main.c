@@ -19,11 +19,17 @@ static void			cleaning_asm(t_asm *data)
 		ft_strdel(&data->dotsname);
 	if (data->dotcorname)
 		ft_strdel(&data->dotcorname);
+	if (data->dotsstr)
+		ft_strdel(&data->dotsstr);
+	if (data->dotsstrtemp)
+		ft_strdel(&data->dotsstrtemp);
 }
 
 static void			init_data(t_asm *data, char *argv)
 {
 	data->dotsname = NULL;
+	data->dotsstr = NULL;
+	data->dotsstrtemp = NULL;
 	data->dotcorname = NULL;
 	data->dotsfd = -1;
 	data->dotcorfd = -1;
@@ -65,6 +71,7 @@ static int			checkdots(t_asm *data, char *argv)
 		data->dotcorname = ft_strdup(argv);
 		ft_strdel(&argv);
 	}
+	start_reading_s(data);
 	ft_printf(DDS, data->dotsname, data->dotcorname);
 	return (0);
 }

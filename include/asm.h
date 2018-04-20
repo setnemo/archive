@@ -23,6 +23,8 @@ typedef struct				s_asm
 	size_t					len;
 	int						dotsfd;
 	char					*dotsname;
+	char					*dotsstr;
+	char					*dotsstrtemp;
 	int						dotcorfd;
 	char					*dotcorname;
 }							t_asm;
@@ -30,5 +32,7 @@ typedef struct				s_asm
 void				manage_error(t_asm *data, char error);
 
 int					start_reading_file(t_asm *data);
+
+void				start_reading_s(t_asm *data);
 
 #endif

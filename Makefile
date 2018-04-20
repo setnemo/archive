@@ -14,9 +14,9 @@ NAME = asm
 CC = gcc 
 WWW = -Wall -Wextra -Werror 
 
-SRC_NAME = 	main.c
-
-#op.c
+SRC_NAME = 	main.c\
+			op.c\
+			reading_s_file.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
