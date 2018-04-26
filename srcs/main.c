@@ -140,7 +140,6 @@ int					main(int argc, char **argv)
 			ft_printf("[!] Error! '%s' - invalid filename\n", *argv);
 		if (ret)
 			ft_printf("[!] Error! '%s' - file not found\n", *argv);
-		ft_printf("fd s __%d__\n", data.fd);
 		save_file(&fl_lst, &fl_err, data.fd);
 		cleaning_asm(&data);
 	}

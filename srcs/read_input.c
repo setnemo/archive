@@ -67,7 +67,6 @@ void	save_header(t_fls *file, int fd)
 				i++;
 			p++;
 		}
-		ft_printf("kavychki=%d\n", i);
 		ft_list_push_back(&(file->lines), ft_lstnew(s, 0));
 		file->line++;
 	}
