@@ -41,7 +41,7 @@ static int		gnl_core(t_gnl *gnl, char **line)
 	{
 		if (pointer + 1 != 0)
 			ERR((gnl->after = ft_strdup(pointer + 1)));
-		ZERO(*pointer);
+		NIL(*pointer);
 		ERR((*line = ft_strdup(gnl->str)));
 		free(gnl->str);
 		return (1);
@@ -51,7 +51,7 @@ static int		gnl_core(t_gnl *gnl, char **line)
 	else
 		ERR((*line = ft_strdup(gnl->str)));
 	gnl->after = gnl->str;
-	ZERO(*gnl->after);
+	NIL(*gnl->after);
 	free(gnl->str);
 	return (1);
 }
@@ -60,7 +60,7 @@ static int		gnl_reader(t_gnl *buf)
 {
 	while ((buf->i = read(buf->fd, buf->tmp, BUFF_SIZE)))
 	{
-		ZERO(buf->tmp[buf->i]);
+		NIL(buf->tmp[buf->i]);
 		ERR((buf->temp = ft_strjoin(buf->str, buf->tmp)));
 		free(buf->str);
 		buf->str = buf->temp;

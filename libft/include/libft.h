@@ -20,7 +20,7 @@
 # include <stdint.h>
 # define ABS(x) (x < 0 ? -x : x)
 # define MIM(x, y) (x < y ? y : x)
-# define BUFF_SIZE 1
+# define BUFF_SIZE 1024
 # define ERR(e) if (!e) return (-1);
 # define NOMEM(no) if (!no) return (NULL);
 # define BRK(ch) if (ch) break ;
@@ -53,14 +53,15 @@ typedef struct		s_list
 typedef struct		s_gnl
 {
 	int				fd;
-	int				br;
 	char			*str;
-	char			*tmp;
 	char			*after;
 	struct s_gnl	*next;
+	char			*temp;
+	char			*tmp;
+	int				i;
 }					t_gnl;
 
-void		ft_list_push_back(t_list **begin_list, void *data);
+void				ft_list_push_back(t_list **begin_list, t_list *new);
 
 
 char				ft_putchar(char c);

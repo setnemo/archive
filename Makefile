@@ -15,8 +15,13 @@ CC = gcc
 WWW = -Wall -Wextra -Werror 
 
 SRC_NAME = 	main.c\
-			op.c\
-			reading_s_file.c
+			read_input.c\
+			header_comment.c\
+			header_name.c\
+			labels.c\
+			split_lines.c\
+			check_instructions.c\
+			check_instructions2.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
@@ -31,7 +36,7 @@ OBJ_DIR = obj/
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	# @make -C $(LIB_DIR) --silent
+	@make -C $(LIB_DIR) -j4 --silent
 	@echo "######### LIB CREATED #########"
 	@$(CC) -o $(NAME) $(OBJ) -L $(LIB_DIR) -lft
 	@echo "##### COMPILING FINISHED ######"
@@ -42,13 +47,13 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@$(CC) $(WWW) -o $@ -c  $< $(INC)
 
 clean:
-	# @make -C $(LIB_DIR) clean --silent
+	@make -C $(LIB_DIR) clean --silent
 	@rm -f $(OBJ)
 	@rm -rf $(OBJ_DIR)
 	@echo "##### REMOVE OBJECT FILES #####"
 
 fclean: clean
-	# @make -C $(LIB_DIR) fclean --silent
+	@make -C $(LIB_DIR) fclean --silent
 	@rm -f $(NAME)
 	@echo "##### REMOVE BINARY FILES #####"
 

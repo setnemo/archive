@@ -18,31 +18,24 @@ void		ft_lstadd(t_list **alst, t_list *new)
 	*alst = new;
 }
 
-t_list		*ft_create_elem(void *data)
+void		ft_list_push_back(t_list **begin_list, t_list *new)
 {
-	t_list	*new;
+	t_list	*ptr;
 
-	new = malloc(sizeof(t_list));
-	new->data = data;
-	new->next = NULL;
-	return (new);
-}
-
-void		ft_list_push_back(t_list **begin_list, void *data)
-{
-	t_list *list;
-
-	list = *begin_list;
-	if (! list)
+	ptr = NULL;
+	if (begin_list)
 	{
-		list = ft_create_elem(data);
-	}
-	else
-	{
-		while ((list)->next)
+		if (*begin_list == NULL)
 		{
-			list = list->next;
+			*begin_list = new;
+			(*begin_list)->next = NULL;
 		}
-		list->next = ft_create_elem(data);
+		else
+		{
+			ptr = *begin_list;
+			while (ptr->next != NULL)
+				ptr = ptr->next;
+			ptr->next = new;
+		}
 	}
 }

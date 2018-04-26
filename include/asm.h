@@ -13,15 +13,13 @@
 #ifndef ASM_H
 # define ASM_H
 # include "../libft/include/libft.h"
-# include "op.h"
 # include <unistd.h>
 # include <fcntl.h>
 
 typedef struct				s_asm
 {
-	header_t				header;
 	size_t					len;
-	int						dotsfd;
+	int						fd;
 	char					*dotsname;
 	char					*dotsstr;
 	char					*dotsstrtemp;
