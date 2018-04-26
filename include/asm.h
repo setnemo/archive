@@ -27,10 +27,10 @@ typedef struct				s_asm
 	char					*dotcorname;
 }							t_asm;
 
-void				manage_error(t_asm *data, char error);
+void						manage_error(t_asm *data, char error);
 
-int					start_reading_file(t_asm *data);
+int							start_reading_file(t_asm *data);
 
-void				start_reading_s(t_asm *data);
+void						start_reading_s(t_asm *data);
 
 #endif
