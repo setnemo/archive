@@ -14,6 +14,136 @@
 #include "asm.h"
 #include "error_asm.h"
 
+void	cleaning_asm_lst_lst_spltd(t_spl *lst)
+{
+	t_list	*ptr;
+	t_list	*ptr2;
+
+	if (lst->lbl)
+		ft_strdel(&lst->lbl);
+	if (lst->op_code)
+		ft_strdel(&lst->op_code);
+	if (lst->args)
+	{
+		ptr = lst->args;
+		while (ptr)
+		{
+			ptr2 = ptr;
+			ptr = ptr->next;
+			free(ptr2->content);
+			free(ptr2);
+		}		
+	}
+}
+
+void	cleaning_asm_lst_spltd(t_list *lst)
+{
+	t_list	*ptr;
+	t_list	*ptr2;
+
+	ptr = lst;
+	while (ptr)
+	{
+		ptr2 = ptr;
+		ptr = ptr->next;
+		cleaning_asm_lst_lst_spltd(ptr2->content);
+		free(ptr2->content);
+		free(ptr2);
+	}
+}
+void	cleaning_asm_lst_instr(t_list *lst)
+{
+	t_list	*ptr;
+	t_list	*ptr2;
+
+	ptr = lst;
+	while (ptr)
+	{
+		ptr2 = ptr;
+		ptr = ptr->next;
+		free(ptr2->content);
+		free(ptr2);
+	}
+}
+
+void	cleaning_asm_lst_lines(t_list *lst)
+{
+	t_list	*ptr;
+	t_list	*ptr2;
+
+	ptr = lst;
+	while (ptr)
+	{
+		ptr2 = ptr;
+		ptr = ptr->next;
+		free(ptr2->content);
+		free(ptr2);
+	}
+}
+
+void	cleaning_asm_lst_lbls(t_list *lst)
+{
+	t_list	*ptr;
+	t_list	*ptr2;
+
+	ptr = lst;
+	while (ptr)
+	{
+		ptr2 = ptr;
+		ptr = ptr->next;
+		free(((t_lbl*)ptr2->content)->name);
+		free(ptr2->content);
+		free(ptr2);
+	}
+}
+
+void	cleaning_asm_lst_sruct(t_fls *fls)
+{
+	if (fls->name)
+		ft_strdel(&fls->name);
+	if (fls->cmnt)
+		ft_strdel(&fls->cmnt);
+	if (fls->lbls)
+		cleaning_asm_lst_lbls(fls->lbls);
+	if (fls->lines)
+		cleaning_asm_lst_lines(fls->lines);
+	if (fls->instr)
+		cleaning_asm_lst_instr(fls->instr);
+	if (fls->spltd)
+		cleaning_asm_lst_spltd(fls->spltd);
+}
+
+void	cleaning_asm_lst(t_list **fl_lst, t_list **fl_err)
+{
+	t_list	*tmp;
+	t_list	*tmp2;
+
+	tmp = *fl_lst;
+	while (tmp)
+	{
+		tmp2 = tmp;
+		tmp = tmp->next;
+		if (tmp2->content)
+			cleaning_asm_lst_sruct(tmp2->content);
+		free(tmp2);
+	}
+	if (g_is_err)
+	{
+		tmp = *fl_err;
+		ft_printf("in if (%p)\n", tmp);
+		while (tmp)
+		{
+			ft_printf("in while-1 (%p)\n", tmp);
+			tmp2 = tmp;
+			tmp = tmp->next;
+			ft_printf("in while-2 (%p)\n", tmp);
+			if (tmp2->content)
+				free(tmp2->content);
+			free(tmp2);
+		}
+	}
+}
+
 int		print_errors2(char err_type, char *token, char *err_str, int line)
 {
 	char	*err;
@@ -97,6 +227,10 @@ static int			checkdotcor(t_asm *data, char *argv)
 
 static int			checkdots(t_asm *data, char *argv)
 {
+	t_list		*fl_lst;
+	t_list		*fl_err;
+
+	fl_lst = NULL;
 	data->dotsname = ft_strdup(argv);
 	data->dotcorname = ft_strnew(data->len + 2);
 	ft_strncpy(data->dotcorname, data->dotsname, data->len - 1);
@@ -110,7 +244,9 @@ static int			checkdots(t_asm *data, char *argv)
 		data->dotcorname = ft_strdup(argv);
 		ft_strdel(&argv);
 	}
-	ft_printf(DDS, data->dotsname, data->dotcorname);
+	if (save_file(&fl_lst, &fl_err, data->fd))
+		ft_printf(DDS, data->dotsname, data->dotcorname);
+	cleaning_asm_lst(&fl_lst, &fl_err);
 	return (0);
 }
 
@@ -119,11 +255,8 @@ int					main(int argc, char **argv)
 	t_asm		data;
 	int			i;
 	int			ret;
-	t_list		*fl_lst;
-	t_list		*fl_err;
 
 	i = 0;
-	fl_lst = NULL;
 	if ((argc == 2 && ft_strequ(argv[1], "-h")) || argc == 1)
 	{
 		ft_printf("%s%s%s%s", USAGE);
@@ -140,10 +273,9 @@ int					main(int argc, char **argv)
 			ft_printf("[!] Error! '%s' - invalid filename\n", *argv);
 		if (ret)
 			ft_printf("[!] Error! '%s' - file not found\n", *argv);
-		save_file(&fl_lst, &fl_err, data.fd);
 		cleaning_asm(&data);
 	}
-	// system("leaks -quiet asm");
+	system("leaks -quiet asm");
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: oantonen <oantonen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 15:30:09 by oantonen          #+#    #+#             */
-/*   Updated: 2018/04/26 18:08:18 by oantonen         ###   ########.fr       */
+/*   Updated: 2018/04/27 13:46:10 by oantonen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ int				check_instructions(t_list *spltd, t_list *lbls);
 int				print_errors2(char err_type, char *token, char *err_str,\
 	int line);
 void			asm_del_lst(t_list **begin);
-int				identify_argtype(char *arg, t_list *lbls);
+int				identify_argtype(char *arg, t_list *lbls, char **islbl, int *value);
 
 #endif

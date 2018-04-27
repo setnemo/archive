@@ -96,13 +96,9 @@ int		save_file(t_list **fl_lst, t_list **fl_err, int fd)
 		check_instructions(file->spltd, file->lbls);
 	if (g_is_err == 0)
 	{
-		ft_printf("%s\n", file->name);
 		ft_lstadd(fl_lst, ft_lstnew(file, 0));
+		return (1);
 	}
-	else
-	{
-		ft_lstadd(fl_err, ft_lstnew(file, 0));
-		return (0);
-	}
-	return (1);
+	ft_lstadd(fl_err, ft_lstnew(file, 0));
+	return (0);
 }

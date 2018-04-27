@@ -6,7 +6,7 @@
 /*   By: oantonen <oantonen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 13:58:36 by oantonen          #+#    #+#             */
-/*   Updated: 2018/04/26 18:03:08 by oantonen         ###   ########.fr       */
+/*   Updated: 2018/04/27 14:22:14 by oantonen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,17 @@ int		check_args(t_spl *line, t_list *args, char arg_type[3], t_list *lbls)
 	ptr = args;
 	while (ptr)
 	{
-		arg = identify_argtype((char*)ptr->content, lbls);
+		arg = identify_argtype((char*)ptr->content, lbls, &line->islbl[i], &line->value[i]);
 		if (arg == 0 || (arg != ISREG && arg != ISDIR && arg != ISIND))
 			print_errors2(2, line->op_code, (char*)ptr->content, line->ln_nb);
+		if (arg == 1 || arg == 2)
+			line->bc[i] = arg;
+		if (arg == 4)
+			line->bc[i] = 3;
+		// ft_printf("op_code=%s\n", line->op_code);
+		// ft_printf("arg=%d\n", arg);
+		// ft_printf("(char*)ptr->content=%s\n", (char*)ptr->content);
+		// ft_printf("bc[i]=%d, islbl[i]=%s, value[i]=%d\n", line->bc[i], line->islbl[i], line->value[i]);
 		ptr = ptr->next;
 		i++;
 	}

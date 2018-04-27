@@ -6,7 +6,7 @@
 /*   By: oantonen <oantonen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/29 12:15:24 by oantonen          #+#    #+#             */
-/*   Updated: 2018/04/26 17:56:58 by oantonen         ###   ########.fr       */
+/*   Updated: 2018/04/27 12:45:48 by oantonen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ typedef struct	s_spl
 	char		*op_code;
 	char		q_arg;
 	int			ln_nb;
+	char		*islbl[3];
+	char		bc[3];
+	int			value[3];
 	t_list		*args;
 
 }				t_spl;
