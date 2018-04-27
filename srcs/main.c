@@ -21,8 +21,9 @@ void	cleaning_asm_lst_lst_spltd(t_spl *lst)
 
 	if (lst->lbl)
 		ft_strdel(&lst->lbl);
-	if (lst->op_code)
-		ft_strdel(&lst->op_code);
+			ft_printf("in while-asm_lst_lst_spltd (%p)\n", lst);
+	// if (lst->op_code)
+	// 	ft_strdel(&lst->op_code);
 	if (lst->args)
 	{
 		ptr = lst->args;
@@ -30,7 +31,8 @@ void	cleaning_asm_lst_lst_spltd(t_spl *lst)
 		{
 			ptr2 = ptr;
 			ptr = ptr->next;
-			free(ptr2->content);
+			if (ptr2->content)
+				free(ptr2->content);
 			free(ptr2);
 		}		
 	}
@@ -46,8 +48,13 @@ void	cleaning_asm_lst_spltd(t_list *lst)
 	{
 		ptr2 = ptr;
 		ptr = ptr->next;
-		cleaning_asm_lst_lst_spltd(ptr2->content);
-		free(ptr2->content);
+
+		if (ptr2->content)
+		{
+			ft_printf("in while-cleaning_asm_lst_spltd (%p)\n", lst);
+			cleaning_asm_lst_lst_spltd(ptr2->content);
+			free(ptr2->content);
+		}
 		free(ptr2);
 	}
 }
@@ -109,6 +116,7 @@ void	cleaning_asm_lst_sruct(t_fls *fls)
 		cleaning_asm_lst_lines(fls->lines);
 	if (fls->instr)
 		cleaning_asm_lst_instr(fls->instr);
+	ft_printf("in while-fls (%p)\n", fls);
 	if (fls->spltd)
 		cleaning_asm_lst_spltd(fls->spltd);
 }
@@ -125,8 +133,10 @@ void	cleaning_asm_lst(t_list **fl_lst, t_list **fl_err)
 		tmp = tmp->next;
 		if (tmp2->content)
 			cleaning_asm_lst_sruct(tmp2->content);
+		free(tmp2->content);
 		free(tmp2);
 	}
+	// free(fl_lst);
 	if (g_is_err)
 	{
 		tmp = *fl_err;
@@ -135,13 +145,18 @@ void	cleaning_asm_lst(t_list **fl_lst, t_list **fl_err)
 		{
 			ft_printf("in while-1 (%p)\n", tmp);
 			tmp2 = tmp;
-			tmp = tmp->next;
 			ft_printf("in while-2 (%p)\n", tmp);
-			if (tmp2->content)
-				free(tmp2->content);
-			free(tmp2);
+			if (tmp2->content) {
+				cleaning_asm_lst_sruct(tmp2->content);
+				if (tmp2->content)
+					free(tmp2->content);
+			}
+			if (tmp2)
+				free(tmp2);
+			tmp = tmp->next;
 		}
 	}
+	// free(fl_err);
 }
 
 int		print_errors2(char err_type, char *token, char *err_str, int line)
@@ -231,6 +246,7 @@ static int			checkdots(t_asm *data, char *argv)
 	t_list		*fl_err;
 
 	fl_lst = NULL;
+	fl_err = NULL;
 	data->dotsname = ft_strdup(argv);
 	data->dotcorname = ft_strnew(data->len + 2);
 	ft_strncpy(data->dotcorname, data->dotsname, data->len - 1);
