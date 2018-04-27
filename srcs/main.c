@@ -22,8 +22,8 @@ void	cleaning_asm_lst_lst_spltd(t_spl *lst)
 	if (lst->lbl)
 		ft_strdel(&lst->lbl);
 			ft_printf("in while-asm_lst_lst_spltd (%p)\n", lst);
-	// if (lst->op_code)
-	// 	ft_strdel(&lst->op_code);
+	if (lst->op_code && *lst->op_code != 0)
+		ft_strdel(&lst->op_code);
 	if (lst->args)
 	{
 		ptr = lst->args;
@@ -276,7 +276,7 @@ int					main(int argc, char **argv)
 	if ((argc == 2 && ft_strequ(argv[1], "-h")) || argc == 1)
 	{
 		ft_printf("%s%s%s%s", USAGE);
-		exit(42);
+		exit(+42);
 	}
 	while (++i < argc && *(argv)++)
 	{
@@ -285,10 +285,10 @@ int					main(int argc, char **argv)
 			ret = checkdots(&data, *argv);
 		else if (data.len > 4 && AR)
 			ret = checkdotcor(&data, *argv);
+		// else if (ret)
+		// 	ft_printf("[!] Error! '%s' - file not found\n", *argv);
 		else
 			ft_printf("[!] Error! '%s' - invalid filename\n", *argv);
-		if (ret)
-			ft_printf("[!] Error! '%s' - file not found\n", *argv);
 		cleaning_asm(&data);
 	}
 	system("leaks -quiet asm");
