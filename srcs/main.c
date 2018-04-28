@@ -34,13 +34,9 @@ int			to_file(t_list **fl_lst, t_asm *data)
 	{
 		spl = (t_spl*)tmp->content;
 		ft_printf("-----------start-----------\n");
-		ft_printf("free file_lst:%p\n", file_lst);
 		ft_printf("label_name:%s\n", spl->lbl);
-		if (spl->lbl) {
+		if (spl->lbl)
 			file_lst->label = ft_strdup(spl->lbl);
-		ft_printf("pointer1:%p\n", file_lst->label);
-		ft_printf("pointer2:%s\n", file_lst->label);
-		}
 		ft_printf("opcode:%s\n", spl->op_code);
 		if (spl->op_code)
 			file_lst->op_code = ft_strdup(spl->op_code);
@@ -68,7 +64,6 @@ int			to_file(t_list **fl_lst, t_asm *data)
 		ft_printf("label link:%s.%s.%s\n", spl->islbl[0], spl->islbl[1], spl->islbl[2]);
 		ft_printf("byte code:%d.%d.%d\n", spl->bc[0], spl->bc[1], spl->bc[2]);
 		ft_printf("value arg:%d.%d.%d\n", spl->value[0], spl->value[1], spl->value[2]);
-		ft_printf("------------end------------\n");
 		if (tmp->next != NULL)
 		{
 			spl = (t_spl*)tmp->next->content;
@@ -79,7 +74,19 @@ int			to_file(t_list **fl_lst, t_asm *data)
 		}
 		else
 			break ;
-		
+	}
+	file_lst = data->next;
+	ft_printf("-----------||||-----------\n");
+	while (file_lst)
+	{
+		ft_printf("-----------start-----------\n");
+		ft_printf("label_name:%s\n", file_lst->label);
+		ft_printf("opcode:%s\n", file_lst->op_code);
+		ft_printf("count arg:%d\n", file_lst->count_arg);
+		ft_printf("label link:%s.%s.%s\n", file_lst->islabel[0], file_lst->islabel[1], file_lst->islabel[2]);
+		ft_printf("byte code:%d.%d.%d\n", file_lst->bytecode[0], file_lst->bytecode[1], file_lst->bytecode[2]);
+		ft_printf("value arg:%d.%d.%d\n", file_lst->value_arg[0], file_lst->value_arg[1], file_lst->value_arg[2]);
+		file_lst = file_lst->next;
 	}
 	return (0);
 }
@@ -199,7 +206,6 @@ void		clean_data_to_file(t_asm *data)
 	t_asmlst	*temp;
 	int			i;
 
-	i = 0;
 	file_lst = data->next;
 	if (data->filename)
 		ft_strdel(&data->filename);
@@ -208,19 +214,15 @@ void		clean_data_to_file(t_asm *data)
 	while (file_lst)
 	{
 		temp = file_lst;
-		ft_printf("free file_lst:%p\n", temp);
-		ft_printf("free pointer:%p\n", temp->label);
-		ft_printf("free label:%s\n", temp->label);
-		// ft_printf("free op_code:%s\n", temp->op_code);
 		if (temp->label)
 			ft_strdel(&temp->label);
 		if (temp->op_code)
 			ft_strdel(&temp->op_code);
-		while (i < 3)
+		i = -1;
+		while (++i < 3)
 		{
-			if (temp->islabel[i])
+			if (temp->islabel[i] != NULL)
 				ft_strdel(&temp->islabel[i]);
-			i++;
 		}
 		file_lst = file_lst->next;
 		free(temp);
