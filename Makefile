@@ -21,7 +21,8 @@ SRC_NAME = 	main.c\
 			labels.c\
 			split_lines.c\
 			check_instructions.c\
-			check_instructions2.c
+			check_instructions2.c\
+			op.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 

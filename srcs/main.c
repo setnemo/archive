@@ -12,6 +12,7 @@
 
 #include "core_asm.h"
 #include "error_asm.h"
+#include "op.h"
 
 int			to_file(t_list **fl_lst, t_asm *data)
 {
@@ -93,6 +94,7 @@ int			to_file(t_list **fl_lst, t_asm *data)
 		ft_printf("value arg:%d.%d.%d\n", file_lst->value_arg[0], file_lst->value_arg[1], file_lst->value_arg[2]);
 		file_lst = file_lst->next;
 	}
+	ft_printf("\n\n\n\nG:%s\n", g_optab[0].name);
 	return (0);
 }
 

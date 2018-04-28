@@ -14,6 +14,7 @@
 # define CORE_ASM_H
 # include "asm.h"
 # include "split_line.h"
+# include "op.h"
 
 typedef struct	s_fls
 {

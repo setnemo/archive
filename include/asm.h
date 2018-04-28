@@ -38,6 +38,8 @@ typedef struct				s_asmlst
 	char					*islabel[3];
 	char					bytecode[3];
 	int						value_arg[3];
+	int						octal;
+	int						size;
 	struct s_asmlst			*next;
 }							t_asmlst;
 
