@@ -37,6 +37,11 @@ int			to_file(t_list **fl_lst, t_asm *data)
 		ft_printf("label_name:%s\n", spl->lbl);
 		if (spl->lbl)
 			file_lst->label = ft_strdup(spl->lbl);
+		if (!spl->op_code && tmp->next)
+		{
+			spl = (t_spl*)tmp->next->content;
+			tmp = tmp->next;
+		}
 		ft_printf("opcode:%s\n", spl->op_code);
 		if (spl->op_code)
 			file_lst->op_code = ft_strdup(spl->op_code);
