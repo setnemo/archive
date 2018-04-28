@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: oantonen <oantonen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 14:58:00 by apakhomo          #+#    #+#             */
-/*   Updated: 2017/11/11 14:58:00 by apakhomo         ###   ########.fr       */
+/*   Created: 2017/11/09 20:15:21 by oantonen          #+#    #+#             */
+/*   Updated: 2017/11/21 14:13:54 by oantonen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void		ft_striter(char *s, void (*f)(char *))
+void	ft_striter(char *s, void (*f)(char *))
 {
-	if (s && f)
-		while (*s)
-			f(s++);
+	if (!s || !f)
+		return ;
+	while (*s)
+	{
+		f(s);
+		s++;
+	}
 }

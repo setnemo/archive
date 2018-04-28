@@ -3,33 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: oantonen <oantonen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 15:07:53 by apakhomo          #+#    #+#             */
-/*   Updated: 2017/11/11 15:07:53 by apakhomo         ###   ########.fr       */
+/*   Created: 2017/11/12 21:03:39 by oantonen          #+#    #+#             */
+/*   Updated: 2017/11/22 21:02:26 by oantonen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strtrim(char const *s)
+char	*ft_strtrim(char const *s)
 {
-	size_t a;
-	size_t b;
-	size_t c;
-	size_t t;
+	char			*str_trimmed;
+	size_t			begin;
+	size_t			end;
 
 	if (!s)
 		return (NULL);
-	a = ft_strlen(s);
-	b = 0;
-	c = 0;
-	while ((s[b] == ' ' || s[b] == '\n' || s[b] == '\t'))
-		b++;
-	if (a == b)
-		return (ft_strsub(s, a, 1));
-	t = a - 1;
-	while ((s[t - c] == ' ' || s[t - c] == '\n' || s[t - c] == '\t'))
-		c++;
-	return (ft_strsub(s, b, a - b - c));
+	begin = 0;
+	end = ft_strlen(s) - 1;
+	while ((s[begin] == ' ' || s[begin] == '\n' || s[begin] == '\t') && *s)
+		begin++;
+	while ((s[end] == ' ' || s[end] == '\n' || s[end] == '\t') && end + 1 != 0)
+		end--;
+	if (end + 1 == 0)
+		return (ft_strnew(0));
+	else if (!(str_trimmed = ft_strnew(end - begin + 1)))
+		return (NULL);
+	str_trimmed = ft_strncpy(str_trimmed, &s[begin], end - begin + 1);
+	return (str_trimmed);
 }

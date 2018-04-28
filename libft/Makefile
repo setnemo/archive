@@ -102,7 +102,8 @@ SOURCES = ft_atoi.c\
 		ft_count_to_null.c\
 		ft_new_int_arr.c\
 		ft_new_char_arr.c\
-		ft_new_int_matrix.c
+		ft_new_int_matrix.c\
+		ft_list_push_back.c
 
 
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))

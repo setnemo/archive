@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: oantonen <oantonen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 15:16:55 by apakhomo          #+#    #+#             */
-/*   Updated: 2017/11/11 15:16:56 by apakhomo         ###   ########.fr       */
+/*   Created: 2017/11/11 15:46:34 by oantonen          #+#    #+#             */
+/*   Updated: 2017/11/15 14:11:21 by oantonen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		ft_putchar_fd(char c, int fd)
+void	ft_putchar_fd(char c, int fd)
 {
-	return (write(fd, &c, 1));
+	if (!c && fd < 0)
+		return ;
+	write(fd, &c, 1);
 }

@@ -6,7 +6,7 @@
 /*   By: oantonen <oantonen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/29 13:20:44 by oantonen          #+#    #+#             */
-/*   Updated: 2018/04/26 17:54:11 by oantonen         ###   ########.fr       */
+/*   Updated: 2018/04/28 11:43:56 by oantonen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	save_str(int type, char *str, int *k, t_spl *i_spl)
 
 	if (type == 1)
 	{
-		i_spl->lbl = ft_strsub(str - *k + 1, 0, *k - 1);
+		s = ft_strsub(str - *k + 1, 0, *k - 1);
+		i_spl->lbl = ft_strtrim(s);
+		ft_strdel(&s);
 	}
 	else if (type == 2)
 	{
@@ -55,7 +57,7 @@ void	if_not_splitted(t_spl **i_spl, char *str)
 
 	i_spl2 = *i_spl;
 	if (i_spl2->lbl == NULL && i_spl2->op_code == NULL)
-		i_spl2->op_code = str;
+		i_spl2->op_code = ft_strdup(str);
 	else if (i_spl2->lbl && i_spl2->op_code == NULL)
 	{
 		i = ft_strchr(str, ':') - str + 1;
@@ -74,6 +76,7 @@ void	split_cur_line(t_list **bgng, char *str, int ln_nb)
 	i = 0;
 	k = 0;
 	i_spl = (t_spl*)ft_memalloc(sizeof(t_spl));
+	i_spl->op_code = NULL;
 	i_spl->ln_nb = ln_nb;
 	while (str[i])
 	{
@@ -108,6 +111,7 @@ void	split_lines(t_fls *file, t_list *instr)
 	while (ptr)
 	{
 		s = ((t_spl*)ptr->content)->op_code;
+		// ft_printf("s=%s\n", s);
 		if (s != NULL)
 			i++;
 		ptr = ptr->next;

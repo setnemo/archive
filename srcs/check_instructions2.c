@@ -6,7 +6,7 @@
 /*   By: oantonen <oantonen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/25 20:56:18 by oantonen          #+#    #+#             */
-/*   Updated: 2018/04/27 13:46:28 by oantonen         ###   ########.fr       */
+/*   Updated: 2018/04/27 16:58:14 by oantonen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		check_direct(char *arg, t_list *lbls, char **islbl, int *value)
 		}
 		if (ptr != NULL)
 		{
-			*islbl = ft_strdup(&arg[1]);
+			*islbl = ft_strdup(&arg[2]);
 			return (2);
 		}
 	}
@@ -85,6 +85,7 @@ int		identify_argtype(char *arg, t_list *lbls, char **islbl, int *value)
 	{
 		nb = ft_atoi(&arg[1]);
 		tmp = ft_itoa(nb);
+		*value = nb;
 		if (nb >= 1 && nb <= REG_NUMBER && ft_strequ(&arg[1], tmp))
 		{
 			free(tmp);
@@ -93,7 +94,7 @@ int		identify_argtype(char *arg, t_list *lbls, char **islbl, int *value)
 	}
 	else if (arg[0] == DIRECT_CHAR)
 		return (check_direct(arg, lbls, islbl, value));
-	else if (ft_isdigit(arg[0]) || (arg[0] == LABEL_CHAR))
+	else if (ft_isdigit(arg[0]) || (arg[0] == LABEL_CHAR || arg[0] == '-'))
 		return (check_indirect(arg, lbls, islbl, value));
 	return (0);
 }

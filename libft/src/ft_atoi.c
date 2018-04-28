@@ -3,35 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: oantonen <oantonen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 13:19:05 by apakhomo          #+#    #+#             */
-/*   Updated: 2017/11/11 13:19:05 by apakhomo         ###   ########.fr       */
+/*   Created: 2017/11/08 18:17:34 by oantonen          #+#    #+#             */
+/*   Updated: 2018/02/23 18:34:38 by oantonen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_atoi(const char *str)
+static	unsigned long	checkmax(unsigned long res, int sign)
 {
-	unsigned long long	nmbr;
-	char				check;
+	if (res > 9223372036854775806 && sign == 1)
+		return (-1);
+	else if (res > 9223372036854775807 && sign == -1)
+		return (0);
+	return (res);
+}
 
-	nmbr = 0;
-	while ((*str < 14 && *str > 8) || *str == 32)
+int						ft_atoi(const char *str)
+{
+	unsigned long long	res;
+	int					sign;
+
+	res = 0;
+	sign = 1;
+	while ((*str >= 9 && *str <= 13) || *str == 32)
 		str++;
-	check = '+';
-	if (*str == '-' || *str == '+')
+	if (*str == '+')
+		str++;
+	else if (*str == '-')
 	{
-		check = *str;
+		sign = -1;
 		str++;
 	}
-	while ((*str >= '0') && (*str <= '9'))
+	while ((*str >= '0' && *str <= '9') && *str)
 	{
-		nmbr = nmbr * 10 + (*str - '0');
+		res = res * 10 + (*str - '0') % 10;
 		str++;
 	}
-	if (nmbr > 9223372036854775807)
-		return (check == '-' ? 0 : -1);
-	return (check == '-' ? -nmbr : nmbr);
+	res = checkmax(res, sign);
+	return (res * sign);
 }

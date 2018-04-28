@@ -2,7 +2,7 @@
 .comment	"TURTLE FFS U LAMA"
 
 entry:
-	sti			r1, %:zork, %1
+	sti			r16, %:zork, %1
 	sti			r1, %:ardef, %1
 	sti			r1, %:avdef, %1
 	sti			r1, %:entry_l1, %1

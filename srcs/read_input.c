@@ -6,7 +6,7 @@
 /*   By: oantonen <oantonen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 15:32:17 by oantonen          #+#    #+#             */
-/*   Updated: 2018/04/26 17:48:30 by oantonen         ###   ########.fr       */
+/*   Updated: 2018/04/28 11:33:44 by oantonen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void	save_header(t_fls *file, int fd)
 	{
 		if (file->line == 0)
 			file->line++;
-		asm_del_lst(&file->lines);
-		free(file);
+		// asm_del_lst(&file->lines);
+		// free(file);
 		print_errors2(1, "[TOKEN]", "incomplete header structure", file->line);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: oantonen <oantonen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 20:39:38 by apakhomo          #+#    #+#             */
-/*   Updated: 2017/11/07 20:39:39 by apakhomo         ###   ########.fr       */
+/*   Updated: 2018/04/27 18:55:55 by oantonen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ typedef struct		s_gnl
 void				ft_list_push_back(t_list **begin_list, t_list *new);
 
 
-char				ft_putchar(char c);
-void				ft_putstr(char *str);
+void				ft_putchar(char c);
+void				ft_putstr(char const *str);
 void				ft_putnbr(int a);
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
@@ -112,7 +112,7 @@ char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_itoa(int n);
 void				ft_putendl(char const *s);
-char				ft_putchar_fd(char c, int fd);
+void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int n, int fd);

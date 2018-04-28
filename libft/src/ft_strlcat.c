@@ -3,35 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: oantonen <oantonen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 13:11:35 by apakhomo          #+#    #+#             */
-/*   Updated: 2017/11/11 13:11:35 by apakhomo         ###   ########.fr       */
+/*   Created: 2017/11/07 21:57:20 by oantonen          #+#    #+#             */
+/*   Updated: 2018/04/27 18:57:17 by oantonen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t		ft_strlcat(char *dst, char *src, size_t dstsize)
+size_t	ft_strnlen(const char *s, size_t dstsize)
 {
-	size_t	a;
-	size_t	dstcount;
+	size_t	length;
 
-	a = 0;
-	if (dst == NULL && dstsize == 0)
-		return (ft_strlen(src));
-	while (*(dst + a) != '\0' && a < dstsize)
-		a++;
-	dstcount = a;
-	if (dstsize != 0)
+	if (!s)
+		return (0);
+	length = ft_strlen(s);
+	if (length < dstsize)
+		return (length);
+	else
+		return (dstsize);
+}
+
+size_t			ft_strlcat(char *dst, char *src, size_t buf)
+{
+	size_t	dstlen;
+	size_t	srclen;
+
+	srclen = ft_strlen(src);
+	dstlen = ft_strnlen(dst, buf);
+	if (dstlen == buf)
+		return (buf + srclen);
+	if (srclen < buf - dstlen)
+		ft_memcpy(dst + dstlen, src, srclen + 1);
+	else if (srclen == buf - dstlen)
 	{
-		while (*(src + a - dstcount) && a < dstsize - 1)
-		{
-			*(dst + a) = *(src + a - dstcount);
-			a++;
-		}
+		ft_memcpy(dst + dstlen, src, srclen);
+		dst[dstlen + srclen - 1] = '\0';
 	}
-	if (dstcount < dstsize)
-		*(dst + a) = '\0';
-	return (dstcount + ft_strlen(src));
+	else
+	{
+		ft_memcpy(dst + dstlen, src, buf - 1 - dstlen);
+		dst[buf - 1] = '\0';
+	}
+	return (dstlen + srclen);
 }

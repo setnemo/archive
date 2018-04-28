@@ -3,38 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: oantonen <oantonen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 15:24:32 by apakhomo          #+#    #+#             */
-/*   Updated: 2017/11/11 15:24:33 by apakhomo         ###   ########.fr       */
+/*   Created: 2017/11/20 15:26:13 by oantonen          #+#    #+#             */
+/*   Updated: 2017/11/21 11:59:15 by oantonen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+static	void	ft_delete(t_list **lst)
 {
-	t_list	*new_list;
-	t_list	*temp_list;
-	t_list	*f_list;
+	t_list *ptr;
 
-	if (!lst || !f)
-		return (NULL);
-	f_list = f(lst);
-	new_list = ft_lstnew(f_list->content, f_list->content_size);
-	if (new_list != NULL)
+	ptr = NULL;
+	if (!lst || !*lst)
+		return ;
+	while (*lst != NULL)
 	{
-		temp_list = new_list;
+		ptr = (*lst)->next;
+		free((*lst)->content);
+		free(*lst);
+		*lst = ptr;
+	}
+}
+
+t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+{
+	t_list *new_list;
+	t_list *head;
+
+	head = NULL;
+	if (lst)
+	{
+		if (!(new_list = f(lst)))
+			return (NULL);
 		lst = lst->next;
-		while (lst)
+		head = new_list;
+		while (lst != NULL)
 		{
-			f_list = f(lst);
-			temp_list->next = ft_lstnew(f_list->content, f_list->content_size);
-			if (temp_list->next == NULL)
+			if (!(new_list->next = f(lst)))
+			{
+				ft_delete(&new_list);
 				return (NULL);
-			temp_list = temp_list->next;
+			}
+			new_list = new_list->next;
 			lst = lst->next;
 		}
 	}
-	return (new_list);
+	return (head);
 }

@@ -3,49 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: oantonen <oantonen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/27 09:55:17 by apakhomo          #+#    #+#             */
-/*   Updated: 2018/01/27 09:55:17 by apakhomo         ###   ########.fr       */
+/*   Created: 2017/11/22 10:50:50 by oantonen          #+#    #+#             */
+/*   Updated: 2018/04/27 18:57:59 by oantonen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	get_ret(char c)
+static	int		char2int(char str)
 {
+	char	*base;
 	int		i;
-	char	*hex;
 
 	i = 0;
-	hex = "0123456789abcdef\0";
-	while (i < 16)
-	{
-		if (c == hex[i] || c + 32 == hex[i])
-			return (i);
-		i++;
-	}
-	return (-1);
+	base = "0123456789ABCDEF";
+	if ((str >= '0' && str <= '9') || (str >= 'A' && str <= 'F'))
+		while (base[i] != str)
+			i++;
+	return (i);
 }
 
-int			ft_atoi_base(char *str, int base)
+static	char	checkchar(char str, int s_base)
 {
-	int	p;
-	int	i;
-	int	ret;
+	char	*base;
+	int		i;
 
+	base = "0123456789ABCDEF";
 	i = 0;
-	p = 0;
-	if (str[i] == '0')
-		i++;
-	if (str[i] == 'x' || str[i] == 'X')
-		i++;
-	while (ft_isdigit(str[i]) || HEXCHAR || HEXSYMB)
+	while (*base && i < s_base)
 	{
-		if ((ret = get_ret(str[i])) == -1)
-			return (0);
-		p = base * p + ret % base;
+		if (str == *base)
+			return (1);
+		base++;
 		i++;
 	}
-	return (p);
+	return (0);
+}
+
+int			ft_atoi_base(char *str, int s_base)
+{
+	unsigned long long	res;
+	int					sign;
+
+	sign = 1;
+	res = 0;
+	while ((*str >= 9 && *str <= 13) || *str == 32)
+		str++;
+	(*str == '-' && s_base == 10) ? sign = -1 : sign;
+	(*str == '+' || *str == '-') ? str++ : str;
+	if (*str == '0' && (*(str + 1) == 'X' || *(str + 1) == 'x'))
+		str = str + 2;
+	while (checkchar(ft_toupper(*str), s_base) == 1 && *str)
+	{
+		res = res * s_base + (char2int(ft_toupper(*str)) % s_base);
+		str++;
+	}
+	return (res * sign);
 }

@@ -3,71 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: oantonen <oantonen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 15:11:01 by apakhomo          #+#    #+#             */
-/*   Updated: 2017/11/11 15:11:02 by apakhomo         ###   ########.fr       */
+/*   Created: 2017/11/14 20:54:42 by oantonen          #+#    #+#             */
+/*   Updated: 2017/12/27 12:21:05 by oantonen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_itoa_count(int n)
+static int		arr_length(long long int n)
 {
-	int	i;
+	int				i;
 
 	i = 0;
-	if (n < 0)
+	if (n <= 0)
+		i = 1;
+	while (n != 0)
 	{
-		i++;
-		n = -n;
-	}
-	while (n > 10)
-	{
-		n /= 10;
+		n = n / 10;
 		i++;
 	}
-	if (n < 10)
-		i++;
 	return (i);
 }
 
-static void	ft_itoa_record(char *str, int n, int *i)
+char			*ft_itoa(int n)
 {
-	unsigned int m;
+	char			*fresh;
+	int				chars;
+	long long int	long_n;
 
-	m = n;
-	if (n < 0)
+	long_n = n;
+	chars = arr_length(n);
+	if (!(fresh = ft_strnew(chars)))
+		return (NULL);
+	if (long_n < 0)
 	{
-		str[*i] = '-';
-		*i = (*i) + 1;
-		m = -n;
+		fresh[0] = '-';
+		long_n = -long_n;
 	}
-	if (m >= 10)
+	else if (long_n == 0)
 	{
-		ft_itoa_record(str, m / 10, i);
-		ft_itoa_record(str, m % 10, i);
+		fresh[0] = '0';
+		return (fresh);
 	}
-	if (m < 10)
+	while (long_n != 0)
 	{
-		str[*i] = m + '0';
-		*i = (*i) + 1;
+		fresh[chars - 1] = long_n % 10 + '0';
+		long_n = long_n / 10;
+		chars--;
 	}
-}
-
-char		*ft_itoa(int n)
-{
-	char	*str;
-	int		a;
-	int		*i;
-
-	i = &a;
-	a = 0;
-	str = (char*)malloc(sizeof(char) * (ft_itoa_count(n) + 1));
-	if (str)
-	{
-		ft_itoa_record(str, n, i);
-		str[a] = '\0';
-	}
-	return (str);
+	return (fresh);
 }

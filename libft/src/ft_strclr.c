@@ -3,17 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strclr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: oantonen <oantonen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 14:56:22 by apakhomo          #+#    #+#             */
-/*   Updated: 2017/11/11 14:56:23 by apakhomo         ###   ########.fr       */
+/*   Created: 2017/11/09 20:09:57 by oantonen          #+#    #+#             */
+/*   Updated: 2017/12/27 21:15:41 by oantonen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_strclr(char *s)
+void	ft_strclr(char *s)
 {
 	while (s != NULL && *s)
-		*s++ = '\0';
+	{
+		*s = '\0';
+		s++;
+	}
 }

@@ -3,41 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apakhomo <apakhomo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oantonen <oantonen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 16:03:47 by apakhomo          #+#    #+#             */
-/*   Updated: 2018/04/26 18:04:03 by apakhomo         ###   ########.fr       */
+/*   Updated: 2018/04/28 11:49:33 by oantonen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "core_asm.h"
-#include "asm.h"
 #include "error_asm.h"
 
-void	cleaning_asm_lst_lst_spltd(t_spl *lst)
+int			to_file(t_list **fl_lst, t_asm *data)
+{
+	t_fls *fls;
+	t_spl *spl;
+
+	fls = (*fl_lst)->content;
+	if (fl_lst || data)
+		;
+	ft_printf("name:%s\n", fls->name);
+	ft_printf("comment:%s\n", fls->cmnt);
+	spl = (t_spl*)fls->spltd->next->content;
+	ft_printf("label_name:%s\n", spl->lbl);
+	ft_printf("opcode:%s\n", spl->op_code);
+	ft_printf("count arg:%d\n", spl->q_arg);
+	ft_printf("label link:%s.%s.%s\n", spl->islbl[0], spl->islbl[1], spl->islbl[2]);
+	ft_printf("byte code:%d.%d.%d\n", spl->bc[0], spl->bc[1], spl->bc[2]);
+	ft_printf("value arg:%d.%d.%d\n", spl->value[0], spl->value[1], spl->value[2]);
+
+	return (0);
+}
+
+void		cleaning_asm_lst_lst_spltd(t_spl *lst)
 {
 	t_list	*ptr;
 	t_list	*ptr2;
+	int		i;
 
+	i = 0;
 	if (lst->lbl)
 		ft_strdel(&lst->lbl);
-	if (lst->op_code && *lst->op_code != 0)
-		ft_strdel(&lst->op_code);
-	if (lst->args)
+	if (lst->op_code != NULL)
+		ft_strdel(&(lst->op_code));
+	while(i < 3)
 	{
-		ptr = lst->args;
-		while (ptr)
-		{
-			ptr2 = ptr;
-			ptr = ptr->next;
-			if (ptr2->content)
-				free(ptr2->content);
-			free(ptr2);
-		}		
+		if (lst->islbl[i])
+			ft_strdel(&(lst->islbl[i]));
+		i++;
+	}
+	ptr = lst->args;
+	while (ptr)
+	{
+		ptr2 = ptr;
+		ptr = ptr->next;
+		if (ptr2->content)
+			free(ptr2->content);
+		free(ptr2);
 	}
 }
 
-void	cleaning_asm_lst_spltd(t_list *lst)
+void		cleaning_asm_lst_spltd(t_list *lst)
 {
 	t_list	*ptr;
 	t_list	*ptr2;
@@ -47,7 +72,6 @@ void	cleaning_asm_lst_spltd(t_list *lst)
 	{
 		ptr2 = ptr;
 		ptr = ptr->next;
-
 		if (ptr2->content)
 		{
 			cleaning_asm_lst_lst_spltd(ptr2->content);
@@ -56,7 +80,7 @@ void	cleaning_asm_lst_spltd(t_list *lst)
 		free(ptr2);
 	}
 }
-void	cleaning_asm_lst_instr(t_list *lst)
+void		cleaning_asm_lst_instr(t_list *lst)
 {
 	t_list	*ptr;
 	t_list	*ptr2;
@@ -71,7 +95,7 @@ void	cleaning_asm_lst_instr(t_list *lst)
 	}
 }
 
-void	cleaning_asm_lst_lines(t_list *lst)
+void		cleaning_asm_lst_lines(t_list *lst)
 {
 	t_list	*ptr;
 	t_list	*ptr2;
@@ -86,7 +110,7 @@ void	cleaning_asm_lst_lines(t_list *lst)
 	}
 }
 
-void	cleaning_asm_lst_lbls(t_list *lst)
+void		cleaning_asm_lst_lbls(t_list *lst)
 {
 	t_list	*ptr;
 	t_list	*ptr2;
@@ -102,7 +126,7 @@ void	cleaning_asm_lst_lbls(t_list *lst)
 	}
 }
 
-void	cleaning_asm_lst_sruct(t_fls *fls)
+void		cleaning_asm_lst_sruct(t_fls *fls)
 {
 	if (fls->name)
 		ft_strdel(&fls->name);
@@ -116,9 +140,10 @@ void	cleaning_asm_lst_sruct(t_fls *fls)
 		cleaning_asm_lst_instr(fls->instr);
 	if (fls->spltd)
 		cleaning_asm_lst_spltd(fls->spltd);
+	free(fls);
 }
 
-void	cleaning_asm_lst(t_list **fl_lst, t_list **fl_err)
+void		cleaning_asm_lst(t_list **fl_lst, t_list **fl_err)
 {
 	t_list	*tmp;
 	t_list	*tmp2;
@@ -130,30 +155,21 @@ void	cleaning_asm_lst(t_list **fl_lst, t_list **fl_err)
 		tmp = tmp->next;
 		if (tmp2->content)
 			cleaning_asm_lst_sruct(tmp2->content);
-		free(tmp2->content);
 		free(tmp2);
 	}
-	// free(fl_lst);
-	if (g_is_err)
+	tmp = *fl_err;
+	while (tmp)
 	{
-		tmp = *fl_err;
-		while (tmp)
-		{
-			tmp2 = tmp;
-			if (tmp2->content) {
-				cleaning_asm_lst_sruct(tmp2->content);
-				if (tmp2->content)
-					free(tmp2->content);
-			}
-			if (tmp2)
-				free(tmp2);
-			tmp = tmp->next;
-		}
+		tmp2 = tmp;
+		tmp = tmp->next;
+		if (tmp2->content)
+			cleaning_asm_lst_sruct(tmp2->content);
+		if (tmp2)
+			free(tmp2);
 	}
-	// free(fl_err);
 }
 
-int		print_errors2(char err_type, char *token, char *err_str, int line)
+int			print_errors2(char err_type, char *token, char *err_str, int line)
 {
 	char	*err;
 
@@ -177,7 +193,7 @@ int		print_errors2(char err_type, char *token, char *err_str, int line)
 	return (0);
 }
 
-void	asm_del_lst(t_list **begin)
+void				asm_del_lst(t_list **begin)
 {
 	t_list	*ptr;
 	t_list	*ptr2;
@@ -255,12 +271,13 @@ static int			checkdots(t_asm *data, char *argv)
 		ft_strdel(&argv);
 	}
 	if (save_file(&fl_lst, &fl_err, data->fd))
-		ft_printf(DDS, data->dotsname, data->dotcorname);
+		if (to_file(&fl_lst, data))
+			ft_printf(DDS, data->dotsname, data->dotcorname);
 	cleaning_asm_lst(&fl_lst, &fl_err);
 	return (0);
 }
 
-int					main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_asm		data;
 	int			i;
@@ -270,7 +287,7 @@ int					main(int argc, char **argv)
 	if ((argc == 2 && ft_strequ(argv[1], "-h")) || argc == 1)
 	{
 		ft_printf("%s%s%s%s", USAGE);
-		exit(+42);
+		exit(42);
 	}
 	while (++i < argc && *(argv)++)
 	{
@@ -279,10 +296,10 @@ int					main(int argc, char **argv)
 			ret = checkdots(&data, *argv);
 		else if (data.len > 4 && AR)
 			ret = checkdotcor(&data, *argv);
-		// else if (ret)
-		// 	ft_printf("[!] Error! '%s' - file not found\n", *argv);
 		else
 			ft_printf("[!] Error! '%s' - invalid filename\n", *argv);
+		if (ret)
+			ft_printf("[!] Error! '%s' - file not found\n", *argv);
 		cleaning_asm(&data);
 	}
 	system("leaks -quiet asm");

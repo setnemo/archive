@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: oantonen <oantonen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 14:55:54 by apakhomo          #+#    #+#             */
-/*   Updated: 2017/11/11 14:55:54 by apakhomo         ###   ########.fr       */
+/*   Created: 2017/11/09 20:04:08 by oantonen          #+#    #+#             */
+/*   Updated: 2017/11/16 12:55:13 by oantonen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_strdel(char **as)
+void	ft_strdel(char **as)
 {
-	if (as != NULL)
+	if (as && *as)
 	{
 		free(*as);
 		*as = NULL;
