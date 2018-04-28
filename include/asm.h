@@ -25,7 +25,21 @@ typedef struct				s_asm
 	char					*dotsstrtemp;
 	int						dotcorfd;
 	char					*dotcorname;
+	char					*filename;
+	char					*filecomment;
+	struct s_asmlst			*next;
 }							t_asm;
+
+typedef struct				s_asmlst
+{
+	char					*label;
+	char					*op_code;
+	int						count_arg;
+	char					*islabel[3];
+	char					bytecode[3];
+	int						value_arg[3];
+	struct s_asmlst			*next;
+}							t_asmlst;
 
 void						manage_error(t_asm *data, char error);
 

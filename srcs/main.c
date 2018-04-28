@@ -15,22 +15,72 @@
 
 int			to_file(t_list **fl_lst, t_asm *data)
 {
-	t_fls *fls;
-	t_spl *spl;
+	t_fls		*fls;
+	t_spl		*spl;
+	t_asmlst	*file_lst = NULL;
+	t_list		*tmp;
+	int			i;
 
 	fls = (*fl_lst)->content;
-	if (fl_lst || data)
-		;
 	ft_printf("name:%s\n", fls->name);
 	ft_printf("comment:%s\n", fls->cmnt);
-	spl = (t_spl*)fls->spltd->next->content;
-	ft_printf("label_name:%s\n", spl->lbl);
-	ft_printf("opcode:%s\n", spl->op_code);
-	ft_printf("count arg:%d\n", spl->q_arg);
-	ft_printf("label link:%s.%s.%s\n", spl->islbl[0], spl->islbl[1], spl->islbl[2]);
-	ft_printf("byte code:%d.%d.%d\n", spl->bc[0], spl->bc[1], spl->bc[2]);
-	ft_printf("value arg:%d.%d.%d\n", spl->value[0], spl->value[1], spl->value[2]);
-
+	data->filename = ft_strdup(fls->name);
+	data->filecomment = ft_strdup(fls->cmnt);
+	tmp = fls->spltd;
+	file_lst = (t_asmlst*)malloc(sizeof(t_asmlst));
+	data->next = file_lst;
+	ft_bzero(file_lst, sizeof(t_asmlst));
+	while (tmp)
+	{
+		spl = (t_spl*)tmp->content;
+		ft_printf("-----------start-----------\n");
+		ft_printf("free file_lst:%p\n", file_lst);
+		ft_printf("label_name:%s\n", spl->lbl);
+		if (spl->lbl) {
+			file_lst->label = ft_strdup(spl->lbl);
+		ft_printf("pointer1:%p\n", file_lst->label);
+		ft_printf("pointer2:%s\n", file_lst->label);
+		}
+		ft_printf("opcode:%s\n", spl->op_code);
+		if (spl->op_code)
+			file_lst->op_code = ft_strdup(spl->op_code);
+		ft_printf("count arg:%d\n", spl->q_arg);
+		file_lst->count_arg = spl->q_arg;
+		i = 0;
+		while (i < 3)
+		{
+			if (spl->islbl[i])
+				file_lst->islabel[i] = ft_strdup(spl->islbl[i]);
+			i++;
+		}
+		i = 0;
+		while (i < 3)
+		{
+			file_lst->bytecode[i] = spl->bc[i];
+			i++;
+		}
+		i = 0;
+		while (i < 3)
+		{
+			file_lst->value_arg[i] = spl->value[i];
+			i++;
+		}
+		ft_printf("label link:%s.%s.%s\n", spl->islbl[0], spl->islbl[1], spl->islbl[2]);
+		ft_printf("byte code:%d.%d.%d\n", spl->bc[0], spl->bc[1], spl->bc[2]);
+		ft_printf("value arg:%d.%d.%d\n", spl->value[0], spl->value[1], spl->value[2]);
+		ft_printf("------------end------------\n");
+		if (tmp->next != NULL)
+		{
+			spl = (t_spl*)tmp->next->content;
+			tmp = tmp->next;
+			file_lst->next = (t_asmlst*)malloc(sizeof(t_asmlst));
+			file_lst = file_lst->next;
+			ft_bzero(file_lst, sizeof(t_asmlst));
+		}
+		else
+			break ;
+		
+	}
 	return (0);
 }
 
@@ -143,7 +193,41 @@ void		cleaning_asm_lst_sruct(t_fls *fls)
 	free(fls);
 }
 
-void		cleaning_asm_lst(t_list **fl_lst, t_list **fl_err)
+void		clean_data_to_file(t_asm *data)
+{
+	t_asmlst	*file_lst;
+	t_asmlst	*temp;
+	int			i;
+
+	i = 0;
+	file_lst = data->next;
+	if (data->filename)
+		ft_strdel(&data->filename);
+	if (data->filecomment)
+		ft_strdel(&data->filecomment);
+	while (file_lst)
+	{
+		temp = file_lst;
+		ft_printf("free file_lst:%p\n", temp);
+		ft_printf("free pointer:%p\n", temp->label);
+		ft_printf("free label:%s\n", temp->label);
+		// ft_printf("free op_code:%s\n", temp->op_code);
+		if (temp->label)
+			ft_strdel(&temp->label);
+		if (temp->op_code)
+			ft_strdel(&temp->op_code);
+		while (i < 3)
+		{
+			if (temp->islabel[i])
+				ft_strdel(&temp->islabel[i]);
+			i++;
+		}
+		file_lst = file_lst->next;
+		free(temp);
+	}
+}
+
+void		cleaning_asm_lst(t_list **fl_lst, t_list **fl_err, t_asm *data)
 {
 	t_list	*tmp;
 	t_list	*tmp2;
@@ -167,6 +251,8 @@ void		cleaning_asm_lst(t_list **fl_lst, t_list **fl_err)
 		if (tmp2)
 			free(tmp2);
 	}
+	if (data->filename)
+		clean_data_to_file(data);
 }
 
 int			print_errors2(char err_type, char *token, char *err_str, int line)
@@ -228,6 +314,9 @@ static void			init_data(t_asm *data, char *argv)
 	data->dotcorname = NULL;
 	data->fd = -1;
 	data->len = ft_strlen(argv);
+	data->filename = NULL;
+	data->filecomment = NULL;
+	data->next = NULL;
 }
 
 static int			checkdotcor(t_asm *data, char *argv)
@@ -273,7 +362,7 @@ static int			checkdots(t_asm *data, char *argv)
 	if (save_file(&fl_lst, &fl_err, data->fd))
 		if (to_file(&fl_lst, data))
 			ft_printf(DDS, data->dotsname, data->dotcorname);
-	cleaning_asm_lst(&fl_lst, &fl_err);
+	cleaning_asm_lst(&fl_lst, &fl_err, data);
 	return (0);
 }
 
