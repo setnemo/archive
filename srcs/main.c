@@ -13,6 +13,38 @@
 #include "core_asm.h"
 #include "error_asm.h"
 #include "op.h"
+#define LS2 2
+#define LS4 4
+
+int			get_labelsize(char *opcode)
+{
+	int i;
+
+	i = 0;
+	while (i < 16)
+	{
+		if (ft_strequ(g_optab[i].name, opcode))
+			break ;
+		i++;
+	}
+	if (g_optab[i].op_code > 9 && g_optab[i].op_code != 13 && g_optab[i].op_code != 16)
+		return (LS2);
+	return (LS4);
+}
+
+int			get_octal(char *opcode)
+{
+	int i;
+
+	i = 0;
+	while (i < 16)
+	{
+		if (ft_strequ(g_optab[i].name, opcode))
+			break ;
+		i++;
+	}
+	return (g_optab[i].codage);
+}
 
 int			to_file(t_list **fl_lst, t_asm *data)
 {
@@ -92,11 +124,16 @@ int			to_file(t_list **fl_lst, t_asm *data)
 		ft_printf("label link:%s.%s.%s\n", file_lst->islabel[0], file_lst->islabel[1], file_lst->islabel[2]);
 		ft_printf("byte code:%d.%d.%d\n", file_lst->bytecode[0], file_lst->bytecode[1], file_lst->bytecode[2]);
 		ft_printf("value arg:%d.%d.%d\n", file_lst->value_arg[0], file_lst->value_arg[1], file_lst->value_arg[2]);
+		file_lst->octal = get_octal(file_lst->op_code);
+		ft_printf("octal:%d\n", file_lst->octal);
+		file_lst->labelsize = get_labelsize(file_lst->op_code);
+		ft_printf("labelsize:%d\n", file_lst->labelsize);
 		file_lst = file_lst->next;
 	}
-	ft_printf("\n\n\n\nG:%s\n", g_optab[0].name);
+	//g_optab[0].name;
 	return (0);
 }
+
 
 void		cleaning_asm_lst_lst_spltd(t_spl *lst)
 {

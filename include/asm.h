@@ -39,7 +39,7 @@ typedef struct				s_asmlst
 	char					bytecode[3];
 	int						value_arg[3];
 	int						octal;
-	int						size;
+	int						labelsize;
 	struct s_asmlst			*next;
 }							t_asmlst;
 
