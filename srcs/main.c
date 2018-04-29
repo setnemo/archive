@@ -16,6 +16,20 @@
 #define LS2 2
 #define LS4 4
 
+int			get_opcodevalue(char *opcode)
+{
+	int i;
+
+	i = 0;
+	while (i < 16)
+	{
+		if (ft_strequ(g_optab[i].name, opcode))
+			break ;
+		i++;
+	}
+	return (g_optab[i].op_code);
+}
+
 int			get_labelsize(char *opcode)
 {
 	int i;
@@ -66,8 +80,6 @@ int			to_file(t_list **fl_lst, t_asm *data)
 	while (tmp)
 	{
 		spl = (t_spl*)tmp->content;
-		ft_printf("-----------start-----------\n");
-		ft_printf("label_name:%s\n", spl->lbl);
 		if (spl->lbl)
 			file_lst->label = ft_strdup(spl->lbl);
 		if (!spl->op_code && tmp->next)
@@ -75,10 +87,8 @@ int			to_file(t_list **fl_lst, t_asm *data)
 			spl = (t_spl*)tmp->next->content;
 			tmp = tmp->next;
 		}
-		ft_printf("opcode:%s\n", spl->op_code);
 		if (spl->op_code)
 			file_lst->op_code = ft_strdup(spl->op_code);
-		ft_printf("count arg:%d\n", spl->q_arg);
 		file_lst->count_arg = spl->q_arg;
 		i = 0;
 		while (i < 3)
@@ -99,9 +109,6 @@ int			to_file(t_list **fl_lst, t_asm *data)
 			file_lst->value_arg[i] = spl->value[i];
 			i++;
 		}
-		ft_printf("label link:%s.%s.%s\n", spl->islbl[0], spl->islbl[1], spl->islbl[2]);
-		ft_printf("byte code:%d.%d.%d\n", spl->bc[0], spl->bc[1], spl->bc[2]);
-		ft_printf("value arg:%d.%d.%d\n", spl->value[0], spl->value[1], spl->value[2]);
 		if (tmp->next != NULL)
 		{
 			spl = (t_spl*)tmp->next->content;
@@ -114,7 +121,6 @@ int			to_file(t_list **fl_lst, t_asm *data)
 			break ;
 	}
 	file_lst = data->next;
-	ft_printf("-----------||||-----------\n");
 	while (file_lst)
 	{
 		ft_printf("-----------start-----------\n");
@@ -128,6 +134,8 @@ int			to_file(t_list **fl_lst, t_asm *data)
 		ft_printf("octal:%d\n", file_lst->octal);
 		file_lst->labelsize = get_labelsize(file_lst->op_code);
 		ft_printf("labelsize:%d\n", file_lst->labelsize);
+		file_lst->opcodevalue = get_opcodevalue(file_lst->op_code);
+		ft_printf("opcodevalue:%#.2x\n", file_lst->opcodevalue);
 		file_lst = file_lst->next;
 	}
 	//g_optab[0].name;
