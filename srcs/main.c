@@ -121,6 +121,25 @@ int			to_file(t_list **fl_lst, t_asm *data)
 			break ;
 	}
 	file_lst = data->next;
+	data->dotcorfd = open(data->dotcorname, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	int	magic;
+
+	magic = COREWAR_EXEC_MAGIC;
+	magic = ((magic >> 24) & 0xff) | ((magic << 8) & 0xff0000) |
+		((magic >> 8) & 0xff00) | ((magic << 24) & 0xff000000);
+	write(data->dotcorfd, &magic, 4);
+	char	buf1[PROG_NAME_LENGTH - ft_strlen(data->filename)];
+	char	buf2[COMMENT_LENGTH - ft_strlen(data->filecomment)];
+
+	ft_bzero(buf1, PROG_NAME_LENGTH - ft_strlen(data->filename));
+	ft_bzero(buf2, COMMENT_LENGTH - ft_strlen(data->filecomment));
+	write(data->dotcorfd, data->filename, ft_strlen(data->filename));
+	write(data->dotcorfd, buf1, PROG_NAME_LENGTH - ft_strlen(data->filename));
+	write(data->dotcorfd, data->filecomment, ft_strlen(data->filecomment));
+	write(data->dotcorfd, buf2, COMMENT_LENGTH - ft_strlen(data->filecomment));
+	ft_printf("data->dotcorfd = %i, data->dotsname = \"%s\"", data->dotcorfd, data->dotcorname);
+	//write(data->dotcorfd, data->dotsname, PROG_NAME_LENGTH);
+	// write();
 	while (file_lst)
 	{
 		ft_printf("-----------start-----------\n");
