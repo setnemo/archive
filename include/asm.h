@@ -42,6 +42,7 @@ typedef struct				s_asmlst
 	int						labelsize;
 	int						opcodevalue;
 	int						octalvalue;
+	int						listsize[4];
 	struct s_asmlst			*next;
 }							t_asmlst;
 

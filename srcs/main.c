@@ -16,6 +16,30 @@
 #define LS2 2
 #define LS4 4
 
+void		get_listsize(t_asmlst *file_lst)
+{
+	int i;
+
+	i = 1;
+	if (file_lst->octal)
+		file_lst->listsize[0] = 2;
+	else
+		file_lst->listsize[0] = 1;
+	while (i < 4)
+	{
+		if (file_lst->bytecode[i - 1])
+		{
+			if (file_lst->bytecode[i - 1] == 1)
+				file_lst->listsize[i] = 1;
+			if (file_lst->bytecode[i - 1] == 2)
+				file_lst->listsize[i] = file_lst->labelsize;
+			if (file_lst->bytecode[i - 1] == 3)
+				file_lst->listsize[i] = 2;
+		}
+		i++;
+	}
+}
+
 int			get_octalvalue(char val[])
 {
 	int		i;
@@ -182,26 +206,35 @@ int			to_file(t_list **fl_lst, t_asm *data)
 	// ft_printf("data->dotcorfd = %i, data->dotsname = \"%s\"", data->dotcorfd, data->dotcorname);
 	// write(data->dotcorfd, data->dotsname, PROG_NAME_LENGTH);
 	// write();
+	int allllll;
+	allllll = 0;
 	while (file_lst)
 	{
 		ft_printf("-----------start-----------\n");
 		ft_printf("label_name:%s\n", file_lst->label);
 		ft_printf("opcode:%s\n", file_lst->op_code);
-		// ft_printf("count arg:%d\n", file_lst->count_arg);
-		// ft_printf("label link:%s.%s.%s\n", file_lst->islabel[0], file_lst->islabel[1], file_lst->islabel[2]);
-		// ft_printf("byte code:%d.%d.%d\n", file_lst->bytecode[0], file_lst->bytecode[1], file_lst->bytecode[2]);
-		// ft_printf("value arg:%d.%d.%d\n", file_lst->value_arg[0], file_lst->value_arg[1], file_lst->value_arg[2]);
-		ft_printf("octal:%d\n", file_lst->octal);
+		ft_printf("count arg:%d\n", file_lst->count_arg);
+		ft_printf("label link:%s.%s.%s\n", file_lst->islabel[0], file_lst->islabel[1], file_lst->islabel[2]);
+		ft_printf("byte code:%d.%d.%d\n", file_lst->bytecode[0], file_lst->bytecode[1], file_lst->bytecode[2]);
+		ft_printf("value arg:%d.%d.%d\n", file_lst->value_arg[0], file_lst->value_arg[1], file_lst->value_arg[2]);
 		file_lst->octal = get_octal(file_lst->op_code);
 		ft_printf("octal:%d\n", file_lst->octal);
 		file_lst->labelsize = get_labelsize(file_lst->op_code);
-		// ft_printf("labelsize:%d\n", file_lst->labelsize);
+		ft_printf("labelsize:%d\n", file_lst->labelsize);
 		file_lst->opcodevalue = get_opcodevalue(file_lst->op_code);
-		// ft_printf("opcodevalue:%#.2x\n", file_lst->opcodevalue);
-		file_lst->octalvalue = get_octalvalue(file_lst->bytecode);
-		// ft_printf("octalvalue:%#.2x\n", file_lst->octalvalue);
+		ft_printf("opcodevalue:%#.2x\n", file_lst->opcodevalue);
+		if (file_lst->octal)
+			file_lst->octalvalue = get_octalvalue(file_lst->bytecode);
+		ft_printf("octalvalue:%#.2x\n", file_lst->octalvalue);
+		get_listsize(file_lst);
+		ft_printf("listsize:%d.%d.%d.%d\n", file_lst->listsize[0], file_lst->listsize[1], file_lst->listsize[2], file_lst->listsize[3]);
+		allllll += file_lst->listsize[0];
+		allllll += file_lst->listsize[1];
+		allllll += file_lst->listsize[2];
+		allllll += file_lst->listsize[3];
 		file_lst = file_lst->next;
 	}
+	ft_printf("alllll:%#.2x\n", allllll);
 	//g_optab[0].name;
 	return (0);
 }
