@@ -22,19 +22,22 @@ void		goback(t_asmlst *file_lst, char *str, int flag, int j)
 
 	allb = 0;
 	file_lst = file_lst->next;
-	while (file_lst && flag)
+	if (str)
+		;
+	ft_printf("flag:%i\n", flag);
+	while (file_lst && flag--)
 	{
-		flag--;
-		allb += file_lst->listsize[0];
+		// flag--;
+		//allb += file_lst->listsize[0];
 		allb += file_lst->listsize[1];
 		allb += file_lst->listsize[2];
 		allb += file_lst->listsize[3];
-		if (ft_strequ(str, file_lst->islabel[j]))
-		{
-			file_lst = file_lst->next;
-			break ;
-		}
-		else
+		// if (ft_strequ(str, file_lst->islabel[j]))
+		// {
+		// 	file_lst = file_lst->next;
+		// 	break ;
+		// }
+		// else
 			file_lst = file_lst->next;
 	}
 	ft_printf("::%#.2x::\n", allb);
@@ -79,7 +82,7 @@ void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
 		}
 	}
 	if (tempstart != countl)
-		goback(file_lst, str, flag, j); // тогда флаг это номер листа для похода в обратную сторону - flag - how incr lst 
+		goback(file_lst, str, tempstart - flag, j); // тогда флаг это номер листа для похода в обратную сторону - flag - how incr lst 
 	else
 		;
 		// gofoward(file_lst, str, flag, j); // флаг у нас это количество листов, которые надо пройти вперед
