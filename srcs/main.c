@@ -16,6 +16,42 @@
 #define LS2 2
 #define LS4 4
 
+void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
+{
+	int all;
+	int flag;
+
+	all = 0;
+	flag = 0;
+	while (file_lst && countl)
+	{
+		if (ft_strequ(str, file_lst->label))
+		{
+			flag = countl;
+			break ;
+		}
+		countl--;
+		file_lst = file_lst->next;
+	}
+	if (flag)
+	{
+
+	}
+	else
+	{
+		while (file_lst && countl)
+		{
+			if (ft_strequ(str, file_lst->label))
+			{
+				flag = countl;
+				break ;
+			}
+			countl--;
+			file_lst = file_lst->next;
+		}
+	}
+}
+
 void		get_listsize(t_asmlst *file_lst)
 {
 	int i;
@@ -110,6 +146,7 @@ int			get_octal(char *opcode)
 	return (g_optab[i].codage);
 }
 
+
 int			to_file(t_list **fl_lst, t_asm *data)
 {
 	t_fls		*fls;
@@ -173,41 +210,6 @@ int			to_file(t_list **fl_lst, t_asm *data)
 	file_lst = data->next;
 	data->dotcorfd = open(data->dotcorname, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 
-	int		magic;
-	char	buf1[PROG_NAME_LENGTH - ft_strlen(data->filename)];
-	char	buf2[COMMENT_LENGTH - ft_strlen(data->filecomment)];
-	int		fix;
-
-	fix = 0;
-	if ((PROG_NAME_LENGTH + 1) % 4 != 0)
-		fix += 4 - (PROG_NAME_LENGTH + 1) % 4;
-	// ft_printf("fix after:%i\n", fix);
-	if ((COMMENT_LENGTH + 1) % 4 != 0)
-		fix += 4 - (COMMENT_LENGTH + 1) % 4;
-	// ft_printf("fix after:%i\n", fix);
-
-	magic = COREWAR_EXEC_MAGIC;
-	magic = ((magic >> 24) & 0xff) | ((magic << 8) & 0xff0000) |
-		((magic >> 8) & 0xff00) | ((magic << 24) & 0xff000000);
-	write(data->dotcorfd, &magic, 4); // MAGIC PRINT
-	ft_bzero(buf1, PROG_NAME_LENGTH  - ft_strlen(data->filename));
-	ft_bzero(buf2, COMMENT_LENGTH - ft_strlen(data->filecomment)); 
-	write(data->dotcorfd, data->filename, ft_strlen(data->filename)); //NAME PRINT
-	write(data->dotcorfd, buf1, PROG_NAME_LENGTH - ft_strlen(data->filename));// NAME SPACE PRINT
-	write(data->dotcorfd, buf1, 4); //NULL PRINT
-	write(data->dotcorfd, buf1, 4); // SIZE BYTECODE PRINT
-	write(data->dotcorfd, data->filecomment, ft_strlen(data->filecomment)); //COMMENT PRINT
-	// ft_printf(":::::%i\n", ft_strlen(data->filecomment)); 
-	// ft_printf(":::::%i\n", COMMENT_LENGTH - ft_strlen(data->filecomment));
-	write(data->dotcorfd, buf2, COMMENT_LENGTH - ft_strlen(data->filecomment)); // COMMENT SPACE PRINT
-	write(data->dotcorfd, buf1, 4); // NULL
-	// if (fix < 4 && fix > 0)
-	// 	write();
-	// ft_printf("data->dotcorfd = %i, data->dotsname = \"%s\"", data->dotcorfd, data->dotcorname);
-	// write(data->dotcorfd, data->dotsname, PROG_NAME_LENGTH);
-	// write();
-	int allllll;
-	allllll = 0;
 	while (file_lst)
 	{
 		ft_printf("-----------start-----------\n");
@@ -228,14 +230,63 @@ int			to_file(t_list **fl_lst, t_asm *data)
 		ft_printf("octalvalue:%#.2x\n", file_lst->octalvalue);
 		get_listsize(file_lst);
 		ft_printf("listsize:%d.%d.%d.%d\n", file_lst->listsize[0], file_lst->listsize[1], file_lst->listsize[2], file_lst->listsize[3]);
-		allllll += file_lst->listsize[0];
-		allllll += file_lst->listsize[1];
-		allllll += file_lst->listsize[2];
-		allllll += file_lst->listsize[3];
+		data->allbytes += file_lst->listsize[0];
+		data->allbytes += file_lst->listsize[1];
+		data->allbytes += file_lst->listsize[2];
+		data->allbytes += file_lst->listsize[3];
 		file_lst = file_lst->next;
 	}
-	ft_printf("alllll:%#.2x\n", allllll);
+	ft_printf("alllll:%#.2x\n", data->allbytes);
 	//g_optab[0].name;
+
+	int countlst;
+
+	countlst = 1;
+	file_lst = data->next;
+	while (file_lst)
+	{
+		i = 0;
+		while (file_lst->islabel[i])
+		{
+			if (file_lst->islabel[i])
+				get_labelvaluesize(data->next, file_lst->islabel[i], countlst, i);
+			i++;
+		}
+		countlst++;
+		file_lst = file_lst->next;
+	}
+
+
+
+	int		magic;
+	char	buf1[PROG_NAME_LENGTH - ft_strlen(data->filename)];
+	char	buf2[COMMENT_LENGTH - ft_strlen(data->filecomment)];
+	int		fix;
+
+	fix = 0;
+	if ((PROG_NAME_LENGTH + 1) % 4 != 0)
+		fix += 4 - (PROG_NAME_LENGTH + 1) % 4;
+	// ft_printf("fix after:%i\n", fix);
+	if ((COMMENT_LENGTH + 1) % 4 != 0)
+		fix += 4 - (COMMENT_LENGTH + 1) % 4;
+	// ft_printf("fix after:%i\n", fix);
+
+	magic = COREWAR_EXEC_MAGIC;
+	magic = ((magic >> 24) & 0xff) | ((magic << 8) & 0xff0000) |
+		((magic >> 8) & 0xff00) | ((magic << 24) & 0xff000000);
+	data->allbytes = ((data->allbytes >> 24) & 0xff) | ((data->allbytes << 8) & 0xff0000) |
+		((data->allbytes >> 8) & 0xff00) | ((data->allbytes << 24) & 0xff000000);
+	write(data->dotcorfd, &magic, 4); // MAGIC PRINT
+	ft_bzero(buf1, PROG_NAME_LENGTH  - ft_strlen(data->filename));
+	ft_bzero(buf2, COMMENT_LENGTH - ft_strlen(data->filecomment)); 
+	write(data->dotcorfd, data->filename, ft_strlen(data->filename)); //NAME PRINT
+	write(data->dotcorfd, buf1, PROG_NAME_LENGTH - ft_strlen(data->filename));// NAME SPACE PRINT
+	write(data->dotcorfd, buf1, 4); //NULL PRINT
+	write(data->dotcorfd, &data->allbytes, 4); // SIZE BYTECODE PRINT
+	write(data->dotcorfd, data->filecomment, ft_strlen(data->filecomment)); //COMMENT PRINT
+	write(data->dotcorfd, buf2, COMMENT_LENGTH - ft_strlen(data->filecomment)); // COMMENT SPACE PRINT
+	write(data->dotcorfd, buf1, 4); // NULL
+
 	return (0);
 }
 

@@ -24,6 +24,7 @@ typedef struct				s_asm
 	char					*dotsstr;
 	char					*dotsstrtemp;
 	int						dotcorfd;
+	int						allbytes;
 	char					*dotcorname;
 	char					*filename;
 	char					*filecomment;
