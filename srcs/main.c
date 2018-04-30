@@ -16,6 +16,32 @@
 #define LS2 2
 #define LS4 4
 
+int			get_octalvalue(char val[])
+{
+	int		i;
+	short	value;
+	int		bit;
+
+	i = 0;
+	value = 0;
+	bit = 7;
+	while (i < 3)
+	{
+		if (val[i] == 3)
+		{
+			value |= 1 << bit;
+			value |= 1 << (bit - 1);
+		}
+		if (val[i] == 2)
+			value |= 1 << bit;
+		if (val[i] == 1)
+			value |= 1 << (bit - 1);
+		bit -= 2;
+		i++;
+	}
+	return (value);
+}
+
 int			get_opcodevalue(char *opcode)
 {
 	int i;
@@ -122,39 +148,58 @@ int			to_file(t_list **fl_lst, t_asm *data)
 	}
 	file_lst = data->next;
 	data->dotcorfd = open(data->dotcorname, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	int	magic;
+
+	int		magic;
+	char	buf1[PROG_NAME_LENGTH - ft_strlen(data->filename)];
+	char	buf2[COMMENT_LENGTH - ft_strlen(data->filecomment)];
+	int		fix;
+
+	fix = 0;
+	if ((PROG_NAME_LENGTH + 1) % 4 != 0)
+		fix += 4 - (PROG_NAME_LENGTH + 1) % 4;
+	// ft_printf("fix after:%i\n", fix);
+	if ((COMMENT_LENGTH + 1) % 4 != 0)
+		fix += 4 - (COMMENT_LENGTH + 1) % 4;
+	// ft_printf("fix after:%i\n", fix);
 
 	magic = COREWAR_EXEC_MAGIC;
 	magic = ((magic >> 24) & 0xff) | ((magic << 8) & 0xff0000) |
 		((magic >> 8) & 0xff00) | ((magic << 24) & 0xff000000);
-	write(data->dotcorfd, &magic, 4);
-	char	buf1[PROG_NAME_LENGTH - ft_strlen(data->filename)];
-	char	buf2[COMMENT_LENGTH - ft_strlen(data->filecomment)];
-
-	ft_bzero(buf1, PROG_NAME_LENGTH - ft_strlen(data->filename));
-	ft_bzero(buf2, COMMENT_LENGTH - ft_strlen(data->filecomment));
-	write(data->dotcorfd, data->filename, ft_strlen(data->filename));
-	write(data->dotcorfd, buf1, PROG_NAME_LENGTH - ft_strlen(data->filename));
-	write(data->dotcorfd, data->filecomment, ft_strlen(data->filecomment));
-	write(data->dotcorfd, buf2, COMMENT_LENGTH - ft_strlen(data->filecomment));
-	ft_printf("data->dotcorfd = %i, data->dotsname = \"%s\"", data->dotcorfd, data->dotcorname);
-	//write(data->dotcorfd, data->dotsname, PROG_NAME_LENGTH);
+	write(data->dotcorfd, &magic, 4); // MAGIC PRINT
+	ft_bzero(buf1, PROG_NAME_LENGTH  - ft_strlen(data->filename));
+	ft_bzero(buf2, COMMENT_LENGTH - ft_strlen(data->filecomment)); 
+	write(data->dotcorfd, data->filename, ft_strlen(data->filename)); //NAME PRINT
+	write(data->dotcorfd, buf1, PROG_NAME_LENGTH - ft_strlen(data->filename));// NAME SPACE PRINT
+	write(data->dotcorfd, buf1, 4); //NULL PRINT
+	write(data->dotcorfd, buf1, 4); // SIZE BYTECODE PRINT
+	write(data->dotcorfd, data->filecomment, ft_strlen(data->filecomment)); //COMMENT PRINT
+	// ft_printf(":::::%i\n", ft_strlen(data->filecomment)); 
+	// ft_printf(":::::%i\n", COMMENT_LENGTH - ft_strlen(data->filecomment));
+	write(data->dotcorfd, buf2, COMMENT_LENGTH - ft_strlen(data->filecomment)); // COMMENT SPACE PRINT
+	write(data->dotcorfd, buf1, 4); // NULL
+	// if (fix < 4 && fix > 0)
+	// 	write();
+	// ft_printf("data->dotcorfd = %i, data->dotsname = \"%s\"", data->dotcorfd, data->dotcorname);
+	// write(data->dotcorfd, data->dotsname, PROG_NAME_LENGTH);
 	// write();
 	while (file_lst)
 	{
 		ft_printf("-----------start-----------\n");
 		ft_printf("label_name:%s\n", file_lst->label);
 		ft_printf("opcode:%s\n", file_lst->op_code);
-		ft_printf("count arg:%d\n", file_lst->count_arg);
-		ft_printf("label link:%s.%s.%s\n", file_lst->islabel[0], file_lst->islabel[1], file_lst->islabel[2]);
-		ft_printf("byte code:%d.%d.%d\n", file_lst->bytecode[0], file_lst->bytecode[1], file_lst->bytecode[2]);
-		ft_printf("value arg:%d.%d.%d\n", file_lst->value_arg[0], file_lst->value_arg[1], file_lst->value_arg[2]);
+		// ft_printf("count arg:%d\n", file_lst->count_arg);
+		// ft_printf("label link:%s.%s.%s\n", file_lst->islabel[0], file_lst->islabel[1], file_lst->islabel[2]);
+		// ft_printf("byte code:%d.%d.%d\n", file_lst->bytecode[0], file_lst->bytecode[1], file_lst->bytecode[2]);
+		// ft_printf("value arg:%d.%d.%d\n", file_lst->value_arg[0], file_lst->value_arg[1], file_lst->value_arg[2]);
+		ft_printf("octal:%d\n", file_lst->octal);
 		file_lst->octal = get_octal(file_lst->op_code);
 		ft_printf("octal:%d\n", file_lst->octal);
 		file_lst->labelsize = get_labelsize(file_lst->op_code);
-		ft_printf("labelsize:%d\n", file_lst->labelsize);
+		// ft_printf("labelsize:%d\n", file_lst->labelsize);
 		file_lst->opcodevalue = get_opcodevalue(file_lst->op_code);
-		ft_printf("opcodevalue:%#.2x\n", file_lst->opcodevalue);
+		// ft_printf("opcodevalue:%#.2x\n", file_lst->opcodevalue);
+		file_lst->octalvalue = get_octalvalue(file_lst->bytecode);
+		// ft_printf("octalvalue:%#.2x\n", file_lst->octalvalue);
 		file_lst = file_lst->next;
 	}
 	//g_optab[0].name;

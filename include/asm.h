@@ -41,6 +41,7 @@ typedef struct				s_asmlst
 	int						octal;
 	int						labelsize;
 	int						opcodevalue;
+	int						octalvalue;
 	struct s_asmlst			*next;
 }							t_asmlst;
 

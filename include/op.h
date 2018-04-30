@@ -28,8 +28,8 @@ typedef struct	s_op
 	char		op_code;
 	int			cycles;
 	char		*descr;
-	char		carry;
 	char		codage;
+	char		carry;
 
 }				t_op;
 
