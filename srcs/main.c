@@ -91,7 +91,7 @@ int			get_labelsize(char *opcode)
 			break ;
 		i++;
 	}
-	if (g_optab[i].op_code > 9 && g_optab[i].op_code != 13 && g_optab[i].op_code != 16)
+	if (g_optab[i].op_code > 8 && g_optab[i].op_code != 13 && g_optab[i].op_code != 16)
 		return (LS2);
 	return (LS4);
 }
