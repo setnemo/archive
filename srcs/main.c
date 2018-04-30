@@ -16,13 +16,43 @@
 #define LS2 2
 #define LS4 4
 
+void		goback(t_asmlst *file_lst, char *str, int flag, int j)
+{
+	int allb;
+
+	allb = 0;
+	file_lst = file_lst->next;
+	while (file_lst && flag)
+	{
+		flag--;
+		allb += file_lst->listsize[0];
+		allb += file_lst->listsize[1];
+		allb += file_lst->listsize[2];
+		allb += file_lst->listsize[3];
+		if (ft_strequ(str, file_lst->islabel[j]))
+		{
+			file_lst = file_lst->next;
+			break ;
+		}
+		else
+			file_lst = file_lst->next;
+	}
+	ft_printf("::%#.2x::\n", allb);
+	int test = 0xFFFF;
+	file_lst->value_arg[j] =  test - allb;
+}
+
 void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
 {
 	int all;
 	int flag;
+	int tempstart;
 
 	all = 0;
 	flag = 0;
+	if (j)
+		;
+	tempstart = countl;
 	while (file_lst && countl)
 	{
 		if (ft_strequ(str, file_lst->label))
@@ -35,21 +65,24 @@ void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
 	}
 	if (flag)
 	{
-
+		;//если лейбл раньше, чем написан в коде. У нас есть флаг, в котором количество листов до указателя на лейбл
+		// если tempstart != countl тогда у нас надо идти в обратную сторону
 	}
 	else
 	{
-		while (file_lst && countl)
+		while (file_lst)
 		{
+			flag++;//у нас будет флаг на количество листов, на которые надо пройти вперед.
 			if (ft_strequ(str, file_lst->label))
-			{
-				flag = countl;
 				break ;
-			}
-			countl--;
 			file_lst = file_lst->next;
 		}
 	}
+	if (tempstart != countl)
+		goback(file_lst, str, flag, j); // тогда флаг это номер листа для похода в обратную сторону - flag - how incr lst 
+	else
+		;
+		// gofoward(file_lst, str, flag, j); // флаг у нас это количество листов, которые надо пройти вперед
 }
 
 void		get_listsize(t_asmlst *file_lst)
@@ -241,21 +274,32 @@ int			to_file(t_list **fl_lst, t_asm *data)
 
 	int countlst;
 
-	countlst = 1;
+	countlst = 0;
 	file_lst = data->next;
 	while (file_lst)
 	{
 		i = 0;
+		countlst++;
 		while (file_lst->islabel[i])
 		{
 			if (file_lst->islabel[i])
 				get_labelvaluesize(data->next, file_lst->islabel[i], countlst, i);
 			i++;
 		}
-		countlst++;
 		file_lst = file_lst->next;
 	}
-
+	file_lst = data->next;
+	while (file_lst)
+	{
+		ft_printf("-----------start2-----------\n");
+		ft_printf("label_name:%s\n", file_lst->label);
+		ft_printf("opcode:%s\n", file_lst->op_code);
+		ft_printf("count arg:%d\n", file_lst->count_arg);
+		ft_printf("label link:%s.%s.%s\n", file_lst->islabel[0], file_lst->islabel[1], file_lst->islabel[2]);
+		ft_printf("byte code:%d.%d.%d\n", file_lst->bytecode[0], file_lst->bytecode[1], file_lst->bytecode[2]);
+		ft_printf("value arg:%#.2x.%#.2x.%#.2x\n", file_lst->value_arg[0], file_lst->value_arg[1], file_lst->value_arg[2]);
+		file_lst = file_lst->next;
+	}
 
 
 	int		magic;
