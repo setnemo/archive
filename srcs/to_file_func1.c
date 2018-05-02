@@ -13,8 +13,49 @@
 #include "core_asm.h"
 #include "error_asm.h"
 #include "op.h"
-#define LS2 2
-#define LS4 4
+
+void		goup(t_asmlst *file_lst, char *str, int flag, int j)
+{
+	int			allb;
+	t_asmlst	*lst;
+	allb = 0;
+	// file_lst = file_lst->next;
+	// if (str)
+	// 	;
+	// ft_printf("flag:%i\n", flag);
+	while (file_lst && flag--)
+	{
+		// lst = file_lst;
+		lst = file_lst;
+		if (ft_strequ(file_lst->islabel[j], str))
+			break ;
+		file_lst = file_lst->next;
+	}
+	// lst = file_lst;
+	if (!j)
+		allb = file_lst->listsize[2] + file_lst->listsize[3];
+	else if (j == 1)
+		allb = file_lst->listsize[3];
+	ft_printf("\t\t\t\top_code|||||||||%s\n", file_lst->op_code);
+	ft_printf("\t\t\t\tallb||||||||||||%#.2x::\n", allb);
+	file_lst = file_lst->next;
+	while (file_lst)
+	{
+		allb += file_lst->listsize[0];
+		allb += file_lst->listsize[1];
+		allb += file_lst->listsize[2];
+		allb += file_lst->listsize[3];
+		ft_printf("\t\t\t\top_code|||||||||%s\n", file_lst->op_code);
+		ft_printf("\t\t\t\tlabel|||||||||||%s\n", file_lst->label);
+		ft_printf("\t\t\t\tallb||||||||||||%#.2x::\n", allb);
+		if (file_lst->label && ft_strequ(str, file_lst->label))
+				break ;
+		file_lst = file_lst->next;
+	}
+	ft_printf("||||UP||||::%#.2x::\n", allb);
+	lst->value_arg[j] =  allb;
+	ft_printf("||||UP||||||::%#.2x::\n", lst->value_arg[j]);
+}
 
 void		goback(t_asmlst *file_lst, char *str, int flag, int j)
 {
@@ -27,22 +68,15 @@ void		goback(t_asmlst *file_lst, char *str, int flag, int j)
 	ft_printf("flag:%i\n", flag);
 	while (file_lst && flag--)
 	{
-		// flag--;
-		//allb += file_lst->listsize[0];
 		allb += file_lst->listsize[1];
 		allb += file_lst->listsize[2];
 		allb += file_lst->listsize[3];
-		// if (ft_strequ(str, file_lst->islabel[j]))
-		// {
-		// 	file_lst = file_lst->next;
-		// 	break ;
-		// }
-		// else
-			file_lst = file_lst->next;
+		file_lst = file_lst->next;
 	}
-	ft_printf("::%#.2x::\n", allb);
+	ft_printf("||||||||||||::%#.2x::\n", allb);
 	int test = 0xFFFF;
 	file_lst->value_arg[j] =  test - allb;
+	ft_printf("||||||||||||::%#.2x::\n", file_lst->value_arg[j]);
 }
 
 void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
@@ -50,14 +84,17 @@ void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
 	int all;
 	int flag;
 	int tempstart;
-
+	t_asmlst *lst;
+	lst = file_lst;
 	all = 0;
 	flag = 0;
 	if (j)
 		;
 	tempstart = countl;
-	while (file_lst && countl)
+	ft_printf("HERAK %s |%i-%i|\n", str, countl, j);
+	while (file_lst && countl - 1)
 	{
+		ft_printf("HERAK go back %s |%i-%i|\n", str, countl, j);
 		if (ft_strequ(str, file_lst->label))
 		{
 			flag = countl;
@@ -66,178 +103,35 @@ void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
 		countl--;
 		file_lst = file_lst->next;
 	}
-	if (flag)
-	{
-		;//если лейбл раньше, чем написан в коде. У нас есть флаг, в котором количество листов до указателя на лейбл
-		// если tempstart != countl тогда у нас надо идти в обратную сторону
-	}
-	else
+	if (!flag)
+	// {
+	// 	;//если лейбл раньше, чем написан в коде. У нас есть флаг, в котором количество листов до указателя на лейбл
+	// 	// если tempstart != countl тогда у нас надо идти в обратную сторону
+	// }
+	// else
 	{
 		while (file_lst)
 		{
+			ft_printf("HERAK go up %s |%i-%i|\n", str, countl, j);
 			flag++;//у нас будет флаг на количество листов, на которые надо пройти вперед.
 			if (ft_strequ(str, file_lst->label))
 				break ;
 			file_lst = file_lst->next;
 		}
 	}
-	if (tempstart != countl)
+	else
+	{
 		goback(file_lst, str, tempstart - flag, j); // тогда флаг это номер листа для похода в обратную сторону - flag - how incr lst 
-	else
-		;
+		return ;
+	}
+	goup(lst, str, flag, j);
 		// gofoward(file_lst, str, flag, j); // флаг у нас это количество листов, которые надо пройти вперед
-}
-
-void		get_listsize(t_asmlst *file_lst)
-{
-	int i;
-
-	i = 1;
-	if (file_lst->octal)
-		file_lst->listsize[0] = 2;
-	else
-		file_lst->listsize[0] = 1;
-	while (i < 4)
-	{
-		if (file_lst->bytecode[i - 1])
-		{
-			if (file_lst->bytecode[i - 1] == 1)
-				file_lst->listsize[i] = 1;
-			if (file_lst->bytecode[i - 1] == 2)
-				file_lst->listsize[i] = file_lst->labelsize;
-			if (file_lst->bytecode[i - 1] == 3)
-				file_lst->listsize[i] = 2;
-		}
-		i++;
-	}
-}
-
-int			get_octalvalue(char val[])
-{
-	int		i;
-	short	value;
-	int		bit;
-
-	i = 0;
-	value = 0;
-	bit = 7;
-	while (i < 3)
-	{
-		if (val[i] == 3)
-		{
-			value |= 1 << bit;
-			value |= 1 << (bit - 1);
-		}
-		if (val[i] == 2)
-			value |= 1 << bit;
-		if (val[i] == 1)
-			value |= 1 << (bit - 1);
-		bit -= 2;
-		i++;
-	}
-	return (value);
-}
-
-int			get_opcodevalue(char *opcode)
-{
-	int i;
-
-	i = 0;
-	while (i < 16)
-	{
-		if (ft_strequ(g_optab[i].name, opcode))
-			break ;
-		i++;
-	}
-	return (g_optab[i].op_code);
-}
-
-int			get_labelsize(char *opcode)
-{
-	int i;
-
-	i = 0;
-	while (i < 16)
-	{
-		if (ft_strequ(g_optab[i].name, opcode))
-			break ;
-		i++;
-	}
-	if (g_optab[i].op_code > 8 && g_optab[i].op_code != 13 && g_optab[i].op_code != 16)
-		return (LS2);
-	return (LS4);
-}
-
-int			get_octal(char *opcode)
-{
-	int i;
-
-	i = 0;
-	while (i < 16)
-	{
-		if (ft_strequ(g_optab[i].name, opcode))
-			break ;
-		i++;
-	}
-	return (g_optab[i].codage);
-}
-
-void		read_tree(t_asmlst *file_lst, t_fls *fls, t_spl *spl)
-{
-	t_list		*tmp;
-	int			i;
-
-	tmp = fls->spltd;
-	while (tmp)
-	{
-		spl = (t_spl*)tmp->content;
-		if (spl->lbl)
-			file_lst->label = ft_strdup(spl->lbl);
-		if (!spl->op_code && tmp->next)
-		{
-			spl = (t_spl*)tmp->next->content;
-			tmp = tmp->next;
-		}
-		if (spl->op_code)
-			file_lst->op_code = ft_strdup(spl->op_code);
-		file_lst->count_arg = spl->q_arg;
-		i = 0;
-		while (i < 3)
-		{
-			if (spl->islbl[i])
-				file_lst->islabel[i] = ft_strdup(spl->islbl[i]);
-			i++;
-		}
-		i = 0;
-		while (i < 3)
-		{
-			file_lst->bytecode[i] = spl->bc[i];
-			i++;
-		}
-		i = 0;
-		while (i < 3)
-		{
-			file_lst->value_arg[i] = spl->value[i];
-			i++;
-		}
-		if (tmp->next != NULL)
-		{
-			spl = (t_spl*)tmp->next->content;
-			tmp = tmp->next;
-			file_lst->next = (t_asmlst*)malloc(sizeof(t_asmlst));
-			file_lst = file_lst->next;
-			ft_bzero(file_lst, sizeof(t_asmlst));
-		}
-		else
-			break ;
-	}
 }
 
 int			to_file(t_list **fl_lst, t_asm *data)
 {
 	t_fls		*fls;
 	t_asmlst	*file_lst = NULL;
-	int			i;
 
 	fls = (*fl_lst)->content;
 	ft_printf("name:%s\n", fls->name);
@@ -248,54 +142,12 @@ int			to_file(t_list **fl_lst, t_asm *data)
 	data->next = file_lst;
 	ft_bzero(file_lst, sizeof(t_asmlst));
 	file_lst = data->next;
-	read_tree(file_lst, fls, NULL);
-	data->dotcorfd = open(data->dotcorname, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	read_tree(file_lst,NULL, fls->spltd);
+	get_file_lst(file_lst, data, 0, 0);
 
-	while (file_lst)
-	{
-		ft_printf("-----------start-----------\n");
-		ft_printf("label_name:%s\n", file_lst->label);
-		ft_printf("opcode:%s\n", file_lst->op_code);
-		ft_printf("count arg:%d\n", file_lst->count_arg);
-		ft_printf("label link:%s.%s.%s\n", file_lst->islabel[0], file_lst->islabel[1], file_lst->islabel[2]);
-		ft_printf("byte code:%d.%d.%d\n", file_lst->bytecode[0], file_lst->bytecode[1], file_lst->bytecode[2]);
-		ft_printf("value arg:%d.%d.%d\n", file_lst->value_arg[0], file_lst->value_arg[1], file_lst->value_arg[2]);
-		file_lst->octal = get_octal(file_lst->op_code);
-		ft_printf("octal:%d\n", file_lst->octal);
-		file_lst->labelsize = get_labelsize(file_lst->op_code);
-		ft_printf("labelsize:%d\n", file_lst->labelsize);
-		file_lst->opcodevalue = get_opcodevalue(file_lst->op_code);
-		ft_printf("opcodevalue:%#.2x\n", file_lst->opcodevalue);
-		if (file_lst->octal)
-			file_lst->octalvalue = get_octalvalue(file_lst->bytecode);
-		ft_printf("octalvalue:%#.2x\n", file_lst->octalvalue);
-		get_listsize(file_lst);
-		ft_printf("listsize:%d.%d.%d.%d\n", file_lst->listsize[0], file_lst->listsize[1], file_lst->listsize[2], file_lst->listsize[3]);
-		data->allbytes += file_lst->listsize[0];
-		data->allbytes += file_lst->listsize[1];
-		data->allbytes += file_lst->listsize[2];
-		data->allbytes += file_lst->listsize[3];
-		file_lst = file_lst->next;
-	}
-	ft_printf("alllll:%#.2x\n", data->allbytes);
 	//g_optab[0].name;
 
-	int countlst;
 
-	countlst = 0;
-	file_lst = data->next;
-	while (file_lst)
-	{
-		i = 0;
-		countlst++;
-		while (file_lst->islabel[i])
-		{
-			if (file_lst->islabel[i])
-				get_labelvaluesize(data->next, file_lst->islabel[i], countlst, i);
-			i++;
-		}
-		file_lst = file_lst->next;
-	}
 	file_lst = data->next;
 	while (file_lst)
 	{
@@ -315,6 +167,7 @@ int			to_file(t_list **fl_lst, t_asm *data)
 	char	buf2[COMMENT_LENGTH - ft_strlen(data->filecomment)];
 	int		fix;
 
+	data->dotcorfd = open(data->dotcorname, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	fix = 0;
 	if ((PROG_NAME_LENGTH + 1) % 4 != 0)
 		fix += 4 - (PROG_NAME_LENGTH + 1) % 4;

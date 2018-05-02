@@ -28,6 +28,7 @@ static void			cleaning_asm(t_asm *data)
 
 static void			init_data(t_asm *data, char *argv)
 {
+	ft_bzero(data, sizeof(t_asm));
 	data->dotsname = NULL;
 	data->dotsstr = NULL;
 	data->dotsstrtemp = NULL;

@@ -25,7 +25,9 @@ SRC_NAME = 	main.c\
 			op.c\
 			cleaning_tree1.c\
 			cleaning_tree2.c\
-			to_file_func1.c
+			to_file_func1.c\
+			to_file_func2.c\
+			to_file_func3.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 

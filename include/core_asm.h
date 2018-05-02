@@ -68,5 +68,6 @@ void			cleaning_asm_lst_spltd(t_list *lst);
 void			cleaning_asm_lst_lines(t_list *lst);
 void			cleaning_asm_lst_lbls(t_list *lst);
 void			cleaning_asm_lst_instr(t_list *lst);
-
+void			read_tree(t_asmlst *file_lst,
+	t_spl *spl, t_list *tmp);
 #endif

@@ -51,4 +51,15 @@ void						manage_error(t_asm *data, char error);
 
 void						start_reading_s(t_asm *data);
 
+
+void						get_listsize(t_asmlst *file_lst);
+int							get_octalvalue(char val[]);
+int							get_opcodevalue(char *opcode);
+int							get_labelsize(char *opcode);
+int							get_octal(char *opcode);
+
+void						get_file_lst(t_asmlst *file_lst, t_asm *data,
+	int i, int countlst);
+void						get_labelvaluesize(t_asmlst *file_lst, char *str,
+	int countl, int j);
 #endif
