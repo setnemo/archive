@@ -225,7 +225,9 @@ void		push_data_to_file(t_asm *data)
 	write(data->dotcorfd, buf2, COMMENT_LENGTH - ft_strlen(data->filecomment)); // COMMENT SPACE PRINT
 	write(data->dotcorfd, buf1, 4); // NULL
 	int temp1;
-	int temp2 = 2147483647;
+	// int temp2 = 2147483647;
+	// t_byterange val;
+	int k;
 	while (file_lst)
 	{
 		write(data->dotcorfd, &file_lst->opcodevalue, 1);
@@ -236,20 +238,30 @@ void		push_data_to_file(t_asm *data)
 		{
 			if (file_lst->bytecode[i])
 			{
+				t_byterange.num = file_lst->value_arg[i];
 				temp1 = getwriteargsize(file_lst, i);
 				if (temp1 == 4)
 				{
+					k = 4;
+					while (--k)
+					{
+						write(data->dotcorfd, &t_byterange.ch[k], 1);
+						ft_printf(":%.2x:\n", t_byterange.ch[k]);
+					}
 					// file_lst->value_arg[i] = swap_bits(file_lst->value_arg[i]);
-					write(data->dotcorfd, &file_lst->value_arg[i], 4);
 				}
 				if (temp1 == 2)
 				{
 					// file_lst->value_arg[i] = swap_bits(file_lst->value_arg[i]);
-					write(data->dotcorfd, &file_lst->value_arg[i], 2);
+					ft_printf(":%.2x:\n", t_byterange.ch[1]);
+					ft_printf(":%.2x:\n", t_byterange.ch[0]);
+					write(data->dotcorfd, &t_byterange.ch2[1], 1);
+					write(data->dotcorfd, &t_byterange.ch2[0], 1);
 				}
-				write(data->dotcorfd, &file_lst->value_arg[i], 1);
+				if (temp1 == 1)
+					write(data->dotcorfd, &file_lst->value_arg[i], 1);
 			}
-			write(data->dotcorfd, &temp2, 4);
+			// write(data->dotcorfd, &temp2, 4);
 			i++;
 		}
 		file_lst = file_lst->next;

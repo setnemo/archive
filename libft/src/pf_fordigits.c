@@ -12,17 +12,17 @@
 
 #include "libft.h"
 
-size_t	ft_strnlen(const char *s, const size_t max)
-{
-	size_t a;
+// size_t	ft_strnlen(const char *s, const size_t max)
+// {
+// 	size_t a;
 
-	if (!s)
-		return (0);
-	a = 0;
-	while (s[a] && a < max)
-		a++;
-	return (a);
-}
+// 	if (!s)
+// 		return (0);
+// 	a = 0;
+// 	while (s[a] && a < max)
+// 		a++;
+// 	return (a);
+// }
 
 int		max(int a, int b)
 {
