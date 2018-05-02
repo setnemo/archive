@@ -22,7 +22,10 @@ SRC_NAME = 	main.c\
 			split_lines.c\
 			check_instructions.c\
 			check_instructions2.c\
-			op.c
+			op.c\
+			cleaning_tree1.c\
+			cleaning_tree2.c\
+			to_file_func1.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 

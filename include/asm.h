@@ -49,8 +49,6 @@ typedef struct				s_asmlst
 
 void						manage_error(t_asm *data, char error);
 
-int							start_reading_file(t_asm *data);
-
 void						start_reading_s(t_asm *data);
 
 #endif

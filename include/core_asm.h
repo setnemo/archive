@@ -60,4 +60,13 @@ int				print_errors2(char err_type, char *token, char *err_str,\
 void			asm_del_lst(t_list **begin);
 int				identify_argtype(char *arg, t_list *lbls, char **islbl, int *value);
 
+void			cleaning_asm_lst(t_list **fl_lst, t_list **fl_err, t_asm *data);
+int				to_file(t_list **fl_lst, t_asm *data);
+
+void			cleaning_asm_lst_lst_spltd(t_spl *lst);
+void			cleaning_asm_lst_spltd(t_list *lst);
+void			cleaning_asm_lst_lines(t_list *lst);
+void			cleaning_asm_lst_lbls(t_list *lst);
+void			cleaning_asm_lst_instr(t_list *lst);
+
 #endif
