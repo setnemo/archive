@@ -46,6 +46,7 @@ void		goup(t_asmlst *file_lst, char *str, int flag, int j)
 int			setfixsize(t_asmlst *file_lst, int j)
 {
 	int ret;
+
 	if (file_lst->bytecode[j] == 1)
 	{
 		ret = 0xFF;
@@ -72,7 +73,6 @@ void		goback(t_asmlst *file_lst, char *str, int flag, int j)
 	if (str)
 		;
 	allb = 0;
-	// file_lst = file_lst->next;
 	while (file_lst && flag--)
 		file_lst = file_lst->next;
 	while (file_lst)
@@ -81,12 +81,9 @@ void		goback(t_asmlst *file_lst, char *str, int flag, int j)
 				break ;
 		SUMARR(allb, file_lst->listsize);
 		file_lst = file_lst->next;
-		ft_printf("NOW ALLB 2== %i\n", allb);
 	}
-		ft_printf("NOW ALLB == %i\n", allb);
 	fix = setfixsize(file_lst, j);
 	file_lst->value_arg[j] = fix - allb - 1;
-	ft_printf("NOW file_lst->value_arg[j]== %i [%s] fix[%x]\n", file_lst->value_arg[j], file_lst->islabel[j], fix);
 }
 
 void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
@@ -122,12 +119,12 @@ void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
 	}
 	else
 	{
-		ft_printf("NOW FLAG == %i\n", flag);
 		goback(lst, str, tempstart - flag, j);
 		return ;
 	}
 	goup(lst, str, flag, j);
 }
+void		push_data_to_file(t_asm *data);
 
 int			to_file(t_list **fl_lst, t_asm *data)
 {
@@ -161,15 +158,48 @@ int			to_file(t_list **fl_lst, t_asm *data)
 		ft_printf("value arg:%#x.%#.2x.%#.2x\n", file_lst->value_arg[0], file_lst->value_arg[1], file_lst->value_arg[2]);
 		ft_printf("opcodevalue:%#.2x\n", file_lst->opcodevalue);
 		ft_printf("octalvalue:%#.2x\n", file_lst->octalvalue);
+		ft_printf("labelsize:%d\n", file_lst->labelsize);
 		file_lst = file_lst->next;
 	}
+	push_data_to_file(data);
+	return (0);
+}
+int			getwriteargsize(t_asmlst *file_lst, int j)
+{
+	if (file_lst->bytecode[j] == 1)
+		return (1);
+	if (file_lst->bytecode[j] == 3)
+		return (2);
+	if (file_lst->labelsize == 2)
+		return (2);
+	return (4);
+}
 
+#define PUSHBYTES(x) (x = ((x >> 24) & 0xff) | ((x << 8) & 0xff0000) | ((x >> 8) & 0xff00) | ((x << 24) & 0xff000000))
 
-	int		magic;
-	char	buf1[PROG_NAME_LENGTH - ft_strlen(data->filename)];
-	char	buf2[COMMENT_LENGTH - ft_strlen(data->filecomment)];
-	int		fix;
+int reverseBits(int b)
+{
+	b = (b & 0xF0) >> 4 | (b & 0x0F) << 4; // 1)
+	b = (b & 0xCC) >> 2 | (b & 0x33) << 2; // 2)
+	b = (b & 0xAA) >> 1 | (b & 0x55) << 1; // 3)
+	return (b);
+}
 
+unsigned char	swap_bits(unsigned char octet)
+{
+	return (octet >> 4 | octet << 4);
+}
+
+void		push_data_to_file(t_asm *data)
+{
+	int			magic;
+	char		buf1[PROG_NAME_LENGTH - ft_strlen(data->filename)];
+	char		buf2[COMMENT_LENGTH - ft_strlen(data->filecomment)];
+	int			fix;
+	t_asmlst	*file_lst = NULL;
+	int			i;
+
+	file_lst = data->next;
 	data->dotcorfd = open(data->dotcorname, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	fix = 0;
 	if ((PROG_NAME_LENGTH + 1) % 4 != 0)
@@ -180,10 +210,10 @@ int			to_file(t_list **fl_lst, t_asm *data)
 	// ft_printf("fix after:%i\n", fix);
 
 	magic = COREWAR_EXEC_MAGIC;
-	magic = ((magic >> 24) & 0xff) | ((magic << 8) & 0xff0000) |
-		((magic >> 8) & 0xff00) | ((magic << 24) & 0xff000000);
-	data->allbytes = ((data->allbytes >> 24) & 0xff) | ((data->allbytes << 8) & 0xff0000) |
-		((data->allbytes >> 8) & 0xff00) | ((data->allbytes << 24) & 0xff000000);
+	PUSHBYTES(magic);
+	PUSHBYTES(data->allbytes);
+	// data->allbytes = ((data->allbytes >> 24) & 0xff) | ((data->allbytes << 8) & 0xff0000) |
+	// 	((data->allbytes >> 8) & 0xff00) | ((data->allbytes << 24) & 0xff000000);
 	write(data->dotcorfd, &magic, 4); // MAGIC PRINT
 	ft_bzero(buf1, PROG_NAME_LENGTH  - ft_strlen(data->filename));
 	ft_bzero(buf2, COMMENT_LENGTH - ft_strlen(data->filecomment)); 
@@ -194,6 +224,40 @@ int			to_file(t_list **fl_lst, t_asm *data)
 	write(data->dotcorfd, data->filecomment, ft_strlen(data->filecomment)); //COMMENT PRINT
 	write(data->dotcorfd, buf2, COMMENT_LENGTH - ft_strlen(data->filecomment)); // COMMENT SPACE PRINT
 	write(data->dotcorfd, buf1, 4); // NULL
+	int temp1;
+	int temp2 = 2147483647;
+	while (file_lst)
+	{
+		write(data->dotcorfd, &file_lst->opcodevalue, 1);
+		if (file_lst->octalvalue)
+			write(data->dotcorfd, &file_lst->octalvalue, 1);
+		i = 0;
+		while (i < 3)
+		{
+			if (file_lst->bytecode[i])
+			{
+				temp1 = getwriteargsize(file_lst, i);
+				if (temp1 == 4)
+				{
+					// file_lst->value_arg[i] = swap_bits(file_lst->value_arg[i]);
+					write(data->dotcorfd, &file_lst->value_arg[i], 4);
+				}
+				if (temp1 == 2)
+				{
+					// file_lst->value_arg[i] = swap_bits(file_lst->value_arg[i]);
+					write(data->dotcorfd, &file_lst->value_arg[i], 2);
+				}
+				write(data->dotcorfd, &file_lst->value_arg[i], 1);
+			}
+			write(data->dotcorfd, &temp2, 4);
+			i++;
+		}
+		file_lst = file_lst->next;
+	}
 
-	return (0);
+
+
+
+
+
 }
