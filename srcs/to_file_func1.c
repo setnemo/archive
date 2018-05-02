@@ -13,70 +13,80 @@
 #include "core_asm.h"
 #include "error_asm.h"
 #include "op.h"
+#define SUMARR(x, y) (x += (y[0] + y[1] + y[2] + y[3]))
 
 void		goup(t_asmlst *file_lst, char *str, int flag, int j)
 {
 	int			allb;
 	t_asmlst	*lst;
+
 	allb = 0;
-	// file_lst = file_lst->next;
-	// if (str)
-	// 	;
-	// ft_printf("flag:%i\n", flag);
 	while (file_lst && flag--)
 	{
-		// lst = file_lst;
 		lst = file_lst;
 		if (ft_strequ(file_lst->islabel[j], str))
 			break ;
 		file_lst = file_lst->next;
 	}
-	// lst = file_lst;
 	if (!j)
 		allb = file_lst->listsize[2] + file_lst->listsize[3];
 	else if (j == 1)
 		allb = file_lst->listsize[3];
-	ft_printf("\t\t\t\top_code|||||||||%s\n", file_lst->op_code);
-	ft_printf("\t\t\t\tallb||||||||||||%#.2x::\n", allb);
 	file_lst = file_lst->next;
 	while (file_lst)
 	{
-		allb += file_lst->listsize[0];
-		allb += file_lst->listsize[1];
-		allb += file_lst->listsize[2];
-		allb += file_lst->listsize[3];
-		ft_printf("\t\t\t\top_code|||||||||%s\n", file_lst->op_code);
-		ft_printf("\t\t\t\tlabel|||||||||||%s\n", file_lst->label);
-		ft_printf("\t\t\t\tallb||||||||||||%#.2x::\n", allb);
+		SUMARR(allb, file_lst->listsize);
 		if (file_lst->label && ft_strequ(str, file_lst->label))
 				break ;
 		file_lst = file_lst->next;
 	}
-	ft_printf("||||UP||||::%#.2x::\n", allb);
 	lst->value_arg[j] =  allb;
-	ft_printf("||||UP||||||::%#.2x::\n", lst->value_arg[j]);
+}
+
+int			setfixsize(t_asmlst *file_lst, int j)
+{
+	int ret;
+	if (file_lst->bytecode[j] == 1)
+	{
+		ret = 0xFF;
+		return (ret);
+	}
+	if (file_lst->bytecode[j] == 3)
+	{
+		ret = 0xFFFF;
+		return (ret);
+	}
+	if (file_lst->labelsize == 2)
+	{
+		ret = 0xFFFF;
+		return (ret);
+	}
+	ret = 0xFFFFFFFF;
+	return (ret);
 }
 
 void		goback(t_asmlst *file_lst, char *str, int flag, int j)
 {
 	int allb;
-
-	allb = 0;
-	file_lst = file_lst->next;
+	int fix;
 	if (str)
 		;
-	ft_printf("flag:%i\n", flag);
+	allb = 0;
+	// file_lst = file_lst->next;
 	while (file_lst && flag--)
-	{
-		allb += file_lst->listsize[1];
-		allb += file_lst->listsize[2];
-		allb += file_lst->listsize[3];
 		file_lst = file_lst->next;
+	while (file_lst)
+	{
+		if (file_lst->islabel[j] && ft_strequ(str, file_lst->islabel[j]))
+				break ;
+		SUMARR(allb, file_lst->listsize);
+		file_lst = file_lst->next;
+		ft_printf("NOW ALLB 2== %i\n", allb);
 	}
-	ft_printf("||||||||||||::%#.2x::\n", allb);
-	int test = 0xFFFF;
-	file_lst->value_arg[j] =  test - allb;
-	ft_printf("||||||||||||::%#.2x::\n", file_lst->value_arg[j]);
+		ft_printf("NOW ALLB == %i\n", allb);
+	fix = setfixsize(file_lst, j);
+	file_lst->value_arg[j] = fix - allb - 1;
+	ft_printf("NOW file_lst->value_arg[j]== %i [%s] fix[%x]\n", file_lst->value_arg[j], file_lst->islabel[j], fix);
 }
 
 void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
@@ -84,17 +94,14 @@ void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
 	int all;
 	int flag;
 	int tempstart;
+
 	t_asmlst *lst;
 	lst = file_lst;
 	all = 0;
 	flag = 0;
-	if (j)
-		;
 	tempstart = countl;
-	ft_printf("HERAK %s |%i-%i|\n", str, countl, j);
 	while (file_lst && countl - 1)
 	{
-		ft_printf("HERAK go back %s |%i-%i|\n", str, countl, j);
 		if (ft_strequ(str, file_lst->label))
 		{
 			flag = countl;
@@ -104,16 +111,10 @@ void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
 		file_lst = file_lst->next;
 	}
 	if (!flag)
-	// {
-	// 	;//если лейбл раньше, чем написан в коде. У нас есть флаг, в котором количество листов до указателя на лейбл
-	// 	// если tempstart != countl тогда у нас надо идти в обратную сторону
-	// }
-	// else
 	{
 		while (file_lst)
 		{
-			ft_printf("HERAK go up %s |%i-%i|\n", str, countl, j);
-			flag++;//у нас будет флаг на количество листов, на которые надо пройти вперед.
+			flag++;
 			if (ft_strequ(str, file_lst->label))
 				break ;
 			file_lst = file_lst->next;
@@ -121,11 +122,11 @@ void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
 	}
 	else
 	{
-		goback(file_lst, str, tempstart - flag, j); // тогда флаг это номер листа для похода в обратную сторону - flag - how incr lst 
+		ft_printf("NOW FLAG == %i\n", flag);
+		goback(lst, str, tempstart - flag, j);
 		return ;
 	}
 	goup(lst, str, flag, j);
-		// gofoward(file_lst, str, flag, j); // флаг у нас это количество листов, которые надо пройти вперед
 }
 
 int			to_file(t_list **fl_lst, t_asm *data)
@@ -157,7 +158,9 @@ int			to_file(t_list **fl_lst, t_asm *data)
 		ft_printf("count arg:%d\n", file_lst->count_arg);
 		ft_printf("label link:%s.%s.%s\n", file_lst->islabel[0], file_lst->islabel[1], file_lst->islabel[2]);
 		ft_printf("byte code:%d.%d.%d\n", file_lst->bytecode[0], file_lst->bytecode[1], file_lst->bytecode[2]);
-		ft_printf("value arg:%#.2x.%#.2x.%#.2x\n", file_lst->value_arg[0], file_lst->value_arg[1], file_lst->value_arg[2]);
+		ft_printf("value arg:%#x.%#.2x.%#.2x\n", file_lst->value_arg[0], file_lst->value_arg[1], file_lst->value_arg[2]);
+		ft_printf("opcodevalue:%#.2x\n", file_lst->opcodevalue);
+		ft_printf("octalvalue:%#.2x\n", file_lst->octalvalue);
 		file_lst = file_lst->next;
 	}
 
