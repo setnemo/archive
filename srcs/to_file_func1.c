@@ -41,6 +41,7 @@ void		goup(t_asmlst *file_lst, char *str, int flag, int j)
 		file_lst = file_lst->next;
 	}
 	lst->value_arg[j] = allb;
+	ft_printf("=||UP||=>allb:%#.8x\n", allb);
 }
 
 int			setfixsize(t_asmlst *file_lst, int j)
@@ -88,8 +89,8 @@ void		goback(t_asmlst *file_lst, char *str, int flag, int j)
 		SUMARR(allb, file_lst->listsize);
 		file_lst = file_lst->prev;
 	}
-	// ft_printf("=||||=>allb:%i\n", allb);
 	lst->value_arg[j] = fix - allb - 1;
+	ft_printf("=||BACK||=>allb:%#.8x\n", lst->value_arg[j]);
 }
 
 void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
@@ -125,11 +126,11 @@ void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
 	}
 	else
 	{
-		// ft_printf("считать назад\n");
+		ft_printf("считать назад\n");
 		goback(file_lst, str, tempstart - flag, j);
 		return ;
 	}
-	// ft_printf("считать вперед\n");
+	ft_printf("считать вперед\n");
 	goup(lst, str, flag, j);
 }
 
@@ -174,16 +175,16 @@ int			to_file(t_list **fl_lst, t_asm *data)
 	while (file_lst)
 	{
 		
-		// ft_printf("-----------start2-----------\n");
-		// ft_printf("label_name:%s\n", file_lst->label);
-		// ft_printf("opcode:%s\n", file_lst->op_code);
-		// ft_printf("count arg:%d\n", file_lst->count_arg);
-		// ft_printf("label link:%s.%s.%s\n", file_lst->islabel[0], file_lst->islabel[1], file_lst->islabel[2]);
-		// ft_printf("byte code:%d.%d.%d\n", file_lst->bytecode[0], file_lst->bytecode[1], file_lst->bytecode[2]);
-		// ft_printf("value arg:%#x.%#.2x.%#.2x\n", file_lst->value_arg[0], file_lst->value_arg[1], file_lst->value_arg[2]);
-		// ft_printf("opcodevalue:%#.2x\n", file_lst->opcodevalue);
-		// ft_printf("octalvalue:%#.2x\n", file_lst->octalvalue);
-		// ft_printf("labelsize:%d\n", file_lst->labelsize);
+		ft_printf("-----------start2-----------\n");
+		ft_printf("label_name:%s\n", file_lst->label);
+		ft_printf("opcode:%s\n", file_lst->op_code);
+		ft_printf("count arg:%d\n", file_lst->count_arg);
+		ft_printf("label link:%s.%s.%s\n", file_lst->islabel[0], file_lst->islabel[1], file_lst->islabel[2]);
+		ft_printf("byte code:%d.%d.%d\n", file_lst->bytecode[0], file_lst->bytecode[1], file_lst->bytecode[2]);
+		ft_printf("value arg:%#x.%#.2x.%#.2x\n", file_lst->value_arg[0], file_lst->value_arg[1], file_lst->value_arg[2]);
+		ft_printf("opcodevalue:%#.2x\n", file_lst->opcodevalue);
+		ft_printf("octalvalue:%#.2x\n", file_lst->octalvalue);
+		ft_printf("labelsize:%d\n", file_lst->labelsize);
 		file_lst = file_lst->next;
 	}
 		// ft_printf("-----------BACK-----------\n");
