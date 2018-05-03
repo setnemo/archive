@@ -47,16 +47,16 @@ typedef struct				s_asmlst
 	struct s_asmlst			*next;
 }							t_asmlst;
 
-union 						s_byterange{
+union						u_byterange
+{
 	unsigned int			num;
-    unsigned char			ch2[2];
-    unsigned char			ch[4];
+	unsigned char			ch2[2];
+	unsigned char			ch[4];
 }							t_byterange;
 
 void						manage_error(t_asm *data, char error);
 
 void						start_reading_s(t_asm *data);
-
 
 void						get_listsize(t_asmlst *file_lst);
 int							get_octalvalue(char val[]);

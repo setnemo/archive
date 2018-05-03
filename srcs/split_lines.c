@@ -111,7 +111,6 @@ void	split_lines(t_fls *file, t_list *instr)
 	while (ptr)
 	{
 		s = ((t_spl*)ptr->content)->op_code;
-		// ft_printf("s=%s\n", s);
 		if (s != NULL)
 			i++;
 		ptr = ptr->next;

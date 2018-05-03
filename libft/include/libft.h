@@ -63,7 +63,6 @@ typedef struct		s_gnl
 
 void				ft_list_push_back(t_list **begin_list, t_list *new);
 
-
 void				ft_putchar(char c);
 void				ft_putstr(char const *str);
 void				ft_putnbr(int a);

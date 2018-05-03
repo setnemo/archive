@@ -70,18 +70,20 @@ void		goback(t_asmlst *file_lst, char *str, int flag, int j)
 {
 	int allb;
 	int fix;
-	if (str)
-		;
+
 	allb = 0;
+	ft_printf("===>flag:%i\n", flag);
 	while (file_lst && flag--)
 		file_lst = file_lst->next;
 	while (file_lst)
 	{
+		ft_printf("===>allb:%i\n", allb);
 		if (file_lst->islabel[j] && ft_strequ(str, file_lst->islabel[j]))
 				break ;
 		SUMARR(allb, file_lst->listsize);
 		file_lst = file_lst->next;
 	}
+	ft_printf("=||||=>allb:%i\n", allb);
 	fix = setfixsize(file_lst, j);
 	file_lst->value_arg[j] = fix - allb - 1;
 }
@@ -119,7 +121,8 @@ void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
 	}
 	else
 	{
-		goback(lst, str, tempstart - flag, j);
+		ft_printf("===>tempstart:%i flag:%i\n", tempstart, flag);
+		goback(lst, str, --flag, j);
 		return ;
 	}
 	goup(lst, str, flag, j);
@@ -177,14 +180,6 @@ int			getwriteargsize(t_asmlst *file_lst, int j)
 
 #define PUSHBYTES(x) (x = ((x >> 24) & 0xff) | ((x << 8) & 0xff0000) | ((x >> 8) & 0xff00) | ((x << 24) & 0xff000000))
 
-int reverseBits(int b)
-{
-	b = (b & 0xF0) >> 4 | (b & 0x0F) << 4; // 1)
-	b = (b & 0xCC) >> 2 | (b & 0x33) << 2; // 2)
-	b = (b & 0xAA) >> 1 | (b & 0x55) << 1; // 3)
-	return (b);
-}
-
 unsigned char	swap_bits(unsigned char octet)
 {
 	return (octet >> 4 | octet << 4);
@@ -225,8 +220,6 @@ void		push_data_to_file(t_asm *data)
 	write(data->dotcorfd, buf2, COMMENT_LENGTH - ft_strlen(data->filecomment)); // COMMENT SPACE PRINT
 	write(data->dotcorfd, buf1, 4); // NULL
 	int temp1;
-	// int temp2 = 2147483647;
-	// t_byterange val;
 	int k;
 	while (file_lst)
 	{
@@ -261,7 +254,6 @@ void		push_data_to_file(t_asm *data)
 				if (temp1 == 1)
 					write(data->dotcorfd, &file_lst->value_arg[i], 1);
 			}
-			// write(data->dotcorfd, &temp2, 4);
 			i++;
 		}
 		file_lst = file_lst->next;

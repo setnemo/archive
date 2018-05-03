@@ -14,7 +14,8 @@
 #include "error_asm.h"
 #include "op.h"
 
-int			print_errors2(char err_type, char *token, char *err_str, int line)
+int				print_errors2(char err_type, char *token,
+	char *err_str, int line)
 {
 	char	*err;
 
@@ -38,7 +39,7 @@ int			print_errors2(char err_type, char *token, char *err_str, int line)
 	return (0);
 }
 
-void		asm_del_lst(t_list **begin)
+void			asm_del_lst(t_list **begin)
 {
 	t_list	*ptr;
 	t_list	*ptr2;
@@ -99,7 +100,7 @@ static void		cleaning_asm_lst_sruct(t_fls *fls)
 	free(fls);
 }
 
-void		cleaning_asm_lst(t_list **fl_lst, t_list **fl_err, t_asm *data)
+void			cleaning_asm_lst(t_list **fl_lst, t_list **fl_err, t_asm *data)
 {
 	t_list	*tmp;
 	t_list	*tmp2;

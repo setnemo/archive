@@ -74,8 +74,6 @@ void	save_header(t_fls *file, int fd)
 	{
 		if (file->line == 0)
 			file->line++;
-		// asm_del_lst(&file->lines);
-		// free(file);
 		print_errors2(1, "[TOKEN]", "incomplete header structure", file->line);
 	}
 }

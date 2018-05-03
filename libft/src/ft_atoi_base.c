@@ -42,7 +42,7 @@ static	char	checkchar(char str, int s_base)
 	return (0);
 }
 
-int			ft_atoi_base(char *str, int s_base)
+int				ft_atoi_base(char *str, int s_base)
 {
 	unsigned long long	res;
 	int					sign;

@@ -22,11 +22,10 @@ typedef struct	s_fls
 	char		iscmnt;
 	char		*name;
 	char		*cmnt;
-	t_list		*lbls; /*list of labels with links to corresponding instructions
-						(labels can be without instr-s) */
-	t_list		*lines; //for header
-	t_list		*instr; //other significant lines
-	t_list		*spltd; //lines splited into labels, instructions, arguments
+	t_list		*lbls;
+	t_list		*lines;
+	t_list		*instr;
+	t_list		*spltd;
 	int			line;
 }				t_fls;
 
@@ -58,7 +57,8 @@ int				check_instructions(t_list *spltd, t_list *lbls);
 int				print_errors2(char err_type, char *token, char *err_str,\
 	int line);
 void			asm_del_lst(t_list **begin);
-int				identify_argtype(char *arg, t_list *lbls, char **islbl, int *value);
+int				identify_argtype(char *arg, t_list *lbls,
+	char **islbl, int *value);
 
 void			cleaning_asm_lst(t_list **fl_lst, t_list **fl_err, t_asm *data);
 int				to_file(t_list **fl_lst, t_asm *data);

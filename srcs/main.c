@@ -14,7 +14,7 @@
 #include "error_asm.h"
 #include "op.h"
 
-static void			cleaning_asm(t_asm *data)
+static void		cleaning_asm(t_asm *data)
 {
 	if (data->dotsname)
 		ft_strdel(&data->dotsname);
@@ -26,7 +26,7 @@ static void			cleaning_asm(t_asm *data)
 		ft_strdel(&data->dotsstrtemp);
 }
 
-static void			init_data(t_asm *data, char *argv)
+static void		init_data(t_asm *data, char *argv)
 {
 	ft_bzero(data, sizeof(t_asm));
 	data->dotsname = NULL;
@@ -40,7 +40,7 @@ static void			init_data(t_asm *data, char *argv)
 	data->next = NULL;
 }
 
-static int			checkdotcor(t_asm *data, char *argv)
+static int		checkdotcor(t_asm *data, char *argv)
 {
 	data->dotcorname = ft_strdup(argv);
 	data->dotsname = ft_strnew(data->len - 2);
@@ -60,7 +60,7 @@ static int			checkdotcor(t_asm *data, char *argv)
 	return (0);
 }
 
-static int			checkdots(t_asm *data, char *argv)
+static int		checkdots(t_asm *data, char *argv)
 {
 	t_list		*fl_lst;
 	t_list		*fl_err;
@@ -87,7 +87,7 @@ static int			checkdots(t_asm *data, char *argv)
 	return (0);
 }
 
-int			main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	t_asm		data;
 	int			i;
@@ -115,4 +115,3 @@ int			main(int argc, char **argv)
 	system("leaks -quiet asm");
 	return (0);
 }
-

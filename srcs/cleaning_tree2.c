@@ -25,7 +25,7 @@ void		cleaning_asm_lst_lst_spltd(t_spl *lst)
 		ft_strdel(&lst->lbl);
 	if (lst->op_code != NULL)
 		ft_strdel(&(lst->op_code));
-	while(i < 3)
+	while (i < 3)
 	{
 		if (lst->islbl[i])
 			ft_strdel(&(lst->islbl[i]));

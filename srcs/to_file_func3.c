@@ -14,6 +14,7 @@
 #include "error_asm.h"
 #include "op.h"
 #define SUMARR(x, y) (x += (y[0] + y[1] + y[2] + y[3]))
+#define GL get_labelvaluesize
 
 static void	get_lblbcvadata(t_asmlst *file_lst, t_spl *spl)
 {
@@ -89,7 +90,7 @@ void		get_file_lst(t_asmlst *file_lst, t_asm *data, int i, int countlst)
 		while (i < 3)
 		{
 			if (file_lst->islabel[i])
-				get_labelvaluesize(data->next, file_lst->islabel[i], countlst, i);
+				GL(data->next, file_lst->islabel[i], countlst, i);
 			i++;
 		}
 		file_lst = file_lst->next;
