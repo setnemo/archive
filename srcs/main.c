@@ -112,6 +112,6 @@ int				main(int argc, char **argv)
 			ft_printf("[!] Error! '%s' - file not found\n", *argv);
 		cleaning_asm(&data);
 	}
-	system("leaks -quiet asm");
+	// system("leaks -quiet asm");
 	return (0);
 }
