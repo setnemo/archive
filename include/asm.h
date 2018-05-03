@@ -45,6 +45,7 @@ typedef struct				s_asmlst
 	int						octalvalue;
 	int						listsize[4];
 	struct s_asmlst			*next;
+	struct s_asmlst			*prev;
 }							t_asmlst;
 
 union						u_byterange

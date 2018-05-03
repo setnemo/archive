@@ -40,7 +40,7 @@ void		goup(t_asmlst *file_lst, char *str, int flag, int j)
 				break ;
 		file_lst = file_lst->next;
 	}
-	lst->value_arg[j] =  allb;
+	lst->value_arg[j] = allb;
 }
 
 int			setfixsize(t_asmlst *file_lst, int j)
@@ -70,22 +70,26 @@ void		goback(t_asmlst *file_lst, char *str, int flag, int j)
 {
 	int allb;
 	int fix;
-
+	t_asmlst *lst = NULL;
 	allb = 0;
 	ft_printf("===>flag:%i\n", flag);
-	while (file_lst && flag--)
-		file_lst = file_lst->next;
 	while (file_lst)
 	{
 		ft_printf("===>allb:%i\n", allb);
 		if (file_lst->islabel[j] && ft_strequ(str, file_lst->islabel[j]))
 				break ;
-		SUMARR(allb, file_lst->listsize);
 		file_lst = file_lst->next;
 	}
-	ft_printf("=||||=>allb:%i\n", allb);
 	fix = setfixsize(file_lst, j);
-	file_lst->value_arg[j] = fix - allb - 1;
+	lst = file_lst;
+	while (file_lst && flag--)
+	{
+		ft_printf("===>allb:%i\n", allb);
+		SUMARR(allb, file_lst->listsize);
+		file_lst = file_lst->prev;
+	}
+	ft_printf("=||||=>allb:%i\n", allb);
+	lst->value_arg[j] = fix - allb - 1;
 }
 
 void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
@@ -121,18 +125,21 @@ void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
 	}
 	else
 	{
-		ft_printf("===>tempstart:%i flag:%i\n", tempstart, flag);
-		goback(lst, str, --flag, j);
+		ft_printf("считать назад\n");
+		goback(file_lst, str, tempstart - flag, j);
 		return ;
 	}
+	ft_printf("считать вперед\n");
 	goup(lst, str, flag, j);
 }
+
 void		push_data_to_file(t_asm *data);
 
 int			to_file(t_list **fl_lst, t_asm *data)
 {
 	t_fls		*fls;
 	t_asmlst	*file_lst = NULL;
+	t_asmlst	*back = NULL;
 
 	fls = (*fl_lst)->content;
 	ft_printf("name:%s\n", fls->name);
@@ -144,6 +151,20 @@ int			to_file(t_list **fl_lst, t_asm *data)
 	ft_bzero(file_lst, sizeof(t_asmlst));
 	file_lst = data->next;
 	read_tree(file_lst,NULL, fls->spltd);
+	while (file_lst)
+	{
+		if (file_lst->next)
+		{
+			back = file_lst;
+			file_lst = file_lst->next;
+			file_lst->prev = back;
+		}
+		else
+	
+			break ;
+	}
+
+	file_lst = data->next;
 	get_file_lst(file_lst, data, 0, 0);
 
 	//g_optab[0].name;
@@ -152,6 +173,7 @@ int			to_file(t_list **fl_lst, t_asm *data)
 	file_lst = data->next;
 	while (file_lst)
 	{
+		
 		ft_printf("-----------start2-----------\n");
 		ft_printf("label_name:%s\n", file_lst->label);
 		ft_printf("opcode:%s\n", file_lst->op_code);
@@ -164,6 +186,23 @@ int			to_file(t_list **fl_lst, t_asm *data)
 		ft_printf("labelsize:%d\n", file_lst->labelsize);
 		file_lst = file_lst->next;
 	}
+	// 	ft_printf("-----------BACK-----------\n");
+
+	// while (file_lst)
+	// {
+	// 	ft_printf("-----------start2-----------\n");
+	// 	ft_printf("label_name:%s\n", file_lst->label);
+	// 	ft_printf("opcode:%s\n", file_lst->op_code);
+	// 	ft_printf("count arg:%d\n", file_lst->count_arg);
+	// 	ft_printf("label link:%s.%s.%s\n", file_lst->islabel[0], file_lst->islabel[1], file_lst->islabel[2]);
+	// 	ft_printf("byte code:%d.%d.%d\n", file_lst->bytecode[0], file_lst->bytecode[1], file_lst->bytecode[2]);
+	// 	ft_printf("value arg:%#x.%#.2x.%#.2x\n", file_lst->value_arg[0], file_lst->value_arg[1], file_lst->value_arg[2]);
+	// 	ft_printf("opcodevalue:%#.2x\n", file_lst->opcodevalue);
+	// 	ft_printf("octalvalue:%#.2x\n", file_lst->octalvalue);
+	// 	ft_printf("labelsize:%d\n", file_lst->labelsize);
+	// 	file_lst = file_lst->prev;
+	// }
+
 	push_data_to_file(data);
 	return (0);
 }
@@ -223,9 +262,13 @@ void		push_data_to_file(t_asm *data)
 	int k;
 	while (file_lst)
 	{
+		ft_printf("now saving byte::1:===%#.4x\n", file_lst->opcodevalue);
 		write(data->dotcorfd, &file_lst->opcodevalue, 1);
 		if (file_lst->octalvalue)
+		{
 			write(data->dotcorfd, &file_lst->octalvalue, 1);
+			ft_printf("now saving byte::1:===%#.4x\n", file_lst->octalvalue);
+		}
 		i = 0;
 		while (i < 3)
 		{
@@ -233,13 +276,17 @@ void		push_data_to_file(t_asm *data)
 			{
 				t_byterange.num = file_lst->value_arg[i];
 				temp1 = getwriteargsize(file_lst, i);
+				ft_printf("now saving byte::%i:===%#.4x\n", temp1, file_lst->value_arg[i]);
 				if (temp1 == 4)
 				{
-					k = 4;
-					while (--k)
+					k = 3;
+					while (42)
 					{
 						write(data->dotcorfd, &t_byterange.ch[k], 1);
-						ft_printf(":%.2x:\n", t_byterange.ch[k]);
+						ft_printf("k==%i, :%.2x:\n", k, t_byterange.ch[k]);
+						k--;
+						if (k == -1)
+							break ;
 					}
 					// file_lst->value_arg[i] = swap_bits(file_lst->value_arg[i]);
 				}
