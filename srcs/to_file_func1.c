@@ -21,26 +21,37 @@ void		goup(t_asmlst *file_lst, char *str, int flag, int j)
 	t_asmlst	*lst;
 
 	allb = 0;
+	ft_printf("herak1\n");
 	while (file_lst && flag--)
 	{
-		lst = file_lst;
-		if (ft_strequ(file_lst->islabel[j], str))
-			break ;
 		file_lst = file_lst->next;
 	}
-	if (!j)
-		allb = file_lst->listsize[2] + file_lst->listsize[3];
-	else if (j == 1)
-		allb = file_lst->listsize[3];
-	file_lst = file_lst->next;
+		if (file_lst->islabel[j] && ft_strequ(file_lst->islabel[j], str))
+			// break ;
+			ft_printf("!!!!!!!!!!!!!!!!!!!!!!!\n");
+		lst = file_lst;
+	ft_printf("herak2\n");
+	// if (!j)
+	// 	allb = file_lst->listsize[2] + file_lst->listsize[3];
+	// else if (j == 1)
+	// 	allb = file_lst->listsize[3];
+	// ft_printf("=||goup|file_lst->label|%s||===s=>allb:%#.4x\n", file_lst->label, allb);
+
+	// file_lst = file_lst->next;
+
 	while (file_lst)
 	{
-		SUMARR(allb, file_lst->listsize);
 		if (file_lst->label && ft_strequ(str, file_lst->label))
 				break ;
+		SUMARR(allb, file_lst->listsize);
+		ft_printf("=||goup|file_lst->label|%s||=>allb:%#.4x\n", file_lst->label, allb);
 		file_lst = file_lst->next;
 	}
 	lst->value_arg[j] = allb;
+	ft_printf("=||goup|file_lst->label|%s||=>allb:%#.4x\n", file_lst->label, allb);
+
+	ft_printf("=||goup||%s||=>allb:%#.4x\n", str, allb);
+
 }
 
 int			setfixsize(t_asmlst *file_lst, int j)
@@ -88,8 +99,8 @@ void		goback(t_asmlst *file_lst, char *str, int flag, int j)
 		SUMARR(allb, file_lst->listsize);
 		file_lst = file_lst->prev;
 	}
-	// ft_printf("=||||=>allb:%i\n", allb);
 	lst->value_arg[j] = fix - allb - 1;
+	ft_printf("=||goback||%s||=>allb:%#.4x\n", str, fix - allb - 1);
 }
 
 void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
@@ -97,42 +108,60 @@ void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
 	int all;
 	int flag;
 	int tempstart;
-
 	t_asmlst *lst;
+
 	lst = file_lst;
 	all = 0;
 	flag = 0;
 	tempstart = countl;
-	while (file_lst && --tempstart)
+	
+	while (file_lst)
 	{
-		flag = tempstart;
-		ft_printf("=||get_labelvaluesize||=>file_lst->label:%s and str:%s\n", file_lst->label, str);
+		flag++;
 		if (file_lst->label && ft_strequ(str, file_lst->label))
-		{
-			flag = 0;
 			break ;
-		}
 		file_lst = file_lst->next;
 	}
-	if (!flag)
+	if (flag > countl)
 	{
-		flag = 0;
-		while (file_lst)
-		{
-			flag++;
-			if (file_lst->label && ft_strequ(str, file_lst->label))
-				break ;
-			file_lst = file_lst->next;
-		}
+		ft_printf("\t\t\tсчитать вперед\n");
+		goup(lst, str, countl, j);
 	}
 	else
 	{
 		ft_printf("\t\t\tсчитать назад\n");
 		goback(file_lst, str, countl - flag, j);
-		return ;
 	}
-	ft_printf("\t\t\tсчитать вперед\n");
-	goup(lst, str, flag, j);
+	// while (file_lst && --tempstart)
+	// {
+	// 	flag = tempstart;
+	// 	ft_printf("=||get_labelvaluesize||=>file_lst->label:%s and str:%s\n", file_lst->label, str);
+	// 	if (file_lst->label && ft_strequ(str, file_lst->label))
+	// 	{
+	// 		flag = 0;
+	// 		break ;
+	// 	}
+	// 	file_lst = file_lst->next;
+	// }
+	// if (!flag)
+	// {
+	// 	flag = 0;
+	// 	while (file_lst)
+	// 	{
+	// 		flag++;
+	// 		if (file_lst->label && ft_strequ(str, file_lst->label))
+	// 			break ;
+	// 		file_lst = file_lst->next;
+	// 	}
+	// }
+	// else
+	// {
+	// 	ft_printf("\t\t\tсчитать назад\n");
+	// 	goback(file_lst, str, countl - flag, j);
+	// 	return ;
+	// }
+	// ft_printf("\t\t\tсчитать вперед\n");
+	// goup(lst, str, flag, j);
 }
 
 void		push_data_to_file(t_asm *data);
@@ -264,21 +293,23 @@ void		push_data_to_file(t_asm *data)
 	int k;
 	while (file_lst)
 	{
-		// ft_printf("now saving byte::1:===%#.4x\n", file_lst->opcodevalue);
+		ft_printf("now saving byte::1:===%#.4x\n", file_lst->opcodevalue);
 		write(data->dotcorfd, &file_lst->opcodevalue, 1);
 		if (file_lst->octalvalue)
 		{
 			write(data->dotcorfd, &file_lst->octalvalue, 1);
-			// ft_printf("now saving byte::1:===%#.4x\n", file_lst->octalvalue);
+			ft_printf("now saving byte::1:===%#.4x\n", file_lst->octalvalue);
 		}
 		i = 0;
 		while (i < 3)
 		{
 			if (file_lst->bytecode[i])
 			{
+				t_byterange.num = 0;
 				t_byterange.num = file_lst->value_arg[i];
+				ft_printf("t_byterange.num:%i\n", t_byterange.num);
 				temp1 = getwriteargsize(file_lst, i);
-				// ft_printf("now saving byte::%i:===%#.4x\n", temp1, file_lst->value_arg[i]);
+				ft_printf("now saving byte::%i:===%#.4x\n", temp1, file_lst->value_arg[i]);
 				if (temp1 == 4)
 				{
 					k = 3;
