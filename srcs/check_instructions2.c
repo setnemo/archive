@@ -16,8 +16,8 @@ int		check_value(char *arg, int type, int *value)
 {
 	int		i;
 
-	i = 0;
-	while (arg[i] && (ft_isdigit(arg[i]) || arg[0] == '-'))
+	i = (*arg == '-') ? 1 : 0;
+	while (arg[i] && (ft_isdigit(arg[i])))
 		i++;
 	*value = ft_atoi(arg);
 	if (arg[i] == '\0' && type == 1)
