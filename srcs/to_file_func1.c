@@ -41,7 +41,6 @@ void		goup(t_asmlst *file_lst, char *str, int flag, int j)
 		file_lst = file_lst->next;
 	}
 	lst->value_arg[j] = allb;
-	ft_printf("=||UP||=>allb:%#.8x\n", allb);
 }
 
 int			setfixsize(t_asmlst *file_lst, int j)
@@ -89,8 +88,8 @@ void		goback(t_asmlst *file_lst, char *str, int flag, int j)
 		SUMARR(allb, file_lst->listsize);
 		file_lst = file_lst->prev;
 	}
+	// ft_printf("=||||=>allb:%i\n", allb);
 	lst->value_arg[j] = fix - allb - 1;
-	ft_printf("=||BACK||=>allb:%#.8x\n", lst->value_arg[j]);
 }
 
 void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
@@ -104,33 +103,35 @@ void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
 	all = 0;
 	flag = 0;
 	tempstart = countl;
-	while (file_lst && countl - 1)
+	while (file_lst && --tempstart)
 	{
-		if (ft_strequ(str, file_lst->label))
+		flag = tempstart;
+		ft_printf("=||get_labelvaluesize||=>file_lst->label:%s and str:%s\n", file_lst->label, str);
+		if (file_lst->label && ft_strequ(str, file_lst->label))
 		{
-			flag = countl;
+			flag = 0;
 			break ;
 		}
-		countl--;
 		file_lst = file_lst->next;
 	}
 	if (!flag)
 	{
+		flag = 0;
 		while (file_lst)
 		{
 			flag++;
-			if (ft_strequ(str, file_lst->label))
+			if (file_lst->label && ft_strequ(str, file_lst->label))
 				break ;
 			file_lst = file_lst->next;
 		}
 	}
 	else
 	{
-		ft_printf("считать назад\n");
-		goback(file_lst, str, tempstart - flag, j);
+		ft_printf("\t\t\tсчитать назад\n");
+		goback(file_lst, str, countl - flag, j);
 		return ;
 	}
-	ft_printf("считать вперед\n");
+	ft_printf("\t\t\tсчитать вперед\n");
 	goup(lst, str, flag, j);
 }
 

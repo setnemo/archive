@@ -90,7 +90,7 @@ void		get_file_lst(t_asmlst *file_lst, t_asm *data, int i, int countlst)
 		while (i < 3)
 		{
 			if (file_lst->islabel[i])
-				GL(data->next, file_lst->islabel[i], countlst, i);
+				GL(data->next, file_lst->islabel[i], countlst - 1, i);
 			i++;
 		}
 		file_lst = file_lst->next;
