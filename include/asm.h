@@ -44,15 +44,16 @@ typedef struct				s_asmlst
 	int						opcodevalue;
 	int						octalvalue;
 	int						listsize[4];
+	int						number;
 	struct s_asmlst			*next;
 	struct s_asmlst			*prev;
 }							t_asmlst;
 
 union						u_byterange
 {
-	unsigned int			num;
-	unsigned char			ch2[2];
-	unsigned char			ch[4];
+	int						num;
+	char					ch2[2];
+	char					ch[4];
 }							t_byterange;
 
 void						manage_error(t_asm *data, char error);
@@ -65,7 +66,7 @@ int							get_opcodevalue(char *opcode);
 int							get_labelsize(char *opcode);
 int							get_octal(char *opcode);
 
-void						get_file_lst(t_asmlst *file_lst, t_asm *data,
+void						get_file_lst(t_asm *data,
 	int i, int countlst);
 void						get_labelvaluesize(t_asmlst *file_lst, char *str,
 	int countl, int j);

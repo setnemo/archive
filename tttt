@@ -1,0 +1,358 @@
+	-----------||||||||||===1==|||||||||-----------
+	label_name:l2
+	opcode:sti
+	count arg:3
+	label link:(null).live.(null)
+	byte code:1.2.2
+	value arg:0x1.00.0x01
+	opcodevalue:0x0b
+	octalvalue:0x68
+	labelsize:2
+	-----------||||||||||=========|||||||||-----------
+		now check:(null)
+		now check:live
+__1__
+lst->value_arg[(null)], file_lst->bytecode[2], file_lst->labelsize = [4];
+			-----------|||||||1|||||||1|||||||-----------
+			label_name:(null)
+			opcode:and
+			count arg:3
+			label link:(null).(null).(null)
+			byte code:1.2.1
+			value arg:0x1.00.0x01
+			opcodevalue:0x06
+			octalvalue:0x64
+			labelsize:4
+			-----------||||||||||||||||||||||||-----------
+			считать вперед
+herak1
+herak2
+=||goup|file_lst->label|(null)||=>allb:0x0008
+=||goup|file_lst->label|(null)||=>allb:0x000b
+=||goup|file_lst->label|(null)||=>allb:0x000e
+=||goup|file_lst->label|(null)||=>allb:0x0011
+=||goup|file_lst->label|(null)||=>allb:0x0014
+=||goup|file_lst->label|live||=>allb:0x0014
+=||goup||live||=>allb:0x0014
+		now check:(null)
+	-----------||||||||||===2==|||||||||-----------
+	label_name:(null)
+	opcode:and
+	count arg:3
+	label link:(null).(null).(null)
+	byte code:1.2.1
+	value arg:0x1.0x14.0x01
+	opcodevalue:0x06
+	octalvalue:0x64
+	labelsize:4
+	-----------||||||||||=========|||||||||-----------
+		now check:(null)
+		now check:(null)
+		now check:(null)
+	-----------||||||||||===3==|||||||||-----------
+	label_name:(null)
+	opcode:zjmp
+	count arg:1
+	label link:live.(null).(null)
+	byte code:2.0.0
+	value arg:0.00.00
+	opcodevalue:0x09
+	octalvalue:00
+	labelsize:2
+	-----------||||||||||=========|||||||||-----------
+		now check:live
+__3__
+lst->value_arg[live], file_lst->bytecode[2], file_lst->labelsize = [2];
+			-----------|||||||3|||||||3|||||||-----------
+			label_name:(null)
+			opcode:zjmp
+			count arg:1
+			label link:live.(null).(null)
+			byte code:2.0.0
+			value arg:0.00.00
+			opcodevalue:0x09
+			octalvalue:00
+			labelsize:2
+			-----------||||||||||||||||||||||||-----------
+			считать вперед
+herak1
+!!!!!!!!!!!!!!!!!!!!!!!
+herak2
+=||goup|file_lst->label|(null)||=>allb:0x0003
+=||goup|file_lst->label|(null)||=>allb:0x0006
+=||goup|file_lst->label|(null)||=>allb:0x0009
+=||goup|file_lst->label|live||=>allb:0x0009
+=||goup||live||=>allb:0x0009
+		now check:(null)
+		now check:(null)
+	-----------||||||||||===4==|||||||||-----------
+	label_name:(null)
+	opcode:zjmp
+	count arg:1
+	label link:live.(null).(null)
+	byte code:2.0.0
+	value arg:0x9.00.00
+	opcodevalue:0x09
+	octalvalue:00
+	labelsize:2
+	-----------||||||||||=========|||||||||-----------
+		now check:live
+__4__
+lst->value_arg[live], file_lst->bytecode[2], file_lst->labelsize = [2];
+			-----------|||||||4|||||||4|||||||-----------
+			label_name:(null)
+			opcode:zjmp
+			count arg:1
+			label link:live.(null).(null)
+			byte code:2.0.0
+			value arg:0.00.00
+			opcodevalue:0x09
+			octalvalue:00
+			labelsize:2
+			-----------||||||||||||||||||||||||-----------
+			считать вперед
+herak1
+!!!!!!!!!!!!!!!!!!!!!!!
+herak2
+=||goup|file_lst->label|(null)||=>allb:0x0003
+=||goup|file_lst->label|(null)||=>allb:0x0006
+=||goup|file_lst->label|live||=>allb:0x0006
+=||goup||live||=>allb:0x0006
+		now check:(null)
+		now check:(null)
+	-----------||||||||||===5==|||||||||-----------
+	label_name:(null)
+	opcode:zjmp
+	count arg:1
+	label link:live.(null).(null)
+	byte code:2.0.0
+	value arg:0x6.00.00
+	opcodevalue:0x09
+	octalvalue:00
+	labelsize:2
+	-----------||||||||||=========|||||||||-----------
+		now check:live
+__5__
+lst->value_arg[live], file_lst->bytecode[2], file_lst->labelsize = [2];
+			-----------|||||||5|||||||5|||||||-----------
+			label_name:(null)
+			opcode:zjmp
+			count arg:1
+			label link:live.(null).(null)
+			byte code:2.0.0
+			value arg:0.00.00
+			opcodevalue:0x09
+			octalvalue:00
+			labelsize:2
+			-----------||||||||||||||||||||||||-----------
+			считать вперед
+herak1
+!!!!!!!!!!!!!!!!!!!!!!!
+herak2
+=||goup|file_lst->label|(null)||=>allb:0x0003
+=||goup|file_lst->label|live||=>allb:0x0003
+=||goup||live||=>allb:0x0003
+		now check:(null)
+		now check:(null)
+	-----------||||||||||===6==|||||||||-----------
+	label_name:(null)
+	opcode:zjmp
+	count arg:1
+	label link:live.(null).(null)
+	byte code:2.0.0
+	value arg:0x3.00.00
+	opcodevalue:0x09
+	octalvalue:00
+	labelsize:2
+	-----------||||||||||=========|||||||||-----------
+		now check:live
+__6__
+lst->value_arg[(null)], file_lst->bytecode[2], file_lst->labelsize = [4];
+			-----------|||||||6|||||||6|||||||-----------
+			label_name:live
+			opcode:live
+			count arg:1
+			label link:(null).(null).(null)
+			byte code:2.0.0
+			value arg:0x1.00.00
+			opcodevalue:0x01
+			octalvalue:00
+			labelsize:4
+			-----------||||||||||||||||||||||||-----------
+			считать вперед
+herak1
+herak2
+=||goup|file_lst->label|live||=>allb:0000
+=||goup||live||=>allb:0000
+		now check:(null)
+		now check:(null)
+	-----------||||||||||===7==|||||||||-----------
+	label_name:live
+	opcode:live
+	count arg:1
+	label link:(null).(null).(null)
+	byte code:2.0.0
+	value arg:0.00.00
+	opcodevalue:0x01
+	octalvalue:00
+	labelsize:4
+	-----------||||||||||=========|||||||||-----------
+		now check:(null)
+		now check:(null)
+		now check:(null)
+	-----------||||||||||===8==|||||||||-----------
+	label_name:(null)
+	opcode:zjmp
+	count arg:1
+	label link:live.(null).(null)
+	byte code:2.0.0
+	value arg:0.00.00
+	opcodevalue:0x09
+	octalvalue:00
+	labelsize:2
+	-----------||||||||||=========|||||||||-----------
+		now check:live
+__8__
+lst->value_arg[live2], file_lst->bytecode[2], file_lst->labelsize = [2];
+			-----------|||||||8|||||||8|||||||-----------
+			label_name:(null)
+			opcode:zjmp
+			count arg:1
+			label link:live2.(null).(null)
+			byte code:2.0.0
+			value arg:0.00.00
+			opcodevalue:0x09
+			octalvalue:00
+			labelsize:2
+			-----------||||||||||||||||||||||||-----------
+=1=>flag:1||||===>int j = [0]
+ret = 0xFFFF;return (ret);
+=3=>allb:0
+=||allb:0x0003||fix:0xffff|goback|str[live]||=>allb:0xfffd
+			считать назад
+		now check:(null)
+		now check:(null)
+	-----------||||||||||===9==|||||||||-----------
+	label_name:(null)
+	opcode:zjmp
+	count arg:1
+	label link:live2.(null).(null)
+	byte code:2.0.0
+	value arg:0xfffd.00.00
+	opcodevalue:0x09
+	octalvalue:00
+	labelsize:2
+	-----------||||||||||=========|||||||||-----------
+		now check:live2
+__9__
+lst->value_arg[live], file_lst->bytecode[2], file_lst->labelsize = [2];
+			-----------|||||||9|||||||9|||||||-----------
+			label_name:(null)
+			opcode:zjmp
+			count arg:1
+			label link:live.(null).(null)
+			byte code:2.0.0
+			value arg:0.00.00
+			opcodevalue:0x09
+			octalvalue:00
+			labelsize:2
+			-----------||||||||||||||||||||||||-----------
+			считать вперед
+herak1
+herak2
+=||goup|file_lst->label|(null)||=>allb:0x0003
+=||goup|file_lst->label|live2||=>allb:0x0003
+=||goup||live2||=>allb:0x0003
+		now check:(null)
+		now check:(null)
+	-----------||||||||||===10==|||||||||-----------
+	label_name:(null)
+	opcode:zjmp
+	count arg:1
+	label link:live.(null).(null)
+	byte code:2.0.0
+	value arg:0x3.00.00
+	opcodevalue:0x09
+	octalvalue:00
+	labelsize:2
+	-----------||||||||||=========|||||||||-----------
+		now check:live
+__10__
+lst->value_arg[(null)], file_lst->bytecode[2], file_lst->labelsize = [4];
+			-----------|||||||10|||||||10|||||||-----------
+			label_name:live2
+			opcode:live
+			count arg:1
+			label link:(null).(null).(null)
+			byte code:2.0.0
+			value arg:0x1.00.00
+			opcodevalue:0x01
+			octalvalue:00
+			labelsize:4
+			-----------||||||||||||||||||||||||-----------
+=1=>flag:1||||===>int j = [0]
+ret = 0xFFFFFFFF;return (ret);
+=3=>allb:0
+=||allb:0x0005||fix:0xffffffff|goback|str[live]||=>allb:0xfffffffb
+			считать назад
+		now check:(null)
+		now check:(null)
+	-----------||||||||||===11==|||||||||-----------
+	label_name:live2
+	opcode:live
+	count arg:1
+	label link:(null).(null).(null)
+	byte code:2.0.0
+	value arg:0xfffffffb.00.00
+	opcodevalue:0x01
+	octalvalue:00
+	labelsize:4
+	-----------||||||||||=========|||||||||-----------
+		now check:(null)
+		now check:(null)
+		now check:(null)
+	-----------||||||||||===12==|||||||||-----------
+	label_name:(null)
+	opcode:zjmp
+	count arg:1
+	label link:live.(null).(null)
+	byte code:2.0.0
+	value arg:0.00.00
+	opcodevalue:0x09
+	octalvalue:00
+	labelsize:2
+	-----------||||||||||=========|||||||||-----------
+		now check:live
+__12__
+lst->value_arg[live2], file_lst->bytecode[2], file_lst->labelsize = [2];
+			-----------|||||||12|||||||12|||||||-----------
+			label_name:(null)
+			opcode:zjmp
+			count arg:1
+			label link:live2.(null).(null)
+			byte code:2.0.0
+			value arg:0.00.00
+			opcodevalue:0x09
+			octalvalue:00
+			labelsize:2
+			-----------||||||||||||||||||||||||-----------
+=1=>flag:1||||===>int j = [0]
+ret = 0xFFFF;return (ret);
+=3=>allb:0
+=||allb:0x0003||fix:0xffff|goback|str[live]||=>allb:0xfffd
+			считать назад
+		now check:(null)
+		now check:(null)
+	-----------||||||||||===13==|||||||||-----------
+	label_name:(null)
+	opcode:zjmp
+	count arg:1
+	label link:live2.(null).(null)
+	byte code:2.0.0
+	value arg:0xfffd.00.00
+	opcodevalue:0x09
+	octalvalue:00
+	labelsize:2
+	-----------||||||||||=========|||||||||-----------
+		now check:live2
+__13__

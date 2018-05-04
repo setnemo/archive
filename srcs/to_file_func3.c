@@ -14,7 +14,7 @@
 #include "error_asm.h"
 #include "op.h"
 #define SUMARR(x, y) (x += (y[0] + y[1] + y[2] + y[3]))
-#define GL get_labelvaluesize
+
 
 static void	get_lblbcvadata(t_asmlst *file_lst, t_spl *spl)
 {
@@ -70,29 +70,4 @@ void		read_tree(t_asmlst *file_lst, t_spl *spl, t_list *tmp)
 	}
 }
 
-void		get_file_lst(t_asmlst *file_lst, t_asm *data, int i, int countlst)
-{
-	while (file_lst)
-	{
-		file_lst->octal = get_octal(file_lst->op_code);
-		file_lst->labelsize = get_labelsize(file_lst->op_code);
-		file_lst->opcodevalue = get_opcodevalue(file_lst->op_code);
-		if (file_lst->octal)
-			file_lst->octalvalue = get_octalvalue(file_lst->bytecode);
-		get_listsize(file_lst);
-		SUMARR(data->allbytes, file_lst->listsize);
-		file_lst = file_lst->next;
-	}
-	file_lst = data->next;
-	while (file_lst && ++countlst)
-	{
-		i = 0;
-		while (i < 3)
-		{
-			if (file_lst->islabel[i])
-				GL(data->next, file_lst->islabel[i], countlst - 1, i);
-			i++;
-		}
-		file_lst = file_lst->next;
-	}
-}
+

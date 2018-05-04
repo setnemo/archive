@@ -12,7 +12,7 @@
 
 NAME = asm
 CC = gcc 
-# WWW = -Wall -Wextra -Werror 
+WWW = -Wall -Wextra -Werror 
 
 SRC_NAME = 	main.c\
 			read_input.c\
