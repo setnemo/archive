@@ -37,7 +37,7 @@ void		goup(t_asmlst *file_lst, char *str, int flag, int j)
 		if (file_lst->label && ft_strequ(str, file_lst->label))
 				break ;
 		SUMARR(allb, file_lst->listsize);
-		// ft_printf("=||goup|file_lst->label|%s||=>allb:%#.4x\n", file_lst->label, allb);
+		ft_printf("=||goup|file_lst->label|%s||=>allb:%#.4x\n", file_lst->label, allb);
 		file_lst = file_lst->next;
 	}
 	lst->value_arg[j] = allb;
@@ -54,38 +54,56 @@ void		goback(t_asmlst *file_lst, char *str, int flag, int j)
 	int allb;
 	int fix;
 	t_asmlst *lst = NULL;
-	allb = 1;
+	allb = 0;
 	lst = file_lst;
-	fix = setfixsize(file_lst, j);
+	file_lst = file_lst->next;
 	ft_printf("=================%i================\n", flag);
 	lst = file_lst;
 		ft_printf("\t\t\t\tNUMBER:%d\n", lst->number);
+	ft_printf("\t\t\t\t-----------|||||||--------------------------------------------------||||-----------\n");
+	ft_printf("\t\t\t\tNUMBER:%d\n", file_lst->number);
+
+	ft_printf("\t\t\t\tlabel_name:%s\n", file_lst->label);
+	ft_printf("\t\t\t\topcode:%s\n", file_lst->op_code);
+	ft_printf("\t\t\t\tcount arg:%d\n", file_lst->count_arg);
+	ft_printf("\t\t\t\tlabel link:%s.%s.%s\n", file_lst->islabel[0], file_lst->islabel[1], file_lst->islabel[2]);
+	ft_printf("\t\t\t\tbyte code:%d.%d.%d\n", file_lst->bytecode[0], file_lst->bytecode[1], file_lst->bytecode[2]);
+	ft_printf("\t\t\t\tvalue arg:%#x.%#.2x.%#.2x\n", file_lst->value_arg[0], file_lst->value_arg[1], file_lst->value_arg[2]);
+	ft_printf("\t\t\t\topcodevalue:%#.2x\n", file_lst->opcodevalue);
+	ft_printf("\t\t\t\toctalvalue:%#.2x\n", file_lst->octalvalue);
+	ft_printf("\t\t\t\tlabelsize:%d\n", file_lst->labelsize);
+	ft_printf("\t\t\t\tlistsize:%d.%d.%d.%d\n", file_lst->listsize[0], file_lst->listsize[1], file_lst->listsize[2], file_lst->listsize[3]);
+	ft_printf("\t\t\t\t-----------|||||||--------------------------------------------------||||-----------\n");
 	while (file_lst && flag--)
 	{
 		// ft_printf("lst->value_arg[%s], file_lst->bytecode[%i], file_lst->labelsize = [%i];\n", file_lst->islabel[j], file_lst->bytecode[j], file_lst->labelsize);
 		// ft_printf("=3=>allb:%i\n", allb);
 		ft_printf("how operation? %i\n", flag);
-		SUMARRM(fix, file_lst->listsize);
+		SUMARR(allb, file_lst->listsize);
 		if (file_lst->next)
 			file_lst = file_lst->next;
 		else
 			break ;
 	}
-	file_lst->value_arg[j] = --fix;
-	// ft_printf("=||allb:%#.4x||fix:%#.4x|goback|str[%s]||=>allb:%#.4x\n", allb, fix, str, file_lst->value_arg[j]);
-		ft_printf("\t\t\t\t-----------||||||||||=..==!!!!!!!!==..=|||||||||-----------\n");
-		ft_printf("\t\t\t\tNUMBER:%d\n", file_lst->number);
+	fix = setfixsize(file_lst, j);
+	fix -= --allb;
+	file_lst->value_arg[j] = fix;
+	ft_printf("\t\t\t\t-----------|||||||--------------------.............--------------------||||-----------\n");
+	ft_printf("\t\t\t\tNUMBER:%d\n", file_lst->number);
 
-		ft_printf("\t\t\t\tlabel_name:%s\n", file_lst->label);
-		ft_printf("\t\t\t\topcode:%s\n", file_lst->op_code);
-		ft_printf("\t\t\t\tcount arg:%d\n", file_lst->count_arg);
-		ft_printf("\t\t\t\tlabel link:%s.%s.%s\n", file_lst->islabel[0], file_lst->islabel[1], file_lst->islabel[2]);
-		ft_printf("\t\t\t\tbyte code:%d.%d.%d\n", file_lst->bytecode[0], file_lst->bytecode[1], file_lst->bytecode[2]);
-		ft_printf("\t\t\t\tvalue arg:%#x.%#.2x.%#.2x\n", file_lst->value_arg[0], file_lst->value_arg[1], file_lst->value_arg[2]);
-		ft_printf("\t\t\t\topcodevalue:%#.2x\n", file_lst->opcodevalue);
-		ft_printf("\t\t\t\toctalvalue:%#.2x\n", file_lst->octalvalue);
-		ft_printf("\t\t\t\tlabelsize:%d\n", file_lst->labelsize);
-		ft_printf("\t\t\t\t-----------||||||||||=..==!!!!!!!!==..=|||||||||-----------\n");
+	ft_printf("\t\t\t\tlabel_name:%s\n", file_lst->label);
+	ft_printf("\t\t\t\topcode:%s\n", file_lst->op_code);
+	ft_printf("\t\t\t\tcount arg:%d\n", file_lst->count_arg);
+	ft_printf("\t\t\t\tlabel link:%s.%s.%s\n", file_lst->islabel[0], file_lst->islabel[1], file_lst->islabel[2]);
+	ft_printf("\t\t\t\tbyte code:%d.%d.%d\n", file_lst->bytecode[0], file_lst->bytecode[1], file_lst->bytecode[2]);
+	ft_printf("\t\t\t\tvalue arg:%#x.%#.2x.%#.2x\n", file_lst->value_arg[0], file_lst->value_arg[1], file_lst->value_arg[2]);
+	ft_printf("\t\t\t\topcodevalue:%#.2x\n", file_lst->opcodevalue);
+	ft_printf("\t\t\t\toctalvalue:%#.2x\n", file_lst->octalvalue);
+	ft_printf("\t\t\t\tlabelsize:%d\n", file_lst->labelsize);
+	ft_printf("\t\t\t\tlistsize:%d.%d.%d.%d\n", file_lst->listsize[0], file_lst->listsize[1], file_lst->listsize[2], file_lst->listsize[3]);
+	ft_printf("\t\t\t\t-----------|||||||--------------------.............--------------------||||-----------\n");
+	// ft_printf("=||allb:%#.4x||fix:%#.4x|goback|str[%s]||=>allb:%#.4x\n", allb, fix, str, file_lst->value_arg[j]);
+
 }
 
 void		get_labelvaluesize(t_asmlst *file_lst, char *str, int countl, int j)
@@ -167,6 +185,8 @@ void		get_file_lst(t_asm *data, int i, int countlst)
 		ft_printf("\topcodevalue:%#.2x\n", file_lst->opcodevalue);
 		ft_printf("\toctalvalue:%#.2x\n", file_lst->octalvalue);
 		ft_printf("\tlabelsize:%d\n", file_lst->labelsize);
+		ft_printf("\tlistsize:%d.%d.%d.%d\n", file_lst->listsize[0], file_lst->listsize[1], file_lst->listsize[2], file_lst->listsize[3]);
+
 		ft_printf("\t-----------||||||||||=========|||||||||-----------\n");
 		file_lst = file_lst->next;
 	}
@@ -227,6 +247,8 @@ int			to_file(t_list **fl_lst, t_asm *data)
 		ft_printf("opcodevalue:%#.2x\n", file_lst->opcodevalue);
 		ft_printf("octalvalue:%#.2x\n", file_lst->octalvalue);
 		ft_printf("labelsize:%d\n", file_lst->labelsize);
+		ft_printf("\tlistsize:%d.%d.%d.%d\n", file_lst->listsize[0], file_lst->listsize[1], file_lst->listsize[2], file_lst->listsize[3]);
+
 		file_lst = file_lst->next;
 	}
 		// ft_printf("-----------BACK-----------\n");
