@@ -1,7 +1,7 @@
 Writing output program to example/42.cor
 Files example/42.cor and ./42.cor are identical
-Invalid instruction at token [INSTRUCTION] ".extend" at line 3
-Lexical error at [3:1]
+Invalid argument for st ":l1+1" at line 5
+Lexical error at [5:12]
 Writing output program to example/barriere.cor
 Files example/barriere.cor and ./barriere.cor are identical
 Writing output program to example/Car.cor
@@ -9,8 +9,8 @@ Files example/Car.cor and ./Car.cor are identical
 Writing output program to example/championships/2014/bguy/sam_2.0.cor
 Writing output program to example/championships/2014/bjacob/doge.cor
 Files example/championships/2014/bjacob/doge.cor and ./doge.cor are identical
-Lexical error unexpected symbol ";" at line 1
 Writing output program to example/championships/2014/brandazz/Rainbow_dash.cor
+Files example/championships/2014/brandazz/Rainbow_dash.cor and ./Rainbow_dash.cor are identical
 Writing output program to example/championships/2014/cdivry/youforkmytralala.cor
 Files example/championships/2014/cdivry/youforkmytralala.cor and ./youforkmytralala.cor are identical
 Invalid argument for sti "%:start" at line 40
@@ -55,3 +55,64 @@ Writing output program to example/championships/2014/mbacoux/meowluigi.cor
 Files example/championships/2014/mbacoux/meowluigi.cor and ./meowluigi.cor are identical
 Writing output program to example/championships/2014/mconraux/dubo.cor
 Files example/championships/2014/mconraux/dubo.cor and ./dubo.cor are identical
+Writing output program to example/championships/2014/rabid-on/jinx.cor
+Writing output program to example/championships/2014/rmasse/THUNDER.cor
+Writing output program to example/championships/2014/sbuono/Asombra.cor
+Writing output program to example/championships/2014/srabah-m/littlepuppy.cor
+Invalid argument for sti "%:write_front" at line 10
+Writing output program to example/championships/2014/tdemay/champ.cor
+Writing output program to example/championships/2014/vrey/darksasuke.cor
+Writing output program to example/championships/2014/ybouvet/casimir.cor
+Writing output program to example/championships/2017/adenis/Explosive_Kitty.cor
+Lexical error [LABEL] "fork%" at line 10
+Writing output program to example/championships/2017/agregoir/Kittystrophic.cor
+Writing output program to example/championships/2017/gnebie/ultima.cor
+Writing output program to example/championships/2017/iburel/gateau.cor
+Invalid argument for live "%1;" at line 64
+Writing output program to example/championships/2017/jaustry/mise_a_jour_windows95.cor
+Lexical error [LABEL] "fork%" at line 11
+Writing output program to example/championships/2017/nolivier/run_Kitty_RUN.cor
+Writing output program to example/championships/2017/pzarmehr/overwatch.cor
+Writing output program to example/championships/2017/tbillard/Douceur_power.cor
+Invalid instruction at token [INSTRUCTION] ".extend" at line 3
+Lexical error at [3:1]
+Writing output program to example/ex.cor
+Invalid argument for sti "%1			;change live by the right value" at line 4
+Writing output program to example/examples/bee_gees.cor
+Syntax error at token [ARGUMENTS] "№ of args don't match" at line 90
+Syntax error at token [TOKEN][090:006] ENDLINE
+Invalid argument for sti "%:ardeftgt" at line 38
+Writing output program to example/examples/fluttershy.cor
+Writing output program to example/examples/helltrain.cor
+Writing output program to example/examples/turtle.cor
+Writing output program to example/examples/zor.cor
+Writing output program to example/examples/zork.cor
+Writing output program to example/Gagnant.cor
+Writing output program to example/jumper.cor
+Syntax error at token [TOKEN] "incomplete header structure" at line 172
+Syntax error at token [TOKEN][002:002] INSTRUCTION "ld"
+Invalid argument for zjmp "%:deb" at line 5
+Lexical error at [31:23]
+Invalid argument for xor "r0" at line 4
+Invalid argument for xor "r0" at line 4
+Invalid argument for xor "r0" at line 4
+Lexical error at [182:1]
+Writing output program to example/maxidef.cor
+Writing output program to example/mortel.cor
+Invalid instruction at token [INSTRUCTION] ".extend" at line 3
+Lexical error at [3:1]
+Writing output program to example/Octobre_Rouge_V4.2.cor
+Invalid instruction at token [INSTRUCTION] ".extend" at line 3
+Lexical error at [3:1]
+Writing output program to example/slider2.cor
+Syntax error at token duplicate label "f1" at line 10
+Lexical error at [7:1]
+Invalid instruction at token [INSTRUCTION] ".extend" at line 3
+Lexical error at [3:1]
+Invalid instruction at token [INSTRUCTION] ".extend" at line 3
+Lexical error at [3:1]
+Invalid instruction at token [INSTRUCTION] ".extend" at line 3
+Lexical error at [3:1]
+Invalid instruction at token [INSTRUCTION] ".extend" at line 3
+Lexical error at [3:1]
+Writing output program to example/toto.cor
