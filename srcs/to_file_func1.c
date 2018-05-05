@@ -75,7 +75,7 @@ void		goback(t_asmlst *file_lst, char *str, int flag, int j)
 	// ft_printf("\t\t\t\t-----------|||||||--------------------------------------------------||||-----------\n");
 	while (file_lst && flag--)
 	{
-		// ft_printf("how operation? %i\n", flag);
+		// t_printf("how operation? %i\n", flag);
 		SUMARR(allb, file_lst->listsize);
 		if (file_lst->next)
 			file_lst = file_lst->next;

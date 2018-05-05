@@ -1,358 +1,57 @@
-	-----------||||||||||===1==|||||||||-----------
-	label_name:l2
-	opcode:sti
-	count arg:3
-	label link:(null).live.(null)
-	byte code:1.2.2
-	value arg:0x1.00.0x01
-	opcodevalue:0x0b
-	octalvalue:0x68
-	labelsize:2
-	-----------||||||||||=========|||||||||-----------
-		now check:(null)
-		now check:live
-__1__
-lst->value_arg[(null)], file_lst->bytecode[2], file_lst->labelsize = [4];
-			-----------|||||||1|||||||1|||||||-----------
-			label_name:(null)
-			opcode:and
-			count arg:3
-			label link:(null).(null).(null)
-			byte code:1.2.1
-			value arg:0x1.00.0x01
-			opcodevalue:0x06
-			octalvalue:0x64
-			labelsize:4
-			-----------||||||||||||||||||||||||-----------
-			считать вперед
-herak1
-herak2
-=||goup|file_lst->label|(null)||=>allb:0x0008
-=||goup|file_lst->label|(null)||=>allb:0x000b
-=||goup|file_lst->label|(null)||=>allb:0x000e
-=||goup|file_lst->label|(null)||=>allb:0x0011
-=||goup|file_lst->label|(null)||=>allb:0x0014
-=||goup|file_lst->label|live||=>allb:0x0014
-=||goup||live||=>allb:0x0014
-		now check:(null)
-	-----------||||||||||===2==|||||||||-----------
-	label_name:(null)
-	opcode:and
-	count arg:3
-	label link:(null).(null).(null)
-	byte code:1.2.1
-	value arg:0x1.0x14.0x01
-	opcodevalue:0x06
-	octalvalue:0x64
-	labelsize:4
-	-----------||||||||||=========|||||||||-----------
-		now check:(null)
-		now check:(null)
-		now check:(null)
-	-----------||||||||||===3==|||||||||-----------
-	label_name:(null)
-	opcode:zjmp
-	count arg:1
-	label link:live.(null).(null)
-	byte code:2.0.0
-	value arg:0.00.00
-	opcodevalue:0x09
-	octalvalue:00
-	labelsize:2
-	-----------||||||||||=========|||||||||-----------
-		now check:live
-__3__
-lst->value_arg[live], file_lst->bytecode[2], file_lst->labelsize = [2];
-			-----------|||||||3|||||||3|||||||-----------
-			label_name:(null)
-			opcode:zjmp
-			count arg:1
-			label link:live.(null).(null)
-			byte code:2.0.0
-			value arg:0.00.00
-			opcodevalue:0x09
-			octalvalue:00
-			labelsize:2
-			-----------||||||||||||||||||||||||-----------
-			считать вперед
-herak1
-!!!!!!!!!!!!!!!!!!!!!!!
-herak2
-=||goup|file_lst->label|(null)||=>allb:0x0003
-=||goup|file_lst->label|(null)||=>allb:0x0006
-=||goup|file_lst->label|(null)||=>allb:0x0009
-=||goup|file_lst->label|live||=>allb:0x0009
-=||goup||live||=>allb:0x0009
-		now check:(null)
-		now check:(null)
-	-----------||||||||||===4==|||||||||-----------
-	label_name:(null)
-	opcode:zjmp
-	count arg:1
-	label link:live.(null).(null)
-	byte code:2.0.0
-	value arg:0x9.00.00
-	opcodevalue:0x09
-	octalvalue:00
-	labelsize:2
-	-----------||||||||||=========|||||||||-----------
-		now check:live
-__4__
-lst->value_arg[live], file_lst->bytecode[2], file_lst->labelsize = [2];
-			-----------|||||||4|||||||4|||||||-----------
-			label_name:(null)
-			opcode:zjmp
-			count arg:1
-			label link:live.(null).(null)
-			byte code:2.0.0
-			value arg:0.00.00
-			opcodevalue:0x09
-			octalvalue:00
-			labelsize:2
-			-----------||||||||||||||||||||||||-----------
-			считать вперед
-herak1
-!!!!!!!!!!!!!!!!!!!!!!!
-herak2
-=||goup|file_lst->label|(null)||=>allb:0x0003
-=||goup|file_lst->label|(null)||=>allb:0x0006
-=||goup|file_lst->label|live||=>allb:0x0006
-=||goup||live||=>allb:0x0006
-		now check:(null)
-		now check:(null)
-	-----------||||||||||===5==|||||||||-----------
-	label_name:(null)
-	opcode:zjmp
-	count arg:1
-	label link:live.(null).(null)
-	byte code:2.0.0
-	value arg:0x6.00.00
-	opcodevalue:0x09
-	octalvalue:00
-	labelsize:2
-	-----------||||||||||=========|||||||||-----------
-		now check:live
-__5__
-lst->value_arg[live], file_lst->bytecode[2], file_lst->labelsize = [2];
-			-----------|||||||5|||||||5|||||||-----------
-			label_name:(null)
-			opcode:zjmp
-			count arg:1
-			label link:live.(null).(null)
-			byte code:2.0.0
-			value arg:0.00.00
-			opcodevalue:0x09
-			octalvalue:00
-			labelsize:2
-			-----------||||||||||||||||||||||||-----------
-			считать вперед
-herak1
-!!!!!!!!!!!!!!!!!!!!!!!
-herak2
-=||goup|file_lst->label|(null)||=>allb:0x0003
-=||goup|file_lst->label|live||=>allb:0x0003
-=||goup||live||=>allb:0x0003
-		now check:(null)
-		now check:(null)
-	-----------||||||||||===6==|||||||||-----------
-	label_name:(null)
-	opcode:zjmp
-	count arg:1
-	label link:live.(null).(null)
-	byte code:2.0.0
-	value arg:0x3.00.00
-	opcodevalue:0x09
-	octalvalue:00
-	labelsize:2
-	-----------||||||||||=========|||||||||-----------
-		now check:live
-__6__
-lst->value_arg[(null)], file_lst->bytecode[2], file_lst->labelsize = [4];
-			-----------|||||||6|||||||6|||||||-----------
-			label_name:live
-			opcode:live
-			count arg:1
-			label link:(null).(null).(null)
-			byte code:2.0.0
-			value arg:0x1.00.00
-			opcodevalue:0x01
-			octalvalue:00
-			labelsize:4
-			-----------||||||||||||||||||||||||-----------
-			считать вперед
-herak1
-herak2
-=||goup|file_lst->label|live||=>allb:0000
-=||goup||live||=>allb:0000
-		now check:(null)
-		now check:(null)
-	-----------||||||||||===7==|||||||||-----------
-	label_name:live
-	opcode:live
-	count arg:1
-	label link:(null).(null).(null)
-	byte code:2.0.0
-	value arg:0.00.00
-	opcodevalue:0x01
-	octalvalue:00
-	labelsize:4
-	-----------||||||||||=========|||||||||-----------
-		now check:(null)
-		now check:(null)
-		now check:(null)
-	-----------||||||||||===8==|||||||||-----------
-	label_name:(null)
-	opcode:zjmp
-	count arg:1
-	label link:live.(null).(null)
-	byte code:2.0.0
-	value arg:0.00.00
-	opcodevalue:0x09
-	octalvalue:00
-	labelsize:2
-	-----------||||||||||=========|||||||||-----------
-		now check:live
-__8__
-lst->value_arg[live2], file_lst->bytecode[2], file_lst->labelsize = [2];
-			-----------|||||||8|||||||8|||||||-----------
-			label_name:(null)
-			opcode:zjmp
-			count arg:1
-			label link:live2.(null).(null)
-			byte code:2.0.0
-			value arg:0.00.00
-			opcodevalue:0x09
-			octalvalue:00
-			labelsize:2
-			-----------||||||||||||||||||||||||-----------
-=1=>flag:1||||===>int j = [0]
-ret = 0xFFFF;return (ret);
-=3=>allb:0
-=||allb:0x0003||fix:0xffff|goback|str[live]||=>allb:0xfffd
-			считать назад
-		now check:(null)
-		now check:(null)
-	-----------||||||||||===9==|||||||||-----------
-	label_name:(null)
-	opcode:zjmp
-	count arg:1
-	label link:live2.(null).(null)
-	byte code:2.0.0
-	value arg:0xfffd.00.00
-	opcodevalue:0x09
-	octalvalue:00
-	labelsize:2
-	-----------||||||||||=========|||||||||-----------
-		now check:live2
-__9__
-lst->value_arg[live], file_lst->bytecode[2], file_lst->labelsize = [2];
-			-----------|||||||9|||||||9|||||||-----------
-			label_name:(null)
-			opcode:zjmp
-			count arg:1
-			label link:live.(null).(null)
-			byte code:2.0.0
-			value arg:0.00.00
-			opcodevalue:0x09
-			octalvalue:00
-			labelsize:2
-			-----------||||||||||||||||||||||||-----------
-			считать вперед
-herak1
-herak2
-=||goup|file_lst->label|(null)||=>allb:0x0003
-=||goup|file_lst->label|live2||=>allb:0x0003
-=||goup||live2||=>allb:0x0003
-		now check:(null)
-		now check:(null)
-	-----------||||||||||===10==|||||||||-----------
-	label_name:(null)
-	opcode:zjmp
-	count arg:1
-	label link:live.(null).(null)
-	byte code:2.0.0
-	value arg:0x3.00.00
-	opcodevalue:0x09
-	octalvalue:00
-	labelsize:2
-	-----------||||||||||=========|||||||||-----------
-		now check:live
-__10__
-lst->value_arg[(null)], file_lst->bytecode[2], file_lst->labelsize = [4];
-			-----------|||||||10|||||||10|||||||-----------
-			label_name:live2
-			opcode:live
-			count arg:1
-			label link:(null).(null).(null)
-			byte code:2.0.0
-			value arg:0x1.00.00
-			opcodevalue:0x01
-			octalvalue:00
-			labelsize:4
-			-----------||||||||||||||||||||||||-----------
-=1=>flag:1||||===>int j = [0]
-ret = 0xFFFFFFFF;return (ret);
-=3=>allb:0
-=||allb:0x0005||fix:0xffffffff|goback|str[live]||=>allb:0xfffffffb
-			считать назад
-		now check:(null)
-		now check:(null)
-	-----------||||||||||===11==|||||||||-----------
-	label_name:live2
-	opcode:live
-	count arg:1
-	label link:(null).(null).(null)
-	byte code:2.0.0
-	value arg:0xfffffffb.00.00
-	opcodevalue:0x01
-	octalvalue:00
-	labelsize:4
-	-----------||||||||||=========|||||||||-----------
-		now check:(null)
-		now check:(null)
-		now check:(null)
-	-----------||||||||||===12==|||||||||-----------
-	label_name:(null)
-	opcode:zjmp
-	count arg:1
-	label link:live.(null).(null)
-	byte code:2.0.0
-	value arg:0.00.00
-	opcodevalue:0x09
-	octalvalue:00
-	labelsize:2
-	-----------||||||||||=========|||||||||-----------
-		now check:live
-__12__
-lst->value_arg[live2], file_lst->bytecode[2], file_lst->labelsize = [2];
-			-----------|||||||12|||||||12|||||||-----------
-			label_name:(null)
-			opcode:zjmp
-			count arg:1
-			label link:live2.(null).(null)
-			byte code:2.0.0
-			value arg:0.00.00
-			opcodevalue:0x09
-			octalvalue:00
-			labelsize:2
-			-----------||||||||||||||||||||||||-----------
-=1=>flag:1||||===>int j = [0]
-ret = 0xFFFF;return (ret);
-=3=>allb:0
-=||allb:0x0003||fix:0xffff|goback|str[live]||=>allb:0xfffd
-			считать назад
-		now check:(null)
-		now check:(null)
-	-----------||||||||||===13==|||||||||-----------
-	label_name:(null)
-	opcode:zjmp
-	count arg:1
-	label link:live2.(null).(null)
-	byte code:2.0.0
-	value arg:0xfffd.00.00
-	opcodevalue:0x09
-	octalvalue:00
-	labelsize:2
-	-----------||||||||||=========|||||||||-----------
-		now check:live2
-__13__
+Writing output program to example/42.cor
+Files example/42.cor and ./42.cor are identical
+Invalid instruction at token [INSTRUCTION] ".extend" at line 3
+Lexical error at [3:1]
+Writing output program to example/barriere.cor
+Files example/barriere.cor and ./barriere.cor are identical
+Writing output program to example/Car.cor
+Files example/Car.cor and ./Car.cor are identical
+Writing output program to example/championships/2014/bguy/sam_2.0.cor
+Writing output program to example/championships/2014/bjacob/doge.cor
+Files example/championships/2014/bjacob/doge.cor and ./doge.cor are identical
+Lexical error unexpected symbol ";" at line 1
+Writing output program to example/championships/2014/brandazz/Rainbow_dash.cor
+Writing output program to example/championships/2014/cdivry/youforkmytralala.cor
+Files example/championships/2014/cdivry/youforkmytralala.cor and ./youforkmytralala.cor are identical
+Invalid argument for sti "%:start" at line 40
+Writing output program to example/championships/2014/clafleur/big_feet.cor
+Writing output program to example/championships/2014/dcohen/loose.cor
+Files example/championships/2014/dcohen/loose.cor and ./loose.cor are identical
+Writing output program to example/championships/2014/ekocevar/mandragore.cor
+Files example/championships/2014/ekocevar/mandragore.cor and ./mandragore.cor are identical
+Writing output program to example/championships/2014/esusseli/gedeon.cor
+Files example/championships/2014/esusseli/gedeon.cor and ./gedeon.cor are identical
+Writing output program to example/championships/2014/evlasova/terminator.cor
+Files example/championships/2014/evlasova/terminator.cor and ./terminator.cor are identical
+Writing output program to example/championships/2014/fcorre/ultimate-surrender.cor
+Files example/championships/2014/fcorre/ultimate-surrender.cor and ./ultimate-surrender.cor are identical
+Writing output program to example/championships/2014/gbir/_.cor
+Files example/championships/2014/gbir/_.cor and ./_.cor are identical
+Writing output program to example/championships/2014/gjestin/salamahenagalabadoun.cor
+Files example/championships/2014/gjestin/salamahenagalabadoun.cor and ./salamahenagalabadoun.cor are identical
+Writing output program to example/championships/2014/gleger/Machine-gun.cor
+Files example/championships/2014/gleger/Machine-gun.cor and ./Machine-gun.cor are identical
+Writing output program to example/championships/2014/gmange/corelol.cor
+Files example/championships/2014/gmange/corelol.cor and ./corelol.cor are identical
+Writing output program to example/championships/2014/gpetrov/MarineKing.cor
+Files example/championships/2014/gpetrov/MarineKing.cor and ./MarineKing.cor are identical
+Writing output program to example/championships/2014/gudepard/Kappa.cor
+Files example/championships/2014/gudepard/Kappa.cor and ./Kappa.cor are identical
+Writing output program to example/championships/2014/hmichals/Wall.cor
+Files example/championships/2014/hmichals/Wall.cor and ./Wall.cor are identical
+Invalid argument for sti "%1			; live :run" at line 7
+Writing output program to example/championships/2014/hmoutaou/Misaka_Mikoto.cor
+Writing output program to example/championships/2014/kelickel/Varimathras.cor
+Files example/championships/2014/kelickel/Varimathras.cor and ./Varimathras.cor are identical
+Writing output program to example/championships/2014/kmonrose/justin_bee.cor
+Files example/championships/2014/kmonrose/justin_bee.cor and ./justin_bee.cor are identical
+Writing output program to example/championships/2014/ldesgoui/_honeybadger.cor
+Files example/championships/2014/ldesgoui/_honeybadger.cor and ./_honeybadger.cor are identical
+Writing output program to example/championships/2014/lseguin/skynet.cor
+Files example/championships/2014/lseguin/skynet.cor and ./skynet.cor are identical
+Writing output program to example/championships/2014/lsirigna/live.cor
+Files example/championships/2014/lsirigna/live.cor and ./live.cor are identical
+Writing output program to example/championships/2014/mbacoux/meowluigi.cor
+Files example/championships/2014/mbacoux/meowluigi.cor and ./meowluigi.cor are identical
+Writing output program to example/championships/2014/mconraux/dubo.cor
+Files example/championships/2014/mconraux/dubo.cor and ./dubo.cor are identical
