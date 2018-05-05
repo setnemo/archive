@@ -28,7 +28,6 @@ int			setfixsize(t_asmlst *file_lst, int j)
 		ret = 0xFFFF;
 		return (ret);
 	}
-
 	if (file_lst->labelsize == 2)
 	{
 		ret = 0xFFFF;
@@ -50,20 +49,19 @@ void		goup(t_asmlst *file_lst, char *str, int flag, int j)
 	while (file_lst)
 	{
 		if (file_lst->label && ft_strequ(str, file_lst->label))
-				break ;
+			break ;
 		SUMARR(allb, file_lst->listsize);
 		file_lst = file_lst->next;
 	}
 	lst->value_arg[j] = allb;
 }
 
-void		goback(t_asmlst *file_lst, char *str, int flag, int j)
+void		goback(t_asmlst *file_lst, int flag, int j)
 {
-	if (str)
-		;
-	int allb;
-	int fix;
-	t_asmlst *lst = NULL;
+	int			allb;
+	int			fix;
+	t_asmlst	*lst;
+
 	allb = 0;
 	lst = file_lst;
 	if (lst->number != 1)
@@ -84,9 +82,9 @@ void		goback(t_asmlst *file_lst, char *str, int flag, int j)
 
 void		get_labelvaluesize(t_asmlst *file_lst, char *str, int i, int j)
 {
-	int it[3];
-	t_asmlst *lst;
-	t_asmlst *lst2;
+	int			it[3];
+	t_asmlst	*lst;
+	t_asmlst	*lst2;
 
 	lst = file_lst;
 	it[0] = 0;
@@ -105,6 +103,6 @@ void		get_labelvaluesize(t_asmlst *file_lst, char *str, int i, int j)
 	if (!it[0])
 		goup(lst, str, i, j);
 	else
-		(lst2->prev) ? goback(lst2->prev, str, i - it[0], j) :
-	goback(lst2, str, i - it[0], j);
+		(lst2->prev) ? goback(lst2->prev, i - it[0], j) :
+	goback(lst2, i - it[0], j);
 }

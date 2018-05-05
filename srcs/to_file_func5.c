@@ -26,25 +26,41 @@ int			getwriteargsize(t_asmlst *file_lst, int j)
 	return (4);
 }
 
-int			push_data_to_file(t_asm *data)
+void		push_list_to_file(t_asmlst *file_lst, t_asm *data, int asz, int i)
+{
+	int k;
+
+	while (i < 3)
+	{
+		if (file_lst->bytecode[i])
+		{
+			t_byterange.num = 0;
+			t_byterange.num = file_lst->value_arg[i];
+			asz = getwriteargsize(file_lst, i);
+			if (asz == 4)
+			{
+				k = 5;
+				while (--k)
+					write(data->dotcorfd, &t_byterange.ch[k - 1], 1);
+			}
+			if (asz == 2)
+			{
+				write(data->dotcorfd, &t_byterange.ch2[1], 1);
+				write(data->dotcorfd, &t_byterange.ch2[0], 1);
+			}
+			if (asz == 1)
+				write(data->dotcorfd, &file_lst->value_arg[i], 1);
+		}
+		i++;
+	}
+}
+
+void		push_name_and_cmnt_to_file(t_asm *data, char buf1[], char buf2[])
 {
 	int			magic;
-	char		buf1[PROG_NAME_LENGTH - ft_strlen(data->filename)];
-	char		buf2[COMMENT_LENGTH - ft_strlen(data->filecomment)];
-	int			fix;
-	t_asmlst	*file_lst = NULL;
-	int			i;
-
-	file_lst = data->next;
-	data->dotcorfd = open(data->dotcorname, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	fix = 0;
-	if ((PROG_NAME_LENGTH + 1) % 4 != 0)
-		fix += 4 - (PROG_NAME_LENGTH + 1) % 4;
-	if ((COMMENT_LENGTH + 1) % 4 != 0)
-		fix += 4 - (COMMENT_LENGTH + 1) % 4;
+	int			x;
 
 	magic = COREWAR_EXEC_MAGIC;
-	int x;
 	x = magic;
 	x = O1 | O2;
 	magic = x;
@@ -52,8 +68,8 @@ int			push_data_to_file(t_asm *data)
 	x = O1 | O2;
 	data->allbytes = x;
 	write(data->dotcorfd, &magic, 4);
-	ft_bzero(buf1, PROG_NAME_LENGTH  - ft_strlen(data->filename));
-	ft_bzero(buf2, COMMENT_LENGTH - ft_strlen(data->filecomment)); 
+	ft_bzero(buf1, PROG_NAME_LENGTH - ft_strlen(data->filename));
+	ft_bzero(buf2, COMMENT_LENGTH - ft_strlen(data->filecomment));
 	write(data->dotcorfd, data->filename, ft_strlen(data->filename));
 	write(data->dotcorfd, buf1, PROG_NAME_LENGTH - ft_strlen(data->filename));
 	write(data->dotcorfd, buf1, 4);
@@ -61,8 +77,19 @@ int			push_data_to_file(t_asm *data)
 	write(data->dotcorfd, data->filecomment, ft_strlen(data->filecomment));
 	write(data->dotcorfd, buf2, COMMENT_LENGTH - ft_strlen(data->filecomment));
 	write(data->dotcorfd, buf1, 4);
-	int temp1;
-	int k;
+}
+
+int			push_data_to_file(t_asm *data)
+{
+	char		buf1[PROG_NAME_LENGTH - ft_strlen(data->filename)];
+	char		buf2[COMMENT_LENGTH - ft_strlen(data->filecomment)];
+	t_asmlst	*file_lst;
+
+	file_lst = data->next;
+	data->dotcorfd = open(data->dotcorname, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (data->dotcorfd == -1)
+		return (-1);
+	push_name_and_cmnt_to_file(data, buf1, buf2);
 	while (file_lst)
 	{
 		if (file_lst->empty == 0)
@@ -70,37 +97,9 @@ int			push_data_to_file(t_asm *data)
 			write(data->dotcorfd, &file_lst->opcodevalue, 1);
 			if (file_lst->octalvalue)
 				write(data->dotcorfd, &file_lst->octalvalue, 1);
-			i = 0;
-			while (i < 3)
-			{
-				if (file_lst->bytecode[i])
-				{
-					t_byterange.num = 0;
-					t_byterange.num = file_lst->value_arg[i];
-					temp1 = getwriteargsize(file_lst, i);
-					if (temp1 == 4)
-					{
-						k = 3;
-						while (42)
-						{
-							write(data->dotcorfd, &t_byterange.ch[k], 1);
-							k--;
-							if (k == -1)
-								break ;
-						}
-					}
-					if (temp1 == 2)
-					{
-						write(data->dotcorfd, &t_byterange.ch2[1], 1);
-						write(data->dotcorfd, &t_byterange.ch2[0], 1);
-					}
-					if (temp1 == 1)
-						write(data->dotcorfd, &file_lst->value_arg[i], 1);
-				}
-				i++;
-			}
+			push_list_to_file(file_lst, data, 0, 0);
 		}
 		file_lst = file_lst->next;
 	}
-	return (0);
+	return (1);
 }

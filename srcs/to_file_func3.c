@@ -14,7 +14,6 @@
 #include "op.h"
 #define SUMARR(x, y) (x += (y[0] + y[1] + y[2] + y[3]))
 
-
 static void	get_lblbcvadata(t_asmlst *file_lst, t_spl *spl)
 {
 	int			i;
@@ -65,5 +64,3 @@ void		read_tree(t_asmlst *file_lst, t_spl *spl, t_list *tmp)
 			break ;
 	}
 }
-
-
