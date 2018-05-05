@@ -40,7 +40,7 @@ char			g_is_err;
 # define COMMENT_CMD_STRING		".comment"
 # define INIT_INFO				info = {0, 0, NULL};
 # define INIT_FILE				{0, 0, NULL, NULL, NULL, NULL};
-# define PROG_NAME_LENGTH       (128)
+# define PROG_NAME_LENGTH       (129)
 # define COMMENT_LENGTH         (2048)
 # define COREWAR_EXEC_MAGIC     0xea83f3
 # define REG_NUMBER				16

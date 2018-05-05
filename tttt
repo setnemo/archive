@@ -82,38 +82,49 @@ Writing output program to example/championships/2014/mconraux/dubo.cor
 Files example/championships/2014/mconraux/dubo.cor and ./dubo.cor are identical
 [*] Done! 'example/championships/2014/rabid-on/jinx.s' compiled to 'jinx.cor'
 Writing output program to example/championships/2014/rabid-on/jinx.cor
+Files example/championships/2014/rabid-on/jinx.cor and ./jinx.cor are identical
 [*] Done! 'example/championships/2014/rmasse/THUNDER.s' compiled to 'THUNDER.cor'
 Writing output program to example/championships/2014/rmasse/THUNDER.cor
+Files example/championships/2014/rmasse/THUNDER.cor and ./THUNDER.cor are identical
 [*] Done! 'example/championships/2014/sbuono/Asombra.s' compiled to 'Asombra.cor'
 Writing output program to example/championships/2014/sbuono/Asombra.cor
+Files example/championships/2014/sbuono/Asombra.cor and ./Asombra.cor are identical
 [*] Done! 'example/championships/2014/srabah-m/littlepuppy.s' compiled to 'littlepuppy.cor'
 Writing output program to example/championships/2014/srabah-m/littlepuppy.cor
+Files example/championships/2014/srabah-m/littlepuppy.cor and ./littlepuppy.cor are identical
 Lexical error unexpected symbol ";" at line 1
 Writing output program to example/championships/2014/tdemay/champ.cor
 [*] Done! 'example/championships/2014/vrey/darksasuke.s' compiled to 'darksasuke.cor'
 Writing output program to example/championships/2014/vrey/darksasuke.cor
+Files example/championships/2014/vrey/darksasuke.cor and ./darksasuke.cor are identical
 [*] Done! 'example/championships/2014/ybouvet/casimir.s' compiled to 'casimir.cor'
 Writing output program to example/championships/2014/ybouvet/casimir.cor
+Files example/championships/2014/ybouvet/casimir.cor and ./casimir.cor are identical
 Lexical error [LABEL] "zjmp%" at line 144
 Writing output program to example/championships/2017/adenis/Explosive_Kitty.cor
 Lexical error [LABEL] "fork%" at line 10
 Writing output program to example/championships/2017/agregoir/Kittystrophic.cor
 [*] Done! 'example/championships/2017/gnebie/ultima.s' compiled to 'ultima.cor'
 Writing output program to example/championships/2017/gnebie/ultima.cor
+Files example/championships/2017/gnebie/ultima.cor and ./ultima.cor are identical
 [*] Done! 'example/championships/2017/iburel/gateau.s' compiled to 'gateau.cor'
 Writing output program to example/championships/2017/iburel/gateau.cor
+Files example/championships/2017/iburel/gateau.cor and ./gateau.cor are identical
 Invalid argument for live "%1;" at line 64
 Writing output program to example/championships/2017/jaustry/mise_a_jour_windows95.cor
 Lexical error [LABEL] "fork%" at line 11
 Writing output program to example/championships/2017/nolivier/run_Kitty_RUN.cor
 [*] Done! 'example/championships/2017/pzarmehr/overwatch.s' compiled to 'overwatch.cor'
 Writing output program to example/championships/2017/pzarmehr/overwatch.cor
+Files example/championships/2017/pzarmehr/overwatch.cor and ./overwatch.cor are identical
 [*] Done! 'example/championships/2017/tbillard/Douceur_power.s' compiled to 'Douceur_power.cor'
 Writing output program to example/championships/2017/tbillard/Douceur_power.cor
+Files example/championships/2017/tbillard/Douceur_power.cor and ./Douceur_power.cor are identical
 Invalid instruction at token [INSTRUCTION] ".extend" at line 3
 Lexical error at [3:1]
 [*] Done! 'example/ex.s' compiled to 'ex.cor'
 Writing output program to example/ex.cor
+Files example/ex.cor and ./ex.cor are identical
 Invalid argument for sti "%1			;change live by the right value" at line 4
 Writing output program to example/examples/bee_gees.cor
 Syntax error at token [ARGUMENTS] "№ of args don't match" at line 90
@@ -122,16 +133,22 @@ Invalid argument for sti "%:ardeftgt" at line 38
 Writing output program to example/examples/fluttershy.cor
 [*] Done! 'example/examples/helltrain.s' compiled to 'helltrain.cor'
 Writing output program to example/examples/helltrain.cor
+Files example/examples/helltrain.cor and ./helltrain.cor are identical
 [*] Done! 'example/examples/turtle.s' compiled to 'turtle.cor'
 Writing output program to example/examples/turtle.cor
+Files example/examples/turtle.cor and ./turtle.cor are identical
 [*] Done! 'example/examples/zor.s' compiled to 'zor.cor'
 Writing output program to example/examples/zor.cor
+Files example/examples/zor.cor and ./zor.cor are identical
 [*] Done! 'example/examples/zork.s' compiled to 'zork.cor'
 Writing output program to example/examples/zork.cor
+Files example/examples/zork.cor and ./zork.cor are identical
 [*] Done! 'example/Gagnant.s' compiled to 'Gagnant.cor'
 Writing output program to example/Gagnant.cor
+Binary files example/Gagnant.cor and ./Gagnant.cor differ
 [*] Done! 'example/jumper.s' compiled to 'jumper.cor'
 Writing output program to example/jumper.cor
+Files example/jumper.cor and ./jumper.cor are identical
 Syntax error at token [TOKEN] "incomplete header structure" at line 172
 Syntax error at token [TOKEN][002:002] INSTRUCTION "ld"
 Invalid argument for zjmp "%:deb" at line 5
@@ -142,8 +159,10 @@ Invalid argument for xor "r0" at line 4
 Lexical error at [182:1]
 [*] Done! 'example/maxidef.s' compiled to 'maxidef.cor'
 Writing output program to example/maxidef.cor
+Files example/maxidef.cor and ./maxidef.cor are identical
 [*] Done! 'example/mortel.s' compiled to 'mortel.cor'
 Writing output program to example/mortel.cor
+Files example/mortel.cor and ./mortel.cor are identical
 Invalid instruction at token [INSTRUCTION] ".extend" at line 3
 Lexical error at [3:1]
 [*] Done! 'example/Octobre_Rouge_V4.2.s' compiled to 'Octobre_Rouge_V4.cor'
@@ -152,6 +171,7 @@ Invalid instruction at token [INSTRUCTION] ".extend" at line 3
 Lexical error at [3:1]
 [*] Done! 'example/slider2.s' compiled to 'slider2.cor'
 Writing output program to example/slider2.cor
+Files example/slider2.cor and ./slider2.cor are identical
 Syntax error at token duplicate label "f1" at line 10
 Lexical error at [7:1]
 Invalid instruction at token [INSTRUCTION] ".extend" at line 3
@@ -164,3 +184,4 @@ Invalid instruction at token [INSTRUCTION] ".extend" at line 3
 Lexical error at [3:1]
 [*] Done! 'example/toto.s' compiled to 'toto.cor'
 Writing output program to example/toto.cor
+Binary files example/toto.cor and ./toto.cor differ

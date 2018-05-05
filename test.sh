@@ -88,124 +88,124 @@ diff -s example/championships/2014/mbacoux/meowluigi.cor ./meowluigi.cor
 diff -s example/championships/2014/mconraux/dubo.cor ./dubo.cor
 ./asm example/championships/2014/rabid-on/jinx.s
 ./orig_asm example/championships/2014/rabid-on/jinx.s
-diff -s example/championships/2014/rabid-on/jinx.s ./jinx.s
+diff -s example/championships/2014/rabid-on/jinx.cor ./jinx.cor
 ./asm example/championships/2014/rmasse/THUNDER.s
 ./orig_asm example/championships/2014/rmasse/THUNDER.s
-diff -s example/championships/2014/rmasse/THUNDER.s ./THUNDER.s
+diff -s example/championships/2014/rmasse/THUNDER.cor ./THUNDER.cor
 ./asm example/championships/2014/sbuono/Asombra.s
 ./orig_asm example/championships/2014/sbuono/Asombra.s
-diff -s example/championships/2014/sbuono/Asombra.s ./Asombra.s
+diff -s example/championships/2014/sbuono/Asombra.cor ./Asombra.cor
 ./asm example/championships/2014/srabah-m/littlepuppy.s
 ./orig_asm example/championships/2014/srabah-m/littlepuppy.s
-diff -s example/championships/2014/srabah-m/littlepuppy.s ./littlepuppy.s
+diff -s example/championships/2014/srabah-m/littlepuppy.cor ./littlepuppy.cor
 ./asm example/championships/2014/tdemay/champ.s
 ./orig_asm example/championships/2014/tdemay/champ.s
-diff -s example/championships/2014/tdemay/champ.s ./champ.s
+diff -s example/championships/2014/tdemay/champ.cor ./champ.cor
 ./asm example/championships/2014/vrey/darksasuke.s
 ./orig_asm example/championships/2014/vrey/darksasuke.s
-diff -s example/championships/2014/vrey/darksasuke.s ./darksasuke.s
+diff -s example/championships/2014/vrey/darksasuke.cor ./darksasuke.cor
 ./asm example/championships/2014/ybouvet/casimir.s
 ./orig_asm example/championships/2014/ybouvet/casimir.s
-diff -s example/championships/2014/ybouvet/casimir.s ./casimir.s
+diff -s example/championships/2014/ybouvet/casimir.cor ./casimir.cor
 ./asm example/championships/2017/adenis/Explosive_Kitty.s
 ./orig_asm example/championships/2017/adenis/Explosive_Kitty.s
-diff -s example/championships/2017/adenis/Explosive_Kitty.s ./Explosive_Kitty.s
+diff -s example/championships/2017/adenis/Explosive_Kitty.cor ./Explosive_Kitty.cor
 ./asm example/championships/2017/agregoir/Kittystrophic.s
 ./orig_asm example/championships/2017/agregoir/Kittystrophic.s
-diff -s example/championships/2017/agregoir/Kittystrophic.s ./Kittystrophic.s
+diff -s example/championships/2017/agregoir/Kittystrophic.cor ./Kittystrophic.cor
 ./asm example/championships/2017/gnebie/ultima.s
 ./orig_asm example/championships/2017/gnebie/ultima.s
-diff -s example/championships/2017/gnebie/ultima.s ./ultima.s
+diff -s example/championships/2017/gnebie/ultima.cor ./ultima.cor
 ./asm example/championships/2017/iburel/gateau.s
 ./orig_asm example/championships/2017/iburel/gateau.s
-diff -s example/championships/2017/iburel/gateau.s ./gateau.s
+diff -s example/championships/2017/iburel/gateau.cor ./gateau.cor
 ./asm example/championships/2017/jaustry/mise_a_jour_windows95.s
 ./orig_asm example/championships/2017/jaustry/mise_a_jour_windows95.s
-diff -s example/championships/2017/jaustry/mise_a_jour_windows95.s ./mise_a_jour_windows95.s
+diff -s example/championships/2017/jaustry/mise_a_jour_windows95.cor ./mise_a_jour_windows95.cor
 ./asm example/championships/2017/nolivier/run_Kitty_RUN.s
 ./orig_asm example/championships/2017/nolivier/run_Kitty_RUN.s
-diff -s example/championships/2017/nolivier/run_Kitty_RUN.s ./run_Kitty_RUN.s
+diff -s example/championships/2017/nolivier/run_Kitty_RUN.cor ./run_Kitty_RUN.cor
 ./asm example/championships/2017/pzarmehr/overwatch.s
 ./orig_asm example/championships/2017/pzarmehr/overwatch.s
-diff -s example/championships/2017/pzarmehr/overwatch.s ./overwatch.s
+diff -s example/championships/2017/pzarmehr/overwatch.cor ./overwatch.cor
 ./asm example/championships/2017/tbillard/Douceur_power.s
 ./orig_asm example/championships/2017/tbillard/Douceur_power.s
-diff -s example/championships/2017/tbillard/Douceur_power.s ./Douceur_power.s
+diff -s example/championships/2017/tbillard/Douceur_power.cor ./Douceur_power.cor
 ./asm example/Death.s
 ./orig_asm example/Death.s
-diff -s example/Death.s ./Death.s
+diff -s example/Death.cor ./Death.cor
 ./asm example/ex.s
 ./orig_asm example/ex.s
-diff -s example/ex.s ./ex.s
+diff -s example/ex.cor ./ex.cor
 ./asm example/examples/bee_gees.s
 ./orig_asm example/examples/bee_gees.s
-diff -s example/examples/bee_gees.s ./examples/bee_gees.s
+diff -s example/examples/bee_gees.cor ./bee_gees.cor
 ./asm example/examples/bigzork.s
 ./orig_asm example/examples/bigzork.s
-diff -s example/examples/bigzork.s ./examples/bigzork.s
+diff -s example/examples/bigzork.cor ./bigzork.cor
 ./asm example/examples/fluttershy.s
 ./orig_asm example/examples/fluttershy.s
-diff -s example/examples/fluttershy.s ./examples/fluttershy.s
+diff -s example/examples/fluttershy.cor ./fluttershy.cor
 ./asm example/examples/helltrain.s
 ./orig_asm example/examples/helltrain.s
-diff -s example/examples/helltrain.s ./examples/helltrain.s
+diff -s example/examples/helltrain.cor ./helltrain.cor
 ./asm example/examples/turtle.s
 ./orig_asm example/examples/turtle.s
-diff -s example/examples/turtle.s ./examples/turtle.s
+diff -s example/examples/turtle.cor ./turtle.cor
 ./asm example/examples/zor.s
 ./orig_asm example/examples/zor.s
-diff -s example/examples/zor.s ./examples/zor.s
+diff -s example/examples/zor.cor ./zor.cor
 ./asm example/examples/zork.s
 ./orig_asm example/examples/zork.s
-diff -s example/examples/zork.s ./examples/zork.s
+diff -s example/examples/zork.cor ./zork.cor
 ./asm example/Gagnant.s
 ./orig_asm example/Gagnant.s
-diff -s example/Gagnant.s ./Gagnant.s
+diff -s example/Gagnant.cor ./Gagnant.cor
 ./asm example/jumper.s
 ./orig_asm example/jumper.s
-diff -s example/jumper.s ./jumper.s
+diff -s example/jumper.cor ./jumper.cor
 ./asm example/lde.s
 ./orig_asm example/lde.s
-diff -s example/lde.s ./lde.s
+diff -s example/lde.cor ./lde.cor
 ./asm example/leeloo.s
 ./orig_asm example/leeloo.s
-diff -s example/leeloo.s ./leeloo.s
+diff -s example/leeloo.cor ./leeloo.cor
 ./asm example/mat.s
 ./orig_asm example/mat.s
-diff -s example/mat.s ./mat.s
+diff -s example/mat.cor ./mat.cor
 ./asm example/maxidef.s
 ./orig_asm example/maxidef.s
-diff -s example/maxidef.s ./maxidef.s
+diff -s example/maxidef.cor ./maxidef.cor
 ./asm example/mortel.s
 ./orig_asm example/mortel.s
-diff -s example/mortel.s ./mortel.s
+diff -s example/mortel.cor ./mortel.cor
 ./asm example/new.s
 ./orig_asm example/new.s
-diff -s example/new.s ./new.s
+diff -s example/new.cor ./new.cor
 ./asm example/Octobre_Rouge_V4.2.s
 ./orig_asm example/Octobre_Rouge_V4.2.s
-diff -s example/Octobre_Rouge_V4.2.s ./Octobre_Rouge_V4.2.s
+diff -s example/Octobre_Rouge_V4.2.cor ./Octobre_Rouge_V4.2.cor
 ./asm example/sebc.s
 ./orig_asm example/sebc.s
-diff -s example/sebc.s ./sebc.s
+diff -s example/sebc.cor ./sebc.cor
 ./asm example/slider2.s
 ./orig_asm example/slider2.s
-diff -s example/slider2.s ./slider2.s
+diff -s example/slider2.cor ./slider2.cor
 ./asm example/Survivor.s
 ./orig_asm example/Survivor.s
-diff -s example/Survivor.s ./Survivor.s
+diff -s example/Survivor.cor ./Survivor.cor
 ./asm example/tdc2.s
 ./orig_asm example/tdc2.s
-diff -s example/tdc2.s ./tdc2.s
+diff -s example/tdc2.cor ./tdc2.cor
 ./asm example/tdc3.s
 ./orig_asm example/tdc3.s
-diff -s example/tdc3.s ./tdc3.s
+diff -s example/tdc3.cor ./tdc3.cor
 ./asm example/tdc4.s
 ./orig_asm example/tdc4.s
-diff -s example/tdc4.s ./tdc4.s
+diff -s example/tdc4.cor ./tdc4.cor
 ./asm example/Torpille.s
 ./orig_asm example/Torpille.s
-diff -s example/Torpille.s ./Torpille.s
+diff -s example/Torpille.cor ./Torpille.cor
 ./asm example/toto.s
 ./orig_asm example/toto.s
-diff -s example/toto.s ./toto.s
+diff -s example/toto.cor ./toto.cor
