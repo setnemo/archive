@@ -36,6 +36,7 @@ typedef struct				s_asmlst
 	char					*label;
 	char					*op_code;
 	int						count_arg;
+	int						empty;
 	char					*islabel[3];
 	char					bytecode[3];
 	int						value_arg[3];

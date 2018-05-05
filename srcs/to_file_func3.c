@@ -49,10 +49,7 @@ void		read_tree(t_asmlst *file_lst, t_spl *spl, t_list *tmp)
 		if (spl->lbl)
 			file_lst->label = ft_strdup(spl->lbl);
 		if (!spl->op_code && tmp->next)
-		{
-			spl = (t_spl*)tmp->next->content;
-			tmp = tmp->next;
-		}
+			file_lst->empty = 1;
 		if (spl->op_code)
 			file_lst->op_code = ft_strdup(spl->op_code);
 		file_lst->count_arg = spl->q_arg;
