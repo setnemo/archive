@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   to_file_func2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oantonen <oantonen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apakhomo <apakhomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 16:03:47 by apakhomo          #+#    #+#             */
 /*   Updated: 2018/04/28 11:49:33 by oantonen         ###   ########.fr       */
@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "core_asm.h"
-#include "error_asm.h"
 #include "op.h"
 #define LS2 2
 #define LS4 4

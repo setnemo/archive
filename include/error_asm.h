@@ -17,12 +17,10 @@
 # define AR2 *(*argv + (data.len - 2))
 # define AR3 *(*argv + (data.len - 3))
 # define AR4 *(*argv + (data.len - 4))
-# define DDC "[*] Done! '%s' decompiled to '%s'\n"
 # define DDS "[*] Done! '%s' compiled to '%s'\n"
-# define USAGE USAGE1, USAGE2, USAGE3, USAGE4
+# define USAGE USAGE1, USAGE2, USAGE4
 # define USAGE1 "usage: ./asm [filename1] [filename2] [filenameN]\n"
 # define USAGE2 "       ./asm filename.s    compiled to filename.cor\n"
-# define USAGE3 "       ./asm filename.cor  decompiled to disasm_filename.s\n"
 # define USAGE4 "       ./asm -h            show this message\n"
 
 #endif

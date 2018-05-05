@@ -71,4 +71,10 @@ void						get_file_lst(t_asm *data,
 	int i, int countlst);
 void						get_labelvaluesize(t_asmlst *file_lst, char *str,
 	int countl, int j);
+
+int							setfixsize(t_asmlst *file_lst, int j);
+void						get_labelvaluesize(t_asmlst *file_lst, char *str,
+	int countl, int j);
+int							push_data_to_file(t_asm *data);
+
 #endif

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cleaning_tree1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oantonen <oantonen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: apakhomo <apakhomo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 16:03:47 by apakhomo          #+#    #+#             */
 /*   Updated: 2018/04/28 11:49:33 by oantonen         ###   ########.fr       */

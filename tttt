@@ -1,7 +1,7 @@
 Writing output program to example/42.cor
 Files example/42.cor and ./42.cor are identical
-Invalid argument for st ":l1+1" at line 5
-Lexical error at [5:12]
+Invalid instruction at token [INSTRUCTION] ".extend" at line 3
+Lexical error at [3:1]
 Writing output program to example/barriere.cor
 Files example/barriere.cor and ./barriere.cor are identical
 Writing output program to example/Car.cor
@@ -9,8 +9,8 @@ Files example/Car.cor and ./Car.cor are identical
 Writing output program to example/championships/2014/bguy/sam_2.0.cor
 Writing output program to example/championships/2014/bjacob/doge.cor
 Files example/championships/2014/bjacob/doge.cor and ./doge.cor are identical
+Lexical error unexpected symbol ";" at line 1
 Writing output program to example/championships/2014/brandazz/Rainbow_dash.cor
-Files example/championships/2014/brandazz/Rainbow_dash.cor and ./Rainbow_dash.cor are identical
 Writing output program to example/championships/2014/cdivry/youforkmytralala.cor
 Files example/championships/2014/cdivry/youforkmytralala.cor and ./youforkmytralala.cor are identical
 Invalid argument for sti "%:start" at line 40
@@ -59,10 +59,11 @@ Writing output program to example/championships/2014/rabid-on/jinx.cor
 Writing output program to example/championships/2014/rmasse/THUNDER.cor
 Writing output program to example/championships/2014/sbuono/Asombra.cor
 Writing output program to example/championships/2014/srabah-m/littlepuppy.cor
-Invalid argument for sti "%:write_front" at line 10
+Lexical error unexpected symbol ";" at line 1
 Writing output program to example/championships/2014/tdemay/champ.cor
 Writing output program to example/championships/2014/vrey/darksasuke.cor
 Writing output program to example/championships/2014/ybouvet/casimir.cor
+Lexical error [LABEL] "zjmp%" at line 144
 Writing output program to example/championships/2017/adenis/Explosive_Kitty.cor
 Lexical error [LABEL] "fork%" at line 10
 Writing output program to example/championships/2017/agregoir/Kittystrophic.cor
