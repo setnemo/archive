@@ -145,7 +145,7 @@ Writing output program to example/examples/zork.cor
 Files example/examples/zork.cor and ./zork.cor are identical
 [*] Done! 'example/Gagnant.s' compiled to 'Gagnant.cor'
 Writing output program to example/Gagnant.cor
-Binary files example/Gagnant.cor and ./Gagnant.cor differ
+Files example/Gagnant.cor and ./Gagnant.cor are identical
 [*] Done! 'example/jumper.s' compiled to 'jumper.cor'
 Writing output program to example/jumper.cor
 Files example/jumper.cor and ./jumper.cor are identical
@@ -184,4 +184,4 @@ Invalid instruction at token [INSTRUCTION] ".extend" at line 3
 Lexical error at [3:1]
 [*] Done! 'example/toto.s' compiled to 'toto.cor'
 Writing output program to example/toto.cor
-Binary files example/toto.cor and ./toto.cor differ
+Files example/toto.cor and ./toto.cor are identical

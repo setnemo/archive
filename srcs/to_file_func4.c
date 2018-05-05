@@ -65,7 +65,11 @@ void		goback(t_asmlst *file_lst, int flag, int j)
 	allb = 0;
 	lst = file_lst;
 	if (lst->number != 1)
+	{
+		if (lst->number == 0)
+			lst->number = 1;
 		file_lst = file_lst->next;
+	}
 	lst = file_lst;
 	while (file_lst && flag--)
 	{
@@ -100,6 +104,8 @@ void		get_labelvaluesize(t_asmlst *file_lst, char *str, int i, int j)
 		}
 		file_lst = file_lst->next;
 	}
+	if (it[0] == 2)
+		lst2->prev->number = 0;
 	if (!it[0])
 		goup(lst, str, i, j);
 	else
