@@ -38,7 +38,7 @@ void		string_md(t_md *data, char **argv, int *argc, int md)
 		}
 		else
 		{
-			ft_printf("_start_md5:%s\n", *argv);
+			ft_printf("2 start_md5:%s\n", argv[0]);
 			start_md5(argv, data);
 		}
 	}
@@ -70,7 +70,7 @@ void		check_md_flags(int argc, char **argv, t_md *data, int md)
 			}
 			else
 			{
-				ft_printf("start_md5:\"%s\"", argv);
+				ft_printf("start_md5:\"%s\"\n", *argv);
 				start_md5(argv, data);
 			}
 		}
