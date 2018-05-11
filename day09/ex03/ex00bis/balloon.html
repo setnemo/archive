@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#balloon {
+	background-color: red;
+	margin: auto;
+	margin-top: 300px;
+	display: block;
+	width: 200px;
+	height: 200px;
+	border-radius: 74%;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+	var size = 200;
+	var	margintop = 300;
+	var color = ["red", "green", "blue"];
+	var it = 0;
+
+	$(document).ready(function() {
+		$('#balloon').click(increment);
+		$('#balloon').mouseleave(decrement);
+	})
+	function increment() {
+		if (size > 420) {
+			margintop = 300;
+			size = 200;
+		}
+		else {
+			size += 10;
+			margintop -= 5;
+		}
+		if (it < 2) {
+			it++;
+		}
+		else {
+			it = 0;
+		}
+		$('#balloon').css('backgroundColor', color[it]);
+		$('#balloon').css('marginTop', margintop);
+		$('#balloon').css('width', size);
+		$('#balloon').css('height', size);
+	}
+	function decrement() {
+		if (size > 200) {
+			size -= 5;
+			margintop += 2.5;
+			if (it > 0) {
+				it--;
+			}
+			else {
+				it = 2;
+			}
+			$('#balloon').css('backgroundColor', color[it]);
+			$('#balloon').css('marginTop', margintop);
+			$('#balloon').css('width', size);
+			$('#balloon').css('height', size);
+		}
+	}
+</script>
+</head>
+	<body>
+		<div id="balloon"></div>
+	</body>
+</html>
