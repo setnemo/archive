@@ -16,9 +16,10 @@
 
 void		create_md_data(t_md *data)
 {
-	data->pfl = 0;
-	data->qfl = 0;
-	data->rfl = 0;
+	data->pfl = 1;
+	data->qfl = 0; // silence off
+	data->rfl = 0; // reverse off
+	data->file = 1; //1 - STDIN, 0 - string, 2 - FILE?
 	data->inp = NULL;
 	data->out = NULL;
 }
@@ -30,34 +31,29 @@ void		string_md(t_md *data, char **argv, int *argc, int md)
 		*argc -= 1;
 		if (md)
 		{
-			ft_printf(".%i.\n", md);
 			if (md == 1 || md == 2)
 				(md == 1) ? SHA256S : SHA512S;
 			else
 				start_whirlpool(argv, data);
 		}
 		else
-		{
-			ft_printf("2 start_md5:%s\n", argv[0]);
 			start_md5(argv, data);
-		}
 	}
 	else
 		ft_printf("ft_ssl: md5: -s: No such file or directory\n");
-
 }
 
 void		check_md_flags(int argc, char **argv, t_md *data, int md)
 {
 	while (argc--)
 	{
-		if (ft_strequ(*argv, "-r") && data->rfl == 0)
-			data->pfl = 1;
-		else if (ft_strequ(*argv, "-p") && data->pfl == 0)
-			data->pfl = 1;
-		else if (ft_strequ(*argv, "-q") && data->qfl == 0)
-			data->qfl = 1;
-		else if (ft_strequ(*argv, "-s"))
+		if (ft_strequ(*argv, "-r"))
+			data->pfl = 0; // reverse on
+		else if (ft_strequ(*argv, "-p") && data->pfl && data->file)
+			data->pfl = 0;
+		else if (ft_strequ(*argv, "-q"))
+			data->qfl = 1; // silence on
+		else if (ft_strequ(*argv, "-s") && data->file)
 			string_md(data, ++argv, &argc, md);
 		else
 		{
@@ -69,10 +65,7 @@ void		check_md_flags(int argc, char **argv, t_md *data, int md)
 					start_whirlpool(argv, data);
 			}
 			else
-			{
-				ft_printf("start_md5:\"%s\"\n", *argv);
 				start_md5(argv, data);
-			}
 		}
 		argv++;
 	}

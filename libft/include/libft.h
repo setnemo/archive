@@ -53,11 +53,12 @@ typedef struct		s_list
 typedef struct		s_gnl
 {
 	int				fd;
-	int				br;
 	char			*str;
-	char			*tmp;
 	char			*after;
 	struct s_gnl	*next;
+	char			*temp;
+	char			*tmp;
+	int				i;
 }					t_gnl;
 
 char				ft_putchar(char c);

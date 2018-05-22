@@ -12,17 +12,8 @@
 
 #include "libft.h"
 
-static t_gnl	*while_gnl(int fd)
+static t_gnl	*while_gnl(t_gnl *gnl, int fd)
 {
-	static t_gnl	*gnl;
-
-	if (!gnl)
-	{
-		NOMEM((gnl = (t_gnl*)malloc(sizeof(t_gnl))));
-		gnl->fd = fd;
-		gnl->after = NULL;
-		gnl->next = NULL;
-	}
 	while (gnl->next && gnl->fd != fd)
 	{
 		gnl = gnl->next;
@@ -43,47 +34,62 @@ static t_gnl	*while_gnl(int fd)
 
 static int		gnl_core(t_gnl *gnl, char **line)
 {
-	char	*p;
+	char			*pointer;
 
-	if (gnl->after)
+	pointer = ft_strchr(gnl->str, 10);
+	if (pointer)
 	{
-		gnl->str = ft_strjoin(gnl->after, gnl->str);
-		free(gnl->after);
-	}
-	p = ft_strchr(gnl->str, 10);
-	if (p)
-	{
-		*p = 0;
-		*line = ft_strdup(gnl->str);
-		if (ft_strlen(gnl->str) + gnl->str > p)
-			gnl->after = ft_strdup(p + 1);
+		if (pointer + 1 != 0)
+			ERR((gnl->after = ft_strdup(pointer + 1)));
+		NIL(*pointer);
+		ERR((*line = ft_strdup(gnl->str)));
 		free(gnl->str);
 		return (1);
 	}
 	if (!(*gnl->str))
 		return (0);
-	*line = ft_strdup(gnl->str);
+	else
+		ERR((*line = ft_strdup(gnl->str)));
+	gnl->after = gnl->str;
+	NIL(*gnl->after);
 	free(gnl->str);
 	return (1);
 }
 
-int				get_next_line(const int fd, char **line)
+static int		gnl_reader(t_gnl *buf)
 {
-	t_gnl			*buf;
-	char			*temp;
-
-	if (fd < 0 || line == NULL || BUFF_SIZE < 1 || read(fd, 0, 0) < 0)
-		return (-1);
-	ERR((buf = while_gnl(fd)));
-	buf->tmp = ft_strnew(BUFF_SIZE);
-	while ((buf->br = read(fd, buf->tmp, BUFF_SIZE)))
+	while ((buf->i = read(buf->fd, buf->tmp, BUFF_SIZE)))
 	{
-		temp = ft_strjoin(buf->str, buf->tmp);
+		NIL(buf->tmp[buf->i]);
+		ERR((buf->temp = ft_strjoin(buf->str, buf->tmp)));
 		free(buf->str);
-		buf->str = temp;
+		buf->str = buf->temp;
 		ft_strclr(buf->tmp);
 		BRK((ft_strchr(buf->str, 10)));
 	}
-	free(buf->tmp);
-	return (gnl_core(buf, line));
+	return (0);
+}
+
+int				get_next_line(const int fd, char **line)
+{
+	static t_gnl	*gnl;
+	t_gnl			*buf;
+
+	if (fd < 0 || line == NULL || BUFF_SIZE < 1 || read(fd, 0, 0) < 0)
+		return (-1);
+	if (!gnl)
+	{
+		ERR((gnl = (t_gnl*)malloc(sizeof(t_gnl))));
+		gnl->fd = fd;
+		gnl->after = NULL;
+		gnl->next = NULL;
+	}
+	ERR((buf = while_gnl(gnl, fd)));
+	buf->tmp = ft_memalloc(BUFF_SIZE + 1);
+	if (buf->after)
+		buf->str = buf->after;
+	if (gnl_reader(buf) != 0)
+		return (-1);
+	ft_strdel(&buf->tmp);
+	return (buf->i < 0 ? -1 : gnl_core(buf, line));
 }

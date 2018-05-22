@@ -23,23 +23,23 @@ void		start_md(int argc, char **argv, int md)
 void		start_md5(char **argv, t_md *data)
 {
 	if (data || argv)
-		;
+		ft_printf("start_md5 with:%s\n", *argv);
 }
 
 void		start_sha256(char **argv, t_md *data)
 {
 	if (data || argv)
-		;
+		ft_printf("start_sha256 with:%s\n", *argv);
 }
 
 void		start_sha512(char **argv, t_md *data)
 {
 	if (data || argv)
-		;
+		ft_printf("start_sha512 with:%s\n", *argv);
 }
 
 void		start_whirlpool(char **argv, t_md *data)
 {
 	if (data || argv)
-		;
+		ft_printf("start_whirlpool with:%s\n", *argv);
 }

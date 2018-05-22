@@ -237,6 +237,7 @@ typedef struct	s_md
 	int		pfl;
 	int		qfl;
 	int		rfl;
+	int		file;
 	char	*inp;
 	char	*out;
 }				t_md;
