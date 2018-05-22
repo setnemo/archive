@@ -14,16 +14,6 @@
 #define SHA256S start_sha256(argv, data)
 #define SHA512S start_sha512(argv, data)
 
-void		create_md_data(t_md *data)
-{
-	data->pfl = 1; // (STDIN) on
-	data->qfl = 0; // silence off
-	data->rfl = 0; // reverse off
-	data->file = 1; // read "-s []" /"(STDIN)"
-	data->inp = NULL;
-	data->out = NULL;
-}
-
 void		string_md(t_md *data, char *argv, int *argc, int md)
 {
 	if (*argc)
