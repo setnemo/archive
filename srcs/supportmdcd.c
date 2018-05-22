@@ -40,7 +40,7 @@ void		string_md(t_md *data, char *argv, int *argc, int md)
 			start_md5(argv, data);
 	}
 	else
-		ft_printf("ft_ssl: md5: -s: No such file or directory\n");
+		ft_printf("./ft_ssl No args for flag \"-s\"\n");
 }
 
 void		before_start_md(char *argv, t_md *data, int md)
