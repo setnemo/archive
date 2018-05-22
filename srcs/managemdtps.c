@@ -43,11 +43,13 @@ void		start_md5(char *argv, t_md *data)
 {
 	size_t	size;
 	UC		*str;
+	UC		*name;
 	t_md5 context;
 	unsigned char checksum[16];
 	int i;
 
 	i = -1;
+	name = argv;
 	if (data->pfl == 1)
 	{
 		str = input_read(&size);
@@ -58,15 +60,15 @@ void		start_md5(char *argv, t_md *data)
 	else
 		str = argv;
 	// ft_printf("%s\n", str);
-	if (data->rfl == 0)
-		ft_printf ("MD5 (\"%s\") = ", str);
 	md5init (&context);
 	md5update (&context, str, strlen (str));
 	md5final (checksum, &context);
+	if (data->rfl == 0)
+		ft_printf ("MD5 (\"%s\") = ", name);
 	while (++i < 16)
 		ft_printf ("%02x", (unsigned int) checksum[i]);
 	if (data->rfl == 1)
-		ft_printf (" \"%s\"", str);
+		ft_printf (" \"%s\"", name);
 	ft_printf ("\n");
 	ft_printf("start_md5 with:%s data->file[%i], data->pfl[%i]\n", argv, data->file, data->pfl);
 }
