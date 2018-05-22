@@ -20,26 +20,26 @@ void		start_md(int argc, char **argv, int md)
 	check_md_flags(argc, argv, &data, md);
 }
 
-void		start_md5(char **argv, t_md *data)
+void		start_md5(char *argv, t_md *data)
 {
 	if (data || argv)
-		ft_printf("start_md5 with:%s\n", *argv);
+		ft_printf("start_md5 with:%s ITS ARG/STDIN:%i\n", argv, data->file);
 }
 
-void		start_sha256(char **argv, t_md *data)
+void		start_sha256(char *argv, t_md *data)
 {
 	if (data || argv)
-		ft_printf("start_sha256 with:%s\n", *argv);
+		ft_printf("start_sha256 with:%s ITS ARG/STDIN:%i\n", argv, data->file);
 }
 
-void		start_sha512(char **argv, t_md *data)
+void		start_sha512(char *argv, t_md *data)
 {
 	if (data || argv)
-		ft_printf("start_sha512 with:%s\n", *argv);
+		ft_printf("start_sha512 with:%s ITS ARG/STDIN:%i\n", argv, data->file);
 }
 
-void		start_whirlpool(char **argv, t_md *data)
+void		start_whirlpool(char *argv, t_md *data)
 {
 	if (data || argv)
-		ft_printf("start_whirlpool with:%s\n", *argv);
+		ft_printf("start_whirlpool with:%s ITS ARG/STDIN:%i\n", argv, data->file);
 }

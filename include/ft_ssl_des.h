@@ -249,10 +249,10 @@ typedef struct	s_md
 */
 
 void			start_md(int argc, char **argv, int md);
-void			start_md5(char **argv, t_md *data);
-void			start_sha256(char **argv, t_md *data);
-void			start_sha512(char **argv, t_md *data);
-void			start_whirlpool(char **argv, t_md *data);
+void			start_md5(char *argv, t_md *data);
+void			start_sha256(char *argv, t_md *data);
+void			start_sha512(char *argv, t_md *data);
+void			start_whirlpool(char *argv, t_md *data);
 
 /*
 ** ****************************************************************************
