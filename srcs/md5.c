@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_ssl_md5.h"
+
 static ULL getu32 (unsigned char *addr)
 {
 	return (((((unsigned long)addr[3] << 8) | addr[2]) << 8)

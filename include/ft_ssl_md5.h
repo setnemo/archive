@@ -10,9 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SSL_DES_H
-# define FT_SSL_DES_H
+#ifndef FT_SSL_MD5_H
+# define FT_SSL_MD5_H
+# include <string.h>
+# define F1(x, y, z) (z ^ (x & (y ^ z)))
+# define F2(x, y, z) F1(z, x, y)
+# define F3(x, y, z) (x ^ y ^ z)
+# define F4(x, y, z) (y ^ (x | ~z))
+# define MD5STEP(f, w, x, y, z, data, s) (w += f(x, y, z) + data, w &= 0xffffffff, w = w<<s | w>>(32-s), w += x)
 
+typedef unsigned long long ULL;
 
 /*
 ** ****************************************************************************
@@ -20,28 +27,32 @@
 ** ****************************************************************************
 */
 
-typedef struct	s_ssl
+typedef struct	s_md5
 {
-	int		enc;
-	int		dec;
-	int		b64;
-	int		print;
-	UL		master_key;
-	UL		master_iv;
-	char	*key;
-	char	*iv;
-	char	*inp;
-	char	*out;
-	UL		des3_key1;
-	UL		des3_key2;
-	UL		des3_key3;
-}				t_ssl;
+	ULL				buf[4];
+	ULL				bits[2];
+	unsigned char	in[64];
+}				t_md5;
+
+typedef struct	s_mds
+{
+	ULL		a;
+	ULL		b;
+	ULL		c;
+	ULL		d;
+	ULL		in[16];
+}				t_mds;
+
 
 /*
 ** ****************************************************************************
-** ***************************** manageflags.c ********************************
+** ********************************* md5.c ************************************
 ** ****************************************************************************
 */
 
+void			md5init(t_md5 *md5data);
+void			md5update(t_md5 *md5data, unsigned char *buf, unsigned len);
+void			md5final(unsigned char digest[], t_md5 *md5data);
+void			md5transform(ULL buf[], unsigned char in[]);
 
 #endif

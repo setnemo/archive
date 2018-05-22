@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_ssl_des.h"
+#include "ft_ssl_md5.h"
 
 int getData(void* fp, size_t length, void* data)
 {
@@ -42,14 +43,21 @@ void		start_md5(char *argv, t_md *data)
 {
 	size_t	size;
 	UC		*str;
+	t_md5 context;
+	unsigned char checksum[16];
+	int i;
 
+	i = -1;
 	str = input_read(&size);
 	// ft_printf("%s\n", str);
-	char hex[129];
-	md5Universal(getData, str, hex);
-	ft_printf("   MD5: %s\n",hex);
-	if (data || argv)
-		ft_printf("start_md5 with:%s ITS ARG/STDIN:%i\n", argv, data->file);
+	ft_printf ("MD5 (\"%s\") = ", str);
+	md5init (&context);
+	md5update (&context, str, strlen (str));
+	md5final (checksum, &context);
+	while (++i < 16)
+		ft_printf ("%02x", (unsigned int) checksum[i]);
+	ft_printf ("\n");
+	ft_printf("start_md5 with:%s ITS ARG/STDIN:%i\n", argv, data->file);
 }
 
 void		start_sha256(char *argv, t_md *data)
