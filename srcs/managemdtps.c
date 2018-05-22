@@ -12,6 +12,10 @@
 
 #include "ft_ssl_des.h"
 
+int getData(void* fp, size_t length, void* data)
+{
+	return read(1, data, length);
+}
 void			create_md_data(t_md *data)
 {
 	data->pfl = 1; // (STDIN) on
@@ -40,7 +44,10 @@ void		start_md5(char *argv, t_md *data)
 	UC		*str;
 
 	str = input_read(&size);
-	ft_printf("%s\n", str);
+	// ft_printf("%s\n", str);
+	char hex[129];
+	md5Universal(getData, str, hex);
+	ft_printf("   MD5: %s\n",hex);
 	if (data || argv)
 		ft_printf("start_md5 with:%s ITS ARG/STDIN:%i\n", argv, data->file);
 }

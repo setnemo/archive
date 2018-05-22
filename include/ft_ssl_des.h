@@ -263,4 +263,5 @@ void			start_whirlpool(char *argv, t_md *data);
 void			create_md_data(t_md *data);
 void			check_md_flags(int argc, char **argv, t_md *data, int md);
 
+
 #endif

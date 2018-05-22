@@ -30,7 +30,8 @@ SRC_NAME =	main.c\
 			desecb3algo.c\
 			descbc3algo.c\
 			managemdtps.c\
-			supportmdcd.c
+			supportmdcd.c\
+			md5.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
