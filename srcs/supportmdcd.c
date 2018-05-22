@@ -35,10 +35,10 @@ void		string_md(t_md *data, char *argv, int *argc, int md)
 
 void		before_start_md(char *argv, t_md *data, int md)
 {
-	if (data->file)
+	if (data->file && data->pfl != 2)
 	{
 		ft_printf("====>"); //read STDIN here
-		data->pfl = 0; // close flag -p
+		data->pfl = 1; // open stdin
 	}
 	if (md)
 	{
@@ -59,8 +59,8 @@ void		check_md_flags(int argc, char **argv, t_md *data, int md)
 			data->rfl = 1; // reverse on
 		else if (ft_strequ(*argv, "-q") && data->file)
 			data->qfl = 1; // silence on
-		else if (ft_strequ(*argv, "-p") && data->file && data->pfl)
-			before_start_md("STDIN", data, md);
+		else if (ft_strequ(*argv, "-p") && data->file && data->pfl == 0)
+			before_start_md("", data, md);
 		else if (ft_strequ(*argv, "-s") && data->file)
 			string_md(data, *(++argv), &argc, md);
 		else

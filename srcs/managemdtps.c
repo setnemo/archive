@@ -19,7 +19,7 @@ int getData(void* fp, size_t length, void* data)
 }
 void			create_md_data(t_md *data)
 {
-	data->pfl = 1; // (STDIN) on
+	data->pfl = 0; // (STDIN) off
 	data->qfl = 0; // silence off
 	data->rfl = 0; // reverse off
 	data->file = 1; // read "-s []" /"(STDIN)"
@@ -48,16 +48,27 @@ void		start_md5(char *argv, t_md *data)
 	int i;
 
 	i = -1;
-	str = input_read(&size);
+	if (data->pfl == 1)
+	{
+		str = input_read(&size);
+		data->pfl = -1;
+	}
+	else if (data->file == 0)
+		str = readoutfile(argv, &size);
+	else
+		str = argv;
 	// ft_printf("%s\n", str);
-	ft_printf ("MD5 (\"%s\") = ", str);
+	if (data->rfl == 0)
+		ft_printf ("MD5 (\"%s\") = ", str);
 	md5init (&context);
 	md5update (&context, str, strlen (str));
 	md5final (checksum, &context);
 	while (++i < 16)
 		ft_printf ("%02x", (unsigned int) checksum[i]);
+	if (data->rfl == 1)
+		ft_printf (" \"%s\"", str);
 	ft_printf ("\n");
-	ft_printf("start_md5 with:%s ITS ARG/STDIN:%i\n", argv, data->file);
+	ft_printf("start_md5 with:%s data->file[%i], data->pfl[%i]\n", argv, data->file, data->pfl);
 }
 
 void		start_sha256(char *argv, t_md *data)
