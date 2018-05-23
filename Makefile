@@ -11,7 +11,7 @@
 #******************************************************************************#
 
 NAME = ft_ssl
-# FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 
 SRC_NAME =	main.c\
 			reader_file.c\
@@ -31,7 +31,9 @@ SRC_NAME =	main.c\
 			descbc3algo.c\
 			managemdtps.c\
 			supportmdcd.c\
-			md5.c
+			md5algocore.c\
+			md5transfrm.c\
+			md5spprtfnc.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 

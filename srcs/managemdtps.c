@@ -10,13 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl_des.h"
 #include "ft_ssl_md5.h"
 
-int getData(void* fp, size_t length, void* data)
-{
-	return read(1, data, length);
-}
 void			create_md_data(t_md *data)
 {
 	data->pfl = 0; // (STDIN) off
@@ -49,7 +44,7 @@ void		start_md5(char *argv, t_md *data)
 	int i;
 
 	i = -1;
-	name = argv;
+	// ft_printf("start_md5 with:%s data->file[%i], data->pfl[%i]\n", argv, data->file, data->pfl);
 	if (data->pfl == 1)
 	{
 		str = input_read(&size);
@@ -58,19 +53,20 @@ void		start_md5(char *argv, t_md *data)
 	else if (data->file == 0)
 		str = readoutfile(argv, &size);
 	else
-		str = argv;
+		str = (UC*)argv;
+	name = (UC*)argv;
 	// ft_printf("%s\n", str);
-	md5init (&context);
-	md5update (&context, str, strlen (str));
-	md5final (checksum, &context);
+	md5init(&context);
+	md5update(&context, str, ft_strlen((char*)str));
+	md5final(checksum, &context);
 	if (data->rfl == 0)
-		ft_printf ("MD5 (\"%s\") = ", name);
+		(data->pfl == -1 && data->file == 1) ? ft_printf("%s\n", str) : ft_printf("MD5 \"%s\" = ", name) ;
 	while (++i < 16)
-		ft_printf ("%02x", (unsigned int) checksum[i]);
+		ft_printf ("%02x", (unsigned int)checksum[i]);
 	if (data->rfl == 1)
 		ft_printf (" \"%s\"", name);
 	ft_printf ("\n");
-	ft_printf("start_md5 with:%s data->file[%i], data->pfl[%i]\n", argv, data->file, data->pfl);
+	// ft_printf("start_md5 with:%s data->file[%i], data->pfl[%i]\n", argv, data->file, data->pfl);
 }
 
 void		start_sha256(char *argv, t_md *data)

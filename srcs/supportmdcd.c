@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl_des.h"
+#include "ft_ssl_md5.h"
 #define SHA256S start_sha256(argv, data)
 #define SHA512S start_sha512(argv, data)
 
@@ -37,7 +37,7 @@ void		before_start_md(char *argv, t_md *data, int md)
 {
 	if (data->file && data->pfl != 2)
 	{
-		ft_printf("====>"); //read STDIN here
+		// ft_printf("====>"); //read STDIN here
 		data->pfl = 1; // open stdin
 	}
 	if (md)
