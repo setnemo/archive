@@ -64,18 +64,22 @@ void		check_md_flags(int argc, char **argv, t_md *data, int md)
 			before_start_md("", data, md);
 		else if (ft_strequ(*argv, "-s") && data->file == 1)
 		{
-			ft_printf("NOW START READ -s\n");
+			// ft_printf("NOW START READ -s\n");
 			data->s = 1;
 			string_md(data, *(++argv), &argc, md);
 		}
 		else
 		{
-			ft_printf("NOW START READ FILE\n");
+			// ft_printf("NOW START READ FILE\n");
 			data->file = 0; // off read -s and stdin
 			before_start_md(*argv, data, md);
 		}
 		argv++;
 	}
-	if (data->file == 1 && data->howuse == 0)
+	data->howuse++;
+	if (data->file == 1 && data->howuse == 1)
+	{
+		data->howuse = 0;
 		before_start_md("", data, md);
+	}
 }

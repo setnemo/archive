@@ -49,7 +49,6 @@ void		start_md5(char *argv, t_md *data)
 	int i;
 
 	i = -1;
-	data->howuse++;
 	// ft_printf("start_md5 with:%s data->file[%i], data->pfl[%i]\n", argv, data->file, data->pfl);
 	if (data->pfl == 1)
 	{
@@ -60,7 +59,7 @@ void		start_md5(char *argv, t_md *data)
 	{
 		if (open(argv, O_RDONLY) < 0)
 		{
-			ft_printf("FUCK!\n");
+			ft_printf("./ft_ssl: %s : No such file or directory\n", argv);
 			return ;
 		}
 		str = readoutfile(argv, &size);
@@ -73,12 +72,11 @@ void		start_md5(char *argv, t_md *data)
 	md5init(&context);
 	md5update(&context, str, ft_strlen((char*)str));
 	md5final(checksum, &context);
-		// ft_printf("\t\t\t\tdata->file[%i], data->rfl[%i], data->pfl[%i], data->qfl[%i]\n", data->file, data->rfl, data->pfl, data->qfl);
 	if (data->rfl == 0 && (data->qfl == 0 || data->qfl == -1))
 	{
 		if (data->pfl == -1 || data->qfl == -1)
 		{
-			if (data->rfl == 0 && data->qfl == -1 && data->qfl == -1)
+			if (data->rfl == 0 && data->qfl == -1)
 				data->pfl = -2;
 			else
 				ft_printf("%s", str);
@@ -92,15 +90,19 @@ void		start_md5(char *argv, t_md *data)
 		else
 			(data->file == 1) ? ft_printf("MD5 (\"%s\") = ", str) : ft_printf("MD5 (%s) = ", name) ;
 	}
-	else if (data->rfl == 1 && data->pfl == -1 && data->qfl == 0 && data->s == 0)
+	else if (data->rfl == 1 && data->pfl == -1 && data->s == 0 && data->howuse == 0)
 	{
 		ft_printf("%s", str);
 	}
+		// ft_printf("\t\t\t\tdata->file[%i], data->rfl[%i], data->pfl[%i], data->qfl[%i], data->s[%i], data->howuse[%i]\n", data->file, data->rfl, data->pfl, data->qfl, data->s, data->howuse);
+	// else if (data->file == 1 && data->rfl == 1 && data->pfl == -1 && data->qfl == 0)
+		// ft_printf("\t\t\t\tdata->file[%i], data->rfl[%i], data->pfl[%i], data->qfl[%i]\n", data->file, data->rfl, data->pfl, data->qfl);
 	while (++i < 16)
 		ft_printf ("%02x", (unsigned int)checksum[i]);
 	if (data->rfl == 1)
 		(*name == 0) ? ft_printf ("") : (data->file == 1) ? ft_printf (" \"%s\"", name) : ft_printf (" %s", name);
 	ft_printf ("\n");
+	data->howuse++;
 	// ft_printf("start_md5 with:%s data->file[%i], data->pfl[%i]\n", argv, data->file, data->pfl);
 }
 
