@@ -35,6 +35,7 @@ void		string_md(t_md *data, char *argv, int *argc, int md)
 
 void		before_start_md(char *argv, t_md *data, int md)
 {
+	// ft_printf("%i:%s\n", *argv);
 	if (data->file && data->pfl != 2)
 	{
 		// ft_printf("====>"); //read STDIN here
@@ -61,13 +62,20 @@ void		check_md_flags(int argc, char **argv, t_md *data, int md)
 			data->qfl = 1; // silence on
 		else if (ft_strequ(*argv, "-p") && data->file && data->pfl == 0)
 			before_start_md("", data, md);
-		else if (ft_strequ(*argv, "-s") && data->file)
+		else if (ft_strequ(*argv, "-s") && data->file == 1)
+		{
+			ft_printf("NOW START READ -s\n");
+			data->s = 1;
 			string_md(data, *(++argv), &argc, md);
+		}
 		else
 		{
+			ft_printf("NOW START READ FILE\n");
 			data->file = 0; // off read -s and stdin
 			before_start_md(*argv, data, md);
 		}
 		argv++;
 	}
+	if (data->file == 1 && data->howuse == 0)
+		before_start_md("", data, md);
 }

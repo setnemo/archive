@@ -14,10 +14,12 @@
 
 void			create_md_data(t_md *data)
 {
+	data->s = 0; // (STDIN) off
 	data->pfl = 0; // (STDIN) off
 	data->qfl = 0; // silence off
 	data->rfl = 0; // reverse off
 	data->file = 1; // read "-s []" /"(STDIN)"
+	data->howuse = 0; 
 	data->inp = NULL;
 	data->out = NULL;
 }
@@ -27,7 +29,6 @@ void		start_md(int argc, char **argv, int md)
 	t_md	data;
 
 	create_md_data(&data);
-	// ft_printf("%i:%s\n", argc, *argv);
 	if (argc)
 		check_md_flags(argc, argv, &data, md);
 	else
@@ -48,6 +49,7 @@ void		start_md5(char *argv, t_md *data)
 	int i;
 
 	i = -1;
+	data->howuse++;
 	// ft_printf("start_md5 with:%s data->file[%i], data->pfl[%i]\n", argv, data->file, data->pfl);
 	if (data->pfl == 1)
 	{
@@ -55,7 +57,15 @@ void		start_md5(char *argv, t_md *data)
 		data->pfl = -1;
 	}
 	else if (data->file == 0)
+	{
+		if (open(argv, O_RDONLY) < 0)
+		{
+			ft_printf("FUCK!\n");
+			return ;
+		}
 		str = readoutfile(argv, &size);
+
+	}
 	else
 		str = (UC*)argv;
 	name = (UC*)argv;
@@ -82,14 +92,14 @@ void		start_md5(char *argv, t_md *data)
 		else
 			(data->file == 1) ? ft_printf("MD5 (\"%s\") = ", str) : ft_printf("MD5 (%s) = ", name) ;
 	}
-	else if (data->rfl == 1 && data->pfl == -1 && data->qfl == 0)
+	else if (data->rfl == 1 && data->pfl == -1 && data->qfl == 0 && data->s == 0)
 	{
 		ft_printf("%s", str);
 	}
 	while (++i < 16)
 		ft_printf ("%02x", (unsigned int)checksum[i]);
 	if (data->rfl == 1)
-		(*name == 0) ? ft_printf ("") : ft_printf (" \"%s\"", name);
+		(*name == 0) ? ft_printf ("") : (data->file == 1) ? ft_printf (" \"%s\"", name) : ft_printf (" %s", name);
 	ft_printf ("\n");
 	// ft_printf("start_md5 with:%s data->file[%i], data->pfl[%i]\n", argv, data->file, data->pfl);
 }

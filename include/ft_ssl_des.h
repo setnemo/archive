@@ -234,10 +234,12 @@ void			des3cbc_d_inp(t_ssl *data, UC **inp, UC **out, size_t *size);
 
 typedef struct	s_md
 {
+	int		s;
 	int		pfl;
 	int		qfl;
 	int		rfl;
 	int		file;
+	int		howuse;
 	char	*inp;
 	char	*out;
 }				t_md;
