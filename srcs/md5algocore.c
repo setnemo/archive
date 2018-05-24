@@ -63,8 +63,8 @@ void		md5update(t_md5 *md5data, unsigned char *buf, unsigned len)
 
 void		md5final(unsigned char digest[], t_md5 *md5data)
 {
-	unsigned count;
-	unsigned char *p;
+	unsigned		count;
+	unsigned char	*p;
 
 	count = (md5data->bits[0] >> 3) & 0x3F;
 	p = md5data->in + count;

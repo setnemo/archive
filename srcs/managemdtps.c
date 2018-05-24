@@ -30,8 +30,12 @@ void		start_md(int argc, char **argv, int md)
 	// ft_printf("%i:%s\n", argc, *argv);
 	if (argc)
 		check_md_flags(argc, argv, &data, md);
-	else 
+	else
+	{
+		data.qfl = -1;
+		data.pfl = 1;
 		before_start_md("тест", &data, md);
+	}
 }
 
 void		start_md5(char *argv, t_md *data)
@@ -59,12 +63,33 @@ void		start_md5(char *argv, t_md *data)
 	md5init(&context);
 	md5update(&context, str, ft_strlen((char*)str));
 	md5final(checksum, &context);
-	if (data->rfl == 0)
-		(data->pfl == -1 && data->file == 1) ? ft_printf("%s\n", str) : ft_printf("MD5 \"%s\" = ", name) ;
+		// ft_printf("\t\t\t\tdata->file[%i], data->rfl[%i], data->pfl[%i], data->qfl[%i]\n", data->file, data->rfl, data->pfl, data->qfl);
+	if (data->rfl == 0 && (data->qfl == 0 || data->qfl == -1))
+	{
+		if (data->pfl == -1 || data->qfl == -1)
+		{
+			if (data->rfl == 0 && data->qfl == -1 && data->qfl == -1)
+				data->pfl = -2;
+			else
+				ft_printf("%s", str);
+			data->pfl = -2;
+		}
+		else if (data->qfl == -1)
+		{
+			data->qfl = 0;
+			data->pfl = -2;
+		}
+		else
+			(data->file == 1) ? ft_printf("MD5 (\"%s\") = ", str) : ft_printf("MD5 (%s) = ", name) ;
+	}
+	else if (data->rfl == 1 && data->pfl == -1 && data->qfl == 0)
+	{
+		ft_printf("%s", str);
+	}
 	while (++i < 16)
 		ft_printf ("%02x", (unsigned int)checksum[i]);
 	if (data->rfl == 1)
-		ft_printf (" \"%s\"", name);
+		(*name == 0) ? ft_printf ("") : ft_printf (" \"%s\"", name);
 	ft_printf ("\n");
 	// ft_printf("start_md5 with:%s data->file[%i], data->pfl[%i]\n", argv, data->file, data->pfl);
 }
