@@ -79,6 +79,7 @@ void		check_md_flags(int argc, char **argv, t_md *data, int md)
 	data->howuse++;
 	if (data->file == 1 && data->howuse == 1)
 	{
+		data->s = 1;
 		data->howuse = 0;
 		before_start_md("", data, md);
 	}

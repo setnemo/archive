@@ -99,7 +99,7 @@ void		start_md5(char *argv, t_md *data)
 		// ft_printf("\t\t\t\tdata->file[%i], data->rfl[%i], data->pfl[%i], data->qfl[%i]\n", data->file, data->rfl, data->pfl, data->qfl);
 	while (++i < 16)
 		ft_printf ("%02x", (unsigned int)checksum[i]);
-	if (data->rfl == 1)
+	if (data->rfl == 1 && data->qfl == 0)
 		(*name == 0) ? ft_printf ("") : (data->file == 1) ? ft_printf (" \"%s\"", name) : ft_printf (" %s", name);
 	ft_printf ("\n");
 	data->howuse++;
