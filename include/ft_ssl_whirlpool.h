@@ -14,38 +14,36 @@
 # define FT_SSL_WHIRLPOOL_H
 # include <stdint.h>
 # include <string.h>
+# define MIN(a, b) ((a) < (b) ? (a) : (b))
+# define WHIRLPOOL_DIGEST_SIZE 64
+# define ROR64(a, n) (((a) >> (n)) | ((a) << (64 - (n)))) 
 
+typedef struct	s_wh
+{
+	union
+	{
+		uint64_t h[8];
+		uint8_t digest[64];
+	};
+	union
+	{
+		uint64_t x[8];
+		uint8_t buffer[64];
+	};
 
-typedef struct
- {
-    union
-    {
-       uint64_t h[8];
-       uint8_t digest[64];
-    };
-    union
-    {
-       uint64_t x[8];
-       uint8_t buffer[64];
-    };
- 
-    uint64_t k[8];
-    uint64_t l[8];
-    uint64_t state[8];
- 
-    size_t size;
-    uint64_t totalSize;
- } WhirlpoolContext;
- 
- 
- //Whirlpool related constants
- 
- //Whirlpool related functions
- void whirlpoolCompute(const void *data, size_t length, uint8_t *digest);
- void whirlpoolInit(WhirlpoolContext *context);
- void whirlpoolUpdate(WhirlpoolContext *context, const void *data, size_t length);
- void whirlpoolFinal(WhirlpoolContext *context, uint8_t *digest);
- void whirlpoolProcessBlock(WhirlpoolContext *context);
+	uint64_t	k[8];
+	uint64_t	l[8];
+	uint64_t	state[8];
+
+	size_t		size;
+	uint64_t	totalSize;
+}				t_wh;
+
+void whirlpoolCompute(const void *data, size_t length, uint8_t *digest);
+void whirlpoolInit(t_wh *context);
+void whirlpoolUpdate(t_wh *context, const void *data, size_t length);
+void whirlpoolFinal(t_wh *context, uint8_t *digest);
+void whirlpoolProcessBlock(t_wh *context);
  
 
 /*

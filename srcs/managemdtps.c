@@ -117,12 +117,15 @@ void		start_whirlpool(char *argv, t_md *data)
 	UC		*name;
 	UC		checksum[64];
 	int		i;
- 
+ 	t_wh	context;
+
 	i = -1;
 	if (start_md5a(argv, data, &str))
 		return ;
 	name = (UC*)argv;
-	whirlpoolCompute((unsigned char*)str,ft_strlen((char*)str), (uint8_t*)checksum);
+	ft_bzero(&context, sizeof(t_wh));
+	whirlpoolUpdate(&context, (unsigned char*)str, ft_strlen((char*)str));
+	whirlpoolFinal(&context, (uint8_t*)checksum);
 	start_md5b(data, str, name);
 	while (++i < 64)
 		ft_printf ("%02x", checksum[i]);
