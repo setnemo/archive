@@ -101,7 +101,7 @@ void		start_sha256(char *argv, t_md *data)
 	name = (UC*)argv;
 	sha256init(&context);
 	sha256hash(&context, (uint8_t*)str, (uint32_t)ft_strlen((char*)str));
-	sha256done(&context, checksum);
+	sha256done(&context, checksum, 0, 0);
 	start_md5b(data, str, name);
 	while (++i < 32)
 		ft_printf ("%02x", checksum[i]);

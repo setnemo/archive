@@ -80,6 +80,6 @@ static const uint32_t K[64] = {
 
 void sha256init(t_sha256 *data);
 void sha256hash(t_sha256 *data, uint8_t *dat, uint32_t sz);
-void sha256done(t_sha256 *data, uint8_t *buf);
+void sha256done(t_sha256 *data, uint8_t *buf, uint32_t i, uint32_t j);
 
 #endif
