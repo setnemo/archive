@@ -33,8 +33,6 @@ void	exit_error(int err, void *memory)
 	exit(1);
 }
 
-
-
 void	flag_parser(int argc, char **argv)
 {
 	int i;
@@ -60,27 +58,6 @@ void	flag_parser(int argc, char **argv)
 		i++;
 	}
 }
-// void	flag_parser1(int argc, char **argv)
-// {
-// 	if (ft_strequ(argv[1], "base64"))
-// 		start_base64(argc, argv);
-// 	else if ((ft_strequ(argv[1], "des")) || (ft_strequ(argv[1], "des-ecb")))
-// 		start_ecb(argc, argv);
-// 	else if (ft_strequ(argv[1], "des-cbc"))
-// 		start_cbc(argc, argv);
-// 	else if ((ft_strequ(argv[1], "des3")) || (ft_strequ(argv[1], "des3-cbc")))
-// 		start_des3cbc(argc, argv);
-// 	else if (ft_strequ(argv[1], "des3-ecb"))
-// 		start_des3ecb(argc, argv);
-// 	else if (ft_strequ(argv[1], "md5"))
-// 		start_md(argc - 2, argv + 2, 0);
-// 	else if (ft_strequ(argv[1], "sha256"))
-// 		start_md(argc - 2, argv + 2, 1);
-// 	else if (ft_strequ(argv[1], "whirlpool"))
-// 		start_md(argc - 2, argv + 2, 2);
-// 	else
-// 		print_error(argv);
-// }
 
 void	read_input(t_ssl *data, UC **inp, size_t *size)
 {

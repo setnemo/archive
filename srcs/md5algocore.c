@@ -48,7 +48,8 @@ void		md5update(t_md5 *md5data, unsigned char *buf, unsigned len)
 	{
 		p = md5data->in + t;
 		t = 64 - t;
-		if (len < t) {
+		if (len < t)
+		{
 			memcpy(p, buf, len);
 			return ;
 		}

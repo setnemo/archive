@@ -5,9 +5,7 @@
 		$skip = $argc;
 		foreach ($argv as $line)
 		{
-			if ($skip == $argc)
-				;
-			else
+			if ($skip != $argc)
 				echo hash('whirlpool', $line) . PHP_EOL;
 			$argc--;
 		}

@@ -35,13 +35,18 @@ static void hash(t_sha256 *data)
 	b[3] = data->hash[3]; b[4] = data->hash[4]; b[5] = data->hash[5];
 	b[6] = data->hash[6]; b[7] = data->hash[7];
 
-	for (p = data->buf, j = 0; j < 64; j += 16)
+	p = data->buf;
+	j = 0;
+	while (j < 64)
+	{
 		rtrf(b, p,  0, j), rtrf(b, p,  1, j), rtrf(b, p,  2, j),
 		rtrf(b, p,  3, j), rtrf(b, p,  4, j), rtrf(b, p,  5, j),
 		rtrf(b, p,  6, j), rtrf(b, p,  7, j), rtrf(b, p,  8, j),
 		rtrf(b, p,  9, j), rtrf(b, p, 10, j), rtrf(b, p, 11, j),
 		rtrf(b, p, 12, j), rtrf(b, p, 13, j), rtrf(b, p, 14, j),
 		rtrf(b, p, 15, j);
+		j += 16;
+	}
 
 	data->hash[0] += b[0]; data->hash[1] += b[1]; data->hash[2] += b[2];
 	data->hash[3] += b[3]; data->hash[4] += b[4]; data->hash[5] += b[5];
@@ -99,6 +104,5 @@ void sha256done(t_sha256 *data, uint8_t *buf)
 	for (i = 0; i < 32; i++)
 		data->buf[i % 16] = 0,
 	buf[i] = (uint8_t)(data->hash[i >> 2] >> ((~i & 3) << 3));
-
 }
 
