@@ -12,12 +12,12 @@
 
 #ifndef ERR_H
 # define ERR_H
-# define WP "whirlpool\n"
+# define WP "   whirlpool\n"
 # define ER00 "ft_ssl: Error: \""
 # define ER01 "\" is an invalid command.\n"
 # define ER02 "ERROR! '"
 # define ER10 "Standard commands:\n\n"
-# define ER11 "Message Digest commands:\n   md5\n   sha256\n   sha512\n   "WP
+# define ER11 "Message Digest commands:\n   md5\n   sha256\n"WP
 # define ER12 "Cipher commands:\n   base64\n   des\n   des-ecb\n   des-cbc\n"
 # define ER13 "   des3\n   des3-ecb\n   des3-cbc\n"
 # define ER30 "ft_ssl: option requires an argument\n"

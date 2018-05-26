@@ -68,7 +68,7 @@ typedef struct	s_ssl
 void			error_flags(char *str);
 void			print_error(char **argv);
 void			exit_error(int err, void *memory);
-void			flag_parser(int argc, char **argv);
+void			flag_parser(int argc, char **argv, int i, int flag);
 void			read_input(t_ssl *opt, UC **inp, size_t *size);
 
 /*

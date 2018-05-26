@@ -12,26 +12,9 @@
 
 #include "ft_ssl_des.h"
 
-void	create_data(t_ssl *data)
-{
-	data->enc = 0;
-	data->dec = 0;
-	data->b64 = 0;
-	data->print = 0;
-	data->master_key = 0;
-	data->master_iv = 0;
-	data->key = NULL;
-	data->iv = NULL;
-	data->inp = NULL;
-	data->out = NULL;
-	data->des3_key1 = 0;
-	data->des3_key2 = 0;
-	data->des3_key3 = 0;
-}
-
 void	handle_flags(int i, int argc, char **argv, t_ssl *data)
 {
-	create_data(data);
+	ft_bzero(data, sizeof(t_ssl));
 	while (i < argc)
 	{
 		if (ft_strequ(argv[i], "-e"))

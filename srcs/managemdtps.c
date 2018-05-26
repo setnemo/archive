@@ -14,49 +14,31 @@
 #include "ft_ssl_sha256.h"
 #include "ft_ssl_whirlpool.h"
 
-void			create_md_data(t_md *data)
-{
-	data->s = 0; // (STDIN) off
-	data->pfl = 0; // (STDIN) off
-	data->qfl = 0; // silence off
-	data->rfl = 0; // reverse off
-	data->file = 1; // read "-s []" /"(STDIN)"
-	data->howuse = 0; 
-	data->inp = NULL;
-	data->out = NULL;
-}
-
 void		start_md(int argc, char **argv, int md)
 {
 	t_md	data;
 
 	argc -= 2;
 	argv += 1;
-	create_md_data(&data);
+	ft_bzero(&data, sizeof(t_md));
+	data.file = 1;
 	if (argc)
 		check_md_flags(argc, argv, &data, md);
 	else
 	{
 		data.qfl = -1;
 		data.pfl = 1;
-		before_start_md("тест", &data, md);
+		before_start_md("", &data, md);
 	}
 }
 
-void		start_md5(char *argv, t_md *data)
+int		start_md5a(char *argv, t_md *data, unsigned char **str)
 {
 	size_t	size;
-	UC		*str;
-	UC		*name;
-	t_md5 context;
-	unsigned char checksum[16];
-	int i;
 
-	i = -1;
-	// ft_printf("start_md5 with:%s data->file[%i], data->pfl[%i]\n", argv, data->file, data->pfl);
 	if (data->pfl == 1)
 	{
-		str = input_read(&size);
+		*str = input_read(&size);
 		data->pfl = -1;
 	}
 	else if (data->file == 0)
@@ -64,17 +46,17 @@ void		start_md5(char *argv, t_md *data)
 		if (open(argv, O_RDONLY) < 0)
 		{
 			ft_printf("./ft_ssl: %s : No such file or directory\n", argv);
-			return ;
+			return (1);
 		}
-		str = readoutfile(argv, &size);
+		*str = readoutfile(argv, &size);
 	}
 	else
-		str = (UC*)argv;
-	name = (UC*)argv;
-	// ft_printf("%s\n", str);
-	md5init(&context);
-	md5update(&context, str, ft_strlen((char*)str));
-	md5final(checksum, &context);
+		*str = (UC*)argv;
+	return (0);
+}
+
+void		start_md5b(t_md *data, unsigned char *str, unsigned char *name)
+{
 	if (data->rfl == 0 && (data->qfl == 0 || data->qfl == -1))
 	{
 		if (data->pfl == -1 || data->qfl == -1)
@@ -97,157 +79,73 @@ void		start_md5(char *argv, t_md *data)
 	{
 		ft_printf("%s", str);
 	}
-		// ft_printf("\t\t\t\tdata->file[%i], data->rfl[%i], data->pfl[%i], data->qfl[%i], data->s[%i], data->howuse[%i]\n", data->file, data->rfl, data->pfl, data->qfl, data->s, data->howuse);
-	// else if (data->file == 1 && data->rfl == 1 && data->pfl == -1 && data->qfl == 0)
-		// ft_printf("\t\t\t\tdata->file[%i], data->rfl[%i], data->pfl[%i], data->qfl[%i]\n", data->file, data->rfl, data->pfl, data->qfl);
+}
+
+void		start_md5(char *argv, t_md *data)
+{
+	UC		*str;
+	UC		*name;
+	t_md5	md5data;
+	UC		checksum[16];
+	int		i;
+
+	i = -1;
+	if (start_md5a(argv, data, &str))
+		return ;
+	name = (UC*)argv;
+	md5init(&md5data);
+	md5update(&md5data, str, ft_strlen((char*)str));
+	md5final(checksum, &md5data);
+	start_md5b(data, str, name);
 	while (++i < 16)
 		ft_printf ("%02x", (unsigned int)checksum[i]);
 	if (data->rfl == 1 && data->qfl == 0)
 		(*name == 0) ? ft_printf ("") : (data->file == 1) ? ft_printf (" \"%s\"", name) : ft_printf (" %s", name);
 	ft_printf ("\n");
 	data->howuse++;
-	// ft_printf("start_md5 with:%s data->file[%i], data->pfl[%i]\n", argv, data->file, data->pfl);
 }
 
 void		start_sha256(char *argv, t_md *data)
 {
-	size_t	size;
-	UC		*str;
-	UC		*name;
-	t_sha256 context;
-	uint8_t checksum[32];
-	int i;
-
+	UC			*str;
+	UC			*name;
+	t_sha256	context;
+	uint8_t 	checksum[32];
+	int			i;
 
 	i = -1;
-	// ft_printf("start_md5 with:%s data->file[%i], data->pfl[%i]\n", argv, data->file, data->pfl);
-	if (data->pfl == 1)
-	{
-		str = input_read(&size);
-		data->pfl = -1;
-	}
-	else if (data->file == 0)
-	{
-		if (open(argv, O_RDONLY) < 0)
-		{
-			ft_printf("./ft_ssl: %s : No such file or directory\n", argv);
-			return ;
-		}
-		str = readoutfile(argv, &size);
-	}
-	else
-		str = (UC*)argv;
+	if (start_md5a(argv, data, &str))
+		return ;
 	name = (UC*)argv;
-	// ft_printf("%s\n", str);
 	sha256init(&context);
 	sha256hash(&context, (uint8_t*)str, (uint32_t)ft_strlen((char*)str));
 	sha256done(&context, checksum);
-	if (data->rfl == 0 && (data->qfl == 0 || data->qfl == -1))
-	{
-		if (data->pfl == -1 || data->qfl == -1)
-		{
-			if (data->rfl == 0 && data->qfl == -1)
-				data->pfl = -2;
-			else
-				ft_printf("%s", str);
-			data->pfl = -2;
-		}
-		else if (data->qfl == -1)
-		{
-			data->qfl = 0;
-			data->pfl = -2;
-		}
-		else
-			(data->file == 1) ? ft_printf("MD5 (\"%s\") = ", str) : ft_printf("MD5 (%s) = ", name) ;
-	}
-	else if (data->rfl == 1 && data->pfl == -1 && data->s == 0 && data->howuse == 0)
-	{
-		ft_printf("%s", str);
-	}
-		// ft_printf("\t\t\t\tdata->file[%i], data->rfl[%i], data->pfl[%i], data->qfl[%i], data->s[%i], data->howuse[%i]\n", data->file, data->rfl, data->pfl, data->qfl, data->s, data->howuse);
-	// else if (data->file == 1 && data->rfl == 1 && data->pfl == -1 && data->qfl == 0)
-		// ft_printf("\t\t\t\tdata->file[%i], data->rfl[%i], data->pfl[%i], data->qfl[%i]\n", data->file, data->rfl, data->pfl, data->qfl);
+	start_md5b(data, str, name);
 	while (++i < 32)
 		ft_printf ("%02x", checksum[i]);
 	if (data->rfl == 1 && data->qfl == 0)
 		(*name == 0) ? ft_printf ("") : (data->file == 1) ? ft_printf (" \"%s\"", name) : ft_printf (" %s", name);
 	ft_printf ("\n");
 	data->howuse++;
-	// ft_printf("start_md5 with:%s data->file[%i], data->pfl[%i]\n", argv, data->file, data->pfl);
-
-}
-
-void		start_sha512(char *argv, t_md *data)
-{
-	size_t	size;
-	UC		*str;
-
-	str = input_read(&size);
-	ft_printf("%s\n", str);
-	if (data || argv)
-		ft_printf("start_sha512 with:%s ITS ARG/STDIN:%i\n", argv, data->file);
 }
 
 void		start_whirlpool(char *argv, t_md *data)
 {
-	size_t	size;
 	UC		*str;
 	UC		*name;
-	// t_wh context;
-	UC checksum[64];
-	int i;
+	UC		checksum[64];
+	int		i;
  
 	i = -1;
-	// ft_printf("start_md5 with:%s data->file[%i], data->pfl[%i]\n", argv, data->file, data->pfl);
-	if (data->pfl == 1)
-	{
-		str = input_read(&size);
-		data->pfl = -1;
-	}
-	else if (data->file == 0)
-	{
-		if (open(argv, O_RDONLY) < 0)
-		{
-			ft_printf("./ft_ssl: %s : No such file or directory\n", argv);
-			return ;
-		}
-		str = readoutfile(argv, &size);
-	}
-	else
-		str = (UC*)argv;
+	if (start_md5a(argv, data, &str))
+		return ;
 	name = (UC*)argv;
 	whirlpoolCompute((unsigned char*)str,ft_strlen((char*)str), (uint8_t*)checksum);
-	if (data->rfl == 0 && (data->qfl == 0 || data->qfl == -1))
-	{
-		if (data->pfl == -1 || data->qfl == -1)
-		{
-			if (data->rfl == 0 && data->qfl == -1)
-				data->pfl = -2;
-			else
-				ft_printf("%s", str);
-			data->pfl = -2;
-		}
-		else if (data->qfl == -1)
-		{
-			data->qfl = 0;
-			data->pfl = -2;
-		}
-		else
-			(data->file == 1) ? ft_printf("MD5 (\"%s\") = ", str) : ft_printf("MD5 (%s) = ", name) ;
-	}
-	else if (data->rfl == 1 && data->pfl == -1 && data->s == 0 && data->howuse == 0)
-	{
-		ft_printf("%s", str);
-	}
-		// ft_printf("\t\t\t\tdata->file[%i], data->rfl[%i], data->pfl[%i], data->qfl[%i], data->s[%i], data->howuse[%i]\n", data->file, data->rfl, data->pfl, data->qfl, data->s, data->howuse);
-	// else if (data->file == 1 && data->rfl == 1 && data->pfl == -1 && data->qfl == 0)
-		// ft_printf("\t\t\t\tdata->file[%i], data->rfl[%i], data->pfl[%i], data->qfl[%i]\n", data->file, data->rfl, data->pfl, data->qfl);
+	start_md5b(data, str, name);
 	while (++i < 64)
 		ft_printf ("%02x", checksum[i]);
 	if (data->rfl == 1 && data->qfl == 0)
 		(*name == 0) ? ft_printf ("") : (data->file == 1) ? ft_printf (" \"%s\"", name) : ft_printf (" %s", name);
 	ft_printf ("\n");
 	data->howuse++;
-	// ft_printf("start_md5 with:%s data->file[%i], data->pfl[%i]\n", argv, data->file, data->pfl);
-
 }

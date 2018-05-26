@@ -19,6 +19,6 @@ int		main(int argc, char **argv)
 		ft_printf("usage: %s command [command opts] [command args]\n", argv[0]);
 		return (1);
 	}
-	flag_parser(argc, argv);
+	flag_parser(argc, argv, -1, 0);
 	return (0);
 }
