@@ -64,13 +64,15 @@ void	des3_print_key(t_ssl *data, int show_iv)
 	}
 }
 
-void	start_des3ecb(int argc, char **argv)
+void	start_des3ecb(int argc, char **argv, int i)
 {
 	t_ssl			data;
 	size_t			size;
 	unsigned char	*inp;
 	unsigned char	*out;
 
+	i = 0;
+	size = i;
 	handle_flags(2, argc, argv, &data);
 	des3_get_key(&data);
 	if (data.print == 1)
@@ -87,13 +89,15 @@ void	start_des3ecb(int argc, char **argv)
 	free(out);
 }
 
-void	start_des3cbc(int argc, char **argv)
+void	start_des3cbc(int argc, char **argv, int i)
 {
 	t_ssl			data;
 	size_t			size;
 	unsigned char	*inp;
 	unsigned char	*out;
 
+	i = 0;
+	size = i;
 	handle_flags(2, argc, argv, &data);
 	des3_get_key(&data);
 	data.master_iv = cbc_get_iv(&data);

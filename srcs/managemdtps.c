@@ -30,6 +30,8 @@ void		start_md(int argc, char **argv, int md)
 {
 	t_md	data;
 
+	argc -= 2;
+	argv += 1;
 	create_md_data(&data);
 	if (argc)
 		check_md_flags(argc, argv, &data, md);
@@ -214,10 +216,6 @@ void		start_whirlpool(char *argv, t_md *data)
 	else
 		str = (UC*)argv;
 	name = (UC*)argv;
-	// ft_printf("%s\n", str);
-	// rhash_whirlpool_init(&context);
-	// rhash_whirlpool_update(&context, (unsigned char*)str, );
-	// rhash_whirlpool_final(&context, checksum);
 	whirlpoolCompute((unsigned char*)str,ft_strlen((char*)str), (uint8_t*)checksum);
 	if (data->rfl == 0 && (data->qfl == 0 || data->qfl == -1))
 	{

@@ -56,13 +56,15 @@ void	handle_flags(int i, int argc, char **argv, t_ssl *data)
 	}
 }
 
-void	start_base64(int argc, char **argv)
+void	start_base64(int argc, char **argv, int i)
 {
 	t_ssl			data;
 	size_t			size;
 	unsigned char	*inp;
 	unsigned char	*out;
 
+	i = 0;
+	size = i;
 	handle_flags(2, argc, argv, &data);
 	read_input(&data, &inp, &size);
 	if (data.dec == 1)
@@ -77,13 +79,15 @@ void	start_base64(int argc, char **argv)
 	free(out);
 }
 
-void	start_ecb(int argc, char **argv)
+void	start_ecb(int argc, char **argv, int i)
 {
 	t_ssl			data;
 	size_t			size;
 	unsigned char	*inp;
 	unsigned char	*out;
 
+	i = 0;
+	size = i;
 	handle_flags(2, argc, argv, &data);
 	data.master_key = ecb_read_key(&data);
 	if (data.print == 1)
@@ -100,13 +104,15 @@ void	start_ecb(int argc, char **argv)
 	free(out);
 }
 
-void	start_cbc(int argc, char **argv)
+void	start_cbc(int argc, char **argv, int i)
 {
 	t_ssl			data;
 	size_t			size;
 	unsigned char	*inp;
 	unsigned char	*out;
 
+	i = 0;
+	size = i;
 	handle_flags(2, argc, argv, &data);
 	data.master_key = ecb_read_key(&data);
 	data.master_iv = cbc_get_iv(&data);

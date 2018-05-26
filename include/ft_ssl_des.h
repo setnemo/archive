@@ -47,6 +47,12 @@ typedef struct	s_ssl
 	UL		des3_key3;
 }				t_ssl;
 
+typedef struct		s_ssl_mngr
+{
+	char			conver[10];
+	void			(*mngr)(int, char**, int);
+}					t_ssl_mngr;
+
 /*
 ** ****************************************************************************
 ** ***************************** manageflags.c ********************************
@@ -67,9 +73,9 @@ void			read_input(t_ssl *opt, UC **inp, size_t *size);
 
 void			create_data(t_ssl *data);
 void			handle_flags(int i, int argc, char **argv, t_ssl *data);
-void			start_base64(int argc, char **argv);
-void			start_ecb(int argc, char **argv);
-void			start_cbc(int argc, char **argv);
+void			start_base64(int argc, char **argv, int i);
+void			start_ecb(int argc, char **argv, int i);
+void			start_cbc(int argc, char **argv, int i);
 
 /*
 ** ****************************************************************************
@@ -195,8 +201,8 @@ void			cbc_decrypt(UC **inp, size_t size, t_ssl *ssl, int flag);
 void			get_triple_key(unsigned char *str, t_ssl *data);
 void			des3_get_key(t_ssl *data);
 void			des3_print_key(t_ssl *data, int show_iv);
-void			start_des3ecb(int argc, char **argv);
-void			start_des3cbc(int argc, char **argv);
+void			start_des3ecb(int argc, char **argv, int i);
+void			start_des3cbc(int argc, char **argv, int i);
 
 /*
 ** ****************************************************************************

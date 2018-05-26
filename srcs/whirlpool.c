@@ -11,25 +11,20 @@
 /* ************************************************************************** */
 
 #include "ft_ssl_whirlpool.h"
-# include "ft_ssl_whirlpool_sbox.h"
+#include "ft_ssl_whirlpool_sbox.h"
 
-//Dependencies
- // #include "core/crypto.h"
- // #include "hash/whirlpool.h"
- #define MIN(a, b) ((a) < (b) ? (a) : (b))
- //Check crypto library configuration
- #define WHIRLPOOL_DIGEST_SIZE 64
- //Round function
- #define ROR64(a, n) (((a) >> (n)) | ((a) << (64 - (n))))
- #define SWAPINT64(x) ( \
-    (((uint64_t)(x) & 0x00000000000000FFULL) << 56) | \
-    (((uint64_t)(x) & 0x000000000000FF00ULL) << 40) | \
-    (((uint64_t)(x) & 0x0000000000FF0000ULL) << 24) | \
-    (((uint64_t)(x) & 0x00000000FF000000ULL) << 8) | \
-    (((uint64_t)(x) & 0x000000FF00000000ULL) >> 8) | \
-    (((uint64_t)(x) & 0x0000FF0000000000ULL) >> 24) | \
-    (((uint64_t)(x) & 0x00FF000000000000ULL) >> 40) | \
-    (((uint64_t)(x) & 0xFF00000000000000ULL) >> 56))
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
+#define WHIRLPOOL_DIGEST_SIZE 64
+#define ROR64(a, n) (((a) >> (n)) | ((a) << (64 - (n))))
+#define SWAPINT64(x) ( \
+	(((uint64_t)(x) & 0x00000000000000FFULL) << 56) | \
+	(((uint64_t)(x) & 0x000000000000FF00ULL) << 40) | \
+	(((uint64_t)(x) & 0x0000000000FF0000ULL) << 24) | \
+	(((uint64_t)(x) & 0x00000000FF000000ULL) << 8) | \
+	(((uint64_t)(x) & 0x000000FF00000000ULL) >> 8) | \
+	(((uint64_t)(x) & 0x0000FF0000000000ULL) >> 24) | \
+	(((uint64_t)(x) & 0x00FF000000000000ULL) >> 40) | \
+	(((uint64_t)(x) & 0xFF00000000000000ULL) >> 56))
  #define RHO(b, a, n, c) \
  { \
     b = t[(a[n] >> 56) & 0xFF]; \

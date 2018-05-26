@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_ssl_md5.h"
-#define SHA256S start_sha256(argv, data)
-#define SHA512S start_sha512(argv, data)
 
 void		string_md(t_md *data, char *argv, int *argc, int md)
 {
@@ -21,8 +19,8 @@ void		string_md(t_md *data, char *argv, int *argc, int md)
 		*argc -= 1;
 		if (md)
 		{
-			if (md == 1 || md == 2)
-				(md == 1) ? SHA256S : SHA512S;
+			if (md == 1)
+				start_sha256(argv, data);
 			else
 				start_whirlpool(argv, data);
 		}
@@ -43,8 +41,8 @@ void		before_start_md(char *argv, t_md *data, int md)
 	}
 	if (md)
 	{
-		if (md == 1 || md == 2)
-			(md == 1) ? SHA256S : SHA512S;
+		if (md == 1)
+			start_sha256(argv, data);
 		else
 			start_whirlpool(argv, data);
 	}
