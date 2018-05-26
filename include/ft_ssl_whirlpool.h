@@ -37,13 +37,15 @@ typedef struct	s_wh
 
 	size_t		size;
 	uint64_t	totalSize;
+	int			i;
+	int			j;
 }				t_wh;
 
 void whirlpoolCompute(const void *data, size_t length, uint8_t *digest);
-void whirlpoolInit(t_wh *context);
-void whirlpoolUpdate(t_wh *context, const void *data, size_t length);
-void whirlpoolFinal(t_wh *context, uint8_t *digest);
-void whirlpoolProcessBlock(t_wh *context);
+void whirlpoolInit(t_wh *twh);
+void whirlpoolUpdate(t_wh *twh, const void *data, size_t length);
+void whirlpoolFinal(t_wh *twh, uint8_t *digest);
+void whirlpoolProcessBlock(t_wh *twh, uint64_t *x, uint64_t *k, uint64_t *l);
  
 
 /*

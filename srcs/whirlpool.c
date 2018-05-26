@@ -39,84 +39,75 @@ uint64_t swapwh64(uint64_t x)
 	return (x);
 }
 
-void whirlpoolUpdate(t_wh *context, const void *data, size_t length)
+void whirlpoolUpdate(t_wh *twh, const void *data, size_t length)
 {
 	size_t n;
 
 	while(length > 0)
 	{
-		n = MIN(length, 64 - context->size);
-		memcpy(context->buffer + context->size, data, n);
-		context->size += n;
-		context->totalSize += n;
+		n = MIN(length, 64 - twh->size);
+		memcpy(twh->buffer + twh->size, data, n);
+		twh->size += n;
+		twh->totalSize += n;
 		data = (uint8_t *) data + n;
 		length -= n;
-		if(context->size == 64)
+		if(twh->size == 64)
 		{
-			whirlpoolProcessBlock(context);
-			context->size = 0;
+			whirlpoolProcessBlock(twh, twh->x, twh->k, twh->l);
+			twh->size = 0;
 		}
 	}
 }
 
-void whirlpoolFinal(t_wh *context, uint8_t *digest)
+void whirlpoolFinal(t_wh *twh, uint8_t *digest)
 {
 	int i;
 	size_t paddingSize;
 	uint64_t totalSize;
 
-	totalSize = context->totalSize * 8;
-	if (context->size < 32)
-		paddingSize = 32 - context->size;
+	totalSize = twh->totalSize * 8;
+	if (twh->size < 32)
+		paddingSize = 32 - twh->size;
 	else
-		paddingSize = 64 + 32 - context->size;
-	whirlpoolUpdate(context, padding, paddingSize);
-	context->x[4] = 0;
-	context->x[5] = 0;
-	context->x[6] = 0;
-	context->x[7] = swapwh64(totalSize);
-	whirlpoolProcessBlock(context);
+		paddingSize = 64 + 32 - twh->size;
+	whirlpoolUpdate(twh, padding, paddingSize);
+	twh->x[4] = 0;
+	twh->x[5] = 0;
+	twh->x[6] = 0;
+	twh->x[7] = swapwh64(totalSize);
+	whirlpoolProcessBlock(twh, twh->x, twh->k, twh->l);
 	for(i = 0; i < 8; i++)
-		 context->h[i] = swapwh64(context->h[i]);
+		 twh->h[i] = swapwh64(twh->h[i]);
 	if (digest != NULL)
-		 memcpy(digest, context->digest, WHIRLPOOL_DIGEST_SIZE);
+		 memcpy(digest, twh->digest, WHIRLPOOL_DIGEST_SIZE);
 }
 
-void whirlpoolProcessBlock(t_wh *context)
+void whirlpoolProcessBlock(t_wh *twh, uint64_t *x, uint64_t *k, uint64_t *l)
 {
-	int i;
-	int j;
+	uint64_t *state;
 
-	uint64_t *x = context->x;
-	uint64_t *k = context->k;
-	uint64_t *l = context->l;
-	uint64_t *state = context->state;
-
-	i = -1;
-	while (++i < 8)
-		 x[i] = swapwh64(x[i]);
-	ft_memcpy(k, context->h, sizeof(uint64_t) * 8);
-	i = -1;
-	while (++i < 8)
-		state[i] = x[i] ^ k[i];
-	i = -1;
-	while (++i < 10)
+	state = twh->state;
+	twh->i = -1;
+	while (++twh->i < 8)
+		 x[twh->i] = swapwh64(x[twh->i]);
+	ft_memcpy(k, twh->h, sizeof(uint64_t) * 8);
+	twh->i = -1;
+	while (++twh->i < 8)
+		state[twh->i] = x[twh->i] ^ k[twh->i];
+	twh->i = -1;
+	while (++twh->i < 10)
 	{
-		j = -1;
-		while (++j < 8)
-		{
-			if (j == 0)
-				rwh(&l[0], k, 0, rc[i]);
-			else
-				rwh(&l[j], k, j, 0);	
-		}
+		twh->j = -1;
+		while (++twh->j < 8)
+			(twh->j == 0) ? rwh(&l[0], k, 0, rc[twh->i]) : rwh(&l[twh->j], k, twh->j, 0);	
 		ft_memcpy(k, l, sizeof(uint64_t) * 8);
-		j = -1;
-		while (++j < 8)
-			rwh(&l[j], state, j, k[j]);
+		twh->j = -1;
+		while (++twh->j < 8)
+			rwh(&l[twh->j], state, twh->j, k[twh->j]);
 		ft_memcpy(state, l, sizeof(uint64_t) * 8);
 	}
-	i = -1;
-	while (++i < 8)
-		context->h[i] ^= state[i] ^ x[i];
+	twh->i = -1;
+	while (++twh->i < 8)
+		twh->h[twh->i] ^= state[twh->i] ^ x[twh->i];
 }
+
