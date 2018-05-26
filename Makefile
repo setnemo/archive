@@ -33,7 +33,8 @@ SRC_NAME =	main.c\
 			supportmdcd.c\
 			md5algocore.c\
 			md5transfrm.c\
-			md5spprtfnc.c
+			md5spprtfnc.c\
+			sha.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 

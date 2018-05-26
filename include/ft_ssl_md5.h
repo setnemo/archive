@@ -48,7 +48,7 @@ typedef struct		s_mds
 
 /*
 ** ****************************************************************************
-** ********************************* md5.c ************************************
+** ********************************* files ************************************
 ** ****************************************************************************
 */
 void				before_start_md(char *argv, t_md *data, int md);
@@ -56,8 +56,7 @@ void				md5init(t_md5 *md5data);
 void				md5update(t_md5 *md5data, unsigned char *buf, unsigned len);
 void				md5final(unsigned char digest[], t_md5 *md5data);
 void				md5transform(ULL buf[], unsigned char in[]);
-
-
 unsigned long long	getu32(unsigned char *addr);
 void				putu32(ULL data, unsigned char *addr);
+
 #endif
