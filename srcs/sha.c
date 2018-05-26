@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   sha.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -61,7 +61,7 @@ void sha256init(t_sha256 *data)
 
 void sha256hash(t_sha256 *data, uint8_t *dat, uint32_t sz)
 {
-	register uint32_t i = data->len[0] & 63, l, j;
+	uint32_t i = data->len[0] & 63, l, j;
 
 	if ((data->len[0] += sz) < sz)  ++(data->len[1]);
 

@@ -34,7 +34,9 @@ SRC_NAME =	main.c\
 			md5algocore.c\
 			md5transfrm.c\
 			md5spprtfnc.c\
-			sha.c
+			sha.c\
+			whirlpool.c 
+
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
