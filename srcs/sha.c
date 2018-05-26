@@ -29,52 +29,60 @@ static void rtrf(uint32_t *b, uint32_t *p, uint32_t i, uint32_t j)
 
 static void hash(t_sha256 *data)
 {
-	uint32_t b[8], *p, j;
+	int			i;
+	uint32_t	b[8];
+	uint32_t	*p;
+	int			j;
 
-	b[0] = data->hash[0]; b[1] = data->hash[1]; b[2] = data->hash[2];
-	b[3] = data->hash[3]; b[4] = data->hash[4]; b[5] = data->hash[5];
-	b[6] = data->hash[6]; b[7] = data->hash[7];
-
+	ft_memcpy(&b[0], data->hash, sizeof(uint32_t) * 8);
 	p = data->buf;
 	j = 0;
 	while (j < 64)
 	{
-		rtrf(b, p,  0, j), rtrf(b, p,  1, j), rtrf(b, p,  2, j),
-		rtrf(b, p,  3, j), rtrf(b, p,  4, j), rtrf(b, p,  5, j),
-		rtrf(b, p,  6, j), rtrf(b, p,  7, j), rtrf(b, p,  8, j),
-		rtrf(b, p,  9, j), rtrf(b, p, 10, j), rtrf(b, p, 11, j),
-		rtrf(b, p, 12, j), rtrf(b, p, 13, j), rtrf(b, p, 14, j),
-		rtrf(b, p, 15, j);
+		i = -1;
+		while (++i < 16)
+			rtrf(b, p, i, j);
 		j += 16;
 	}
-
-	data->hash[0] += b[0]; data->hash[1] += b[1]; data->hash[2] += b[2];
-	data->hash[3] += b[3]; data->hash[4] += b[4]; data->hash[5] += b[5];
-	data->hash[6] += b[6]; data->hash[7] += b[7];
-
+	i = -1;
+	while (++i < 8)
+		data->hash[i] += b[i];
 }
 
 void sha256init(t_sha256 *data)
 {
 	data->len[0] = data->len[1] = 0;
-	data->hash[0] = 0x6a09e667; data->hash[1] = 0xbb67ae85;
-	data->hash[2] = 0x3c6ef372; data->hash[3] = 0xa54ff53a;
-	data->hash[4] = 0x510e527f; data->hash[5] = 0x9b05688c;
-	data->hash[6] = 0x1f83d9ab; data->hash[7] = 0x5be0cd19;
+	data->hash[0] = 0x6a09e667;
+	data->hash[1] = 0xbb67ae85;
+	data->hash[2] = 0x3c6ef372;
+	data->hash[3] = 0xa54ff53a;
+	data->hash[4] = 0x510e527f;
+	data->hash[5] = 0x9b05688c;
+	data->hash[6] = 0x1f83d9ab;
+	data->hash[7] = 0x5be0cd19;
 
 }
 
 void sha256hash(t_sha256 *data, uint8_t *dat, uint32_t sz)
 {
-	uint32_t i = data->len[0] & 63, l, j;
+	uint32_t i;
+	uint32_t l;
+	uint32_t j;
 
-	if ((data->len[0] += sz) < sz)  ++(data->len[1]);
-
-	for (j = 0, l = 64-i; sz >= l; j += l, sz -= l, l = 64, i = 0)
+	i = data->len[0] & 63;
+	if ((data->len[0] += sz) < sz)
+		++(data->len[1]);
+	j = 0;
+	l = 64 - i; 
+	while (sz >= l)
 	{
-		MEMCP((char *)data->buf + i, &dat[j], l);
+		MEMCP((char*)data->buf + i, &dat[j], l);
 		BSWP(data->buf, 16 );
 		hash(data);
+		j += l;
+		sz -= l;
+		l = 64;
+		i = 0;
 	}
 	MEMCP((char *)data->buf + i, &dat[j], sz);
 
@@ -82,26 +90,33 @@ void sha256hash(t_sha256 *data, uint8_t *dat, uint32_t sz)
 
 void sha256done(t_sha256 *data, uint8_t *buf)
 {
-	uint32_t i = (uint32_t)(data->len[0] & 63), j = ((~i) & 3) << 3;
+	uint32_t i;
+	uint32_t j;
 
+	i = data->len[0] & 63;
+	j = ((~i) & 3) << 3;
 	BSWP(data->buf, (i + 3) >> 2);
-
 	data->buf[i >> 2] &= 0xffffff80 << j;
 	data->buf[i >> 2] |= 0x00000080 << j;
-
 	if (i < 56)
 		i = (i >> 2) + 1;
 	else
-		data->buf[15] ^= (i < 60) ? data->buf[15] : 0, hash(data), i = 0;
-
+	{
+		if (i < 60)
+			data->buf[15] ^= data->buf[15];
+		else
+		{
+			hash(data);
+			i = 0;
+		}
+	}
 	while (i < 14)
 		data->buf[i++] = 0;
 	data->buf[14] = (data->len[1] << 3)|(data->len[0] >> 29);
 	data->buf[15] = data->len[0] << 3;
-
 	hash(data);
-
-	for (i = 0; i < 32; i++)
+	i = -1;
+	while (++i < 32)
 		data->buf[i % 16] = 0,
 	buf[i] = (uint8_t)(data->hash[i >> 2] >> ((~i & 3) << 3));
 }
