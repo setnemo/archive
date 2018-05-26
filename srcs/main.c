@@ -11,6 +11,25 @@
 /* ************************************************************************** */
 
 #include "ft_ssl_des.h"
+#include "ft_ssl_md5.h"
+
+void		start_md(int argc, char **argv, int md)
+{
+	t_md	data;
+
+	argc -= 2;
+	argv += 2;
+	ft_bzero(&data, sizeof(t_md));
+	data.file = 1;
+	if (argc)
+		check_md_flags(argc, argv, &data, md);
+	else
+	{
+		data.qfl = -1;
+		data.pfl = 1;
+		before_start_md("", &data, md);
+	}
+}
 
 int		main(int argc, char **argv)
 {

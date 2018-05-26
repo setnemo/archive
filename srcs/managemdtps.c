@@ -14,24 +14,6 @@
 #include "ft_ssl_sha256.h"
 #include "ft_ssl_whirlpool.h"
 
-void		start_md(int argc, char **argv, int md)
-{
-	t_md	data;
-
-	argc -= 2;
-	argv += 1;
-	ft_bzero(&data, sizeof(t_md));
-	data.file = 1;
-	if (argc)
-		check_md_flags(argc, argv, &data, md);
-	else
-	{
-		data.qfl = -1;
-		data.pfl = 1;
-		before_start_md("", &data, md);
-	}
-}
-
 int		start_md5a(char *argv, t_md *data, unsigned char **str)
 {
 	size_t	size;

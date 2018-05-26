@@ -48,10 +48,9 @@ void	flag_parser(int argc, char **argv, int i, int flag)
 		{ .conver = "des3-ecb", .mngr = start_des3ecb },
 		};
 
-	argv += 1;
 	while (i < 10)
 	{
-		if (ft_strequ(*argv, mngr[i].conver))
+		if (ft_strequ(*(argv + 1), mngr[i].conver))
 		{
 			mngr[i].mngr(argc, argv, i);
 			flag++;
