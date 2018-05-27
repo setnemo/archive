@@ -21,7 +21,7 @@ static void bswapw(uint32_t *p, uint32_t i)
 static void rtrf(uint32_t *b, uint32_t *p, uint32_t i, uint32_t j)
 {
 	B(7,i) += (j ? (p[i & 15] += G1(P(i,14)) + P(i,9) + G0(P(i,1))) : p[i & 15])
-			+ K[i+j] + S1(B(4,i))
+			+ g_s256[i+j] + S1(B(4,i))
 			+ (B(6,i) ^ (B(4,i) & (B(5,i) ^ B(6,i))));
 	B(3,i) += B(7,i);
 	B(7,i) += S0(B(0,i)) + ((B(0,i) & B(1,i)) | (B(2,i) & (B(0,i) ^ B(1,i))));

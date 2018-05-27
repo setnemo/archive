@@ -14,14 +14,15 @@
 #include "ft_ssl_sha256.h"
 #include "ft_ssl_whirlpool.h"
 
-int		start_md5a(char *argv, t_md *data, unsigned char **str)
+int		start_md5a(char *argv, t_md *data)
 {
 	size_t	size;
 
 	if (data->pfl == 1)
 	{
-		*str = input_read(&size);
+		data->str = input_read(&size);
 		data->pfl = -1;
+		data->needfree = 1;
 	}
 	else if (data->file == 0)
 	{
@@ -30,14 +31,15 @@ int		start_md5a(char *argv, t_md *data, unsigned char **str)
 			ft_printf("./ft_ssl: %s : No such file or directory\n", argv);
 			return (1);
 		}
-		*str = readoutfile(argv, &size);
+		data->str = readoutfile(argv, &size);
+		data->needfree = 1;
 	}
 	else
-		*str = (UC*)argv;
+		data->str = (UC*)argv;
 	return (0);
 }
 
-void		start_md5b(t_md *data, unsigned char *str, unsigned char *name)
+void		start_md5b(t_md *data, unsigned char *name)
 {
 	if (data->rfl == 0 && (data->qfl == 0 || data->qfl == -1))
 	{
@@ -46,7 +48,7 @@ void		start_md5b(t_md *data, unsigned char *str, unsigned char *name)
 			if (data->rfl == 0 && data->qfl == -1)
 				data->pfl = -2;
 			else
-				ft_printf("%s", str);
+				ft_printf("%s", data->str);
 			data->pfl = -2;
 		}
 		else if (data->qfl == -1)
@@ -55,82 +57,97 @@ void		start_md5b(t_md *data, unsigned char *str, unsigned char *name)
 			data->pfl = -2;
 		}
 		else
-			(data->file == 1) ? ft_printf("MD5 (\"%s\") = ", str) : ft_printf("MD5 (%s) = ", name) ;
+			(data->file == 1) ? ft_printf("MD5 (\"%s\") = ", data->str) : ft_printf("MD5 (%s) = ", name) ;
 	}
 	else if (data->rfl == 1 && data->pfl == -1 && data->s == 0 && data->howuse == 0)
 	{
-		ft_printf("%s", str);
+		ft_printf("%s", data->str);
 	}
 }
 
 void		start_md5(char *argv, t_md *data)
 {
-	UC		*str;
 	UC		*name;
 	t_md5	md5data;
 	UC		checksum[16];
 	int		i;
 
 	i = -1;
-	if (start_md5a(argv, data, &str))
+	if (start_md5a(argv, data))
 		return ;
 	name = (UC*)argv;
 	md5init(&md5data);
-	md5update(&md5data, str, ft_strlen((char*)str));
+	md5update(&md5data, data->str, ft_strlen((char*)data->str));
 	md5final(checksum, &md5data);
-	start_md5b(data, str, name);
+	start_md5b(data, name);
 	while (++i < 16)
 		ft_printf ("%02x", (unsigned int)checksum[i]);
 	if (data->rfl == 1 && data->qfl == 0)
 		(*name == 0) ? ft_printf ("") : (data->file == 1) ? ft_printf (" \"%s\"", name) : ft_printf (" %s", name);
 	ft_printf ("\n");
 	data->howuse++;
+	if (data->needfree)
+	{
+		free(data->str);
+		data->str = NULL;
+		data->needfree = 0;
+	}
 }
 
 void		start_sha256(char *argv, t_md *data)
 {
-	UC			*str;
 	UC			*name;
 	t_sha256	context;
 	uint8_t 	checksum[32];
 	int			i;
 
 	i = -1;
-	if (start_md5a(argv, data, &str))
+	if (start_md5a(argv, data))
 		return ;
 	name = (UC*)argv;
 	sha256init(&context);
-	sha256hash(&context, (uint8_t*)str, (uint32_t)ft_strlen((char*)str));
+	sha256hash(&context, (uint8_t*)data->str, (uint32_t)ft_strlen((char*)data->str));
 	sha256done(&context, checksum, 0, 0);
-	start_md5b(data, str, name);
+	start_md5b(data, name);
 	while (++i < 32)
 		ft_printf ("%02x", checksum[i]);
 	if (data->rfl == 1 && data->qfl == 0)
 		(*name == 0) ? ft_printf ("") : (data->file == 1) ? ft_printf (" \"%s\"", name) : ft_printf (" %s", name);
 	ft_printf ("\n");
 	data->howuse++;
+	if (data->needfree)
+	{
+		free(data->str);
+		data->str = NULL;
+		data->needfree = 0;
+	}
 }
 
 void		start_whirlpool(char *argv, t_md *data)
 {
-	UC		*str;
 	UC		*name;
 	UC		checksum[64];
 	int		i;
  	t_wh	twh;
 
 	i = -1;
-	if (start_md5a(argv, data, &str))
+	if (start_md5a(argv, data))
 		return ;
 	name = (UC*)argv;
 	ft_bzero(&twh, sizeof(t_wh));
-	whirlpoolUpdate(&twh, (unsigned char*)str, ft_strlen((char*)str));
-	whirlpoolFinal(&twh, (uint8_t*)checksum);
-	start_md5b(data, str, name);
+	whupdate(&twh, data->str, ft_strlen((char*)data->str));
+	whfinal(&twh, (uint8_t*)checksum);
+	start_md5b(data, name);
 	while (++i < 64)
 		ft_printf ("%02x", checksum[i]);
 	if (data->rfl == 1 && data->qfl == 0)
 		(*name == 0) ? ft_printf ("") : (data->file == 1) ? ft_printf (" \"%s\"", name) : ft_printf (" %s", name);
 	ft_printf ("\n");
 	data->howuse++;
+	if (data->needfree)
+	{
+		free(data->str);
+		data->str = NULL;
+		data->needfree = 0;
+	}
 }

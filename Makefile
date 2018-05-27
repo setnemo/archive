@@ -11,7 +11,7 @@
 #******************************************************************************#
 
 NAME = ft_ssl
-# FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 
 SRC_NAME =	main.c\
 			reader_file.c\
@@ -51,7 +51,7 @@ OBJ_DIR = obj/
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	# @make -C $(LIB_DIR) --silent
+	@make -C $(LIB_DIR) --silent
 	@gcc -o $(NAME)  $(OBJ) -L $(LIB_DIR) -lft
 	@echo "### PROJECT: COMPILING FINISHED ####"
 
@@ -61,12 +61,12 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@gcc $(FLAGS) -o $@ -c  $< $(INC)
 
 clean:
-	# @make -C $(LIB_DIR) clean --silent
+	@make -C $(LIB_DIR) clean --silent
 	@rm -f $(OBJ)
 	@echo "### PROJECT: REMOVE OBJECT FILES ###"
 
 fclean: clean
-	# @make -C $(LIB_DIR) fclean --silent
+	@make -C $(LIB_DIR) fclean --silent
 	@rm -f $(NAME)
 	@echo "### PROJECT: REMOVE BINARY FILES ###"
 

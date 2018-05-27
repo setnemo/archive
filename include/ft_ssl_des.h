@@ -252,8 +252,8 @@ typedef struct	s_md
 	int		rfl;
 	int		file;
 	int		howuse;
-	char	*inp;
-	char	*out;
+	int		needfree;
+	UC		*str;
 }				t_md;
 
 /*

@@ -26,7 +26,7 @@ UC			*md5update_while(t_md5 *md5data, unsigned char *buf, unsigned *len)
 {
 	while (*len >= 64)
 	{
-		memcpy(md5data->in, buf, 64);
+		ft_memcpy(md5data->in, buf, 64);
 		md5transform(md5data->buf, md5data->in);
 		buf += 64;
 		*len -= 64;
@@ -50,16 +50,16 @@ void		md5update(t_md5 *md5data, unsigned char *buf, unsigned len)
 		t = 64 - t;
 		if (len < t)
 		{
-			memcpy(p, buf, len);
+			ft_memcpy(p, buf, len);
 			return ;
 		}
-		memcpy(p, buf, t);
+		ft_memcpy(p, buf, t);
 		md5transform(md5data->buf, md5data->in);
 		buf += t;
 		len -= t;
 	}
 	buf = md5update_while(md5data, buf, &len);
-	memcpy(md5data->in, buf, len);
+	ft_memcpy(md5data->in, buf, len);
 }
 
 void		md5final(unsigned char digest[], t_md5 *md5data)
@@ -73,12 +73,12 @@ void		md5final(unsigned char digest[], t_md5 *md5data)
 	count = 64 - 1 - count;
 	if (count < 8)
 	{
-		memset(p, 0, count);
+		ft_memset(p, 0, count);
 		md5transform(md5data->buf, md5data->in);
-		memset(md5data->in, 0, 56);
+		ft_memset(md5data->in, 0, 56);
 	}
 	else
-		memset(p, 0, count - 8);
+		ft_memset(p, 0, count - 8);
 	putu32(md5data->bits[0], md5data->in + 56);
 	putu32(md5data->bits[1], md5data->in + 60);
 	md5transform(md5data->buf, md5data->in);
@@ -86,5 +86,5 @@ void		md5final(unsigned char digest[], t_md5 *md5data)
 	putu32(md5data->buf[1], digest + 4);
 	putu32(md5data->buf[2], digest + 8);
 	putu32(md5data->buf[3], digest + 12);
-	memset(md5data, 0, sizeof(t_md5));
+	ft_memset(md5data, 0, sizeof(t_md5));
 }

@@ -29,12 +29,12 @@
 # define ER36 "   -p,  print the iv/key (with DES algorithms)\n"
 # define ER37 "   -i,  example: \"-i [input_file_name]\" (default STDIN)\n"
 # define ER38 "   -o,  example: \"-o [output_file_name]\" (default STDOUT)\n"
-# define ER40 "   -p,  echo STDIN to STDOUT and append the checksum to STDOUT"
-# define ER41 "   -q,  quiet mode"
-# define ER42 "   -r,  reverse the format of the output"
-# define ER43 "   -s,  print the sum of the given string"
+# define ER40 "md -p,  echo STDIN to STDOUT and append the checksum to STDOUT\n"
+# define ER41 "md -q,  quiet mode\n"
+# define ER42 "md -r,  reverse the format of the output\n"
+# define ER43 "md -s,  print the sum of the given string\n"
 # define ERRS ER31, ER32, ER33, ER34, ER35, ER36
 # define ERRM ER37, ER38
 # define ERP1 ER00, argv[1], ER01, ER10, ER11, ER12, ER13
-# define ERP2 ER02, str, ER01, ER30, ERRS, ERRM
+# define ERP2 ER02, str, ER01, ER30, ERRS, ERRM, ER40, ER41, ER42, ER43
 #endif

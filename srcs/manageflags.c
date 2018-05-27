@@ -15,7 +15,7 @@
 
 void	error_flags(char *str)
 {
-	ft_printf("%s%s%s%s%s%s%s%s%s%s%s%s", ERP2);
+	ft_printf("%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s", ERP2);
 	exit(1);
 }
 

@@ -14,7 +14,7 @@
 #include "ft_ssl_md5.h"
 #include "ft_ssl_sha256.h"
 
-void sha256init(t_sha256 *data)
+void		sha256init(t_sha256 *data)
 {
 	data->len[0] = 0;
 	data->len[1] = 0;
@@ -46,7 +46,7 @@ void		start_md(int argc, char **argv, int md)
 	}
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	if (argc < 2)
 	{
