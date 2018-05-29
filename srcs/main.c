@@ -14,6 +14,43 @@
 #include "ft_ssl_md5.h"
 #include "ft_ssl_sha256.h"
 
+void		print_md_str2(t_md *data, unsigned char *name)
+{
+	if (*name == 0)
+		ft_printf("");
+	else
+	{
+		if (data->file == 1)
+			ft_printf(" \"%s\"", name);
+		else
+			ft_printf(" %s", name);
+	}
+}
+
+void		print_md_str(t_md *data, unsigned char *name, int md)
+{
+	char s[10];
+
+	ft_bzero(&s[0], sizeof(char) * 10);
+	if (md)
+	{
+		if (md == 1)
+			ft_memcpy(&s[0], "SHA256", ft_strlen("SHA256"));
+		else
+			ft_memcpy(&s[0], "whirlpool", ft_strlen("whirlpool"));
+	}
+	else
+		ft_memcpy(&s[0], "MD5", ft_strlen("MD5"));
+	if (data->file == 1)
+	{
+		ft_printf("%s (\"%s\") = ", s, data->str);
+	}
+	else
+	{
+		ft_printf("%s (%s) = ", s, name);
+	}
+}
+
 void		sha256init(t_sha256 *data)
 {
 	data->len[0] = 0;

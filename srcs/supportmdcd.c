@@ -21,12 +21,12 @@ void		string_md(t_md *data, char *argv, int *argc, int md)
 		if (md)
 		{
 			if (md == 1)
-				start_sha256(argv, data);
+				start_sha256(argv, data, md);
 			else
-				start_whirlpool(argv, data);
+				start_whirlpool(argv, data, md);
 		}
 		else
-			start_md5(argv, data);
+			start_md5(argv, data, md);
 	}
 	else
 		ft_printf("./ft_ssl No args for flag \"-s\"\n");
@@ -39,12 +39,12 @@ void		before_start_md(char *argv, t_md *data, int md)
 	if (md)
 	{
 		if (md == 1)
-			start_sha256(argv, data);
+			start_sha256(argv, data, md);
 		else
-			start_whirlpool(argv, data);
+			start_whirlpool(argv, data, md);
 	}
 	else
-		start_md5(argv, data);
+		start_md5(argv, data, md);
 }
 
 void		check_md_flags(int argc, char **argv, t_md *data, int md)

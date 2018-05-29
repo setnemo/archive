@@ -263,10 +263,9 @@ typedef struct	s_md
 */
 
 void			start_md(int argc, char **argv, int md);
-void			start_md5(char *argv, t_md *data);
-void			start_sha256(char *argv, t_md *data);
-void			start_sha512(char *argv, t_md *data);
-void			start_whirlpool(char *argv, t_md *data);
+void			start_md5(char *argv, t_md *data, int md);
+void			start_sha256(char *argv, t_md *data, int md);
+void			start_whirlpool(char *argv, t_md *data, int md);
 
 /*
 ** ****************************************************************************
@@ -276,5 +275,6 @@ void			start_whirlpool(char *argv, t_md *data);
 
 void			create_md_data(t_md *data);
 void			check_md_flags(int argc, char **argv, t_md *data, int md);
-
+void			print_md_str(t_md *data, unsigned char *name, int md);
+void			print_md_str2(t_md *data, unsigned char *name);
 #endif

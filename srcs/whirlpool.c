@@ -12,6 +12,8 @@
 
 #include "ft_ssl_whirlpool.h"
 #include "ft_ssl_whirlpool_sbox.h"
+#define RWH1 rwh(&l[0], k, 0, g_rc[twh->i])
+#define RWH2 rwh(&l[twh->j], k, twh->j, 0)
 
 void		rwh(uint64_t *b, uint64_t *a, int n, uint64_t c)
 {
@@ -26,7 +28,7 @@ void		rwh(uint64_t *b, uint64_t *a, int n, uint64_t c)
 	*b ^= c;
 }
 
-uint64_t 	swapwh64(uint64_t x)
+uint64_t	swapwh64(uint64_t x)
 {
 	x = ((((uint64_t)(x) & 0x00000000000000FFULL) << 56) | \
 		(((uint64_t)(x) & 0x000000000000FF00ULL) << 40) | \
@@ -43,15 +45,15 @@ void		whupdate(t_wh *twh, const void *data, size_t length)
 {
 	size_t n;
 
-	while(length > 0)
+	while (length > 0)
 	{
 		n = MIN(length, 64 - twh->size);
 		ft_memcpy(twh->x.buffer + twh->size, data, n);
 		twh->size += n;
 		twh->totalsize += n;
-		data = (uint8_t *) data + n;
+		data = (uint8_t*)data + n;
 		length -= n;
-		if(twh->size == 64)
+		if (twh->size == 64)
 		{
 			whstep(twh, twh->x.x, twh->k, twh->l);
 			twh->size = 0;
@@ -61,9 +63,9 @@ void		whupdate(t_wh *twh, const void *data, size_t length)
 
 void		whfinal(t_wh *twh, uint8_t *digest)
 {
-	int i;
-	size_t paddingsize;
-	uint64_t totalsize;
+	int			i;
+	size_t		paddingsize;
+	uint64_t	totalsize;
 
 	totalsize = twh->totalsize * 8;
 	if (twh->size < 32)
@@ -100,7 +102,7 @@ void		whstep(t_wh *twh, uint64_t *x, uint64_t *k, uint64_t *l)
 	{
 		twh->j = -1;
 		while (++twh->j < 8)
-			(twh->j == 0) ? rwh(&l[0], k, 0, g_rc[twh->i]) : rwh(&l[twh->j], k, twh->j, 0);	
+			(twh->j == 0) ? RWH1 : RWH2;
 		ft_memcpy(k, l, sizeof(uint64_t) * 8);
 		twh->j = -1;
 		while (++twh->j < 8)
@@ -111,4 +113,3 @@ void		whstep(t_wh *twh, uint64_t *x, uint64_t *k, uint64_t *l)
 	while (++twh->i < 8)
 		twh->h.h[twh->i] ^= state[twh->i] ^ x[twh->i];
 }
-
