@@ -11,6 +11,13 @@
 /* ************************************************************************** */
 
 #include "ft_ssl_des.h"
+#include "err.h"
+
+void	error_flags(char *str)
+{
+	ft_printf("%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s", ERP2);
+	exit(1);
+}
 
 void	handle_flags(int i, int argc, char **argv, t_ssl *data)
 {

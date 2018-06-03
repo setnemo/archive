@@ -13,29 +13,26 @@
 #include "ft_ssl_des.h"
 #include "err.h"
 
-void	error_flags(char *str)
+void	find_and_start_func(t_ssl_mngr mngr[], int argc, char **argv, int flag)
 {
-	ft_printf("%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s", ERP2);
-	exit(1);
+	int i;
+
+	i = -1;
+	while (++i < POINTERFUNC)
+	{
+		if (ft_strequ(*(argv + 1), mngr[i].conver))
+		{
+			mngr[i].mngr(argc, argv, i);
+			flag++;
+		}
+	}
+	if (flag != 1)
+		print_error(argv);
 }
 
-void	print_error(char **argv)
+void	flag_parser(int argc, char **argv, int flag)
 {
-	ft_printf("%s%s%s%s%s%s%s", ERP1);
-	exit(1);
-}
-
-void	exit_error(int err, void *memory)
-{
-	if (memory != NULL)
-		free(memory);
-	ft_printf("%s\n", strerror(err));
-	exit(1);
-}
-
-void	flag_parser(int argc, char **argv, int i, int flag)
-{
-	static t_ssl_mngr	(mngr[10]) = {
+	static t_ssl_mngr	(mngr[POINTERFUNC]) = {
 		{ .conver = "md5", .mngr = start_md },
 		{ .conver = "sha256", .mngr = start_md },
 		{ .conver = "whirlpool", .mngr = start_md },
@@ -46,19 +43,12 @@ void	flag_parser(int argc, char **argv, int i, int flag)
 		{ .conver = "des3", .mngr = start_des3cbc },
 		{ .conver = "des3-cbc", .mngr = start_des3cbc },
 		{ .conver = "des3-ecb", .mngr = start_des3ecb },
+		{ .conver = "genrsa", .mngr = start_genrsa },
+		{ .conver = "rsa", .mngr = start_rsa },
+		{ .conver = "rsautl", .mngr = start_rsautl },
 		};
 
-	while (i < 10)
-	{
-		if (ft_strequ(*(argv + 1), mngr[i].conver))
-		{
-			mngr[i].mngr(argc, argv, i);
-			flag++;
-		}
-		i++;
-	}
-	if (flag != 1)
-		print_error(argv);
+	find_and_start_func(mngr, argc, argv, flag);
 }
 
 void	read_input(t_ssl *data, UC **inp, size_t *size)

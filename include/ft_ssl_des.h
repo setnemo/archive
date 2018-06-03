@@ -23,6 +23,7 @@
 # define DES_D 1
 # define BUFFR 1024
 # define BASE64_LINE 64
+# define POINTERFUNC 13
 
 /*
 ** ****************************************************************************
@@ -68,7 +69,7 @@ typedef struct	s_ssl
 void			error_flags(char *str);
 void			print_error(char **argv);
 void			exit_error(int err, void *memory);
-void			flag_parser(int argc, char **argv, int i, int flag);
+void			flag_parser(int argc, char **argv, int flag);
 void			read_input(t_ssl *opt, UC **inp, size_t *size);
 
 /*
@@ -277,4 +278,27 @@ void			create_md_data(t_md *data);
 void			check_md_flags(int argc, char **argv, t_md *data, int md);
 void			print_md_str(t_md *data, unsigned char *name, int md);
 void			print_md_str2(t_md *data, unsigned char *name);
+
+/*
+** ****************************************************************************
+** ****************************** FT_SSL_RSA **********************************
+** ****************************************************************************
+*/
+
+/*
+** ****************************************************************************
+** ************************** struct for MD data ******************************
+** ****************************************************************************
+*/
+
+/*
+** ****************************************************************************
+** ***************************** manager_rsa.c ********************************
+** ****************************************************************************
+*/
+
+void			start_genrsa(int argc, char **argv, int i);
+void			start_rsa(int argc, char **argv, int i);
+void			start_rsautl(int argc, char **argv, int i);
+
 #endif
