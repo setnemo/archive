@@ -35,13 +35,16 @@ void	put_pxl_to_img(t_img *img, int x, int y, int color)
 void		start_mines(t_data *data)
 {
 	init_img(data);
-	int i = -1, j = -1;
+	int i = -1, j = -1, xc, yc;
+	xc = SIZEW / 2 - 200 / 2;
+	yc = SIZEH / 2 - 200 / 2;
+
 	while (++i < 10)
 	{
 		j = -1;
 		while (++j < 10)
 		{
-			put_pxl_to_img(data->img, i*10, j*10, 0xFFFFFF);
+			put_pxl_to_img(data->img, i*20 + xc, j*20 + yc, 0xFFFFFF);
 		}
 	}
 	mlx_put_image_to_window(data->img->mlx, data->img->win, data->img->img, 0, 0);

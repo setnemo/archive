@@ -28,6 +28,11 @@ typedef struct		s_img
 	int				bpp;
 	int				sl;
 	int				endian;
+	int				how_x;
+	int				how_y;
+	int				shiftx;
+	int				shifty;
+	int				fill;
 }					t_img;
 
 typedef struct		s_data
