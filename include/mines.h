@@ -14,5 +14,12 @@
 # define MINES_H
 # include "../libft/include/libft.h"
 # include <mlx.h>
+# include <math.h>
+# include <unistd.h>
 
+typedef struct		s_data
+{
+	void			*mlx;
+	void			*win;
+}					t_data;
 #endif

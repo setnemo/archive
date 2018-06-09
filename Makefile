@@ -29,22 +29,22 @@ OBJ_DIR = obj/
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@make -C $(LIB_DIR) --silent
+	# @make -C $(LIB_DIR) --silent
 	@gcc -o $(NAME)  $(OBJ) -L $(LIB_DIR) -lft
 	@echo "### PROJECT: COMPILING FINISHED ####"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@mkdir -p $(OBJ_DIR)
+	# @mkdir -p $(OBJ_DIR)
 	@echo "### PROJECT: LINKING" [ $@ ] " ###"
 	@gcc $(FLAGS) -o $@ -c  $< $(INC)
 
 clean:
-	@make -C $(LIB_DIR) clean --silent
+	# @make -C $(LIB_DIR) clean --silent
 	@rm -f $(OBJ)
 	@echo "### PROJECT: REMOVE OBJECT FILES ###"
 
 fclean: clean
-	@make -C $(LIB_DIR) fclean --silent
+	# @make -C $(LIB_DIR) fclean --silent
 	@rm -f $(NAME)
 	@echo "### PROJECT: REMOVE BINARY FILES ###"
 

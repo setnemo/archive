@@ -12,12 +12,23 @@
 
 #include "mines.h"
 
-int			main(int argc, char **argv)
+void		start_mines(t_data *data)
 {
-	if (argc < 2)
-	{
-		ft_printf("usage: %s command [command opts] [command args]\n", argv[0]);
-		return (1);
-	}
+	if (data)
+		;
+}
+
+int			main(void)
+{
+	t_data data;
+
+	ft_bzero(&data, sizeof(t_data));
+	// if (argc == 2)
+	// {
+	// 	if (ft_strequ("-h", argv[1]))
+	// 		ft_printf("usage: %s command [command opts] [command args]\n", argv[0]);
+	// 	return (1);
+	// }
+	start_mines(&data);
 	return (0);
 }
