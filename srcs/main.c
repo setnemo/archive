@@ -11,37 +11,40 @@
 /* ************************************************************************** */
 
 #include "mines.h"
-#define SIZEW 1000
-#define SIZEH 500
 
-int			window_close(void)
+char	g_box[10][10] = {
+	{48, 48, 48, 48, 48, 48, 48, 48, 48, 48},
+	{48, 48, 48, 48, 48, 48, 48, 48, 48, 48},
+	{48, 48, 48, 48, 48, 48, 48, 48, 48, 48},
+	{48, 48, 48, 48, 48, 48, 48, 48, 48, 48},
+	{48, 48, 48, 48, 48, 48, 48, 48, 48, 48},
+	{48, 48, 48, 48, 48, 48, 48, 48, 48, 48},
+	{48, 48, 48, 48, 48, 48, 48, 48, 48, 48},
+	{48, 48, 48, 48, 48, 48, 48, 48, 48, 48},
+	{48, 48, 48, 48, 48, 48, 48, 48, 48, 48},
+	{48, 48, 48, 48, 48, 48, 48, 48, 48, 48}
+	};
+
+void	put_pxl_to_img(t_img *img, int x, int y, int color)
 {
-	exit(1);
-	return (0);
-}
-
-int		key_hook(int keycode)
-{
-	if (keycode == 53)
-		exit(1);
-	return (0);
-}
-
-void		init_img(t_data *data)
-{
-	t_img	*img;
-
-	img = data->img;
-	img->mlx = mlx_init();
-	img->win = mlx_new_window(img->mlx, SIZEW, SIZEH, "Mines42");
-	img->img = mlx_new_image(img->mlx, SIZEW, SIZEH);
-	img->img_ptr = mlx_get_data_addr(img->img,
-			&img->bpp, &img->sl, &img->endian);
+	if (x || y || color)
+	// color = mlx_get_color_value(img->mlx, color);
+	img->img_ptr[y * img->sl / 4 + x] = color;
 }
 
 void		start_mines(t_data *data)
 {
 	init_img(data);
+	int i = -1, j = -1;
+	while (++i < 10)
+	{
+		j = -1;
+		while (++j < 10)
+		{
+			put_pxl_to_img(data->img, i*10, j*10, 0xFFFFFF);
+		}
+	}
+	mlx_put_image_to_window(data->img->mlx, data->img->win, data->img->img, 0, 0);
 	mlx_hook(data->img->win, 17, 0L, window_close, data);
 	mlx_key_hook(data->img->win, key_hook, data);
 	mlx_loop(data->img->mlx);
