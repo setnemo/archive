@@ -31,8 +31,8 @@ void		init_img(t_data *data)
 
 	img = data->img;
 	img->mlx = mlx_init();
-	img->win = mlx_new_window(img->mlx, SIZEW, SIZEH, "Mines42");
-	img->img = mlx_new_image(img->mlx, SIZEW, SIZEH);
-	img->img_ptr = mlx_get_data_addr(img->img, &img->bpp, &img->sl,
-		&img->endian);
+	img->win = mlx_new_window(img->mlx, data->windowsizew, data->windowsizeh, "Mines42");
+	img->img = mlx_new_image(img->mlx, data->windowsizew, data->windowsizeh);
+	img->img_ptr = mlx_get_data_addr(img->img, &img->bpp, &img->sl, &img->endian);
+	img->fillline = mlx_get_color_value(img->mlx, img->fillline);
 }

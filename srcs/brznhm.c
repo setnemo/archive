@@ -12,92 +12,71 @@
 
 #include "mines.h"
 
-static void			brzh1(t_mlx *data, t_brz *brz, int iter, int rate)
+static void		soft_line(int p1[3], int p2[3], t_img *img, int color)
 {
-	mlx_pixel_put(data->mlx, data->win, brz->px, brz->py, brz->pc);
-	rate = (brz->dx / 2);
-	iter = 1;
-	while (iter <= brz->dx)
+	int dx;
+	int dy;
+	int	p;
+	int	neg;
+
+	neg = (p2[Y] - p1[Y] > 0) ? 1 : -1;
+	dx = ABS(p2[X] - p1[X]);
+	dy = ABS(p2[Y] - p1[Y]);
+	p = 2 * dy - dx;
+	while (p1[X] < p2[X])
 	{
-		brz->px += brz->xinc;
-		rate += brz->dy;
-		iter++;
-		if (rate >= brz->dx)
+		if (p < 0)
+			p = p + 2 * dy;
+		else
 		{
-			rate -= brz->dx;
-			brz->py += brz->yinc;
+			p1[Y] += neg;
+			p = p + 2 * dy - 2 * dx;
 		}
-		mlx_pixel_put(data->mlx, data->win, brz->px, brz->py, brz->pc);
+		img->img_ptr[p1[Y] * img->sl / 4 + p1[X]++] = color;
 	}
 }
 
-static void			brzh2(t_mlx *data, t_brz *brz, int iter, int rate)
+static void		sharp_line(int p1[3], int p2[3], t_img *img, int color)
 {
-	mlx_pixel_put(data->mlx, data->win, brz->px, brz->py, brz->pc);
-	rate = brz->dy / 2;
-	iter = 1;
-	while (iter <= brz->dy)
+	int dx;
+	int dy;
+	int	p;
+	int	neg;
+
+	neg = (p2[Y] - p1[Y] > 0) ? 1 : -1;
+	dx = ABS(p2[X] - p1[X]);
+	dy = ABS(p2[Y] - p1[Y]);
+	p = 2 * dx - dy;
+	while (p1[X] < p2[X])
 	{
-		brz->py += brz->yinc;
-		rate += brz->dx;
-		if (rate >= brz->dy)
+		if (p < 0)
+			p = p + 2 * dx;
+		else
 		{
-			rate -= brz->dy;
-			brz->px += brz->xinc;
+			p1[X]++;
+			p = p + 2 * dx - 2 * dy;
 		}
-		mlx_pixel_put(data->mlx, data->win, brz->px, brz->py, brz->pc);
-		iter++;
+		img->img_ptr[p1[Y] * img->sl / 4 + p1[X] - 1] = color;
+		p1[Y] += neg;
 	}
 }
 
-static t_map		*while_temp(t_map *temp, int how)
+void			draw_line(int p1[3], int p2[3], t_img *img, int color)
 {
-	int i;
+	int p1_copy[2];
+	int	p2_copy[2];
+	int	i;
 
 	i = 0;
-	while (i < how)
+	while (i < 2)
 	{
-		temp = temp->next;
+		p1_copy[i] = p1[i];
+		p2_copy[i] = p2[i];
 		i++;
 	}
-	return (temp);
-}
-
-static void			brz_core(t_mlx *data, t_map *lines, int flag)
-{
-	t_brz		brz1;
-	t_map		*temp;
-
-	temp = lines;
-	brz1.py = lines->py * data->zoomnew + data->shifty;
-	brz1.px = lines->px * data->zoomnew + data->shiftx;
-	if (flag == 1 || flag == 0)
-	{
-		brz1.dx = (flag == 1) ? lines->next->px - lines->px : 0;
-		brz1.dy = (flag == 1) ? lines->next->py - lines->py : 0;
-	}
-	else if (flag == 2)
-	{
-		temp = while_temp(temp, data->how_x);
-		brz1.dx = temp->px - lines->px;
-		brz1.dy = temp->py - lines->py;
-	}
-	brz1.xinc = (brz1.dx > 0) ? 1 : -1;
-	brz1.yinc = (brz1.dy > 0) ? 1 : -1;
-	brz1.dx = abs(brz1.dx);
-	brz1.dy = abs(brz1.dy);
-	brz1.pc = (lines->pc == 0 && data->coloriz == 0) ? data->fill : lines->pc;
-	brz1.dx > brz1.dy ? brzh1(data, &brz1, 0, 0) : brzh2(data, &brz1, 0, 0);
-}
-
-void				brz_start(t_mlx *data, t_map *lines, int y, int x)
-{
-	if (x + 1 < data->how_x)
-		brz_core(data, lines, 1);
+	if ((p2[X] - p1[X] != 0) && ABS((p2[Y] - p1[Y]) / (p2[X] - p1[X])) >= 1)
+		sharp_line(p1_copy, p2_copy, img, color);
 	else
-		brz_core(data, lines, 0);
-	if (y + 1 < data->how_y)
-		brz_core(data, lines, 2);
-	else
-		brz_core(data, lines, 0);
+		soft_line(p1_copy, p2_copy, img, color);
 }
+
