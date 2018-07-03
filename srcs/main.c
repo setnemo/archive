@@ -31,35 +31,48 @@ char	g_box[9][9] = {
 	
 // }
 
+int		mouse_hook(int x, int y, int z)
+{
+	ft_printf("mouse[%d] x[%d] y[%d]\n", x, y, z);
+	return (0);
+}
+
+void		draw_square(t_img *img, t_data *data, int points[])
+{
+	ft_printf("points[%d][%d][%d][%d]\n", points[0],  points[1],  points[2],  points[3]);
+	int temp[4];
+
+	ft_memcpy(&temp[0], &points[0], sizeof(int) * 4);
+	while (points[0] != points[2] - 1)
+	{
+		points[1] = temp[1];
+		while (points[1] != points[3] - 1)
+		{
+			img->img_ptr[points[0] * img->sl / 4 + points[1] - 1] = data->img->fillline;
+			points[1]++;
+		}
+		points[0]++;
+	}
+	// img->img_ptr[p1[Y] * img->sl / 4 + p1[X] - 1] = color;
+}
+
 void		init_lines(t_img *img, t_data *data)
 {
 	int i;
 	int j;
-	int p1[2];
-	int	p2[2];
+	int points[4];
 
 	j = -1;
-	while (++j < img->how_y + 1)
+	while (++j < img->how_y)
 	{
 		i = -1;
-		p1[Y] = j * data->cellsize + img->shifty;
-		while (++i < img->how_x + 1)
+		while (++i < img->how_x)
 		{
-			p1[X] = i * data->cellsize + img->shiftx;
-			if (i + 1 < img->how_x)
-			{
-				p2[X] = (i + 1) * data->cellsize + img->shiftx;
-				p2[Y] = j * data->cellsize + img->shifty;
-				ft_printf("i(%d) + 1\n", i);
-				draw_line(p1, p2, img, img->fillline);
-			}
-			if (j + 1 < img->how_y)
-			{
-				p2[X] = i * data->cellsize + img->shiftx;
-				p2[Y] = (j + 1) * data->cellsize + img->shifty;
-				ft_printf("j(%d) + 1\n", j);
-				draw_line(p1, p2, img, img->fillline);
-			}
+			points[0] = data->img->shifty + i * data->cellsize;
+			points[1] = data->img->shiftx + j * data->cellsize;
+			points[2] = data->img->shifty + (i + 1) * data->cellsize;
+			points[3] = data->img->shiftx + (j + 1) * data->cellsize;
+			draw_square(img, data, points);
 		}
 	}
 }
@@ -72,6 +85,8 @@ void		start_mines(t_data *data)
 	img = data->img;
 	init_lines(img, data);
 	mlx_put_image_to_window(img->mlx, img->win, img->img, 0, 0);
+	// mlx_hook(img->win, 6, 1L < 6, mouse_hook, data);
+	mlx_mouse_hook(img->win, mouse_hook, data);
 	mlx_hook(img->win, 17, 0L, window_close, data);
 	mlx_key_hook(img->win, key_hook, data);
 	mlx_loop(img->mlx);

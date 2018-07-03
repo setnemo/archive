@@ -12,12 +12,12 @@
 
 NAME = mines42
 CC = gcc 
-WWW = -Wall -Wextra -Werror 
+# WWW = -Wall -Wextra -Werror 
 FLAGS = -g -lmlx -framework OpenGL -framework AppKit
 
 SRC_NAME = 	main.c\
 			supportfunc.c\
-			brznhm.c
+			draw.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
