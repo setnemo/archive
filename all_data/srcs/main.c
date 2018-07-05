@@ -1,356 +1,62 @@
-#include <stdio.h>
-#include <pcap.h>
+
 #include <sniffer.h>
-#if !defined(_GNU_SOURCE)
-	#define _GNU_SOURCE
-#endif
 
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/file.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-
-#include <execinfo.h>
-#include <unistd.h>
-#include <errno.h>
-#include <wait.h>
-
-// лимит для установки максимально кол-во открытых дискрипторов
-
-// константы для кодов завершения процесса
-#define CHILD_NEED_WORK			1
-#define CHILD_NEED_TERMINATE	2
-
-#define PID_FILE "my_daemon.pid"
-
-// функция записи лога
-// void printf(char* Msg, ...)
-// {
-// 	// тут должен быть код который пишет данные в лог
-// }
-
-
-// функция которая загрузит конфиг заново
-// и внесет нужные поправки в работу
-int ReloadConfig()
+void		usage_cli(void)
 {
-	// код функции
-	return 1;
+	printf("========================= CLI Usage =========================\n");
+	printf("start             packets are being sniffed from now on from default iface(eth0)\n");
+	printf("stop              packets are not sniffed\n");
+	printf("show [ip]         ip count (print number of packets received from ip address\n");
+	printf("select [iface]    select interface for sniffing eth0, wlan0, ethN, wlanN...\n");
+	printf("stat [iface]      show all collected statistics for particular interface, if iface omitted - for all interfaces.\n");
+	printf("--exit            stop daemon and exit\n");
+	printf("--exitcli         stop cli and exit (don't stop daemon)\n");
+	printf("--help            show usage information\n");
+	printf("========================= end usage =========================\n");
 }
 
-// функция для остановки потоков и освобождения ресурсов
-void DestroyWorkThread()
+void		start_daemon_and_cli2(int flag)
 {
-	// тут должен быть код который остановит все потоки и
-	// корректно освободит ресурсы
+
+		// тут будет код демона
+		// printf("[SNIFFER] Fork [OK], daemon started!\n");
+		// printf("[!][%d] [DAEMON] Work!\n", pid);
+		while (42)
+			;
+		// printf("[*][%d] Second died!\n", pid);
 }
 
-// функция которая инициализирует рабочие потоки
-int InitWorkThread()
+void	start_daemon(int flag, int *pid)
 {
-	// код функции
-	return 0;
-}
-
-// функция обработки сигналов
-static void signal_error(int sig, siginfo_t *si, void *ptr)
-{
-	void*  ErrorAddr;
-	void*  Trace[16];
-	int    x;
-	int    TraceSize;
-	char** Messages;
-
-	// запишем в лог что за сигнал пришел
-	printf("[DAEMON] Signal: %s, Addr: 0x%0.16X\n", strsignal(sig), si->si_addr);
-
-
-	// #if __WORDSIZE == 64 // если дело имеем с 64 битной ОС
-	// 	// получим адрес инструкции которая вызвала ошибку
-	// 	ErrorAddr = (void*)((ucontext_t*)ptr)->uc_mcontext.gregs[REG_RIP];
-	// #else
-	// 	// получим адрес инструкции которая вызвала ошибку
-		// ErrorAddr = (void*)((ucontext_t*)ptr)->uc_mcontext.gregs[REG_EIP];
-	// #endif
-
-	// произведем backtrace чтобы получить весь стек вызовов
-	TraceSize = backtrace(Trace, 16);
-	Trace[1] = ErrorAddr;
-
-	// получим расшифровку трасировки
-	Messages = backtrace_symbols(Trace, TraceSize);
-	if (Messages)
+	*pid = fork();
+	if (*pid == -1) // fork fail
 	{
-		printf("== Backtrace ==\n");
-
-		// запишем в лог
-		for (x = 1; x < TraceSize; x++)
-		{
-			printf("%s\n", Messages[x]);
-		}
-
-		printf("== End Backtrace ==\n");
-		free(Messages);
+		printf("[!] Error! Start Daemon Error: %s\n", strerror(errno));
+		exit(-42);
 	}
-
-	printf("[DAEMON] Stopped\n");
-
-	// остановим все рабочие потоки и корректно закроем всё что надо
-	DestroyWorkThread();
-
-	// завершим процесс с кодом требующим перезапуска
-	exit(CHILD_NEED_WORK);
-}
-
-
-// функция установки максимального кол-во дескрипторов которое может быть открыто 
-// int SetFdLimit(int MaxFd)
-// {
-// 	struct rlimit lim;
-// 	int           status;
-
-// 	// зададим текущий лимит на кол-во открытых дискриптеров
-// 	lim.rlim_cur = MaxFd;
-// 	// зададим максимальный лимит на кол-во открытых дискриптеров
-// 	lim.rlim_max = MaxFd;
-
-// 	// установим указанное кол-во
-// 	status = setrlimit(RLIMIT_NOFILE, &lim);
-
-// 	return status;
-// }
-
-
-int WorkProc()
-{
-	struct sigaction sigact;
-	sigset_t         sigset;
-	int              signo;
-	int              status;
-
-	// сигналы об ошибках в программе будут обрататывать более тщательно
-	// указываем что хотим получать расширенную информацию об ошибках
-	sigact.sa_flags = SA_SIGINFO;
-	// задаем функцию обработчик сигналов
-	sigact.sa_sigaction = signal_error;
-
-	sigemptyset(&sigact.sa_mask);
-
-	// установим наш обработчик на сигналы
-
-	sigaction(SIGFPE, &sigact, 0); // ошибка FPU
-	sigaction(SIGILL, &sigact, 0); // ошибочная инструкция
-	sigaction(SIGSEGV, &sigact, 0); // ошибка доступа к памяти
-	sigaction(SIGBUS, &sigact, 0); // ошибка шины, при обращении к физической памяти
-
-	sigemptyset(&sigset);
-
-	// блокируем сигналы которые будем ожидать
-	// сигнал остановки процесса пользователем
-	sigaddset(&sigset, SIGQUIT);
-
-	// сигнал для остановки процесса пользователем с терминала
-	sigaddset(&sigset, SIGINT);
-
-	// сигнал запроса завершения процесса
-	sigaddset(&sigset, SIGTERM);
-
-	// пользовательский сигнал который мы будем использовать для обновления конфига
-	sigaddset(&sigset, SIGUSR1);
-	sigprocmask(SIG_BLOCK, &sigset, NULL);
-
-	// Установим максимальное кол-во дискрипторов которое можно открыть
-	// SetFdLimit(FD_LIMIT);
-
-	// запишем в лог, что наш демон стартовал
-	printf("[DAEMON] Started\n");
-
-	// запускаем все рабочие потоки
-	status = InitWorkThread();
-	if (!status)
+	else if (!*pid)
 	{
-		// цикл ожижания сообщений
-		for (;;)
-		{
-			// ждем указанных сообщений
-			sigwait(&sigset, &signo);
+		// daemon settings
+		umask(0);
+		setsid();
+		// chdir("/");
+		// close(STDIN_FILENO);
+		// close(STDOUT_FILENO);
+		// close(STDERR_FILENO);
 
-			// если то сообщение обновления конфига
-			if (signo == SIGUSR1)
-			{
-				// обновим конфиг
-				status = ReloadConfig();
-				if (status == 0)
-				{
-					printf("[DAEMON] Reload config failed\n");
-				}
-				else
-				{
-					printf("[DAEMON] Reload config OK\n");
-				}
-			}
-			else // если какой-либо другой сигнал, то выйдим из цикла
-			{
-				break;
-			}
-		}
-
-		// остановим все рабочеи потоки и корректно закроем всё что надо
-		DestroyWorkThread();
-	}
-	else
-	{
-		printf("[DAEMON] Create work thread failed\n");
-	}
-
-	printf("[DAEMON] Stopped\n");
-
-	// вернем код не требующим перезапуска
-	return CHILD_NEED_TERMINATE;
-}
-
-
-void SetPidFile(char* Filename)
-{
-	FILE* f;
-
-	f = fopen(Filename, "w+");
-	if (f)
-	{
-		fprintf(f, "%u", getpid());
-		fclose(f);
+		// for cli
+		printf("[!][%d] [IN IF]\n", *pid);
+		start_daemon_and_cli2(flag);
 	}
 }
 
-
-
-int signal_handler(int flag)
+int 	main(int argc, char **argv)
 {
-	int       pid;
-	int       status;
-	int       need_start = 1;
-	sigset_t  sigset;
-	siginfo_t siginfo;
-
-	// настраиваем сигналы которые будем обрабатывать
-	sigemptyset(&sigset);
-
-	// сигнал остановки процесса пользователем
-	sigaddset(&sigset, SIGQUIT);
-
-	// сигнал для остановки процесса пользователем с терминала
-	sigaddset(&sigset, SIGINT);
-
-	// сигнал запроса завершения процесса
-	sigaddset(&sigset, SIGTERM);
-
-	// сигнал посылаемый при изменении статуса дочернего процесс
-	sigaddset(&sigset, SIGCHLD);
-
-	// сигнал посылаемый при изменении статуса дочернего процесс
-	sigaddset(&sigset, SIGCHLD);
-
-	// пользовательский сигнал который мы будем использовать для обновления конфига
-	sigaddset(&sigset, SIGUSR1);
-	sigprocmask(SIG_BLOCK, &sigset, NULL);
-
-	// данная функция создат файл с нашим PID'ом
-	SetPidFile(PID_FILE);
-
-	// бесконечный цикл работы
-	for (;;)
-	{
-		// если необходимо создать потомка
-		if (need_start)
-		{
-			// создаём потомка
-			pid = fork();
-		}
-
-		need_start = 1;
-
-		if (pid == -1) // если произошла ошибка
-		{
-			// запишем в лог сообщение об этом
-			printf("[MONITOR] Fork failed (%s)\n", strerror(errno));
-		}
-		else if (!pid) // если мы потомок
-		{
-			// данный код выполняется в потомке
-
-			// запустим функцию отвечающую за работу демона
-			status = WorkProc();
-
-			// завершим процесс
-			exit(status);
-		}
-		else // если мы родитель
-		{
-			// данный код выполняется в родителе
-
-			// ожидаем поступление сигнала
-			sigwaitinfo(&sigset, &siginfo);
-
-			// если пришел сигнал от потомка
-			if (siginfo.si_signo == SIGCHLD)
-			{
-				// получаем статус завершение
-				wait(&status);
-
-				// преобразуем статус в нормальный вид
-				status = WEXITSTATUS(status);
-
-				 // если потомок завершил работу с кодом говорящем о том, что нет нужны дальше работать
-				if (status == CHILD_NEED_TERMINATE)
-				{
-					// запишем в лог сообщени об этом
-					printf("[MONITOR] Childer stopped\n");
-
-					// прервем цикл
-					break;
-				}
-				else if (status == CHILD_NEED_WORK) // если требуется перезапустить потомка
-				{
-					// запишем в лог данное событие
-					printf("[MONITOR] Childer restart\n");
-				}
-			}
-			else if (siginfo.si_signo == SIGUSR1) // если пришел сигнал что необходимо перезагрузить конфиг
-			{
-				kill(pid, SIGUSR1); // перешлем его потомку
-				need_start = 0; // установим флаг что нам не надо запускать потомка заново
-			}
-			else // если пришел какой-либо другой ожидаемый сигнал
-			{
-				// запишем в лог информацию о пришедшем сигнале
-				printf("[MONITOR] Signal %s\n", strsignal(siginfo.si_signo));
-
-				// убьем потомка
-				kill(pid, SIGTERM);
-				status = 0;
-				break;
-			}
-		}
-	}
-
-	// запишем в лог, что мы остановились
-	printf("[MONITOR] Stopped\n");
-
-	// удалим файл с PID'ом
-	unlink(PID_FILE);
-
-	return status;
-}
-
-
-int main(int argc, char **argv)
-{
-	int status;
-	int pid;
-	int flag;
+	int		flag;
+	int		pid = 0;
+	int		check = 1;
+	char	str[80];
 
 	// usage and handling invalid flags
 	if (argc != 2 || argc == 2 && strcmp(argv[1], "-h") == 0)
@@ -373,28 +79,60 @@ int main(int argc, char **argv)
 		printf("[!] Error! Incorrect flag '%s'. Use -h to show usage\n", argv[1]);
 		return (-42);
 	}
-	pid = fork();
-	if (pid == -1) // fork fail
+	if (flag)
 	{
-		printf("[!] Error! Start Daemon Error: %s\n", strerror(errno));
-		return (-42);
+		printf("[*] CLI for Daemon started!\n");
+		usage_cli();
+		while (42)
+		{
+			scanf("%s", str);
+			if (strcmp(str, "start") == 0)
+			{
+				if (check)
+				{
+					start_daemon(flag, &pid);
+					check = 0;
+				}
+				else
+					printf("[!] Error! The daemon is already running.\n");
+			}
+			else if (strcmp(str, "stop") == 0)
+			{
+				if (!check)
+				{
+					kill(pid, SIGTERM);
+					check = 1;
+				}
+				else
+					printf("[!] Error! The daemon is not running yet.\n");
+			}
+			else if (strncmp(str, "show", 4) == 0)
+				printf("WOW show\n");
+			else if (strncmp(str, "select", 6) == 0)
+				printf("WOW select\n");
+			else if (strncmp(str, "stat", 4) == 0)
+				printf("WOW\n");
+			else if (strcmp(str, "--help") == 0)
+				usage_cli();
+			else if (strcmp(str, "--exit") == 0)
+				exit(0);
+			else if (strcmp(str, "--exitcli") == 0)
+				exit(0);
+			else
+				printf("[!] Incorrect command! Please read usage (--help)\n");
+		}
 	}
-	else if (!pid)
+	else
 	{
-		// daemon settings
-		umask(0);
-		setsid();
-		chdir("/");
-		// close(STDIN_FILENO);
-		// close(STDOUT_FILENO);
-		// close(STDERR_FILENO);
-
-		// for cli
-		status = signal_handler(flag);
-
-		return status;
+		start_daemon(flag, &pid);// start daemon
 	}
-	return 0;
+	// if (flag && pid)
+	// {
+	// 	printf("[!][%d] [CLI] Work!\n", pid);
+	// 	kill(pid, SIGTERM);
+	// }
+	// printf("[*] First died!\n");
+	return (0);
 }
 
 
