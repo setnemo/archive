@@ -1,7 +1,6 @@
 
 #include <sniffer.h>
 
-
 void		usage_cli(void)
 {
 	printf("========================= CLI Usage =========================\n");
@@ -16,15 +15,13 @@ void		usage_cli(void)
 	printf("========================= end usage =========================\n");
 }
 
-void		start_daemon_and_cli2(int flag)
+void		sniffer(int flag)
 {
 
-		// тут будет код демона
-		// printf("[SNIFFER] Fork [OK], daemon started!\n");
-		// printf("[!][%d] [DAEMON] Work!\n", pid);
-		while (42)
-			;
-		// printf("[*][%d] Second died!\n", pid);
+	// тут будет код демона
+
+	while (42)
+		;
 }
 
 void	start_daemon(int flag, int *pid)
@@ -40,14 +37,11 @@ void	start_daemon(int flag, int *pid)
 		// daemon settings
 		umask(0);
 		setsid();
-		// chdir("/");
-		// close(STDIN_FILENO);
-		// close(STDOUT_FILENO);
-		// close(STDERR_FILENO);
-
-		// for cli
-		printf("[!][%d] [IN IF]\n", *pid);
-		start_daemon_and_cli2(flag);
+		chdir("/");
+		close(STDIN_FILENO);
+		close(STDOUT_FILENO);
+		close(STDERR_FILENO);
+		sniffer(flag);
 	}
 }
 
@@ -79,7 +73,7 @@ int 	main(int argc, char **argv)
 		printf("[!] Error! Incorrect flag '%s'. Use -h to show usage\n", argv[1]);
 		return (-42);
 	}
-	if (flag)
+	if (flag) // start daemon with cli, flag -cli
 	{
 		printf("[*] CLI for Daemon started!\n");
 		usage_cli();
@@ -115,7 +109,10 @@ int 	main(int argc, char **argv)
 			else if (strcmp(str, "--help") == 0)
 				usage_cli();
 			else if (strcmp(str, "--exit") == 0)
+			{
+				kill(pid, SIGTERM);
 				exit(0);
+			}
 			else if (strcmp(str, "--exitcli") == 0)
 				exit(0);
 			else
@@ -124,14 +121,8 @@ int 	main(int argc, char **argv)
 	}
 	else
 	{
-		start_daemon(flag, &pid);// start daemon
+		start_daemon(flag, &pid); // start daemon, flag -d
 	}
-	// if (flag && pid)
-	// {
-	// 	printf("[!][%d] [CLI] Work!\n", pid);
-	// 	kill(pid, SIGTERM);
-	// }
-	// printf("[*] First died!\n");
 	return (0);
 }
 
