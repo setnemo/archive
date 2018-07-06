@@ -6,7 +6,7 @@ static void		usage_cli(void)
 	printf("========================= CLI Usage =========================\n");
 	printf("start             packets are being sniffed from now on from default iface(eth0)\n");
 	printf("stop              packets are not sniffed\n");
-	printf("show [ip]         ip count (print number of packets received from ip address\n");
+	printf("show [ip] [count] ip count (print number of packets received from ip address\n");
 	printf("select [iface]    select interface for sniffing eth0, wlan0, ethN, wlanN...\n");
 	printf("stat [iface]      show all collected statistics for particular interface, if iface omitted - for all interfaces.\n");
 	printf("--exit            stop daemon and exit\n");
