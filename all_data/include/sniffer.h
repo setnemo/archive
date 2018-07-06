@@ -2,7 +2,6 @@
 # define SNIFFER_H
 # include <stdio.h>
 # include <pcap.h>
-# include <sniffer.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -13,5 +12,8 @@
 # include <unistd.h>
 # include <errno.h>
 # include <wait.h>
+
+void	cli_handler(int flag, int check);
+void	start_daemon(int *pid);
 
 #endif

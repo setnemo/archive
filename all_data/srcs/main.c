@@ -1,62 +1,18 @@
 
 #include <sniffer.h>
 
-void		usage_cli(void)
-{
-	printf("========================= CLI Usage =========================\n");
-	printf("start             packets are being sniffed from now on from default iface(eth0)\n");
-	printf("stop              packets are not sniffed\n");
-	printf("show [ip]         ip count (print number of packets received from ip address\n");
-	printf("select [iface]    select interface for sniffing eth0, wlan0, ethN, wlanN...\n");
-	printf("stat [iface]      show all collected statistics for particular interface, if iface omitted - for all interfaces.\n");
-	printf("--exit            stop daemon and exit\n");
-	printf("--exitcli         stop cli and exit (don't stop daemon)\n");
-	printf("--help            show usage information\n");
-	printf("========================= end usage =========================\n");
-}
-
-void		sniffer(int flag)
-{
-
-	// тут будет код демона
-
-	while (42)
-		;
-}
-
-void	start_daemon(int flag, int *pid)
-{
-	*pid = fork();
-	if (*pid == -1) // fork fail
-	{
-		printf("[!] Error! Start Daemon Error: %s\n", strerror(errno));
-		exit(-42);
-	}
-	else if (!*pid)
-	{
-		// daemon settings
-		umask(0);
-		setsid();
-		chdir("/");
-		close(STDIN_FILENO);
-		close(STDOUT_FILENO);
-		close(STDERR_FILENO);
-		sniffer(flag);
-	}
-}
-
-int 	main(int argc, char **argv)
+int 		main(int argc, char **argv)
 {
 	int		flag;
 	int		pid = 0;
 	int		check = 1;
-	char	str[80];
 
 	// usage and handling invalid flags
 	if (argc != 2 || argc == 2 && strcmp(argv[1], "-h") == 0)
 	{
 		printf("Usage: ./sniffer -d       // run daemon\n");
-		printf("       ./sniffer -cli     // run daemon with cli\n");
+		printf("       ./sniffer -dcli    // run daemon with cli\n");
+		printf("       ./sniffer -cli     // run only cli\n");
 		printf("       ./sniffer -h       // show this message\n");
 		return (-42);
 	}
@@ -64,9 +20,14 @@ int 	main(int argc, char **argv)
 	{
 		flag = 0;
 	}
-	else if (strcmp(argv[1], "-cli") == 0)
+	else if (strcmp(argv[1], "-dcli") == 0)
 	{
 		flag = 1; 
+	}
+	else if (strcmp(argv[1], "-cli") == 0)
+	{
+		flag = 1;
+		check = 0;// need read pid file and validation
 	}
 	else
 	{
@@ -75,53 +36,11 @@ int 	main(int argc, char **argv)
 	}
 	if (flag) // start daemon with cli, flag -cli
 	{
-		printf("[*] CLI for Daemon started!\n");
-		usage_cli();
-		while (42)
-		{
-			scanf("%s", str);
-			if (strcmp(str, "start") == 0)
-			{
-				if (check)
-				{
-					start_daemon(flag, &pid);
-					check = 0;
-				}
-				else
-					printf("[!] Error! The daemon is already running.\n");
-			}
-			else if (strcmp(str, "stop") == 0)
-			{
-				if (!check)
-				{
-					kill(pid, SIGTERM);
-					check = 1;
-				}
-				else
-					printf("[!] Error! The daemon is not running yet.\n");
-			}
-			else if (strncmp(str, "show", 4) == 0)
-				printf("WOW show\n");
-			else if (strncmp(str, "select", 6) == 0)
-				printf("WOW select\n");
-			else if (strncmp(str, "stat", 4) == 0)
-				printf("WOW\n");
-			else if (strcmp(str, "--help") == 0)
-				usage_cli();
-			else if (strcmp(str, "--exit") == 0)
-			{
-				kill(pid, SIGTERM);
-				exit(0);
-			}
-			else if (strcmp(str, "--exitcli") == 0)
-				exit(0);
-			else
-				printf("[!] Incorrect command! Please read usage (--help)\n");
-		}
+		cli_handler(flag, check);
 	}
 	else
 	{
-		start_daemon(flag, &pid); // start daemon, flag -d
+		start_daemon(&pid); // start daemon, flag -d
 	}
 	return (0);
 }

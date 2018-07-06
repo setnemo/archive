@@ -2,7 +2,10 @@ NAME = sniffer
 CC = gcc
 FLAGS = -Wall -lpcap 
 
-SRC_NAME =	main.c
+SRC_NAME =	main.c\
+			daemon.c\
+			cli.c
+
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
 OBJ = $(addprefix $(OBJ_DIR), $(OBJ_NAME))
@@ -15,13 +18,12 @@ OBJ_DIR = obj/
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@echo "##### LIB CREATED #####"
 	$(CC) -o $(NAME) $(OBJ) $(FLAGS) 
-	@echo "##### COMPILING FINISHED #####"
+	@echo "##### COMPILING FINISHED ######"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
-	@echo "##### LINKING" [ $@ ] " #####"
+	@echo "##### LINKING" [ $@ ] " #######"
 	$(CC) -o $@ -c  $< $(INC)
 
 clean:
