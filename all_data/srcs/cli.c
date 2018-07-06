@@ -1,5 +1,7 @@
 
 #include <sniffer.h>
+#include <sys/socket.h>    //socket
+#include <arpa/inet.h> //inet_addr
 
 static void		usage_cli(void)
 {
@@ -15,11 +17,39 @@ static void		usage_cli(void)
 	printf("========================= end usage =========================\n");
 }
 
+void			start_cli_socket(int *sock, struct sockaddr_in *server)
+{
+    //Create socket
+    *sock = socket(AF_INET , SOCK_STREAM , 0);
+    if (*sock == -1)
+    {
+        printf("cli_handler 1 Could not create socket");
+    }
+    puts("cli_handler Socket created");
+     
+    server->sin_addr.s_addr = inet_addr("127.0.0.1");
+    server->sin_family = AF_INET;
+    server->sin_port = htons( 8888 );
+ 
+    //Connect to remote server
+    int temp = *sock;
+    if (connect(temp , (struct sockaddr*)server , sizeof(*server)) < 0)
+    {
+        perror("cli_handler 2 connect failed. Error");
+        exit(1);
+    }
+     
+    puts("cli_handler Connected\n");
+}
+
 void			cli_handler(int flag, int check)
 {
 	int		pid = 0;
 	char	str[80];
-
+    int one = 1;
+    int sock;
+    struct sockaddr_in server;
+     
 	printf("[*] CLI for Daemon started!\n");
 	usage_cli();
 	while (42)
@@ -31,6 +61,10 @@ void			cli_handler(int flag, int check)
 			{
 				start_daemon(&pid);
 				check = 0;
+				sleep(1);
+				if (one)
+					start_cli_socket(&sock, &server);
+				one = 0;
 			}
 			else
 				printf("[!] Error! The daemon is already running.\n");
@@ -41,21 +75,22 @@ void			cli_handler(int flag, int check)
 			{
 				kill(pid, SIGTERM);
 				check = 1;
+				pid = 0;
 			}
 			else
 				printf("[!] Error! The daemon is not running yet.\n");
 		}
 		else if (strncmp(str, "show", 4) == 0)
-			printf("WOW show\n");
+			send(sock , str , strlen(str) , 0);
 		else if (strncmp(str, "select", 6) == 0)
-			printf("WOW select\n");
+			send(sock , str , strlen(str) , 0);
 		else if (strncmp(str, "stat", 4) == 0)
-			printf("WOW\n");
+			send(sock , str , strlen(str) , 0);
 		else if (strcmp(str, "--help") == 0)
 			usage_cli();
 		else if (strcmp(str, "--exit") == 0)
 		{
-			check == 0 ? kill(pid, SIGTERM): 0 ;
+			pid != 0 ? kill(pid, SIGTERM): 0 ;
 			exit(0);
 		}
 		else if (strcmp(str, "--exitcli") == 0)
