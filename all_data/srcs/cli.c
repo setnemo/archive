@@ -1,7 +1,5 @@
 
 #include <sniffer.h>
-#include <sys/socket.h>    //socket
-#include <arpa/inet.h> //inet_addr
 
 static void		usage_cli(void)
 {
@@ -17,38 +15,10 @@ static void		usage_cli(void)
 	printf("========================= end usage =========================\n");
 }
 
-void			start_cli_socket(int *sock, struct sockaddr_in *server)
-{
-    //Create socket
-    *sock = socket(AF_INET , SOCK_STREAM , 0);
-    if (*sock == -1)
-    {
-        printf("cli_handler 1 Could not create socket");
-    }
-    puts("cli_handler Socket created");
-     
-    server->sin_addr.s_addr = inet_addr("127.0.0.1");
-    server->sin_family = AF_INET;
-    server->sin_port = htons( 8888 );
- 
-    //Connect to remote server
-    int temp = *sock;
-    if (connect(temp , (struct sockaddr*)server , sizeof(*server)) < 0)
-    {
-        perror("cli_handler 2 connect failed. Error");
-        exit(1);
-    }
-     
-    puts("cli_handler Connected\n");
-}
 
-void			cli_handler(int flag, int check)
+void			cli_handler(int flag, int check, int *pid)
 {
-	int		pid = 0;
 	char	str[80];
-    int one = 1;
-    int sock;
-    struct sockaddr_in server;
      
 	printf("[*] CLI for Daemon started!\n");
 	usage_cli();
@@ -59,38 +29,38 @@ void			cli_handler(int flag, int check)
 		{
 			if (check)
 			{
-				start_daemon(&pid);
+				printf("[*]!\n");
+				start_daemon(pid);
 				check = 0;
 				sleep(1);
-				if (one)
-					start_cli_socket(&sock, &server);
-				one = 0;
 			}
 			else
 				printf("[!] Error! The daemon is already running.\n");
 		}
 		else if (strcmp(str, "stop") == 0)
 		{
-			if (!check && pid != 0)
+			if (!check && *pid != 0)
 			{
-				kill(pid, SIGTERM);
+				kill(*pid, SIGTERM);
 				check = 1;
-				pid = 0;
+				*pid = 0;
+				remove(PID_DAEMON);
 			}
 			else
 				printf("[!] Error! The daemon is not running yet.\n");
 		}
 		else if (strncmp(str, "show", 4) == 0)
-			send(sock , str , strlen(str) , 0);
+			printf("...\n");
 		else if (strncmp(str, "select", 6) == 0)
-			send(sock , str , strlen(str) , 0);
+			printf("...\n");
 		else if (strncmp(str, "stat", 4) == 0)
-			send(sock , str , strlen(str) , 0);
+			printf("...\n");
 		else if (strcmp(str, "--help") == 0)
 			usage_cli();
 		else if (strcmp(str, "--exit") == 0)
 		{
-			pid != 0 ? kill(pid, SIGTERM): 0 ;
+			*pid != 0 ? kill(*pid, SIGTERM): 0 ;
+			remove(PID_DAEMON);
 			exit(0);
 		}
 		else if (strcmp(str, "--exitcli") == 0)

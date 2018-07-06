@@ -12,8 +12,9 @@
 # include <unistd.h>
 # include <errno.h>
 # include <wait.h>
+# define PID_DAEMON ".pid_daemon"
 
-void	cli_handler(int flag, int check);
+void	cli_handler(int flag, int check, int *pid);
 void	start_daemon(int *pid);
 
 #endif

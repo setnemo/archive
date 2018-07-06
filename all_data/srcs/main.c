@@ -1,13 +1,33 @@
 
 #include <sniffer.h>
 
+int			check_daemon(int *pid)
+{
+	FILE *f;
+	char *line;
+	size_t len;
+
+	f = fopen(PID_DAEMON, "r+");
+	if (f < 0)
+	{
+		fclose(f);
+		return (1);
+	}
+	else
+	{
+		getline(&line, &len, f);
+		*pid = atoi(line);
+		fclose(f);
+	}
+	return (0);
+}
+
 int 		main(int argc, char **argv)
 {
-	int		flag;
+	int		flag;			// if 0 - only daemon run, if 1 - need cli start
 	int		pid = 0;
-	int		check = 1;
+	int		check = 1;		// if 0 - daemon running,  if 1 - daemon not running
 
-	// usage and handling invalid flags
 	if (argc != 2 || argc == 2 && strcmp(argv[1], "-h") == 0)
 	{
 		printf("Usage: ./sniffer -d       // run daemon\n");
@@ -22,12 +42,20 @@ int 		main(int argc, char **argv)
 	}
 	else if (strcmp(argv[1], "-dcli") == 0)
 	{
-		flag = 1; 
+		start_daemon(&pid);
+		flag = 1;
+		check = 0;
 	}
 	else if (strcmp(argv[1], "-cli") == 0)
 	{
 		flag = 1;
-		check = 0;// need read pid file and validation
+		if (check_daemon(&pid))
+		{
+			printf("[*] Warning! The daemon is not running yet.\n");
+			check = 1;
+		}
+		else
+			check = 0;
 	}
 	else
 	{
@@ -36,7 +64,7 @@ int 		main(int argc, char **argv)
 	}
 	if (flag) // start daemon with cli, flag -cli
 	{
-		cli_handler(flag, check);
+		cli_handler(flag, check, &pid);
 	}
 	else
 	{
