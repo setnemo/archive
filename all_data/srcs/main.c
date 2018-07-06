@@ -7,10 +7,9 @@ int			check_daemon(int *pid)
 	char *line;
 	size_t len;
 
-	f = fopen(PID_DAEMON, "r+");
-	if (f < 0)
+	f = fopen(PID_DAEMON, "r");
+	if (!f)
 	{
-		fclose(f);
 		return (1);
 	}
 	else
