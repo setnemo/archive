@@ -85,7 +85,7 @@ static void		usage_cli(void)
 	printf("========================= CLI Usage =========================\n");
 	printf("start             packets are being sniffed from now on from default iface(eth0).\n");
 	printf("stop              packets are not sniffed.\n");
-	printf("show [ip] [count] ip count (print number of packets received from ip address.\n");
+	printf("show [ip]         print number of packets received from ip address.\n");
 	printf("select [iface]    select interface for sniffing eth0, wlan0, ethN, wlanN...\n");
 	printf("stat [iface]      show all collected statistics for particular interface, if iface omitted - for all interfaces.\n");
 	printf("iface             show all available interfaces.\n");
@@ -104,7 +104,7 @@ void			cli_handler(char *name_pid, int flag, int check, int *pid)
 
 	signal_handler_cli();
 	printf("[*] Set cli name process to \"./sniffer -cl\"\n");
-	prctl(PR_SET_NAME, process_name, NULL, NULL, NULL);
+	// prctl(PR_SET_NAME, process_name, NULL, NULL, NULL);
 	ft_strclr(name_pid);
 	memcpy(name_pid, process_name, strlen(process_name) + 1);
 	printf("[*] CLI for Daemon started!\n");
@@ -113,10 +113,9 @@ void			cli_handler(char *name_pid, int flag, int check, int *pid)
 	{
 		str = malloc(len);
 		getline(&str, &len, stdin);
-		// sscanf("%s", str);
 		if (strncmp(str, "start\n", 6) == 0)
 		{
-			if (check_daemon(pid))
+			if (check_daemon(pid)) //check pid file (run daemon)
 			{
 				check = 1;
 			}
@@ -126,15 +125,14 @@ void			cli_handler(char *name_pid, int flag, int check, int *pid)
 			{
 				printf("[*] Starting daemon...\n");
 				start_daemon(name_pid, pid);
-				// sleep(1);
-				// check = 0;
+
 			}
 			else
 				printf("[!] Error! The daemon is already running.\n");
 		}
 		else if (strncmp(str, "stop\n", 5) == 0)
 		{
-			if (check_daemon(pid))
+			if (check_daemon(pid)) //check pid file (run daemon)
 			{
 				check = 1;
 			}

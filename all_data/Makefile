@@ -3,6 +3,7 @@ CC = gcc
 FLAGS = -Wall -lpcap 
 
 SRC_NAME =	main.c\
+			manage.c\
 			daemon.c\
 			cli.c\
 			sniffer.c\

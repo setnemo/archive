@@ -49,7 +49,7 @@ void			start_daemon(char *name_pid, int *pid)
 		// daemon settings
 		printf("[*] Set daemon name process to \"./sniffer -d\"\n");
 		ft_strclr(name_pid);
-		prctl(PR_SET_NAME, process_name, NULL, NULL, NULL);
+		// prctl(PR_SET_NAME, process_name, NULL, NULL, NULL);
 		memcpy(name_pid, process_name, strlen(process_name) + 1);
 		umask(0);
 		setsid();
