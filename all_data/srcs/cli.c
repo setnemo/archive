@@ -95,7 +95,7 @@ void			cli_handler(char *name_pid, int check, int *pid)
 				printf("[!] Error! The daemon is not running yet.\n");
 		}
 		else if (strncmp(str, "packets", 7) == 0)
-			usage_cli();
+			show_packets(str);
 		else if (strncmp(str, "show", 4) == 0)
 			show_ip(str);
 		else if (strncmp(str, "select", 6) == 0)

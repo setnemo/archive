@@ -67,10 +67,14 @@ void		ft_strclr(char *s);
 int			check_daemon(int *pid);
 char		*check_iface(void);
 void		select_iface(char *str);
+
+/*
+**	show_data.c
+*/
+void		show_packets(char *str);
 void		show_ifaces(void);
 void		show_ip(char *str);
 void		stat_iface(char *str);
-
 /*
 **	save_data.c
 */

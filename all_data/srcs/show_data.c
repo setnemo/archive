@@ -1,6 +1,11 @@
 
 #include <sniffer.h>
 
+void			show_packets(char *str)
+{
+	printf("%s: %s", "Awesome bonuses", str);
+}
+
 void			show_ip(char *str)
 {
 	FILE	*ip;
@@ -44,7 +49,7 @@ void			show_ip(char *str)
 	else
 		fprintf(stderr, "[!] [CLI] Incorrect input!\n");
 }
-void			dev_show_stat(char *str, char *name)
+static void		dev_show_stat(char *str, char *name)
 {
 	FILE	*dev;
 	char	*line;
@@ -101,7 +106,6 @@ static void		parse_all_dev_and_show_stat(void)
 static void		parse_dev_and_show_stat(char *str)
 {
 	char	*temp;
-	// char	logsfile[100];
 
 	temp = strchr(str, '\n');
 	if (temp)
@@ -111,9 +115,6 @@ static void		parse_dev_and_show_stat(char *str)
 		while (*str == ' ')
 			str++;
 	}
-	// memset(&logsfile[0], 0, 100);
-	// memcpy(&logsfile[0], LOG_ALLDATA, strlen(LOG_ALLDATA));
-	// memcpy(&logsfile[strlen(LOG_ALLDATA)], str, strlen(str));
 	if (*str != 0)
 		dev_show_stat(LOG_COUNT_IFACES, str);
 }
