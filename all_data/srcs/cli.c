@@ -103,7 +103,7 @@ void			cli_handler(char *name_pid, int flag, int check, int *pid)
 	size_t	len = STDIN_LEN;
 
 	signal_handler_cli();
-	printf("[*] Change cli name process to \"./sniffer -cl\"\n");
+	printf("[*] Set cli name process to \"./sniffer -cl\"\n");
 	prctl(PR_SET_NAME, process_name, NULL, NULL, NULL);
 	ft_strclr(name_pid);
 	memcpy(name_pid, process_name, strlen(process_name) + 1);
@@ -111,29 +111,38 @@ void			cli_handler(char *name_pid, int flag, int check, int *pid)
 	usage_cli();
 	while (42)
 	{
-		if (check_daemon(pid))
-		{
-			check = 1;
-		}
 		str = malloc(len);
 		getline(&str, &len, stdin);
-		sscanf("%s", str);
-		if (strncmp(str, "start", 5) == 0)
+		// sscanf("%s", str);
+		if (strncmp(str, "start\n", 6) == 0)
 		{
+			if (check_daemon(pid))
+			{
+				check = 1;
+			}
+			else
+				check = 0;
 			if (check)
 			{
-				printf("[*] Starting daemon!\n");
+				printf("[*] Starting daemon...\n");
 				start_daemon(name_pid, pid);
-				check = 0;
-				sleep(1);
+				// sleep(1);
+				// check = 0;
 			}
 			else
 				printf("[!] Error! The daemon is already running.\n");
 		}
-		else if (strncmp(str, "stop", 4) == 0)
+		else if (strncmp(str, "stop\n", 5) == 0)
 		{
+			if (check_daemon(pid))
+			{
+				check = 1;
+			}
+			else
+				check = 0;
 			if (!check && *pid != 0)
 			{
+				printf("[*] Daemon stopping...\n");
 				kill(*pid, SIGTERM);
 				check = 1;
 				*pid = 0;

@@ -35,7 +35,6 @@ static void	write_pid_to_file(void)
 
 void			start_daemon(char *name_pid, int *pid)
 {
-	printf("[*] Change daemon name process to \"./sniffer -d\"\n");
 	char *process_name = "./sniffer -d\0";
 	*pid = fork();
 	if (*pid == -1) // fork fail
@@ -48,6 +47,7 @@ void			start_daemon(char *name_pid, int *pid)
 		signal_handler_daemon();
 		write_pid_to_file();
 		// daemon settings
+		printf("[*] Set daemon name process to \"./sniffer -d\"\n");
 		ft_strclr(name_pid);
 		prctl(PR_SET_NAME, process_name, NULL, NULL, NULL);
 		memcpy(name_pid, process_name, strlen(process_name) + 1);

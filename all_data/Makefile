@@ -6,7 +6,8 @@ SRC_NAME =	main.c\
 			daemon.c\
 			cli.c\
 			sniffer.c\
-			utils.c
+			utils.c\
+			save_data.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 

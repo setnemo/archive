@@ -1,7 +1,6 @@
 
 #include <sniffer.h>
 
-
 int 		main(int argc, char **argv)
 {
 	int		flag;			// if 0 - only daemon run, if 1 - need cli start
@@ -59,14 +58,12 @@ int 		main(int argc, char **argv)
 	}
 	else
 	{
+		if (!check_daemon(&pid))
+		{
+			printf("[*] Warning! The daemon is already running.\n");
+			return (1);
+		}
 		start_daemon(&argv[0][0], &pid); // start daemon, flag -d
 	}
 	return (0);
 }
-
-
-// int main(void)
-// {
-
-// 	return(0);
-// }
