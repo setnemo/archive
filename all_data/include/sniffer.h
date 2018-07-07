@@ -8,14 +8,23 @@
 # include <sys/file.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <sys/prctl.h>
 # include <execinfo.h>
 # include <unistd.h>
 # include <errno.h>
 # include <wait.h>
-# define PID_DAEMON ".pid_daemon"
-# define LOG_IFACE "/var/log/interfaces.log"
+# include <signal.h>
 
-void	cli_handler(int flag, int check, int *pid);
-void	start_daemon(int *pid);
+# define PID_DAEMON "/var/log/.pid_daemon"
+# define LOG_IFACE "/var/log/.interfaces.start"
+
+void		cli_handler(char *name_pid, int flag, int check, int *pid);
+void		start_daemon(char *name_pid, int *pid);
+
+void		sniffer(void);
+
+void		ft_strclr(char *s);
+int			check_daemon(int *pid);
+char		*check_iface(void);
 
 #endif

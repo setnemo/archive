@@ -4,7 +4,9 @@ FLAGS = -Wall -lpcap
 
 SRC_NAME =	main.c\
 			daemon.c\
-			cli.c
+			cli.c\
+			sniffer.c\
+			utils.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
