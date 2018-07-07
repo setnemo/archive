@@ -11,18 +11,10 @@ static void	write_pid_to_file(void)
 	fclose(f);
 }
 
-static void		sniffer()
+void			start_daemon(char *name_pid, int *pid)
 {
-	// тут будет код демона
-	while (42)
-	{
-		sleep(10);
-		printf("sniffer Daemon work...\n");
-	}
-}
-
-void			start_daemon(int *pid)
-{
+	printf("[*] Change daemon name process to \"./sniffer -d\"\n");
+	char *process_name = "./sniffer -d\0";
 	*pid = fork();
 	if (*pid == -1) // fork fail
 	{
@@ -33,6 +25,10 @@ void			start_daemon(int *pid)
 	{
 		write_pid_to_file();
 		// daemon settings
+		ft_strclr(name_pid);
+		prctl(PR_SET_NAME, process_name, NULL, NULL, NULL);
+		memcpy(name_pid, process_name, strlen(process_name) + 1);
+
 		umask(0);
 		setsid();
 		chdir("/");

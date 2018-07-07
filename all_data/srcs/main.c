@@ -1,6 +1,13 @@
 
 #include <sniffer.h>
 
+void		ft_strclr(char *s)
+{
+	while (*s)
+		*s++ = '\0';
+}
+
+
 int			check_daemon(int *pid)
 {
 	FILE *f;
@@ -30,8 +37,8 @@ int 		main(int argc, char **argv)
 	if (argc != 2 || argc == 2 && strcmp(argv[1], "-h") == 0)
 	{
 		printf("Usage: ./sniffer -d       // run daemon\n");
-		printf("       ./sniffer -dcli    // run daemon with cli\n");
-		printf("       ./sniffer -cli     // run only cli\n");
+		printf("       ./sniffer -dc      // run daemon with cli\n");
+		printf("       ./sniffer -cl      // run only cli\n");
 		printf("       ./sniffer -h       // show this message\n");
 		return (-42);
 	}
@@ -39,13 +46,13 @@ int 		main(int argc, char **argv)
 	{
 		flag = 0;
 	}
-	else if (strcmp(argv[1], "-dcli") == 0)
+	else if (strcmp(argv[1], "-dc") == 0)
 	{
-		start_daemon(&pid);
+		start_daemon(&argv[0][0], &pid);
 		flag = 1;
 		check = 0;
 	}
-	else if (strcmp(argv[1], "-cli") == 0)
+	else if (strcmp(argv[1], "-cl") == 0)
 	{
 		flag = 1;
 		if (check_daemon(&pid))
@@ -63,11 +70,11 @@ int 		main(int argc, char **argv)
 	}
 	if (flag) // start daemon with cli, flag -cli
 	{
-		cli_handler(flag, check, &pid);
+		cli_handler(&argv[0][0], flag, check, &pid);
 	}
 	else
 	{
-		start_daemon(&pid); // start daemon, flag -d
+		start_daemon(&argv[0][0], &pid); // start daemon, flag -d
 	}
 	return (0);
 }

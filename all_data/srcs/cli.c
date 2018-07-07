@@ -16,10 +16,14 @@ static void		usage_cli(void)
 }
 
 
-void			cli_handler(int flag, int check, int *pid)
+void			cli_handler(char *name_pid, int flag, int check, int *pid)
 {
 	char	str[80];
-     
+	char *process_name = "./sniffer -cl\0";
+	printf("[*] Change cli name process to \"./sniffer -cl\"\n");
+	prctl(PR_SET_NAME, process_name, NULL, NULL, NULL);
+	ft_strclr(name_pid);
+	memcpy(name_pid, process_name, strlen(process_name) + 1);
 	printf("[*] CLI for Daemon started!\n");
 	usage_cli();
 	while (42)
@@ -30,7 +34,7 @@ void			cli_handler(int flag, int check, int *pid)
 			if (check)
 			{
 				printf("[*]!\n");
-				start_daemon(pid);
+				start_daemon(name_pid, pid);
 				check = 0;
 				sleep(1);
 			}
