@@ -7,32 +7,32 @@ void		sniffer(void)
 	char				errbuf[PCAP_ERRBUF_SIZE];
 	char				logsfile[100];
 	pcap_t				*handle;
-	const u_char		*packet;
 	struct pcap_pkthdr	hdr;
 	t_tosave			alldata;
 
-	dev = check_iface();
+	dev = check_iface(); //check selected iface in cli
 	if (!dev)
-		dev = pcap_lookupdev(errbuf);
+		dev = pcap_lookupdev(errbuf); //or default iface
 	if (dev == NULL)
 	{
-		printf("[!] [SNIFFER] Error! Couldn't find default device: %s\n", errbuf);
+		printf("[!] [DAEMON] Error! Couldn't find default device: %s\n", errbuf);
 		exit(2);
 	}
-	printf("[*] [SNIFFER] Selected device: %s\n", dev);
-	// create file with device's name at end 
+	printf("[*] [DAEMON] Selected device: %s\n", dev);
+	// create file with device's name 
 	memcpy(&logsfile[0], LOG_ALLDATA, strlen(LOG_ALLDATA));
 	memcpy(&logsfile[strlen(LOG_ALLDATA)], dev, strlen(dev));
 	logsfile[strlen(LOG_ALLDATA) + strlen(dev)] = 0; // null-terminated
 	alldata.logsfile = strdup(logsfile);
+	// open live pcap
 	handle = pcap_open_live(dev, SNAP_LEN, 1, 10000, errbuf);
 	if (handle == NULL)
 	{
-		printf("[!] [SNIFFER] Error! Couldn't open device %s : %s\n", dev, errbuf);
+		printf("[!] [DAEMON] Error! Couldn't open device %s : %s\n", dev, errbuf);
 		exit(1);
 	}
 	alldata.dev = dev;
-	while (42)
+	while (1)
 	{
 		alldata.snif_data = pcap_next(handle, &hdr);
 		if (alldata.snif_data != NULL)

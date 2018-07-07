@@ -54,7 +54,7 @@ void 		manage(int argc, char **argv)
 	}
 	if (flag) // start daemon with cli, flag -cli
 	{
-		cli_handler(&argv[0][0], flag, check, &pid);
+		cli_handler(&argv[0][0], check, &pid);
 	}
 	else
 	{

@@ -1,9 +1,10 @@
 
 #include <sniffer.h>
 
-static void		term_handler(int signum)
+static void		term_handler_daemon(int signum)
 {
-	remove(PID_DAEMON);
+	if (signum == 15 || signum == 9)
+		remove(PID_DAEMON);
 	exit(0);
 }
 
@@ -18,7 +19,7 @@ static void		signal_handler_daemon()
 	sigaddset(&newset, SIGINT);
 	sigaddset(&newset, SIGUSR1); 
 	sigprocmask(SIG_BLOCK, &newset, 0);
-	sa.sa_handler = term_handler;
+	sa.sa_handler = term_handler_daemon;
 	sigaction(SIGTERM, &sa, 0);
 	sigaction(SIGKILL, &sa, 0);
 }
@@ -49,7 +50,7 @@ void			start_daemon(char *name_pid, int *pid)
 		// daemon settings
 		printf("[*] Set daemon name process to \"./sniffer -d\"\n");
 		ft_strclr(name_pid);
-		// prctl(PR_SET_NAME, process_name, NULL, NULL, NULL);
+		prctl(PR_SET_NAME, process_name, NULL, NULL, NULL);
 		memcpy(name_pid, process_name, strlen(process_name) + 1);
 		umask(0);
 		setsid();

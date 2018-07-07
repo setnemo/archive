@@ -21,10 +21,8 @@ void print_ethernet_header(t_tosave *alldata)
 void print_ip_header(t_tosave *alldata)
 {
 	struct sockaddr_in source,dest;
-	unsigned short iphdrlen;
 	struct iphdr *iph = (struct iphdr *)(alldata->snif_data + sizeof(struct ethhdr));
 	print_ethernet_header(alldata);
-	iphdrlen = iph->ihl * 4;
 	memset(&source, 0, sizeof(source));
 	source.sin_addr.s_addr = iph->saddr;
 	memset(&dest, 0, sizeof(dest));

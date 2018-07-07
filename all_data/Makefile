@@ -1,6 +1,7 @@
 NAME = sniffer
 CC = gcc
-FLAGS = -Wall -lpcap 
+FLAGS = -Wall -Wextra -Werror
+FLAGLP = -lpcap 
 
 SRC_NAME =	main.c\
 			manage.c\
@@ -8,7 +9,8 @@ SRC_NAME =	main.c\
 			cli.c\
 			sniffer.c\
 			utils.c\
-			save_data.c
+			save_data.c\
+			show_data.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
@@ -22,13 +24,13 @@ OBJ_DIR = obj/
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) -o $(NAME) $(OBJ) $(FLAGS) 
+	$(CC) -o $(NAME) $(OBJ) $(FLAGS) $(FLAGLP) 
 	@echo "##### COMPILING FINISHED ######"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
 	@echo "##### LINKING" [ $@ ] " #######"
-	$(CC) -o $@ -c  $< $(INC)
+	$(CC) -o $@ -c  $< $(INC) $(FLAGS) 
 
 clean:
 	@rm -f $(OBJ)

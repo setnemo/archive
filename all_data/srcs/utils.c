@@ -44,8 +44,46 @@ char		*check_iface(void)
 		fclose(f);
 	}
 	temp = line;
-	while(*temp != '\n')
-		temp++;
-	*temp = 0;
+	temp = strchr(temp, '\n');
+	if (temp)
+		*temp = 0;
 	return (line);
+}
+
+static void		select_save(char *str)
+{
+	FILE *f;
+
+	f = fopen(LOG_IFACE, "w+");
+	fprintf(f, "%s", str);
+	fclose(f);
+	printf("[*] New interface saved, need restart daemon...\n");
+
+}
+
+void			select_iface(char *str)
+{
+	char		errbuf[PCAP_ERRBUF_SIZE];
+	pcap_if_t	*devlist;
+	pcap_if_t	*d;
+
+	str = strchr(str, ' ');
+	if (*str && *str != '\n' && *(str + 1) != '\n')
+	{
+		str++;
+		if (pcap_findalldevs(&devlist, errbuf) == -1)
+		{
+			fprintf(stderr, "[!] [SNIFFER] Couldn't find devices: %s\n", errbuf);
+		}
+		for (d = devlist; d; d = d->next)
+		{
+			if (strncmp(str, d->name, strlen(str) - 1) == 0)
+			{
+				select_save(str);
+				return ;
+			}
+		}
+		fprintf(stderr, "[!] [SNIFFER] Device not found!\n");
+	}
+	fprintf(stderr, "[!] [SNIFFER] Incorrect input! Please use 'iface' command\n");
 }
