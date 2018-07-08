@@ -30,10 +30,11 @@ static void		usage_cli(void)
 	printf("========================= CLI Usage =========================\n");
 	printf("start             packets are being sniffed from now on from default iface(eth0).\n");
 	printf("stop              packets are not sniffed.\n");
+	printf("restart           stop && start daemon\n");
 	printf("show [ip]         print number of packets received from ip address.\n");
 	printf("select [iface]    select interface for sniffing eth0, wlan0, ethN, wlanN...\n");
 	printf("stat [iface]      show all collected statistics for particular interface, if iface omitted - for all interfaces.\n");
-	printf("packets           show all received packets.\n");
+	printf("packets [iface]   show all collected packets for particular interface, if iface omitted - for all interfaces.\n");
 	printf("iface             show all available interfaces.\n");
 	printf("exit              stop daemon and exit.\n");
 	printf("exitcli           stop cli and exit (don't stop daemon).\n");
@@ -41,6 +42,39 @@ static void		usage_cli(void)
 	printf("========================= end usage =========================\n");
 }
 
+static void		starting_daemon(char *name_pid, int *check, int *pid)
+{
+	*check = check_daemon(pid);
+	if (*check)
+	{
+		printf("[*] Starting daemon...\n");
+		start_daemon(name_pid, pid);
+	}
+	else
+		printf("[!] Error! The daemon is already running.\n");
+}
+
+static void		stoping_daemon(int *check, int *pid)
+{
+	*check = check_daemon(pid);
+	if (!*check && *pid != 0)
+	{
+		printf("[*] Daemon stopping...\n");
+		kill(*pid, SIGTERM);
+		*check = 1;
+		*pid = 0;
+	}
+	else
+		printf("[!] Error! The daemon is not running yet.\n");
+}
+
+static void		exit_daemon_and_cli(char **str, int *pid)
+{
+	remove(LOG_IFACE);
+	*pid != 0 ? kill(*pid, SIGTERM): 0 ;
+	free(*str);
+	exit(0);
+}
 
 void			cli_handler(char *name_pid, int check, int *pid)
 {
@@ -60,39 +94,14 @@ void			cli_handler(char *name_pid, int check, int *pid)
 		str = malloc(len);
 		getline(&str, &len, stdin);
 		if (strncmp(str, "start\n", 6) == 0)
-		{
-			if (check_daemon(pid)) //check pid file (run daemon)
-			{
-				check = 1;
-			}
-			else
-				check = 0;
-			if (check)
-			{
-				printf("[*] Starting daemon...\n");
-				start_daemon(name_pid, pid);
-
-			}
-			else
-				printf("[!] Error! The daemon is already running.\n");
-		}
+			starting_daemon(name_pid, &check, pid);
 		else if (strncmp(str, "stop\n", 5) == 0)
+			stoping_daemon(&check, pid);
+		else if (strncmp(str, "restart\n", 8) == 0)
 		{
-			if (check_daemon(pid)) //check pid file (run daemon)
-			{
-				check = 1;
-			}
-			else
-				check = 0;
-			if (!check && *pid != 0)
-			{
-				printf("[*] Daemon stopping...\n");
-				kill(*pid, SIGTERM);
-				check = 1;
-				*pid = 0;
-			}
-			else
-				printf("[!] Error! The daemon is not running yet.\n");
+			stoping_daemon(&check, pid);
+			printf("[*] Waiting...\n");
+			starting_daemon(name_pid, &check, pid);
 		}
 		else if (strncmp(str, "packets", 7) == 0)
 			show_packets(str);
@@ -113,12 +122,7 @@ void			cli_handler(char *name_pid, int check, int *pid)
 			exit(0);
 		}
 		else if (strncmp(str, "exit", 4) == 0)
-		{
-			remove(LOG_IFACE);
-			*pid != 0 ? kill(*pid, SIGTERM): 0 ;
-			free(str);
-			exit(0);
-		}
+			exit_daemon_and_cli(&str, pid);
 		else
 			printf("[!] Incorrect command! Please read usage (--help)\n");
 		free(str);

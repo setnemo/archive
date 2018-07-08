@@ -1,2 +1,2 @@
 docker build -t sniffer .
-docker run -it -v ../:/home/sniffer/ sniffer
+docker run -it -v $(pwd)/../:/home/sniffer/ sniffer
