@@ -7,7 +7,7 @@ RUN apt-get install gcc -y
 RUN apt-get install libpcap0.8-dev -y 
 RUN apt-get update && apt-get install -y procps
 
-RUN mkdir -p /home/all_data/
-WORKDIR /home/all_data/
+RUN mkdir -p /home/sniffer/
+WORKDIR /home/sniffer/
 CMD /bin/bash
 
