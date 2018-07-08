@@ -7,12 +7,7 @@ void 		manage(int argc, char **argv)
 	int		pid = 0;
 	int		check = 1;		// if 0 - daemon running,  if 1 - daemon not running
 
-	if (getuid() != 0) // check root
-	{
-		printf("[!] Error: this program must be run as root! Quitting\n");
-		exit(1);
-	}
-	else if (argc != 2 || (argc == 2 && strcmp(argv[1], "-h") == 0))
+	if (argc != 2 || (argc == 2 && strcmp(argv[1], "-h") == 0))
 	{
 		printf("Usage: ./sniffer -d       // run daemon\n");
 		printf("       ./sniffer -dc      // run daemon with cli\n");

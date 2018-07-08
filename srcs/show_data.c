@@ -183,11 +183,6 @@ static void		parse_all_dev_and_show_stat(void)
 	char		errbuf[PCAP_ERRBUF_SIZE];
 	pcap_if_t	*devlist;
 	pcap_if_t	*d;
-	// char		logsfile[100];
-	// memset(&logsfile[0], 0, 100);
-	// memcpy(&logsfile[0], LOG_ALLDATA, strlen(LOG_ALLDATA));
-	// memcpy(&logsfile[strlen(LOG_ALLDATA)], d->name, strlen(d->name));
-	// printf("[*] Interface: %s\n", d->name);
 
 	if (pcap_findalldevs(&devlist, errbuf) == -1)
 	{

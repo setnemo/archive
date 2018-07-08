@@ -29,9 +29,11 @@ static void	write_pid_to_file(void)
 	FILE *f;
 	int pid = getpid();
 
-	f = fopen(PID_DAEMON, "w+");
-	fprintf(f, "%u\n", pid);
-	fclose(f);
+	if ((f = fopen(PID_DAEMON, "w+")) != NULL)
+	{
+		fprintf(f, "%u\n", pid);
+		fclose(f);
+	}
 }
 
 void			start_daemon(char *name_pid, int *pid)

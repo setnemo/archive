@@ -1,6 +1,6 @@
 
 #include <sniffer.h>
-#define STDIN_LEN 80
+#define STDIN_LEN 20
 
 static void		term_handler_cli(int signum)
 {
@@ -49,6 +49,9 @@ static void		starting_daemon(char *name_pid, int *check, int *pid)
 	{
 		printf("[*] Starting daemon...\n");
 		start_daemon(name_pid, pid);
+		printf("[*] Waiting...\n");
+		sleep(2);
+
 	}
 	else
 		printf("[!] Error! The daemon is already running.\n");
@@ -68,19 +71,17 @@ static void		stoping_daemon(int *check, int *pid)
 		printf("[!] Error! The daemon is not running yet.\n");
 }
 
-static void		exit_daemon_and_cli(char **str, int *pid)
+static void		exit_daemon_and_cli(int *pid)
 {
 	remove(LOG_IFACE);
 	*pid != 0 ? kill(*pid, SIGTERM): 0 ;
-	free(*str);
 	exit(0);
 }
 
 void			cli_handler(char *name_pid, int check, int *pid)
 {
-	char	*str;
+	char	str[STDIN_LEN];
 	char	*process_name = "./sniffer -cl\0";
-	size_t	len = STDIN_LEN;
 
 	signal_handler_cli();
 	printf("[*] Set cli name process to \"./sniffer -cl\"\n");
@@ -89,10 +90,8 @@ void			cli_handler(char *name_pid, int check, int *pid)
 	memcpy(name_pid, process_name, strlen(process_name) + 1);
 	printf("[*] CLI for Daemon started!\n");
 	usage_cli();
-	while (42)
+	while (fgets(str, STDIN_LEN, stdin))
 	{
-		str = malloc(len);
-		getline(&str, &len, stdin);
 		if (strncmp(str, "start\n", 6) == 0)
 			starting_daemon(name_pid, &check, pid);
 		else if (strncmp(str, "stop\n", 5) == 0)
@@ -101,30 +100,29 @@ void			cli_handler(char *name_pid, int check, int *pid)
 		{
 			stoping_daemon(&check, pid);
 			printf("[*] Waiting...\n");
+			sleep(2);
 			starting_daemon(name_pid, &check, pid);
 		}
 		else if (strncmp(str, "packets", 7) == 0)
 			show_packets(str);
 		else if (strncmp(str, "show", 4) == 0)
 			show_ip(str);
-		else if (strncmp(str, "select", 6) == 0)
+		else if (strncmp(str, "select ", 7) == 0)
 			select_iface(str);
 		else if (strncmp(str, "stat", 4) == 0)
 			stat_iface(str);
-		else if (strncmp(str, "iface", 5) == 0)
+		else if (strncmp(str, "iface\n", 6) == 0)
 			show_ifaces();
-		else if (strncmp(str, "--help", 6) == 0)
+		else if (strncmp(str, "--help\n", 7) == 0)
 			usage_cli();
-		else if (strncmp(str, "exitcli", 7) == 0)
+		else if (strncmp(str, "exitcli\n", 8) == 0)
 		{
 			remove(LOG_IFACE);
-			free(str);
 			exit(0);
 		}
-		else if (strncmp(str, "exit", 4) == 0)
-			exit_daemon_and_cli(&str, pid);
+		else if (strncmp(str, "exit\n", 5) == 0)
+			exit_daemon_and_cli(pid);
 		else
 			printf("[!] Incorrect command! Please read usage (--help)\n");
-		free(str);
 	}
 }
