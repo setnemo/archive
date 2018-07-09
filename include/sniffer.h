@@ -21,7 +21,7 @@
 # define PID_DAEMON "/var/log/.pid_daemon"
 # define LOG_IFACE "/var/log/.interfaces.start"
 # define LOG_ALLDATA "/var/log/all_data.log."
-# define LOG_COUNT_IP "/var/log/ip.log"
+# define LOG_COUNT_IP "/var/log/ip.log."
 # define LOG_COUNT_IFACES "/var/log/iface.log"
 # define SNAP_LEN 1518
 

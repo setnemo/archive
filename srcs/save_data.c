@@ -39,7 +39,14 @@ void print_ip_header(t_tosave *alldata)
 	fprintf(alldata->logfile, "   |-Checksum : %d\n",ntohs(iph->check));
 	fprintf(alldata->logfile, "   |-Source IP        : %s\n", inet_ntoa(source.sin_addr));
 	fprintf(alldata->logfile, "   |-Destination IP   : %s\n", inet_ntoa(dest.sin_addr));
-	alldata->ipfile = fopen(LOG_COUNT_IP, "a+");
+
+	char	logsfile[50];
+	char	*ip;
+	ip = inet_ntoa(source.sin_addr);
+	memset(&logsfile[0], 0, 50);
+	memcpy(&logsfile[0], LOG_COUNT_IP, strlen(LOG_COUNT_IP));
+	memcpy(&logsfile[strlen(LOG_COUNT_IP)], ip, strlen(ip));
+	alldata->ipfile = fopen(logsfile, "a+");
 	if (alldata->ipfile == NULL)
 	{
 		printf("[!] [SNIFFER] Error! Couldn't create 'ip log' file!\n");
@@ -51,7 +58,7 @@ void print_ip_header(t_tosave *alldata)
 		printf("[!] [SNIFFER] Error! Couldn't create 'interface count' file!\n");
 		exit(3);
 	}
-	fprintf(alldata->ipfile, "%s\n", inet_ntoa(source.sin_addr));
+	fprintf(alldata->ipfile, "%s\n", ip);
 	fprintf(alldata->ifacefile, "%s\n", alldata->dev);
 	fclose(alldata->ipfile);
 	fclose(alldata->ifacefile);

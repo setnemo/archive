@@ -116,7 +116,14 @@ void			show_ip(char *str)
 		str++;
 	if (str && *str && *str != ' ' && *(str + 1) != '\n')
 	{
-		ip = fopen(LOG_COUNT_IP, "rt");
+		temp = strchr(str, '\n');
+		if (temp)
+			*temp = 0;
+		char	logsfile[50];
+		memset(&logsfile[0], 0, 50);
+		memcpy(&logsfile[0], LOG_COUNT_IP, strlen(LOG_COUNT_IP));
+		memcpy(&logsfile[strlen(LOG_COUNT_IP)], str, strlen(str));
+		ip = fopen(logsfile, "rt");
 		if (ip == NULL)
 		{
 			printf("[!] [CLI] Error! Couldn't open 'ip log' file!\n");
@@ -132,9 +139,6 @@ void			show_ip(char *str)
 				if (strncmp(line, str, strlen(str)) == 0)
 					++count;
 			}
-			temp = strchr(str, '\n');
-			if (temp)
-				*temp = 0;
 			if (!count)
 				printf("[!] [CLI] Zero packets from '%s' or invalid IP\n", str);
 			else
