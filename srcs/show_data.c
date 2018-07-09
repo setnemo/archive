@@ -110,6 +110,7 @@ void			show_ip(char *str)
 	char	*temp;
 	size_t	len;
 	size_t	count;
+	char	logsfile[50];
 
 	str = strchr(str, ' ');
 	if (str)
@@ -119,7 +120,6 @@ void			show_ip(char *str)
 		temp = strchr(str, '\n');
 		if (temp)
 			*temp = 0;
-		char	logsfile[50];
 		memset(&logsfile[0], 0, 50);
 		memcpy(&logsfile[0], LOG_COUNT_IP, strlen(LOG_COUNT_IP));
 		memcpy(&logsfile[strlen(LOG_COUNT_IP)], str, strlen(str));

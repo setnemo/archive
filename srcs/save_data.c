@@ -20,6 +20,8 @@ void print_ethernet_header(t_tosave *alldata)
 
 void print_ip_header(t_tosave *alldata)
 {
+	char	logsfile[50];
+	char	*ip;
 	struct sockaddr_in source,dest;
 	struct iphdr *iph = (struct iphdr *)(alldata->snif_data + sizeof(struct ethhdr));
 	print_ethernet_header(alldata);
@@ -40,8 +42,6 @@ void print_ip_header(t_tosave *alldata)
 	fprintf(alldata->logfile, "   |-Source IP        : %s\n", inet_ntoa(source.sin_addr));
 	fprintf(alldata->logfile, "   |-Destination IP   : %s\n", inet_ntoa(dest.sin_addr));
 
-	char	logsfile[50];
-	char	*ip;
 	ip = inet_ntoa(source.sin_addr);
 	memset(&logsfile[0], 0, 50);
 	memcpy(&logsfile[0], LOG_COUNT_IP, strlen(LOG_COUNT_IP));
