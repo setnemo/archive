@@ -50,6 +50,7 @@ static void		starting_daemon(char *name_pid, int *check, int *pid)
 		printf("[*] Starting daemon...\n");
 		start_daemon(name_pid, pid);
 		printf("[*] Waiting...\n");
+		sleep(2);
 
 	}
 	else
@@ -81,7 +82,6 @@ void			cli_handler(char *name_pid, int check, int *pid)
 {
 	char	str[STDIN_LEN];
 	char	*process_name = "./sniffer -cl\0";
-	int		read_return;
 
 	signal_handler_cli();
 	printf("[*] Set cli name process to \"./sniffer -cl\"\n");
@@ -90,10 +90,10 @@ void			cli_handler(char *name_pid, int check, int *pid)
 	memcpy(name_pid, process_name, strlen(process_name) + 1);
 	printf("[*] CLI for Daemon started!\n");
 	usage_cli();
-	while (1)
+	memset(&str[0], 0, STDIN_LEN);
+	while (fgets(str, STDIN_LEN, stdin))
 	{
-		read_return = read(STDIN_FILENO, str, STDIN_LEN);
-		if (read_return)
+		if (str[0])
 		{
 			if (strncmp(str, "start\n", 6) == 0)
 				starting_daemon(name_pid, &check, pid);
@@ -103,6 +103,7 @@ void			cli_handler(char *name_pid, int check, int *pid)
 			{
 				stoping_daemon(&check, pid);
 				printf("[*] Waiting...\n");
+				sleep(2);
 				starting_daemon(name_pid, &check, pid);
 			}
 			else if (strncmp(str, "packets", 7) == 0)
@@ -127,7 +128,6 @@ void			cli_handler(char *name_pid, int check, int *pid)
 			else
 				printf("[!] Incorrect command! Please read usage (--help)\n");
 		}
-		else
-			printf("[!] Incorrect command! Please read usage (--help)\n");
+		memset(&str[0], 0, STDIN_LEN);
 	}
 }
