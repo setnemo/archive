@@ -50,7 +50,6 @@ static void		starting_daemon(char *name_pid, int *check, int *pid)
 		printf("[*] Starting daemon...\n");
 		start_daemon(name_pid, pid);
 		printf("[*] Waiting...\n");
-		sleep(2);
 
 	}
 	else
@@ -82,6 +81,7 @@ void			cli_handler(char *name_pid, int check, int *pid)
 {
 	char	str[STDIN_LEN];
 	char	*process_name = "./sniffer -cl\0";
+	int		read_return;
 
 	signal_handler_cli();
 	printf("[*] Set cli name process to \"./sniffer -cl\"\n");
@@ -90,38 +90,43 @@ void			cli_handler(char *name_pid, int check, int *pid)
 	memcpy(name_pid, process_name, strlen(process_name) + 1);
 	printf("[*] CLI for Daemon started!\n");
 	usage_cli();
-	while (fgets(str, STDIN_LEN, stdin))
+	while (1)
 	{
-		if (strncmp(str, "start\n", 6) == 0)
-			starting_daemon(name_pid, &check, pid);
-		else if (strncmp(str, "stop\n", 5) == 0)
-			stoping_daemon(&check, pid);
-		else if (strncmp(str, "restart\n", 8) == 0)
+		read_return = read(STDIN_FILENO, str, STDIN_LEN);
+		if (read_return)
 		{
-			stoping_daemon(&check, pid);
-			printf("[*] Waiting...\n");
-			sleep(2);
-			starting_daemon(name_pid, &check, pid);
+			if (strncmp(str, "start\n", 6) == 0)
+				starting_daemon(name_pid, &check, pid);
+			else if (strncmp(str, "stop\n", 5) == 0)
+				stoping_daemon(&check, pid);
+			else if (strncmp(str, "restart\n", 8) == 0)
+			{
+				stoping_daemon(&check, pid);
+				printf("[*] Waiting...\n");
+				starting_daemon(name_pid, &check, pid);
+			}
+			else if (strncmp(str, "packets", 7) == 0)
+				show_packets(str);
+			else if (strncmp(str, "show", 4) == 0)
+				show_ip(str);
+			else if (strncmp(str, "select ", 7) == 0)
+				select_iface(str);
+			else if (strncmp(str, "stat", 4) == 0)
+				stat_iface(str);
+			else if (strncmp(str, "iface\n", 6) == 0)
+				show_ifaces();
+			else if (strncmp(str, "--help\n", 7) == 0)
+				usage_cli();
+			else if (strncmp(str, "exitcli\n", 8) == 0)
+			{
+				remove(LOG_IFACE);
+				exit(0);
+			}
+			else if (strncmp(str, "exit\n", 5) == 0)
+				exit_daemon_and_cli(pid);
+			else
+				printf("[!] Incorrect command! Please read usage (--help)\n");
 		}
-		else if (strncmp(str, "packets", 7) == 0)
-			show_packets(str);
-		else if (strncmp(str, "show", 4) == 0)
-			show_ip(str);
-		else if (strncmp(str, "select ", 7) == 0)
-			select_iface(str);
-		else if (strncmp(str, "stat", 4) == 0)
-			stat_iface(str);
-		else if (strncmp(str, "iface\n", 6) == 0)
-			show_ifaces();
-		else if (strncmp(str, "--help\n", 7) == 0)
-			usage_cli();
-		else if (strncmp(str, "exitcli\n", 8) == 0)
-		{
-			remove(LOG_IFACE);
-			exit(0);
-		}
-		else if (strncmp(str, "exit\n", 5) == 0)
-			exit_daemon_and_cli(pid);
 		else
 			printf("[!] Incorrect command! Please read usage (--help)\n");
 	}
