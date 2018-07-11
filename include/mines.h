@@ -13,12 +13,17 @@
 #ifndef MINES_H
 # define MINES_H
 # include "../libft/include/libft.h"
-# include <mlx.h>
+# include </root/libmlx/mlx.h>
+// # include <mlx.h>
 # include <math.h>
 # include <unistd.h>
-# define X 0
-# define Y 1
-# define C 2
+# define NOVICE_SIDE 9
+# define NOVICE_MINES 10
+# define INTER_SIDE 16
+# define INTER_MINES 40
+# define EXPERT_SIDE_X 30
+# define EXPERT_SIDE_Y 16
+# define EXPERT_MINES 99
 
 typedef struct		s_img
 {
@@ -35,6 +40,7 @@ typedef struct		s_img
 	int				shifty;
 	int				fillcell;
 	int				fillline;
+	int				mines;
 }					t_img;
 
 typedef struct		s_data

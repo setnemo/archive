@@ -63,6 +63,7 @@ void		draw_square(t_img *img, t_data *data, int points[])
 		}
 		points[0]++;
 	}
+	// ft_printf("points[%d][%d][%d][%d]\n", points[0],  points[1],  points[2],  points[3]);
 	// img->img_ptr[p1[Y] * img->sl / 4 + p1[X1] - 1] = color;
 }
 
@@ -73,10 +74,10 @@ void		init_lines(t_img *img, t_data *data)
 	int points[4];
 
 	j = -1;
-	while (++j < img->how_y)
+	while (++j < img->how_x)
 	{
 		i = -1;
-		while (++i < img->how_x)
+		while (++i < img->how_y)
 		{
 			points[0] = data->img->shifty + i * data->cellsize;
 			points[1] = data->img->shiftx + j * data->cellsize;
@@ -101,6 +102,30 @@ void		start_mines(t_data *data)
 	mlx_loop(img->mlx);
 }
 
+void		init_struct(t_data *data, int flag)
+{
+	if (flag)
+	{
+		data->img->how_x = (flag == 1) ? INTER_SIDE : EXPERT_SIDE_X;
+		data->img->how_y = (flag == 1) ? INTER_SIDE : EXPERT_SIDE_Y;
+		data->img->mines = (flag == 1) ? INTER_MINES : EXPERT_MINES;
+	}
+	else
+	{
+		data->img->how_x = NOVICE_SIDE;
+		data->img->how_y = NOVICE_SIDE;
+		data->img->mines = NOVICE_MINES;
+	}
+	data->cellsize = 24;
+	data->bordersize = 18;
+	data->headersize = 40;
+	data->windowsizew = data->bordersize * 2 + (data->img->how_x * data->cellsize);
+	data->windowsizeh = data->bordersize * 3 + (data->img->how_y * data->cellsize) + data->headersize;
+	data->img->fillline = 0x808080;
+	data->img->shifty = data->bordersize * 2 + data->headersize;
+	data->img->shiftx = data->bordersize;
+}
+
 int			main(int argc, char **argv)
 {
 	t_data	data;
@@ -110,24 +135,19 @@ int			main(int argc, char **argv)
 	ft_bzero(&img, sizeof(t_img));
 	data.img = &img;
 	if (argc == 1 && argv)
-	{
-		data.cellsize = 24;
-		data.bordersize = 18;
-		data.headersize = 40;
-		data.img->how_x = 9;
-		data.img->how_y = 9;
-		data.windowsizew = data.bordersize * 2 + data.img->how_x * data.cellsize;
-		data.windowsizeh = data.bordersize * 3 + data.img->how_y * data.cellsize + data.headersize;
-		data.img->fillline = 0x808080;
-		data.img->shifty = data.bordersize * 2 + data.headersize;
-		data.img->shiftx = data.bordersize;
-	}
+		init_struct(&data, 0);
+	else if (argc == 2 && ft_strequ(argv[1], "inter"))
+		init_struct(&data, 1);
+	else if (argc == 2 && ft_strequ(argv[1], "expert"))
+		init_struct(&data, 2);
+	else
+		ft_printf("USAFE MOTHERFUKER!!!!111\n");
 	start_mines(&data);
 	return (0);
 }
 
 
-// написать инициализацию в зависимости от сложности
+// DONE 		написать инициализацию в зависимости от сложности
 // дорисовать кнопку страта в шапке (она же будет выход, если нажат эскейп)
 // написать алгоритм игры
 // связать кей хуки с отрисовкой

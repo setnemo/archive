@@ -13,7 +13,8 @@
 NAME = mines42
 CC = gcc 
 # WWW = -Wall -Wextra -Werror 
-FLAGS = -g -lmlx -framework OpenGL -framework AppKit
+# FLAGS = -g -lmlx -framework OpenGL -framework AppKit
+FLAGS =  -lmlx -lXext -lX11 -L /root/libmlx/ -I /root/libmlx/
 
 SRC_NAME = 	main.c\
 			supportfunc.c\
@@ -33,7 +34,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	# @make -C $(LIB_DIR) --silent
 	@echo "######### LIB CREATED #########"
-	$(CC) -o $(NAME) $(OBJ) $(FLAGS) -L $(LIB_DIR) -lft
+	$(CC) -o $(NAME) $(OBJ) -L $(LIB_DIR) -lft $(FLAGS) 
 	@echo "##### COMPILING FINISHED ######"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
