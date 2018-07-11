@@ -1,5 +1,6 @@
 
 #include <sniffer.h>
+#define LEN_GETLINE 50
 
 void		ft_strclr(char *s)
 {
@@ -9,9 +10,9 @@ void		ft_strclr(char *s)
 
 int			check_daemon(int *pid)
 {
-	FILE *f;
-	char *line;
-	size_t len;
+	FILE	*f;
+	char	*line;
+	size_t	len = LEN_GETLINE;
 
 	f = fopen(PID_DAEMON, "r");
 	if (!f)
@@ -20,18 +21,20 @@ int			check_daemon(int *pid)
 	}
 	else
 	{
+		line = malloc(LEN_GETLINE);
 		getline(&line, &len, f);
 		*pid = atoi(line);
 		fclose(f);
+		free(line);
 	}
 	return (0);
 }
 
 char		*check_iface(void)
 {
-	FILE *f;
-	char *line, *temp;
-	size_t len;
+	FILE	*f;
+	char	*line, *temp;
+	size_t	len = LEN_GETLINE;
 
 	f = fopen(LOG_IFACE, "r");
 	if (!f)
@@ -40,6 +43,7 @@ char		*check_iface(void)
 	}
 	else
 	{
+		line = malloc(LEN_GETLINE);
 		getline(&line, &len, f);
 		fclose(f);
 	}
