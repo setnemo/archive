@@ -30,7 +30,9 @@ typedef struct		s_img
 	void			*mlx;
 	void			*win;
 	void			*img;
+	void			*smile;
 	int				*img_ptr;
+	int				*smile_ptr;
 	int				bpp;
 	int				sl;
 	int				endian;
@@ -40,6 +42,7 @@ typedef struct		s_img
 	int				shifty;
 	int				fillcell;
 	int				fillline;
+	int				button[4];
 	int				mines;
 }					t_img;
 

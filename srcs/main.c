@@ -28,7 +28,7 @@ char	g_box[9][9] = {
 int		mouse_hook(int mouse, int x, int y, t_data *data)
 {
 	int x1, y1;
-	// ft_printf("mouse[%d] x[%d] y[%d]\n", mouse, x, y);
+	// ft_printf("mouse[%d] x[%d] y[%d]\n     X", mouse, x, y);
 	x1 = (x - data->img->shiftx) / data->cellsize;
 	y1 = (y - data->img->shifty) / data->cellsize;
 	if (x1 >= 0 && y1 >= 0 && x1 < data->img->how_x &&
@@ -66,13 +66,24 @@ void		draw_square(t_img *img, t_data *data, int points[])
 	// ft_printf("points[%d][%d][%d][%d]\n", points[0],  points[1],  points[2],  points[3]);
 	// img->img_ptr[p1[Y] * img->sl / 4 + p1[X1] - 1] = color;
 }
+void		init_button(t_img *img, t_data *data, char *str)
+{
+	int		t[4];
+	int		i1;
+	int		i2;
+
+	ft_memcpy(&t[0], &img->button[0], sizeof(int) * 4);
+	draw_square(img, data, t);
+	i1 = data->cellsize * 2;
+	i2 = data->cellsize * 2;
+	img->smile = mlx_xpm_file_to_image(img->mlx, str, &i1, &i2);
+}
 
 void		init_lines(t_img *img, t_data *data)
 {
 	int i;
 	int j;
 	int points[4];
-
 	j = -1;
 	while (++j < img->how_x)
 	{
@@ -86,6 +97,10 @@ void		init_lines(t_img *img, t_data *data)
 			draw_square(img, data, points);
 		}
 	}
+	// init_button(img, data, "./xpm/Shout.xpm");
+	init_button(img, data, "./xpm/Sleepy.xpm");
+	// init_button(img, data, "./xpm/Mad.xpm");
+	// init_button(img, data, "./xpm/Love.xpm");
 }
 
 void		start_mines(t_data *data)
@@ -96,6 +111,7 @@ void		start_mines(t_data *data)
 	img = data->img;
 	init_lines(img, data);
 	mlx_put_image_to_window(img->mlx, img->win, img->img, 0, 0);
+	mlx_put_image_to_window(img->mlx, img->win, img->smile, img->button[1] - 2, img->button[0] - 2);
 	mlx_mouse_hook(img->win, mouse_hook, data);
 	mlx_hook(img->win, 17, 0L, window_close, data);
 	mlx_key_hook(img->win, key_hook, data);
@@ -124,6 +140,10 @@ void		init_struct(t_data *data, int flag)
 	data->img->fillline = 0x808080;
 	data->img->shifty = data->bordersize * 2 + data->headersize;
 	data->img->shiftx = data->bordersize;
+	data->img->button[0] = ((data->bordersize * 2 + data->headersize) / 2) - data->cellsize;
+	data->img->button[1] = (data->windowsizew / 2) - data->cellsize;
+	data->img->button[2] = data->img->button[0] + data->cellsize * 2;
+	data->img->button[3] = data->img->button[1] + data->cellsize * 2;
 }
 
 int			main(int argc, char **argv)

@@ -20,7 +20,8 @@ int			window_close(void)
 
 int			key_hook(int keycode)
 {
-	if (keycode == 53)
+	ft_printf("HOOK %d\n", keycode);
+	if (keycode == 53 || keycode == 65307)
 		exit(1);
 	return (0);
 }
@@ -28,6 +29,7 @@ int			key_hook(int keycode)
 void		init_img(t_data *data)
 {
 	t_img	*img;
+	int		i;
 
 	img = data->img;
 	img->mlx = mlx_init();
@@ -35,7 +37,7 @@ void		init_img(t_data *data)
 	img->img = mlx_new_image(img->mlx, data->windowsizew, data->windowsizeh);
 	img->img_ptr = (int*)mlx_get_data_addr(img->img, &img->bpp, &img->sl, &img->endian);
 	img->fillline = mlx_get_color_value(img->mlx, img->fillline);
-	int i = -1;
+	i = -1;
 	while (++i < data->windowsizew * data->windowsizeh)
 	{
 		img->img_ptr[i] = 0xc0c0c0;
