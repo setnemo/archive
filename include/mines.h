@@ -13,8 +13,8 @@
 #ifndef MINES_H
 # define MINES_H
 # include "../libft/include/libft.h"
-# include </root/libmlx/mlx.h>
-// # include <mlx.h>
+// # include </root/libmlx/mlx.h>
+# include <mlx.h>
 # include <math.h>
 # include <unistd.h>
 # define NOVICE_SIDE 9
@@ -31,11 +31,14 @@ typedef struct		s_img
 	void			*win;
 	void			*img;
 	void			*smile;
+	void			*img_mine;
 	int				*img_ptr;
-	int				*smile_ptr;
 	int				bpp;
 	int				sl;
 	int				endian;
+	int				bpp_t;
+	int				sl_t;
+	int				endian_t;
 	int				how_x;
 	int				how_y;
 	int				shiftx;
@@ -53,12 +56,15 @@ typedef struct		s_data
 	int				headersize;
 	int				windowsizeh;
 	int				windowsizew;
+	int				status;
+	char			**field;
 	struct s_img	*img;
 }					t_data;
 
 int					window_close(void);
-int					key_hook(int keycode);
+int					key_hook(int keycode, t_data *data);
+int					mouse_hook(int mouse, int x, int y, t_data *data);
 void				init_img(t_data *data);
-void				draw_line(int p1[3], int p2[3], t_img *img, int color);
-
+void				draw_square(t_img *img, t_data *data, int points[]);
+void				init_button(t_img *img, t_data *data, char *str);
 #endif

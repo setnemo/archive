@@ -24,59 +24,21 @@ char	g_box[9][9] = {
 	{80, 81, 82, 83, 84, 85, 86, 87, 88}
 	};
 
-
-int		mouse_hook(int mouse, int x, int y, t_data *data)
+void		init_play_field(t_data *data)
 {
-	int x1, y1;
-	// ft_printf("mouse[%d] x[%d] y[%d]\n     X", mouse, x, y);
-	x1 = (x - data->img->shiftx) / data->cellsize;
-	y1 = (y - data->img->shifty) / data->cellsize;
-	if (x1 >= 0 && y1 >= 0 && x1 < data->img->how_x &&
-		y1 < data->img->how_y && x >= data->img->shiftx &&
-		y >= data->img->shifty)
+	int i;
+
+	i = -1;
+	data->field = (char**)malloc(sizeof(char*) * data->img->how_y);
+	while (++i < data->img->how_y)
 	{
-		if (mouse == 1)
-			ft_printf("LEFT CLICK TO [%d] CELLS\n", g_box[y1][x1]);
-		if (mouse == 2)
-			ft_printf("RIGHT CLICK TO [%d] CELLS\n", g_box[y1][x1]);
-		else
-			ft_printf("[%d] CLICK TO [%d] CELLS\n", mouse, g_box[y1][x1]);
-
-	}
-	// ft_printf("mouse[%d] x1[%d] y1[%d]\n", mouse, x1, y1);
-	return (0);
-}
-
-void		draw_square(t_img *img, t_data *data, int points[])
-{
-	// ft_printf("points[%d][%d][%d][%d]\n", points[0],  points[1],  points[2],  points[3]);
-	int temp;
-
-	temp = points[1];
-	while (points[0] != points[2] - 1)
-	{
-		points[1] = temp;
-		while (points[1] != points[3] - 1)
+		data->field[i] = (char*)malloc(sizeof(char) * data->img->how_x);
+		ft_bzero(data->field[i], sizeof(char) * data->img->how_x);
+		for (int j = 0; j < data->img->how_x; ++j)
 		{
-			img->img_ptr[points[0] * img->sl / 4 + points[1] - 1] = data->img->fillline;
-			points[1]++;
+			data->field[i][j] = j;
 		}
-		points[0]++;
 	}
-	// ft_printf("points[%d][%d][%d][%d]\n", points[0],  points[1],  points[2],  points[3]);
-	// img->img_ptr[p1[Y] * img->sl / 4 + p1[X1] - 1] = color;
-}
-void		init_button(t_img *img, t_data *data, char *str)
-{
-	int		t[4];
-	int		i1;
-	int		i2;
-
-	ft_memcpy(&t[0], &img->button[0], sizeof(int) * 4);
-	draw_square(img, data, t);
-	i1 = data->cellsize * 2;
-	i2 = data->cellsize * 2;
-	img->smile = mlx_xpm_file_to_image(img->mlx, str, &i1, &i2);
 }
 
 void		init_lines(t_img *img, t_data *data)
@@ -97,8 +59,8 @@ void		init_lines(t_img *img, t_data *data)
 			draw_square(img, data, points);
 		}
 	}
-	// init_button(img, data, "./xpm/Shout.xpm");
-	init_button(img, data, "./xpm/Sleepy.xpm");
+	init_button(img, data, "./xpm/Shout.xpm");
+	// init_button(img, data, "./xpm/Sleepy.xpm");
 	// init_button(img, data, "./xpm/Mad.xpm");
 	// init_button(img, data, "./xpm/Love.xpm");
 }
@@ -113,8 +75,9 @@ void		start_mines(t_data *data)
 	mlx_put_image_to_window(img->mlx, img->win, img->img, 0, 0);
 	mlx_put_image_to_window(img->mlx, img->win, img->smile, img->button[1] - 2, img->button[0] - 2);
 	mlx_mouse_hook(img->win, mouse_hook, data);
-	mlx_hook(img->win, 17, 0L, window_close, data);
+	mlx_hook(img->win, 17, 0, window_close, data);
 	mlx_key_hook(img->win, key_hook, data);
+	init_play_field(data);
 	mlx_loop(img->mlx);
 }
 
@@ -144,6 +107,7 @@ void		init_struct(t_data *data, int flag)
 	data->img->button[1] = (data->windowsizew / 2) - data->cellsize;
 	data->img->button[2] = data->img->button[0] + data->cellsize * 2;
 	data->img->button[3] = data->img->button[1] + data->cellsize * 2;
+	data->status = 0;
 }
 
 int			main(int argc, char **argv)
@@ -155,20 +119,28 @@ int			main(int argc, char **argv)
 	ft_bzero(&img, sizeof(t_img));
 	data.img = &img;
 	if (argc == 1 && argv)
+	{
 		init_struct(&data, 0);
+		start_mines(&data);
+	}
 	else if (argc == 2 && ft_strequ(argv[1], "inter"))
+	{
 		init_struct(&data, 1);
+		start_mines(&data);
+	}
 	else if (argc == 2 && ft_strequ(argv[1], "expert"))
+	{
 		init_struct(&data, 2);
+		start_mines(&data);
+	}
 	else
-		ft_printf("USAFE MOTHERFUKER!!!!111\n");
-	start_mines(&data);
+		ft_printf("USAGE MOTHERFUKER!!!!111\n");
 	return (0);
 }
 
 
 // DONE 		написать инициализацию в зависимости от сложности
-// дорисовать кнопку страта в шапке (она же будет выход, если нажат эскейп)
+// DONE			дорисовать кнопку страта в шапке (она же будет выход, если нажат эскейп)
 // написать алгоритм игры
 // связать кей хуки с отрисовкой
 // реализовать свой рандом на базе urandom
