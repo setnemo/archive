@@ -14,8 +14,7 @@
 # define MINES_H
 # include "../libft/include/libft.h"
 # include </root/libmlx/mlx.h>
-// # include <mlx.h>
-# include <math.h>
+# include <fcntl.h>
 # include <unistd.h>
 # define NOVICE_SIDE 9
 # define NOVICE_MINES 10
@@ -66,10 +65,14 @@ int					key_hook(int keycode, t_data *data);
 int					mouse_hook(int mouse, int x, int y, t_data *data);
 
 void				draw_square(t_img *img, t_data *data, int points[]);
+void				draw_mines(t_data *data);
 
 void				init_button(t_img *img, t_data *data, char *str);
 void				init_lines(t_img *img, t_data *data);
-void				init_play_field(t_data *data);
 void				init_img(t_data *data);
+
+void				init_play_field(t_data *data);
+
+void				solve_distance(t_data *data);
 
 #endif

@@ -29,3 +29,5 @@ void		draw_square(t_img *img, t_data *data, int points[])
 		points[0]++;
 	}
 }
+
+void		draw_mines(t_data *data);

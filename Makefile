@@ -17,9 +17,10 @@ CC = gcc
 FLAGS =  -lmlx -lXext -lX11 -L /root/libmlx/ -I /root/libmlx/
 
 SRC_NAME = 	main.c\
-			init.c\
 			hook.c\
 			draw.c\
+			init_img.c\
+			init_field.c\
 			core.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)

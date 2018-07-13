@@ -18,23 +18,24 @@ int			window_close(void)
 	return (0);
 }
 
-void		start_mines(t_data *data)
+static void	start_mines(t_data *data)
 {
 	t_img *img;
 
 	init_img(data);
 	img = data->img;
-	init_lines(img, data);
+	init_play_field(data);
 	mlx_put_image_to_window(img->mlx, img->win, img->img, 0, 0);
 	mlx_put_image_to_window(img->mlx, img->win, img->smile, img->button[1] - 2, img->button[0] - 2);
 	mlx_mouse_hook(img->win, mouse_hook, data);
 	mlx_hook(img->win, 17, 0, window_close, data);
 	mlx_key_hook(img->win, key_hook, data);
-	init_play_field(data);
+	init_lines(img, data);
+	draw_mines(data);
 	mlx_loop(img->mlx);
 }
 
-void		init_struct(t_data *data, int flag)
+static void	init_struct(t_data *data, int flag)
 {
 	if (flag)
 	{
