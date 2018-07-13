@@ -12,57 +12,10 @@
 
 #include "mines.h"
 
-char	g_box[9][9] = {
-	{0, 1, 2, 3, 4, 5, 6, 7, 8},
-	{10, 11, 12, 13, 14, 15, 16, 17, 18},
-	{20, 21, 22, 23, 24, 25, 26, 27, 28},
-	{30, 31, 32, 33, 34, 35, 36, 37, 38},
-	{40, 41, 42, 43, 44, 45, 46, 47, 48},
-	{50, 51, 52, 53, 54, 55, 56, 57, 58},
-	{60, 61, 62, 63, 64, 65, 66, 67, 68},
-	{70, 71, 72, 73, 74, 75, 76, 77, 78},
-	{80, 81, 82, 83, 84, 85, 86, 87, 88}
-	};
-
-void		init_play_field(t_data *data)
+int			window_close(void)
 {
-	int i;
-
-	i = -1;
-	data->field = (char**)malloc(sizeof(char*) * data->img->how_y);
-	while (++i < data->img->how_y)
-	{
-		data->field[i] = (char*)malloc(sizeof(char) * data->img->how_x);
-		ft_bzero(data->field[i], sizeof(char) * data->img->how_x);
-		for (int j = 0; j < data->img->how_x; ++j)
-		{
-			data->field[i][j] = j;
-		}
-	}
-}
-
-void		init_lines(t_img *img, t_data *data)
-{
-	int i;
-	int j;
-	int points[4];
-	j = -1;
-	while (++j < img->how_x)
-	{
-		i = -1;
-		while (++i < img->how_y)
-		{
-			points[0] = data->img->shifty + i * data->cellsize;
-			points[1] = data->img->shiftx + j * data->cellsize;
-			points[2] = data->img->shifty + (i + 1) * data->cellsize;
-			points[3] = data->img->shiftx + (j + 1) * data->cellsize;
-			draw_square(img, data, points);
-		}
-	}
-	init_button(img, data, "./xpm/Shout.xpm");
-	// init_button(img, data, "./xpm/Sleepy.xpm");
-	// init_button(img, data, "./xpm/Mad.xpm");
-	// init_button(img, data, "./xpm/Love.xpm");
+	exit(1);
+	return (0);
 }
 
 void		start_mines(t_data *data)

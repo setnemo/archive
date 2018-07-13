@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   supportfunc.c                                      :+:      :+:    :+:   */
+/*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,19 +11,6 @@
 /* ************************************************************************** */
 
 #include "mines.h"
-
-void		init_button(t_img *img, t_data *data, char *str)
-{
-	int		t[4];
-	int		i1;
-	int		i2;
-
-	ft_memcpy(&t[0], &img->button[0], sizeof(int) * 4);
-	draw_square(img, data, t);
-	i1 = data->cellsize * 2;
-	i2 = data->cellsize * 2;
-	img->smile = mlx_xpm_file_to_image(img->mlx, str, &i1, &i2);
-}
 
 void		hook_start_pause(t_data *data)
 {
@@ -71,12 +58,6 @@ int		mouse_hook(int mouse, int x, int y, t_data *data)
 	return (0);
 }
 
-int			window_close(void)
-{
-	exit(1);
-	return (0);
-}
-
 int			key_hook(int keycode, t_data *data)
 {
 	ft_printf("HOOK %d\n", keycode);
@@ -84,27 +65,10 @@ int			key_hook(int keycode, t_data *data)
 	{
 		exit(1);
 	}
-	else if (keycode == 49)
+	else if (keycode == 49 || keycode == 32)
 	{
 		hook_start_pause(data);
 	}
 	return (0);
 }
 
-void		init_img(t_data *data)
-{
-	t_img	*img;
-	int		i;
-
-	img = data->img;
-	img->mlx = mlx_init();
-	img->win = mlx_new_window(img->mlx, data->windowsizew, data->windowsizeh, "Mines42");
-	img->img = mlx_new_image(img->mlx, data->windowsizew, data->windowsizeh);
-	img->img_ptr = (int*)mlx_get_data_addr(img->img, &img->bpp, &img->sl, &img->endian);
-	img->fillline = mlx_get_color_value(img->mlx, img->fillline);
-	i = -1;
-	while (++i < data->windowsizew * data->windowsizeh)
-	{
-		img->img_ptr[i] = 0xc0c0c0;
-	}
-}

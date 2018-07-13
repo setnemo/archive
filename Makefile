@@ -13,12 +13,14 @@
 NAME = mines42
 CC = gcc 
 # WWW = -Wall -Wextra -Werror 
-FLAGS = -g -lmlx -framework OpenGL -framework AppKit
-# FLAGS =  -lmlx -lXext -lX11 -L /root/libmlx/ -I /root/libmlx/
+# FLAGS = -g -lmlx -framework OpenGL -framework AppKit
+FLAGS =  -lmlx -lXext -lX11 -L /root/libmlx/ -I /root/libmlx/
 
 SRC_NAME = 	main.c\
-			supportfunc.c\
-			draw.c
+			init.c\
+			hook.c\
+			draw.c\
+			core.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
