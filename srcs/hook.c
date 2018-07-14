@@ -61,8 +61,26 @@ int		mouse_hook(int mouse, int x, int y, t_data *data)
 		}
 		if (mouse == 2)
 		{
-			draw_xpm(data, 9, x1, y1);
+			if (data->start == 1)
+			{
+				data->start = 2;
+				init_play_field(data, x1, y1);
+				draw_xpm(data, data->field[y1][x1], x1, y1);
+			}
+			else if (data->start == 0)
+				return (0);
 			ft_printf("RIGHT CLICK TO CELLS[%d][%d]\n", y1, x1);
+			if (data->start)
+			{
+				ft_printf("cell[%d]\n", data->field[y1][x1]);
+				if (data->show[y1][x1] == 0)
+					draw_xpm(data, 9, x1, y1);
+				else if (data->show[y1][x1] == 1)
+				{
+					draw_xpm(data, 10, x1, y1);
+					data->show[y1][x1] = 0;
+				}
+			}
 		}
 		// else
 		// 	ft_printf("[%d] CLICK TO CELLS\n", mouse);

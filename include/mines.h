@@ -59,6 +59,7 @@ typedef struct		s_data
 	int				status;
 	int				start;
 	char			**field;
+	char			**show;
 	struct s_img	*img;
 }					t_data;
 

@@ -46,25 +46,25 @@ void		bfs_zero_show(t_data *data, int flag, int x, int y)
 {
 	if (y - 1 >= 0)
 	{
-		if (data->field[y - 1][x] != -2)
+		if (data->show[y - 1][x] != -2)
 			draw_xpm(data, data->field[y - 1][x], x, y - 1);
-		if (x + 1 < data->img->how_x && data->field[y - 1][x + 1] != -2)
+		if (x + 1 < data->img->how_x && data->show[y - 1][x + 1] != -2)
 			draw_xpm(data, data->field[y - 1][x + 1], x + 1, y - 1);
-		if (x - 1 >= 0 && data->field[y - 1][x - 1] != -2)
+		if (x - 1 >= 0 && data->show[y - 1][x - 1] != -2)
 			draw_xpm(data, data->field[y - 1][x - 1], x - 1, y - 1);
 	}
 	if (y + 1 < data->img->how_y)
 	{
-		if (data->field[y + 1][x] != -2)
+		if (data->show[y + 1][x] != -2)
 			draw_xpm(data, data->field[y + 1][x], x, y + 1);
-		if (x + 1 < data->img->how_x && data->field[y + 1][x + 1] != -2)
+		if (x + 1 < data->img->how_x && data->show[y + 1][x + 1] != -2)
 			draw_xpm(data, data->field[y + 1][x + 1], x + 1, y + 1);
-		if (x - 1 >= 0 && data->field[y + 1][x - 1] != -2)
+		if (x - 1 >= 0 && data->show[y + 1][x - 1] != -2)
 			draw_xpm(data, data->field[y + 1][x - 1], x - 1, y + 1);
 	}
-	if (x - 1 >= 0 && data->field[y][x - 1] != -2)
+	if (x - 1 >= 0 && data->show[y][x - 1] != -2)
 		draw_xpm(data, data->field[y][x - 1], x - 1, y);
-	if (x + 1 < data->img->how_x && data->field[y][x + 1] != -2)
+	if (x + 1 < data->img->how_x && data->show[y][x + 1] != -2)
 		draw_xpm(data, data->field[y][x + 1], x + 1, y);
 }
 
@@ -72,17 +72,22 @@ void		draw_xpm(t_data *data, int flag, int x, int y)
 {
 	char path[16];
 
+	ft_printf(".\n");
 	if (flag == -2)
 		return ;
-	data->field[y][x] = -2;
+	if (flag == 9)
+		data->show[y][x] = 1;
+	if (flag != -1 && flag != 9)
+		data->show[y][x] = -2;
 	if (flag == 0)
 		bfs_zero_show(data, flag, x, y);
-	ft_printf(".\n");
 	ft_memcpy(&path[0], "./xpm/type .xpm\0", 16);
-	if (flag < 9 && flag > -2)
+	if (flag > -2)
 	{
-		if (flag == -1)
+		if (flag == -1 || flag == 9)
 			path[10] = 'm';
+		else if (flag == 10)
+			path[10] = 'n';
 		else
 			path[10] = flag + 48;
 		ft_printf("...\n");

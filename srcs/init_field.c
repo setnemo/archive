@@ -79,10 +79,13 @@ void		init_play_field(t_data *data, int x, int y)
 	first[0] = y;
 	first[1] = x;
 	data->field = (char**)malloc(sizeof(char*) * data->img->how_y);
+	data->show = (char**)malloc(sizeof(char*) * data->img->how_y);
 	while (++i < data->img->how_y)
 	{
 		data->field[i] = (char*)malloc(sizeof(char) * data->img->how_x);
 		ft_bzero(data->field[i], sizeof(char) * data->img->how_x);
+		data->show[i] = (char*)malloc(sizeof(char) * data->img->how_x);
+		ft_bzero(data->show[i], sizeof(char) * data->img->how_x);
 	}
 	fd = open("/dev/urandom", O_RDONLY);
 	init_mines_in_field(data, 0, fd, first);
