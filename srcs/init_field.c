@@ -37,7 +37,7 @@ static void	mine_two_random(int *x, int *y, t_data *data, unsigned int value)
 		*y = data->img->how_y - 1;
 }
 
-static void	init_mines_in_field(t_data *data, unsigned int value, int fd)
+static void	init_mines_in_field(t_data *data, unsigned int value, int fd, int first[])
 {
 	int minecount;
 	int x;
@@ -51,7 +51,7 @@ static void	init_mines_in_field(t_data *data, unsigned int value, int fd)
 		if (minecount % 2 == 0)
 		{
 			mine_one_random(&x, &y, data, value);
-			if (data->field[y][x] == 0)
+			if (data->field[y][x] == 0 && first[0] != y && first[1] != x)
 				data->field[y][x] = -1;
 			else
 				--minecount;
@@ -59,7 +59,7 @@ static void	init_mines_in_field(t_data *data, unsigned int value, int fd)
 		else
 		{
 			mine_two_random(&x, &y, data, value);
-			if (data->field[y][x] == 0)
+			if (data->field[y][x] == 0 && first[0] != y && first[1] != x)
 				data->field[y][x] = -1;
 			else
 				--minecount;
@@ -69,12 +69,15 @@ static void	init_mines_in_field(t_data *data, unsigned int value, int fd)
 }
 
 
-void		init_play_field(t_data *data)
+void		init_play_field(t_data *data, int x, int y)
 {
 	int i;
 	int fd;
+	int first[2];
 
 	i = -1;
+	first[0] = y;
+	first[1] = x;
 	data->field = (char**)malloc(sizeof(char*) * data->img->how_y);
 	while (++i < data->img->how_y)
 	{
@@ -82,7 +85,7 @@ void		init_play_field(t_data *data)
 		ft_bzero(data->field[i], sizeof(char) * data->img->how_x);
 	}
 	fd = open("/dev/urandom", O_RDONLY);
-	init_mines_in_field(data, 0, fd);
+	init_mines_in_field(data, 0, fd, first);
 	close(fd);
 	for (int i = 0; i < data->img->how_y; ++i)
 	{

@@ -30,8 +30,6 @@ static void	start_mines(t_data *data)
 	mlx_mouse_hook(img->win, mouse_hook, data);
 	mlx_hook(img->win, 17, 0, window_close, data);
 	mlx_key_hook(img->win, key_hook, data);
-	init_play_field(data);
-	draw_mines(data);
 	mlx_loop(img->mlx);
 }
 
@@ -62,6 +60,7 @@ static void	init_struct(t_data *data, int flag)
 	data->img->button[2] = data->img->button[0] + data->cellsize * 2;
 	data->img->button[3] = data->img->button[1] + data->cellsize * 2;
 	data->status = 0;
+	data->start = 0;
 }
 
 int			main(int argc, char **argv)

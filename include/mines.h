@@ -31,7 +31,7 @@ typedef struct		s_img
 	void			*win;
 	void			*img;
 	void			*smile;
-	void			*img_mine;
+	void			*xpm;
 	int				*img_ptr;
 	int				bpp;
 	int				sl;
@@ -57,6 +57,7 @@ typedef struct		s_data
 	int				windowsizeh;
 	int				windowsizew;
 	int				status;
+	int				start;
 	char			**field;
 	struct s_img	*img;
 }					t_data;
@@ -72,8 +73,8 @@ void				init_button(t_img *img, t_data *data, char *str);
 void				init_lines(t_img *img, t_data *data);
 void				init_img(t_data *data);
 
-void				init_play_field(t_data *data);
+void				init_play_field(t_data *data, int x, int y);
 
 void				solve_distance(t_data *data);
-void				draw_mines(t_data *data);
+void				draw_xpm(t_data *data, int flag, int x, int y);
 #endif
