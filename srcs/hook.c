@@ -38,6 +38,7 @@ int		mouse_hook(int mouse, int x, int y, t_data *data)
 {
 	int x1;
 	int y1;
+	
 	// ft_printf("mouse[%d] x[%d] y[%d]\n     X", mouse, x, y);
 	if (data->status == 3)
 	{
@@ -57,16 +58,17 @@ int		mouse_hook(int mouse, int x, int y, t_data *data)
 				data->start = 2;
 				init_play_field(data, x1, y1);
 			}
-			ft_printf("LEFT CLICK TO CELLS[%d][%d]          (%d:%d)\n", y1, x1, y, x);
+			// ft_printf("LEFT CLICK TO CELLS[%d][%d]          (%d:%d)\n", y1, x1, y, x);
 			if (data->start)
 			{
-				ft_printf("cell[%d]\n", data->field[y1][x1]);
+				// ft_printf("cell[%d]\n", data->field[y1][x1]);
 				if (data->field[y1][x1] != -1)
 					draw_xpm(data, data->field[y1][x1], x1, y1);
 				else
 				{
 					draw_xpm(data, data->field[y1][x1], x1, y1);
-					draw_stop(data);
+					// ft_printf("HERAK!\n");
+					draw_stop(data, 0);
 				}
 			}
 		}
@@ -80,10 +82,10 @@ int		mouse_hook(int mouse, int x, int y, t_data *data)
 			}
 			else if (data->start == 0)
 				return (0);
-			ft_printf("RIGHT CLICK TO CELLS[%d][%d]\n", y1, x1);
+			// ft_printf("RIGHT CLICK TO CELLS[%d][%d]          (%d:%d)\n", y1, x1, y, x);
 			if (data->start)
 			{
-				ft_printf("cell[%d]\n", data->field[y1][x1]);
+				// ft_printf("cell[%d]\n", data->field[y1][x1]);
 				if (data->show[y1][x1] == 0)
 					draw_xpm(data, 9, x1, y1);
 				else if (data->show[y1][x1] == 1)
@@ -93,6 +95,21 @@ int		mouse_hook(int mouse, int x, int y, t_data *data)
 				}
 			}
 		}
+		// if (data->show)
+		// {
+		// 	ft_printf("========= start show ======\n");
+		// 	for (int i = 0; i < data->img->how_y; ++i)
+		// 	{
+		// 		for (int j = 0; j < data->img->how_x; ++j)
+		// 		{
+		// 			ft_printf("%d ", data->field[i][j]);
+		// 		}
+		// 		ft_printf("\n");
+		// 	}
+		// 	ft_printf("=========  end  show ======\n");
+		// 	ft_printf("======= %d ============= %d ====\n", data->openm, data->openc);
+
+		// }
 		// else
 		// 	ft_printf("[%d] CLICK TO CELLS\n", mouse);
 
@@ -107,7 +124,7 @@ int		mouse_hook(int mouse, int x, int y, t_data *data)
 
 int			key_hook(int keycode, t_data *data)
 {
-	ft_printf("HOOK %d\n", keycode);
+	// ft_printf("HOOK %d\n", keycode);
 	if (data->status != 3)
 	{
 		if ((keycode == 53 || keycode == 65307) && data->status != 1)
@@ -123,10 +140,11 @@ int			key_hook(int keycode, t_data *data)
 	{
 		if (keycode == 49 || keycode == 32)
 		{
-			ft_printf("magic....\n");
+			ft_printf("new game....\n");
 			t_img *img = data->img;
+			data->openc = data->img->how_x * data->img->how_y;
+			data->openm = data->img->mines;
 			mlx_clear_window (data->img->mlx, data->img->win);
-			img->mlx = mlx_init();
 			img->img = mlx_new_image(img->mlx, data->windowsizew, data->windowsizeh);
 			img->img_ptr = (int*)mlx_get_data_addr(img->img, &img->bpp, &img->sl, &img->endian);
 			int i = -1;

@@ -58,6 +58,8 @@ typedef struct		s_data
 	int				windowsizew;
 	int				status;
 	int				start;
+	int				openc;
+	int				openm;
 	char			**field;
 	char			**show;
 	struct s_img	*img;
@@ -80,5 +82,5 @@ void				solve_distance(t_data *data);
 void				draw_xpm(t_data *data, int flag, int x, int y);
 
 
-void		draw_stop(t_data *data);
+void		draw_stop(t_data *data, int flag);
 #endif

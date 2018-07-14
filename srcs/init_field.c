@@ -80,31 +80,33 @@ void		init_play_field(t_data *data, int x, int y)
 	first[1] = x;
 	data->field = (char**)malloc(sizeof(char*) * data->img->how_y);
 	data->show = (char**)malloc(sizeof(char*) * data->img->how_y);
+	// ft_printf("==========>%p\n===========>%p\n", data->field, data->show);
 	while (++i < data->img->how_y)
 	{
 		data->field[i] = (char*)malloc(sizeof(char) * data->img->how_x);
 		ft_bzero(data->field[i], sizeof(char) * data->img->how_x);
 		data->show[i] = (char*)malloc(sizeof(char) * data->img->how_x);
 		ft_bzero(data->show[i], sizeof(char) * data->img->how_x);
+		// ft_printf("=%i=========>%p\n===========>%p\n", i, data->field[i], data->show[i]);
 	}
 	fd = open("/dev/urandom", O_RDONLY);
 	init_mines_in_field(data, 0, fd, first);
 	close(fd);
-	for (int i = 0; i < data->img->how_y; ++i)
-	{
-		for (int j = 0; j < data->img->how_x; ++j)
-		{
-			ft_printf("%d ", data->field[i][j]);
-		}
-		ft_printf("\n");
-	}
+	// for (int i = 0; i < data->img->how_y; ++i)
+	// {
+	// 	for (int j = 0; j < data->img->how_x; ++j)
+	// 	{
+	// 		ft_printf("%d ", data->field[i][j]);
+	// 	}
+	// 	ft_printf("\n");
+	// }
 	solve_distance(data);
-	for (int i = 0; i < data->img->how_y; ++i)
-	{
-		for (int j = 0; j < data->img->how_x; ++j)
-		{
-			ft_printf("%d ", data->field[i][j]);
-		}
-		ft_printf("\n");
-	}
+	// for (int i = 0; i < data->img->how_y; ++i)
+	// {
+	// 	for (int j = 0; j < data->img->how_x; ++j)
+	// 	{
+	// 		ft_printf("%d ", data->show[i][j]);
+	// 	}
+	// 	ft_printf("\n");
+	// }
 }

@@ -12,27 +12,45 @@
 
 #include "mines.h"
 
-void		draw_stop(t_data *data)
+void		draw_stop(t_data *data, int flag)
 {
 	int		i1;
 	int		i2;
+	char	*gameover;
+	char	*button;
 
 	i1 = 120;
 	i2 = 72;
-	data->img->xpm = mlx_xpm_file_to_image(data->img->mlx, "./xpm/lose.xpm", &i1, &i2);
+	if (flag)
+	{
+		gameover = "./xpm/win.xpm";
+		button = "./xpm/Love.xpm";
+	}
+	else
+	{
+		gameover = "./xpm/lose.xpm" ;
+		button = "./xpm/Sad.xpm" ;
+		
+	}
+	data->img->xpm = mlx_xpm_file_to_image(data->img->mlx, gameover, &i1, &i2);
 	i2 = (data->windowsizeh / 2) - 36;
 	i1 = (data->windowsizew / 2) - 60;
 	mlx_put_image_to_window(data->img->mlx, data->img->win, data->img->xpm, i1, i2);
 	data->start = 1;
-	int i = -1;
+	int i;
+	i = -1;
 	while (++i < data->img->how_y)
 	{
+				// ft_printf("=%i=========>%p\n===========>%p\n", i, data->field[i], data->show[i]);
+
 		free(data->field[i]);
 		free(data->show[i]);
 	}
+				// ft_printf("===========>%p\n===========>%p\n", data->field, data->show);
 	free(data->field);
 	free(data->show);
-	init_button(data->img, data, "./xpm/Love.xpm");
+	data->show = NULL;
+	init_button(data->img, data, button);
 	mlx_put_image_to_window(data->img->mlx, data->img->win, data->img->smile, data->img->button[1] - 2, data->img->button[0] - 2);
 	mlx_destroy_image(data->img->mlx, data->img->img);
 	data->status = 3;
@@ -63,6 +81,7 @@ void		init_xpm(t_img *img, t_data *data, char *str)
 
 	i1 = data->cellsize;
 	i2 = data->cellsize;
+	// ft_printf("size[%d:%d]", i1, i2);
 	img->xpm = mlx_xpm_file_to_image(img->mlx, str, &i1, &i2);
 }
 
@@ -98,11 +117,13 @@ void		draw_xpm(t_data *data, int flag, int x, int y)
 {
 	char path[16];
 
-	ft_printf(".\n");
 	if (flag == -2)
 		return ;
 	if (flag == 9)
+	{
+		data->openm--;
 		data->show[y][x] = 1;
+	}
 	if (flag != -1 && flag != 9)
 		data->show[y][x] = -2;
 	if (flag == 0)
@@ -113,19 +134,22 @@ void		draw_xpm(t_data *data, int flag, int x, int y)
 		if (flag == -1 || flag == 9)
 			path[10] = 'm';
 		else if (flag == 10)
+		{
+			data->openc += 2;
+			data->openm++;
 			path[10] = 'n';
+		}
 		else
 			path[10] = flag + 48;
-		ft_printf("...\n");
-		ft_printf("..                   %s\n", path);
-		ft_printf("....\n");
+		// ft_printf("%s ", path);
 		init_xpm(data->img, data, &path[0]);
-		ft_printf("..... ");
+		// ft_printf("  [%d:%d]", y, x);
 		y = data->img->shifty + y * data->cellsize;
 		x = data->img->shiftx + x * data->cellsize;
-		ft_printf("                    %d:%d\n", y, x);
+		// ft_printf("  [%d:%d]\n", y, x);
+		data->openc--;
 		mlx_put_image_to_window(data->img->mlx, data->img->win, data->img->xpm, x, y);
-		ft_printf("......\n");
 	}
-	return ;
+	if (data->openc == 0 && data->openm == 0)
+		draw_stop(data, 1);
 }

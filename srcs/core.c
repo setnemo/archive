@@ -52,7 +52,7 @@ void		solve_distance(t_data *data)
 		{
 			if (data->field[i][j] == -1)
 			{
-				ft_printf("i:%i j:%i check:%i\n", i, j);
+				// ft_printf("i:%i j:%i check:%i\n", i, j);
 				increment_neighbor(i, j, data);
 			}
 		}
