@@ -12,6 +12,32 @@
 
 #include "mines.h"
 
+void		draw_stop(t_data *data)
+{
+	int		i1;
+	int		i2;
+
+	i1 = 120;
+	i2 = 72;
+	data->img->xpm = mlx_xpm_file_to_image(data->img->mlx, "./xpm/lose.xpm", &i1, &i2);
+	i2 = (data->windowsizeh / 2) - 36;
+	i1 = (data->windowsizew / 2) - 60;
+	mlx_put_image_to_window(data->img->mlx, data->img->win, data->img->xpm, i1, i2);
+	data->start = 1;
+	int i = -1;
+	while (++i < data->img->how_y)
+	{
+		free(data->field[i]);
+		free(data->show[i]);
+	}
+	free(data->field);
+	free(data->show);
+	init_button(data->img, data, "./xpm/Love.xpm");
+	mlx_put_image_to_window(data->img->mlx, data->img->win, data->img->smile, data->img->button[1] - 2, data->img->button[0] - 2);
+	mlx_destroy_image(data->img->mlx, data->img->img);
+	data->status = 3;
+}
+
 void		draw_square(t_img *img, t_data *data, int points[])
 {
 	// ft_printf("points[%d][%d][%d][%d]\n", points[0],  points[1],  points[2],  points[3]);

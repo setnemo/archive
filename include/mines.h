@@ -78,4 +78,7 @@ void				init_play_field(t_data *data, int x, int y);
 
 void				solve_distance(t_data *data);
 void				draw_xpm(t_data *data, int flag, int x, int y);
+
+
+void		draw_stop(t_data *data);
 #endif
