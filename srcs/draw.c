@@ -148,7 +148,7 @@ void		draw_xpm(t_data *data, int flag, int x, int y)
 		x = data->img->shiftx + x * data->cellsize;
 		// ft_printf("  [%d:%d]\n", y, x);
 		data->openc--;
-		mlx_put_image_to_window(data->img->mlx, data->img->win, data->img->xpm, x, y);
+		mlx_put_image_to_window(data->img->mlx, data->img->win, data->img->xpm, x - 1, y - 1);
 	}
 	if (data->openc == 0 && data->openm == 0)
 		draw_stop(data, 1);

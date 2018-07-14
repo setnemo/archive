@@ -49,7 +49,7 @@ int		mouse_hook(int mouse, int x, int y, t_data *data)
 	y1 = (y - data->img->shifty) / data->cellsize;
 	if (x1 >= 0 && y1 >= 0 && x1 < data->img->how_x &&
 		y1 < data->img->how_y && x >= data->img->shiftx &&
-		y >= data->img->shifty)
+		y >= data->img->shifty && data->status == 1)
 	{
 		if (mouse == 1)
 		{
