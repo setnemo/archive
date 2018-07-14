@@ -39,7 +39,7 @@ int		mouse_hook(int mouse, int x, int y, t_data *data)
 	int x1;
 	int y1;
 	
-	// ft_printf("mouse[%d] x[%d] y[%d]\n     X", mouse, x, y);
+	ft_printf("mouse[%d] x[%d] y[%d]\n", mouse, x, y);
 	if (data->status == 3)
 	{
 		key_hook(49, data);
@@ -72,7 +72,7 @@ int		mouse_hook(int mouse, int x, int y, t_data *data)
 				}
 			}
 		}
-		if (mouse == 2)
+		if (mouse == 2 || mouse == 3) //linux 3
 		{
 			if (data->start == 1)
 			{
@@ -138,6 +138,10 @@ int			key_hook(int keycode, t_data *data)
 	}
 	else
 	{
+		if (keycode == 53 || keycode == 65307)
+		{
+			exit(1);
+		}
 		if (keycode == 49 || keycode == 32)
 		{
 			ft_printf("new game....\n");
@@ -149,9 +153,7 @@ int			key_hook(int keycode, t_data *data)
 			img->img_ptr = (int*)mlx_get_data_addr(img->img, &img->bpp, &img->sl, &img->endian);
 			int i = -1;
 			while (++i < data->windowsizew * data->windowsizeh)
-			{
 				data->img->img_ptr[i] = 0xc0c0c0;
-			}
 			init_lines(data->img, data);
 			mlx_put_image_to_window(img->mlx, img->win, img->img, 0, 0);
 			data->status = 0;
