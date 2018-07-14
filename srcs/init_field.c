@@ -44,7 +44,7 @@ static void	init_mines_in_field(t_data *data, unsigned int value, int fd)
 	int y;
 
 	minecount = -1;
-	while (++minecount <= data->img->mines)
+	while (++minecount < data->img->mines)
 	{
 		read(fd, &value, sizeof(unsigned int));
 		// ft_printf("(%d) %u x:%d y:%d\n", minecount, value, x, y);
@@ -84,10 +84,18 @@ void		init_play_field(t_data *data)
 	fd = open("/dev/urandom", O_RDONLY);
 	init_mines_in_field(data, 0, fd);
 	close(fd);
+	for (int i = 0; i < data->img->how_y; ++i)
+	{
+		for (int j = 0; j < data->img->how_x; ++j)
+		{
+			ft_printf("%d ", data->field[i][j]);
+		}
+		ft_printf("\n");
+	}
 	solve_distance(data);
 	for (int i = 0; i < data->img->how_y; ++i)
 	{
-		for (int j = 0; j < data->img->how_y; ++j)
+		for (int j = 0; j < data->img->how_x; ++j)
 		{
 			ft_printf("%d ", data->field[i][j]);
 		}

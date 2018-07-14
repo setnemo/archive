@@ -30,4 +30,7 @@ void		draw_square(t_img *img, t_data *data, int points[])
 	}
 }
 
-void		draw_mines(t_data *data);
+void		draw_mines(t_data *data)
+{
+	return ;
+}

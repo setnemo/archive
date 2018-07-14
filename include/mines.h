@@ -13,7 +13,8 @@
 #ifndef MINES_H
 # define MINES_H
 # include "../libft/include/libft.h"
-# include </root/libmlx/mlx.h>
+// # include </root/libmlx/mlx.h>
+# include <mlx.h>
 # include <fcntl.h>
 # include <unistd.h>
 # define NOVICE_SIDE 9
@@ -74,5 +75,5 @@ void				init_img(t_data *data);
 void				init_play_field(t_data *data);
 
 void				solve_distance(t_data *data);
-
+void				draw_mines(t_data *data);
 #endif

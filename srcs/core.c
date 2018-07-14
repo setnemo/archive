@@ -17,23 +17,25 @@ static void	increment_neighbor(int y, int x, t_data *data)
 {
 	if (y - 1 >= 0)
 	{
-		data->field[y - 1][x]++;
-		if (x + 1 < data->img->how_x)
+		if (data->field[y - 1][x] != -1)
+			data->field[y - 1][x]++;
+		if (x + 1 < data->img->how_x && data->field[y - 1][x + 1] != -1)
 			data->field[y - 1][x + 1]++;
-		if (x - 1 >= 0)
+		if (x - 1 >= 0 && data->field[y - 1][x - 1] != -1)
 			data->field[y - 1][x - 1]++;
 	}
 	if (y + 1 < data->img->how_y)
 	{
-		data->field[y + 1][x]++;
-		if (x + 1 < data->img->how_x)
+		if (data->field[y + 1][x] != -1)
+			data->field[y + 1][x]++;
+		if (x + 1 < data->img->how_x && data->field[y + 1][x + 1] != -1)
 			data->field[y + 1][x + 1]++;
-		if (x - 1 >= 0)
+		if (x - 1 >= 0 && data->field[y + 1][x - 1] != -1)
 			data->field[y + 1][x - 1]++;
 	}
-	if (x - 1 >= 0)
+	if (x - 1 >= 0 && data->field[y][x - 1] != -1)
 		data->field[y][x - 1]++;
-	if (x + 1 < data->img->how_x)
+	if (x + 1 < data->img->how_x && data->field[y][x + 1] != -1)
 		data->field[y][x + 1]++;
 }
 
