@@ -11,22 +11,12 @@
 /* ************************************************************************** */
 
 #include "mines.h"
-#include <time.h>
 
 int			window_close(void)
 {
 	exit(1);
 	return (0);
 }
-
-
-int			times(int x, int y, t_data *data)
-{
-  const time_t timer = time(NULL);
-  printf("%s\n", ctime(&timer));
-	return (0);
-}
-
 
 static void	start_mines(t_data *data)
 {
@@ -40,9 +30,6 @@ static void	start_mines(t_data *data)
 	mlx_mouse_hook(img->win, mouse_hook, data);
 	mlx_hook(img->win, 17, 0, window_close, data);
 	mlx_key_hook(img->win, key_hook, data);
-	mlx_expose_hook(img->win, times, data);
-	// mlx_hook(img->win, 6, 64, times, data);
-	mlx_loop_hook(img->win, times, data);
 	mlx_loop(img->mlx);
 }
 

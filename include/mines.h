@@ -15,6 +15,7 @@
 # include "../libft/include/libft.h"
 # include </root/libmlx/mlx.h>
 // # include <mlx.h>
+# include <time.h>
 # include <fcntl.h>
 # include <unistd.h>
 # define NOVICE_SIDE 9
@@ -60,6 +61,8 @@ typedef struct		s_data
 	int				start;
 	int				openc;
 	int				openm;
+	time_t			times;
+	time_t			sec;
 	char			**field;
 	char			**show;
 	struct s_img	*img;
