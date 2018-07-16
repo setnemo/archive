@@ -13,8 +13,8 @@
 #ifndef MINES_H
 # define MINES_H
 # include "../libft/include/libft.h"
-// # include </root/libmlx/mlx.h>
-# include <mlx.h>
+# include </root/libmlx/mlx.h>
+// # include <mlx.h>
 # include <time.h>
 # include <fcntl.h>
 # include <unistd.h>

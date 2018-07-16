@@ -108,7 +108,7 @@ int		mouse_hook(int mouse, int x, int y, t_data *data)
 		// 		ft_printf("\n");
 		// 	}
 		// 	ft_printf("=========  end  show ======\n");
-		// 	ft_printf("======= %d ============= %d ====\n", data->openm, data->openc);
+			ft_printf("======= %d ============= %d ====\n", data->openm, data->openc);
 
 		// }
 		// else

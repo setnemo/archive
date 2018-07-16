@@ -120,10 +120,7 @@ void		draw_xpm(t_data *data, int flag, int x, int y)
 	if (flag == -2)
 		return ;
 	if (flag == 9)
-	{
-		data->openm--;
 		data->show[y][x] = 1;
-	}
 	if (flag != -1 && flag != 9)
 		data->show[y][x] = -2;
 	if (flag == 0)
@@ -134,11 +131,7 @@ void		draw_xpm(t_data *data, int flag, int x, int y)
 		if (flag == -1 || flag == 9)
 			path[10] = 'm';
 		else if (flag == 10)
-		{
-			data->openc += 2;
-			data->openm++;
 			path[10] = 'n';
-		}
 		else
 			path[10] = flag + 48;
 		// ft_printf("%s ", path);
@@ -149,7 +142,20 @@ void		draw_xpm(t_data *data, int flag, int x, int y)
 		// ft_printf("  [%d:%d]\n", y, x);
 		data->openc--;
 		mlx_put_image_to_window(data->img->mlx, data->img->win, data->img->xpm, x - 1, y - 1);
+		int test = 0, test2 = 0;
+		for (int i = 0; i < data->img->how_x; ++i)
+		{
+			for (int j = 0; j < data->img->how_x; ++j)
+			{
+				if (data->show[i][j] == 1)
+					test++;
+				if (data->show[i][j] == -2)
+					test2++;
+			}
+		}
+		data->openm = test;
+		data->openc = test2;
 	}
-	if (data->openc == 0 && data->openm == 0)
+	if (data->openm == data->img->mines && data->openc == data->img->how_x * data->img->how_y - data->img->mines)
 		draw_stop(data, 1);
 }
