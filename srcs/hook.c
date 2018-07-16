@@ -39,7 +39,7 @@ int		mouse_hook(int mouse, int x, int y, t_data *data)
 	int x1;
 	int y1;
 	
-	ft_printf("mouse[%d] x[%d] y[%d]\n", mouse, x, y);
+	ft_printf("mouse[%d. x[%d] y[%d]\n", mouse, x, y);
 	if (data->status == 3)
 	{
 		key_hook(49, data);

@@ -80,8 +80,9 @@ static void	init_struct(t_data *data, int flag)
 	data->img->button[3] = data->img->button[1] + data->cellsize * 2;
 	data->status = 0;
 	data->start = 0;
-	data->openc = data->img->how_x * data->img->how_y;
-	data->openm = data->img->mines;
+	data->openc = 0;
+	data->openm = 0;
+	data->show = 0;
 }
 
 int			main(int argc, char **argv)
