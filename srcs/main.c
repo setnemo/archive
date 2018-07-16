@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "mines.h"
+# include "pthread.h"
 
 int			window_close(void)
 {
@@ -18,18 +19,42 @@ int			window_close(void)
 	return (0);
 }
 
+int	t(t_data *data)
+{
+	ft_printf("+");
+	// usleep(35000);
+	return (0);
+}
+
+void	*times(t_data *data)
+{
+
+	ft_printf( "....");
+		// time_t new_time;
+	// new_time = time(&new_time);
+	// ft_printf("[%d]\n", new_time);
+	return ((void*)data);
+}
+
 static void	start_mines(t_data *data)
 {
 	t_img *img;
+	// t_data	data_pt; ///
+	// pthread_t	pt;//
 
 	init_img(data);
 	img = data->img;
 	init_lines(img, data);
+	// ft_memcpy((void*)&data_pt, (void*)data, sizeof(t_data)); ///
+	// pthread_create(&pt, NULL, times, &data_pt); /// 
+	// pthread_join(pt, NULL); //
 	mlx_put_image_to_window(img->mlx, img->win, img->img, 0, 0);
 	mlx_put_image_to_window(img->mlx, img->win, img->smile, img->button[1] - 2, img->button[0] - 2);
-	mlx_mouse_hook(img->win, mouse_hook, data);
-	mlx_hook(img->win, 17, 0, window_close, data);
-	mlx_key_hook(img->win, key_hook, data);
+
+	mlx_mouse_hook(data->img->win, mouse_hook, data);
+	mlx_hook(data->img->win, 17, 0, window_close, data);
+	mlx_key_hook(data->img->win, key_hook, data);
+	mlx_expose_hook(data->img->win, t, data);
 	mlx_loop(img->mlx);
 }
 
@@ -96,9 +121,9 @@ int			main(int argc, char **argv)
 
 // DONE 		написать инициализацию в зависимости от сложности
 // DONE			дорисовать кнопку страта в шапке (она же будет выход, если нажат эскейп)
-// написать алгоритм игры
-// связать кей хуки с отрисовкой
-// реализовать свой рандом на базе urandom
+// DONE			написать алгоритм игры
+// DONE		 	связать кей хуки с отрисовкой
+// DONE			реализовать свой рандом на базе urandom
 // реализовать таймер на базе clock() и отрисовать его в игре
 
 

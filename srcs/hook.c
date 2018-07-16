@@ -55,6 +55,7 @@ int		mouse_hook(int mouse, int x, int y, t_data *data)
 		{
 			if (data->start == 1)
 			{
+				// data->time = time(NULL);
 				data->start = 2;
 				init_play_field(data, x1, y1);
 			}
