@@ -24,14 +24,17 @@ int	t(t_data *data)
 {
 	t_img *img;
 
-	ft_printf( "....");
+	// ft_printf( "....");
 	
 	if (data->status == 0)
 	{
 		ft_printf("-");
 	}
+	else if (data->status == 1)
+		ft_printf(",");
 	else
 		ft_printf("+");
+	return (0);
 }
 
 static void	start_mines(t_data *data)

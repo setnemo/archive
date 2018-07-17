@@ -44,7 +44,6 @@ void		init_lines(t_img *img, t_data *data)
 		}
 	}
 	init_button(img, data, "./xpm/Shout.xpm");
-	// init_button(img, data, "./xpm/Love.xpm");
 }
 
 void		init_img(t_data *data)
