@@ -30,6 +30,9 @@ typedef struct 	s_data
 	int			random4[100];
 }				t_data;
 
+void			init_data(t_data *data, int i, int x, int y);
+void			init_ncurses(t_data *data);
+
 
 void			get_numbers(t_data *data);
 void			get_clear(void);
@@ -46,9 +49,15 @@ void			get_color(t_data *data, int i, int j);
 void			game_loop(t_data *data);
 void			check_size(void);
 
-
-
 void			sum_numbers_down(t_data *data);
 void			sum_numbers_left(t_data *data);
+
+void 			key_down(t_data *data);
+void			key_up(t_data *data);
+void			key_left(t_data *data);
+void			key_right(t_data *data);
+
+void			game_over(void);
+void			colors(void);
 
 #endif

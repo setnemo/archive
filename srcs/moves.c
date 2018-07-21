@@ -12,42 +12,6 @@
 
 #include "game_2048.h"
 
-void		game_over(void)
-{
-	endwin();
-	system("leaks -quiet game_2048");
-	exit(0);
-}
-
-void		plus_one(t_data *data, int x, int y)
-{
-	int all;
-	int i;
-	int j;
-
-	all = 0;
-	i = -1;
-	while (++i < data->field)
-	{
-		j = -1;
-		while (++j < data->field)
-		{
-			if (data->core[i][j] == 0)
-				all++;
-		}
-	}
-	if (all == 0)
-		game_over();
-	x = rand() % data->field;
-	y = rand() % data->field;
-	while (data->core[y][x] != 0)
-	{
-		x = rand() % data->field;
-		y = rand() % data->field;
-	}
-	data->core[y][x] = data->random4[rand() % 100];
-}
-
 void		mv_numbers_down(t_data *data, int *count)
 {
 	int i;
@@ -131,3 +95,4 @@ void		mv_numbers_right(t_data *data, int *count)
 	}
 	*count += 1;
 }
+

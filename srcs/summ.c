@@ -51,3 +51,32 @@ void		sum_numbers_left(t_data *data)
 		}
 	}
 }
+
+void		plus_one(t_data *data, int x, int y)
+{
+	int all;
+	int i;
+	int j;
+
+	all = 0;
+	i = -1;
+	while (++i < data->field)
+	{
+		j = -1;
+		while (++j < data->field)
+		{
+			if (data->core[i][j] == 0)
+				all++;
+		}
+	}
+	if (all == 0)
+		game_over();
+	x = rand() % data->field;
+	y = rand() % data->field;
+	while (data->core[y][x] != 0)
+	{
+		x = rand() % data->field;
+		y = rand() % data->field;
+	}
+	data->core[y][x] = data->random4[rand() % 100];
+}

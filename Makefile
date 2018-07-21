@@ -12,15 +12,16 @@
 
 NAME = game_2048
 CC = gcc 
-# WWW = -Wall -Wextra -Werror 
+WWW = -Wall -Wextra -Werror 
 FLAGS = -lncurses 
-# FLAGS =  -lmlx -lXext -lX11 -L /root/libmlx/ -I /root/libmlx/
 
 SRC_NAME = 	main.c\
 			gets.c\
 			moves.c\
 			while.c\
-			summ.c
+			summ.c\
+			keys.c\
+			init.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 

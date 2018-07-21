@@ -89,22 +89,21 @@ void		get_color(t_data *data, int i, int j)
 	else if (data->core[i][j] == 8)
 		attron(COLOR_PAIR(4));
 	else if (data->core[i][j] == 16)
-		attron(COLOR_PAIR(21));
+		attron(COLOR_PAIR(5));
 	else if (data->core[i][j] == 32)
-		attron(COLOR_PAIR(31));
+		attron(COLOR_PAIR(6));
 	else if (data->core[i][j] == 64)
-		attron(COLOR_PAIR(22));
+		attron(COLOR_PAIR(7));
 	else if (data->core[i][j] == 128)
-		attron(COLOR_PAIR(32));
+		attron(COLOR_PAIR(2));
 	else if (data->core[i][j] == 256)
-		attron(COLOR_PAIR(23));
+		attron(COLOR_PAIR(3));
 	else if (data->core[i][j] == 512)
-		attron(COLOR_PAIR(33));
+		attron(COLOR_PAIR(4));
 	else if (data->core[i][j] == 1024)
-		attron(COLOR_PAIR(24));
+		attron(COLOR_PAIR(5));
 	else if (data->core[i][j] == 2048)
-		attron(COLOR_PAIR(34));
+		attron(COLOR_PAIR(6));
 	else
 		attron(COLOR_PAIR(1));
 }
-
