@@ -31,6 +31,7 @@ void		init_data(t_data *data, int i, int x, int y)
 	y = rand() % data->field;
 	data->core[y][x] = data->random4[rand() % 100];
 	plus_one(data, x, y);
+	data->score = 0;
 }
 
 void		init_ncurses(t_data *data)

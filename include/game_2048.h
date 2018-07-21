@@ -23,10 +23,12 @@
 
 typedef struct 	s_data
 {
+	const char	*name;
 	int			**core;
 	int			field;
 	int			colsfield;
 	int			linesfield;
+	int			score;
 	int			random4[100];
 }				t_data;
 
@@ -57,7 +59,7 @@ void			key_up(t_data *data);
 void			key_left(t_data *data);
 void			key_right(t_data *data);
 
-void			game_over(void);
+void			game_over(t_data *data);
 void			colors(void);
 
 #endif

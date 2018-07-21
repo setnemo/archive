@@ -27,6 +27,7 @@ void		sum_numbers_down(t_data *data)
 			{
 				data->core[i][j] *= 2;
 				data->core[i - 1][j] = 0;
+				data->score += data->core[i][j];
 			}
 		}
 	}
@@ -47,6 +48,7 @@ void		sum_numbers_left(t_data *data)
 			{
 				data->core[i][j] *= 2;
 				data->core[i][j + 1] = 0;
+				data->score += data->core[i][j];
 			}
 		}
 	}
@@ -70,7 +72,7 @@ void		plus_one(t_data *data, int x, int y)
 		}
 	}
 	if (all == 0)
-		game_over();
+		game_over(data);
 	x = rand() % data->field;
 	y = rand() % data->field;
 	while (data->core[y][x] != 0)

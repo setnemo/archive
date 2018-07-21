@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "game_2048.h"
+#include <fcntl.h>
 
 void	colors(void)
 {
@@ -37,28 +38,58 @@ void	colors(void)
 	init_pair(18, COLOR_WHITE, COLOR_WHITE);
 }
 
-void		game_over(void)
+void	score2file(t_data *data)
+{	
+	int		fd;
+	char	*sc;
+
+	fd = open("scores.txt", O_WRONLY | O_APPEND);
+	if (fd < 0)
+	{
+		fd = open("scores.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644 | O_APPEND);
+		if (fd < 0)
+			ft_printf("Error fd open\n");
+	}
+	sc = ft_itoa(data->score);
+	ft_putstr_fd(data->name, fd);
+	ft_putstr_fd(" ", fd);
+	ft_putendl_fd(sc, fd);
+	ft_strdel(&sc);
+	close(fd);
+}
+
+void		game_over(t_data *data)
 {
+	score2file(data);
 	endwin();
 	system("leaks -quiet game_2048");
 	exit(0);
 }
 
+void		usage(void)
+{
+	ft_printf("Usage: ./game_2048 [NICKNAME] [MAP_SIZE]\n");
+	exit(0);
+}
 int			main(int argc, char const *argv[])
 {
-	t_data data;
+	t_data	data;
+	WINDOW	*win;
 
+	if (argc == 1)
+		usage();
 	ft_bzero(&data, sizeof(t_data));
-	if (argc > 1 && argv[1] && ft_atoi(argv[1]) > 3)
-		data.field = ft_atoi(argv[1]);
+	if (argc > 1)
+		data.name = argv[1];
+	if (argc == 3 && argv[2] && ft_atoi(argv[2]) > 3)
+		data.field = ft_atoi(argv[2]);
 	init_data(&data, -1, 0, 0);
-	/* NCURSES START */
-
 	if (!(initscr()))
+	{
 		ft_printf("Ncurses problem with memory\n");
-
+		exit(0);
+	}
 	curs_set(0);
-	WINDOW *win;
 	win = newwin(COLS,LINES, 0, 0);
 	init_ncurses(&data);
 	game_loop(&data);
