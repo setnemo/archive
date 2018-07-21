@@ -14,12 +14,14 @@
 // #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 # define MIN_WIDTH 10 
 # define MIN_HEIGHT 10
 // # define FIELD 4
 
 #define WIN_WIDTH 21
 #define WIN_HEIGHT 21
+#define RAND4 20
 
 int FIELD = 4; 
 int COLSFIELD = 0; 
@@ -45,6 +47,25 @@ void	colors(void)
 	init_pair(15, COLOR_WHITE, COLOR_BLACK);
 	init_pair(17, COLOR_BLACK, COLOR_BLACK); //затирать
 	init_pair(18, COLOR_WHITE, COLOR_WHITE);
+}
+
+void		get_numbers(t_data *data)
+{
+	int i;
+	int j;
+	char *temp;
+
+	i = -1;
+	while (++i < FIELD)
+	{
+		j = -1;
+		while (++j < FIELD)
+		{
+			temp = ft_itoa(data->core[i][j]);
+			mvprintw(LINESFIELD/2 + i * LINESFIELD, COLSFIELD/2 + j * COLSFIELD, temp);
+			ft_strdel(&temp);
+		}
+	}
 }
 
 void		get_field()
@@ -74,6 +95,26 @@ void		get_field()
 	}
 }
 
+int			mv_numbers_down(t_data *data)
+{
+	return (0);
+}
+
+int			mv_numbers_up(t_data *data)
+{
+	return (0);
+}
+
+int			mv_numbers_left(t_data *data)
+{
+	return (0);
+}
+
+int			mv_numbers_right(t_data *data)
+{
+	return (0);
+}
+
 int main(int argc, char const *argv[])
 {
 	if (argv[1] && ft_atoi(argv[1]) > 3)
@@ -99,7 +140,7 @@ int main(int argc, char const *argv[])
 	}
 	start_color();
 	colors();
-	wattron(win, COLOR_PAIR(21));
+	// wattron(win, COLOR_PAIR(21));
 
 
 	// mvwprintw(win, 0, 0, "X");
@@ -110,19 +151,29 @@ int main(int argc, char const *argv[])
 	// BORDER PRINT
 	attron(COLOR_PAIR(15));
 	// ft_printf("COL[%d], FIELD[%d], ALL_SYMBOL[%d], COLSFIELD[%d]", COLS, FIELD, COLS - 1, COLSFIELD);
-	int core[FIELD][FIELD];
-	// for (int i = 0; i < FIELD; ++i)
-	// {
-	// 	for (int j = 0; j < FIELD; ++j)
-	// 	{
-	// 		/* code */
-	// 	}
-	// }
+	int random4[100];
+	for (int i = 0; i < 100; ++i)
+	{
+		random4[i] = 2;
+	}
+	for (int i = 0; i < RAND4; ++i)
+	{
+		random4[i] = 4;
+	}
+	t_data data;
+	data.core = ft_new_int_matrix(FIELD);
+	int i = -1;
+	int j;
+	srand(time(NULL));
+	char *test1, *test2, *test3, *test4;
+	COLSFIELD = (COLS - 1) / FIELD;
+	LINESFIELD = (LINES - 1) / FIELD;
+	get_field();
+	data.core[rand() % FIELD][rand() % FIELD] = random4[rand() % 100];
+	data.core[rand() % FIELD][rand() % FIELD] = random4[rand() % 100];
+	get_numbers(&data);
 	int ch;
 	char *str;
-		COLSFIELD = (COLS - 1) / FIELD;
-		LINESFIELD = (LINES - 1) / FIELD;
-		get_field();
 	while (42)
 	{
 		if (COLS < WIN_WIDTH)
@@ -139,7 +190,9 @@ int main(int argc, char const *argv[])
 		}
 		COLSFIELD = (COLS - 1) / FIELD;
 		LINESFIELD = (LINES - 1) / FIELD;
-		// get_field();
+		get_field();
+		get_numbers(&data);
+		// mvprintw(4, 2, "ž");
 		wrefresh(win);
 		timeout(0);
 		// ch = 0;
@@ -149,22 +202,26 @@ int main(int argc, char const *argv[])
 		if (ch == KEY_DOWN) {
 			// ft_printf("%s\n", "KEY_DOWN");
 			// mvprintw( 2,  2, str);
-			mvprintw( 5,  5, "KEY_DOWN   ");
+			// mvprintw( 5,  5, "KEY_DOWN   ");
+			mv_numbers_down(&data);
 		}
 		if (ch == KEY_UP ) {
 			// ft_printf("%s\n", "KEY_UP");
 			// mvprintw( 2,  2, str);
-			mvprintw( 5,  5, "KEY_UP     ");
+			// mvprintw( 5,  5, "KEY_UP     ");
+			mv_numbers_up(&data);
 		}
 		if (ch == KEY_LEFT ) {
 			// ft_printf("%s\n", "KEY_LEFT");
 			// mvprintw( 2,  2, str);
-			mvprintw( 5,  5, "KEY_LEFT   ");
+			// mvprintw( 5,  5, "KEY_LEFT   ");
+			mv_numbers_left(&data);
 		}
 		if (ch == KEY_RIGHT) {
 			// ft_printf("%s\n", "KEY_RIGHT");
 			// mvprintw( 2,  2, str);
-			mvprintw( 5,  5, "KEY_RIGHT  ");
+			// mvprintw( 5,  5, "KEY_RIGHT  ");
+			mv_numbers_right(&data);
 		}
 		if (ch == 27)
 		{
@@ -220,5 +277,5 @@ int main(int argc, char const *argv[])
 
 
 
-	return 0;
+	return (0);
 }

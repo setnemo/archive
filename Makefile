@@ -30,7 +30,7 @@ OBJ_DIR = obj/
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@make -C $(LIB_DIR) --silent
+	# @make -C $(LIB_DIR) --silent
 	@echo "######### LIB CREATED #########"
 	$(CC) -o $(NAME) $(OBJ) -L $(LIB_DIR) -lft $(FLAGS) 
 	@echo "##### COMPILING FINISHED ######"
@@ -47,12 +47,12 @@ norm:
 	@norminette ./srcs
 
 clean:
-	@make -C $(LIB_DIR) clean --silent
+	# @make -C $(LIB_DIR) clean --silent
 	@rm -f $(OBJ)
 	@echo "##### REMOVE OBJECT FILES #####"
 
 fclean: clean
-	@make -C $(LIB_DIR) fclean --silent
+	# @make -C $(LIB_DIR) fclean --silent
 	@rm -f $(NAME)
 	@echo "##### REMOVE BINARY FILES #####"
 

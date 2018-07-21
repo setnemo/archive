@@ -16,4 +16,9 @@
 # include <ncurses.h>
 
 
+typedef struct 	s_data
+{
+	int			**core;
+}				t_data;
+
 #endif
