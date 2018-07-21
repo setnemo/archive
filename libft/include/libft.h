@@ -59,6 +59,7 @@ typedef struct		s_gnl
 	char			*temp;
 	char			*tmp;
 	int				i;
+	int				br;
 }					t_gnl;
 
 char				ft_putchar(char c);

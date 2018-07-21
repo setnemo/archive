@@ -54,9 +54,102 @@ void	score2file(t_data *data)
 	ft_putstr_fd(data->name, fd);
 	ft_putstr_fd(" ", fd);
 	ft_putendl_fd(sc, fd);
-	ft_strdel(&sc);
+	free(sc);
 	close(fd);
 }
+
+void		get_game_over_text(t_data *data)
+{
+	int		centeri;
+	int		centerj;
+	char	*sc;
+
+	sc = ft_itoa(data->score);
+	centeri = COLS / 2;
+	centerj = LINES / 2;
+	attron(COLOR_PAIR(1));
+	mvprintw(centerj - 12, centeri - (ft_strlen("YOUR SCORE") / 2), "YOUR SCORE");
+	attron(COLOR_PAIR(6));
+	mvprintw(centerj - 10, centeri - (ft_strlen(sc) / 2), sc);
+	ft_strdel(&sc);
+	attron(COLOR_PAIR(2));
+	mvprintw(centerj - 6, centeri - (ft_strlen("GAME OVER") / 2), "GAME OVER");
+	attron(COLOR_PAIR(3));
+	mvprintw(centerj - 3, centeri - (ft_strlen("Press 1 to NEW GAME") / 2), "Press 1 to NEW GAME");
+	mvprintw(centerj, centeri - (ft_strlen("Press 2 to SCORE BOARD") / 2), "Press 2 to SCORE BOARD");
+	mvprintw(centerj + 3, centeri - (ft_strlen("Press ESC to EXIT") / 2), "Press ESC to EXIT");
+}
+
+void		get_border(void)
+{
+	int i;
+	int j;
+
+	i = -1;
+	attron(COLOR_PAIR(15));
+	while (++i < LINES)
+	{
+		mvprintw(i, 0, "#");
+		mvprintw(i, COLS - 1, "#");
+		j = -1;
+		if (i == 0 || i == LINES - 1)
+		{
+			while (++j < COLS)
+				mvprintw(i, j, "#");
+		}
+	}
+}
+
+void		print_score(t_data *data)
+{
+	int		fd;
+	char	*line;
+	int		centeri;
+	int		centerj;
+	int		iter;
+
+	get_clear();
+	get_border();
+	centeri = COLS / 2;
+	centerj = LINES / 2;
+	fd = open("scores.txt", O_RDONLY);
+	attron(COLOR_PAIR(1));
+	iter = 0;
+	centerj -= 12;
+	mvprintw(centerj, centeri - (ft_strlen("SCORE BOARD") / 2), "SCORE BOARD");
+	mvprintw(centerj + 1, centeri - (ft_strlen("last 10 games") / 2), "last 10 games");
+	attron(COLOR_PAIR(3));
+	if (fd < 0)
+		mvprintw(centerj - 11, centeri - (ft_strlen("No data :(") / 2), "No data :(");
+	else
+	{
+		centerj += 3;
+		while (get_next_line(fd, &line) > 0)
+		{
+			iter += 2;
+			mvprintw(centerj, centeri - (ft_strlen(line) / 2), line);
+			ft_strdel(&line);
+			centerj += 2;
+			if (iter == 20)
+				break ;
+		}
+	}
+	close(fd);
+	attron(COLOR_PAIR(1));
+	mvprintw(centerj, centeri - (ft_strlen("Press 1 for NEW GAME") / 2), "Press 1 for NEW GAME");
+	mvprintw(centerj + 2, centeri - (ft_strlen("Press ESC to EXIT") / 2), "Press ESC to EXIT");
+	while (42)
+	{
+		fd = getch();
+		fd == '1' ? new_game(data) : 0;
+		if (fd == 27)
+		{
+			endwin();
+			break ;
+		}
+	}
+}
+
 
 void		game_over(t_data *data)
 {
@@ -67,11 +160,17 @@ void		game_over(t_data *data)
 	{
 		check_size();
 		get_clear();
+		get_border();
+		get_game_over_text(data);
 		timeout(0);
 		ch = getch();
 		usleep(33333);
 		ch == '1' ? new_game(data) : 0;
-		ch == '2' ? print_score() : 0;
+		if (ch == '2')
+		{
+			print_score(data);
+			break ;
+		}
 		// ch = (ch == '3') ? 0 : 0;
 		if (ch == 27)
 		{
