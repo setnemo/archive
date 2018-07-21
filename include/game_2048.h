@@ -17,8 +17,8 @@
 # include <stdlib.h>
 # include <string.h>
 # include <time.h>
-# define WIN_WIDTH 21
-# define WIN_HEIGHT 21
+# define WIN_WIDTH 31
+# define WIN_HEIGHT 31
 # define HOWFOUR 20
 
 typedef struct 	s_data

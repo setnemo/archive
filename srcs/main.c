@@ -37,8 +37,10 @@ void	colors(void)
 
 void		init_data(t_data *data, int i, int x, int y)
 {
-	ft_bzero(data, sizeof(t_data));
-	data->field = 4;
+	if (data->field < 4)
+		data->field = 4;
+	if (data->field > 10)
+		data->field = 10;
 	data->colsfield = (COLS - 1) / data->field;
 	data->linesfield = (LINES - 1) / data->field;
 	while (++i < 100)
@@ -70,9 +72,10 @@ int			main(int argc, char const *argv[])
 {
 	t_data data;
 
-	init_data(&data, -1, 0, 0);
+	ft_bzero(&data, sizeof(t_data));
 	if (argv[1] && ft_atoi(argv[1]) > 3)
 		data.field = ft_atoi(argv[1]);
+	init_data(&data, -1, 0, 0);
 	/* NCURSES START */
 
 	if (!(initscr()))

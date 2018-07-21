@@ -50,38 +50,38 @@ void		game_loop(t_data *data)
 		fields_function(data, &ch);
 		count = 0;
 		if (ch == KEY_DOWN) {
-			while (count != 3)
+			while (count != data->field - 1)
 				mv_numbers_down(data, &count);
 			sum_numbers_down(data);
 			count = 0;
-			while (count != 3)
+			while (count != data->field - 1)
 				mv_numbers_down(data, &count);
 			plus_one(data, 0, 0);
 		}
 		if (ch == KEY_UP ) {
-			while (count != 3)
+			while (count != data->field - 1)
 				mv_numbers_up(data, &count);
 			sum_numbers_down(data);
 			count = 0;
-			while (count != 3)
+			while (count != data->field - 1)
 				mv_numbers_up(data, &count);
 			plus_one(data, 0, 0);
 		}
 		if (ch == KEY_LEFT ) {
-			while (count != 3)
+			while (count != data->field - 1)
 				mv_numbers_left(data, &count);
 			sum_numbers_left(data);
 			count = 0;
-			while (count != 3)
+			while (count != data->field - 1)
 				mv_numbers_left(data, &count);
 			plus_one(data, 0, 0);
 		}
 		if (ch == KEY_RIGHT) {
-			while (count != 3)
+			while (count != data->field - 1)
 				mv_numbers_right(data, &count);
 			sum_numbers_left(data);
 			count = 0;
-			while (count != 3)
+			while (count != data->field - 1)
 				mv_numbers_right(data, &count);
 			plus_one(data, 0, 0);
 		}
