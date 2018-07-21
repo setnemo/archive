@@ -45,3 +45,23 @@ void		init_ncurses(t_data *data)
 	get_field(data, 0);
 	get_numbers(data);
 }
+void		new_game(t_data *data)
+{
+	int x;
+	int y;
+
+	x = -1;
+	while (++x < data->field)
+	{
+		y = -1;
+		while (++y < data->field)
+			data->core[x][y] = 0;
+	}
+	srand(time(NULL));
+	x = rand() % data->field;
+	y = rand() % data->field;
+	data->core[y][x] = data->random4[rand() % 100];
+	plus_one(data, x, y);
+	data->score = 0;
+	game_loop(data);
+}

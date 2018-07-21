@@ -34,7 +34,7 @@ typedef struct 	s_data
 
 void			init_data(t_data *data, int i, int x, int y);
 void			init_ncurses(t_data *data);
-
+void			new_game(t_data *data);
 
 void			get_numbers(t_data *data);
 void			get_clear(void);

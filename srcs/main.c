@@ -34,7 +34,7 @@ void	colors(void)
 	init_pair(14, COLOR_WHITE, COLOR_BLACK);
 	init_pair(41, COLOR_BLACK, COLOR_WHITE);
 	init_pair(15, COLOR_WHITE, COLOR_BLACK);
-	init_pair(17, COLOR_BLACK, COLOR_BLACK); //затирать
+	init_pair(17, COLOR_BLACK, COLOR_BLACK);
 	init_pair(18, COLOR_WHITE, COLOR_WHITE);
 }
 
@@ -60,8 +60,25 @@ void	score2file(t_data *data)
 
 void		game_over(t_data *data)
 {
+	int ch;
+
 	score2file(data);
-	endwin();
+	while (42)
+	{
+		check_size();
+		get_clear();
+		timeout(0);
+		ch = getch();
+		usleep(33333);
+		ch == '1' ? new_game(data) : 0;
+		ch == '2' ? print_score() : 0;
+		// ch = (ch == '3') ? 0 : 0;
+		if (ch == 27)
+		{
+			endwin();
+			break ;
+		}
+	}
 	system("leaks -quiet game_2048");
 	exit(0);
 }
