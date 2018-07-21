@@ -28,6 +28,7 @@ void		check_size(void)
 	}
 }
 
+
 static void	fields_function(t_data *data, int *ch)
 {
 	check_size();
@@ -48,15 +49,27 @@ void		game_loop(t_data *data)
 		fields_function(data, &ch);
 		if (ch == KEY_DOWN) {
 			mv_numbers_down(data);
+			mv_numbers_down(data);
+			mv_numbers_down(data);
+			plus_one(data, 0, 0);
 		}
 		if (ch == KEY_UP ) {
 			mv_numbers_up(data);
+			mv_numbers_up(data);
+			mv_numbers_up(data);
+			plus_one(data, 0, 0);
 		}
 		if (ch == KEY_LEFT ) {
 			mv_numbers_left(data);
+			mv_numbers_left(data);
+			mv_numbers_left(data);
+			plus_one(data, 0, 0);
 		}
 		if (ch == KEY_RIGHT) {
 			mv_numbers_right(data);
+			mv_numbers_right(data);
+			mv_numbers_right(data);
+			plus_one(data, 0, 0);
 		}
 		if (ch == 27)
 		{
