@@ -26,37 +26,65 @@ void		plus_one(t_data *data, int x, int y)
 
 void		mv_numbers_down(t_data *data)
 {
+
+}
+
+void		mv_numbers_up(t_data *data)
+{
 	int i;
 	int j;
-	int count;
 
-	j = -1;
-	count = 0;
-	while (++j < data->field)
+	i = -1;
+	while (++i < data->field)
 	{
-		i = data->field;
-		while (--i > -1)
+		j = -1;
+		while (++j < data->field)
 		{
-			mvprintw(i, j, "æ");
-			if (data->core[j][i] == 0 && i - 1 > -1 && data->core[j][i - 1] != 0 && ++count)
+			if (data->core[i][j] == 0 && j + 1 < data->field)
 			{
-				data->core[j][i] = data->core[j][i - 1];
+				data->core[i][j] = data->core[i][j + 1];
+				data->core[i][j + 1] = 0;
 			}
 		}
 	}
 }
 
-void		mv_numbers_up(t_data *data)
-{
-	;
-}
-
 void		mv_numbers_left(t_data *data)
 {
-	;
+	int i;
+	int j;
+
+	i = -1;
+	while (++i < data->field)
+	{
+		j = -1;
+		while (++j < data->field)
+		{
+			if (data->core[i][j] == 0 && j + 1 < data->field)
+			{
+				data->core[i][j] = data->core[i][j + 1];
+				data->core[i][j + 1] = 0;
+			}
+		}
+	}
 }
 
 void		mv_numbers_right(t_data *data)
 {
-	;
+	int i;
+	int j;
+
+	i = -1;
+	while (++i < data->field)
+	{
+		j = data->field;
+		while (--j > -1)
+		{
+			if (data->core[i][j] == 0 && j - 1 > -1)
+			{
+				data->core[i][j] = data->core[i][j - 1];
+				data->core[i][j - 1] = 0;
+			}
+		}
+	}
 }
