@@ -28,16 +28,22 @@ void		mv_numbers_down(t_data *data)
 {
 	int i;
 	int j;
+	int count;
 
-	i = -1;
-	// while (++i < data->field)
-	// {
-	// 	j = data->field
-	// 	while (++j < data->field)
-	// 	{
-			
-	// 	}
-	// }
+	j = -1;
+	count = 0;
+	while (++j < data->field)
+	{
+		i = data->field;
+		while (--i > -1)
+		{
+			mvprintw(i, j, "æ");
+			if (data->core[j][i] == 0 && i - 1 > -1 && data->core[j][i - 1] != 0 && ++count)
+			{
+				data->core[j][i] = data->core[j][i - 1];
+			}
+		}
+	}
 }
 
 void		mv_numbers_up(t_data *data)
