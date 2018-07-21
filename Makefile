@@ -16,7 +16,10 @@ CC = gcc
 FLAGS = -lncurses 
 # FLAGS =  -lmlx -lXext -lX11 -L /root/libmlx/ -I /root/libmlx/
 
-SRC_NAME = 	main.c
+SRC_NAME = 	main.c\
+			gets.c\
+			moves.c\
+			while.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
