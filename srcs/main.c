@@ -18,8 +18,8 @@
 # define MIN_HEIGHT 10
 // # define FIELD 4
 
-// #define WIN_WIDTH FIELD * 2 + 1
-// #define WIN_HEIGHT FIELD * 2 + 1
+#define WIN_WIDTH 21
+#define WIN_HEIGHT 21
 
 int FIELD = 4; 
 int COLSFIELD = 0; 
@@ -56,7 +56,6 @@ void		get_field()
 	while (++i < COLSFIELD * FIELD + 1)
 	{
 		j = 0;
-		// mvprintw(0, i, "-");
 		while (j < LINESFIELD * FIELD + 1)
 		{
 			if (i % COLSFIELD == 0)
@@ -70,11 +69,9 @@ void		get_field()
 				mvprintw(j, i, "-");
 			else
 				mvprintw(j, i, " ");
-
 			j++;
 		}
 	}
-
 }
 
 int main(int argc, char const *argv[])
@@ -87,32 +84,97 @@ int main(int argc, char const *argv[])
 		ft_printf("Ncurses problem with memory\n");
 
 	curs_set(0);
-	// if (COLS < WIN_WIDTH)
-	// {
-	// 	endwin();
-	// 	ft_printf("%s\n", "Too small window width!!! Min width must");
-	// 	// exit(0);
-	// }
-	// if (LINES < WIN_HEIGHT)
-	// {
-	// 	endwin();
-	// 	ft_printf("%s\n", "Too small window height!!! Min height must");
-	// 	// exit(0);
-	// }
 	WINDOW *win = newwin(COLS,LINES, 0, 0);
+	if (COLS < WIN_WIDTH)
+	{
+		endwin();
+		ft_printf("%s\n", "Too small window width!!! Min width must");
+		exit(0);
+	}
+	if (LINES < WIN_HEIGHT)
+	{
+		endwin();
+		ft_printf("%s\n", "Too small window height!!! Min height must");
+		exit(0);
+	}
 	start_color();
 	colors();
 	wattron(win, COLOR_PAIR(21));
 
 
 	// mvwprintw(win, 0, 0, "X");
+	noecho();
+	cbreak(); 
 	refresh();
+	keypad(stdscr, TRUE);
 	// BORDER PRINT
 	attron(COLOR_PAIR(15));
-	COLSFIELD = (COLS - 1) / FIELD;
-	LINESFIELD = (LINES - 1) / FIELD;
 	// ft_printf("COL[%d], FIELD[%d], ALL_SYMBOL[%d], COLSFIELD[%d]", COLS, FIELD, COLS - 1, COLSFIELD);
-	get_field();
+	int core[FIELD][FIELD];
+	// for (int i = 0; i < FIELD; ++i)
+	// {
+	// 	for (int j = 0; j < FIELD; ++j)
+	// 	{
+	// 		/* code */
+	// 	}
+	// }
+	int ch;
+	char *str;
+		COLSFIELD = (COLS - 1) / FIELD;
+		LINESFIELD = (LINES - 1) / FIELD;
+		get_field();
+	while (42)
+	{
+		if (COLS < WIN_WIDTH)
+		{
+			endwin();
+			ft_printf("%s\n", "Too small window width!!! Min width must");
+			exit(0);
+		}
+		if (LINES < WIN_HEIGHT)
+		{
+			endwin();
+			ft_printf("%s\n", "Too small window height!!! Min height must");
+			exit(0);
+		}
+		COLSFIELD = (COLS - 1) / FIELD;
+		LINESFIELD = (LINES - 1) / FIELD;
+		// get_field();
+		wrefresh(win);
+		timeout(0);
+		// ch = 0;
+		ch = getch();
+		usleep(33333);
+		// mvprintw( 2,  2, str);
+		if (ch == KEY_DOWN) {
+			// ft_printf("%s\n", "KEY_DOWN");
+			// mvprintw( 2,  2, str);
+			mvprintw( 5,  5, "KEY_DOWN   ");
+		}
+		if (ch == KEY_UP ) {
+			// ft_printf("%s\n", "KEY_UP");
+			// mvprintw( 2,  2, str);
+			mvprintw( 5,  5, "KEY_UP     ");
+		}
+		if (ch == KEY_LEFT ) {
+			// ft_printf("%s\n", "KEY_LEFT");
+			// mvprintw( 2,  2, str);
+			mvprintw( 5,  5, "KEY_LEFT   ");
+		}
+		if (ch == KEY_RIGHT) {
+			// ft_printf("%s\n", "KEY_RIGHT");
+			// mvprintw( 2,  2, str);
+			mvprintw( 5,  5, "KEY_RIGHT  ");
+		}
+		if (ch == 27)
+		{
+			endwin();
+			break ;
+		// ft_printf("ch[%d]\n", ch);
+		}
+		
+	}
+	
 	// for (int i = 0; i < 10; ++i)
 	// {
 	// 	mvprintw(0,i, "X");
@@ -121,21 +183,17 @@ int main(int argc, char const *argv[])
 	// mvprintw("blabla");
 	// box(win, 0, 0);
 
-	wrefresh(win);
-	getch();
-	noecho();
-	cbreak(); 
 	delwin(win);
 	endwin();
 
 
 
-
+	system("leaks -quiet game_2048");
 	// get screen size;
 	//int yMAX, xMAX;
 	//getmaxyx(stdscr, yMAX, xMAX);
 	 // create the window for the output;
-	//WINDOW *game_board = newwin(yMAX, xMAX, 0, 0);
+	//WINDOW *game_board = newwin(yMAX, xMAX, 1, 10);
 	//refresh();
 
 	//box(game_board, 0, 0);
