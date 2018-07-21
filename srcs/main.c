@@ -100,6 +100,7 @@ void		get_border(void)
 	}
 }
 
+
 void		print_score(t_data *data)
 {
 	int		fd;
@@ -171,7 +172,6 @@ void		game_over(t_data *data)
 			print_score(data);
 			break ;
 		}
-		// ch = (ch == '3') ? 0 : 0;
 		if (ch == 27)
 		{
 			endwin();

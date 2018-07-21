@@ -20,6 +20,7 @@
 # define WIN_WIDTH 61
 # define WIN_HEIGHT 31
 # define HOWFOUR 20
+# define WINSCORE 16
 
 typedef struct 	s_data
 {
@@ -62,4 +63,10 @@ void			key_right(t_data *data);
 void			game_over(t_data *data);
 void			colors(void);
 
+
+void	score2file(t_data *data);
+
+void		get_game_over_text(t_data *data);
+void		get_border(void);
+void		print_score(t_data *data);
 #endif
