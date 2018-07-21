@@ -41,14 +41,14 @@ void			mv_numbers_up(t_data *data, int *count);
 void			mv_numbers_left(t_data *data, int *count);
 void			mv_numbers_right(t_data *data, int *count);
 
-
+void			get_color(t_data *data, int i, int j);
 
 void			game_loop(t_data *data);
 void			check_size(void);
 
 
 
-void		sum_numbers_down(t_data *data);
-void		sum_numbers_left(t_data *data);
+void			sum_numbers_down(t_data *data);
+void			sum_numbers_left(t_data *data);
 
 #endif
