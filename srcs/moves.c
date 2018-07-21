@@ -12,8 +12,32 @@
 
 #include "game_2048.h"
 
+void		game_over(void)
+{
+	endwin();
+	system("leaks -quiet game_2048");
+	exit(0);
+}
+
 void		plus_one(t_data *data, int x, int y)
 {
+	int all;
+	int i;
+	int j;
+
+	all = 0;
+	i = -1;
+	while (++i < data->field)
+	{
+		j = -1;
+		while (++j < data->field)
+		{
+			if (data->core[i][j] == 0)
+				all++;
+		}
+	}
+	if (all == 0)
+		game_over();
 	x = rand() % data->field;
 	y = rand() % data->field;
 	while (data->core[y][x] != 0)
@@ -24,7 +48,7 @@ void		plus_one(t_data *data, int x, int y)
 	data->core[y][x] = data->random4[rand() % 100];
 }
 
-void		mv_numbers_down(t_data *data)
+void		mv_numbers_down(t_data *data, int *count)
 {
 	int i;
 	int j;
@@ -32,14 +56,9 @@ void		mv_numbers_down(t_data *data)
 	i = -1;
 	while (++i < data->field)
 	{
-		j = data->field;
-		while (--j > -1)
+		j = -1;
+		while (++j < data->field)
 		{
-			if (i - 1 > -1 && data->core[i][j] == data->core[i - 1][j])
-			{
-				data->core[i][j] *= 2;
-				data->core[i - 1][j] = 0;
-			}
 			if (data->core[i][j] == 0 && i - 1 > -1)
 			{
 				data->core[i][j] = data->core[i - 1][j];
@@ -47,9 +66,10 @@ void		mv_numbers_down(t_data *data)
 			}
 		}
 	}
+	*count += 1;
 }
 
-void		mv_numbers_up(t_data *data)
+void		mv_numbers_up(t_data *data, int *count)
 {
 	int i;
 	int j;
@@ -60,11 +80,6 @@ void		mv_numbers_up(t_data *data)
 		j = -1;
 		while (++j < data->field)
 		{
-			if (i + 1 < data->field && data->core[i][j] == data->core[i + 1][j])
-			{
-				data->core[i][j] *= 2;
-				data->core[i + 1][j] = 0;
-			}
 			if (data->core[i][j] == 0 && i + 1 < data->field)
 			{
 				data->core[i][j] = data->core[i + 1][j];
@@ -72,9 +87,10 @@ void		mv_numbers_up(t_data *data)
 			}
 		}
 	}
+	*count += 1;
 }
 
-void		mv_numbers_left(t_data *data)
+void		mv_numbers_left(t_data *data, int *count)
 {
 	int i;
 	int j;
@@ -85,11 +101,6 @@ void		mv_numbers_left(t_data *data)
 		j = -1;
 		while (++j < data->field)
 		{
-			if (j + 1 < data->field && data->core[i][j] == data->core[i][j + 1])
-			{
-				data->core[i][j] *= 2;
-				data->core[i][j + 1] = 0;
-			}
 			if (data->core[i][j] == 0 && j + 1 < data->field)
 			{
 				data->core[i][j] = data->core[i][j + 1];
@@ -97,9 +108,10 @@ void		mv_numbers_left(t_data *data)
 			}
 		}
 	}
+	*count += 1;
 }
 
-void		mv_numbers_right(t_data *data)
+void		mv_numbers_right(t_data *data, int *count)
 {
 	int i;
 	int j;
@@ -115,11 +127,7 @@ void		mv_numbers_right(t_data *data)
 				data->core[i][j] = data->core[i][j - 1];
 				data->core[i][j - 1] = 0;
 			}
-			if (j - 1 > -1 && data->core[i][j] ==  data->core[i][j - 1])
-			{
-				data->core[i][j] *= 2;
-				data->core[i][j - 1] = 0;
-			}
 		}
 	}
+	*count += 1;
 }

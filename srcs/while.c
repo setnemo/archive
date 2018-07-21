@@ -43,32 +43,46 @@ static void	fields_function(t_data *data, int *ch)
 void		game_loop(t_data *data)
 {
 	int ch;
+	int count;
 
 	while (42)
 	{
 		fields_function(data, &ch);
+		count = 0;
 		if (ch == KEY_DOWN) {
-			mv_numbers_down(data);
-			mv_numbers_down(data);
-			mv_numbers_down(data);
+			while (count != 3)
+				mv_numbers_down(data, &count);
+			sum_numbers_down(data);
+			count = 0;
+			while (count != 3)
+				mv_numbers_down(data, &count);
 			plus_one(data, 0, 0);
 		}
 		if (ch == KEY_UP ) {
-			mv_numbers_up(data);
-			mv_numbers_up(data);
-			mv_numbers_up(data);
+			while (count != 3)
+				mv_numbers_up(data, &count);
+			sum_numbers_down(data);
+			count = 0;
+			while (count != 3)
+				mv_numbers_up(data, &count);
 			plus_one(data, 0, 0);
 		}
 		if (ch == KEY_LEFT ) {
-			mv_numbers_left(data);
-			mv_numbers_left(data);
-			mv_numbers_left(data);
+			while (count != 3)
+				mv_numbers_left(data, &count);
+			sum_numbers_left(data);
+			count = 0;
+			while (count != 3)
+				mv_numbers_left(data, &count);
 			plus_one(data, 0, 0);
 		}
 		if (ch == KEY_RIGHT) {
-			mv_numbers_right(data);
-			mv_numbers_right(data);
-			mv_numbers_right(data);
+			while (count != 3)
+				mv_numbers_right(data, &count);
+			sum_numbers_left(data);
+			count = 0;
+			while (count != 3)
+				mv_numbers_right(data, &count);
 			plus_one(data, 0, 0);
 		}
 		if (ch == 27)

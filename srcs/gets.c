@@ -55,7 +55,7 @@ void		get_field(t_data *data, int i)
 	int j;
 
 	i = -1;
-	attron(COLOR_PAIR(15));
+	attron(COLOR_PAIR(24));
 	data->colsfield = (COLS - 1) / data->field;
 	data->linesfield = (LINES - 1) / data->field;
 	while (++i < data->colsfield * data->field + 1)

@@ -19,7 +19,8 @@ FLAGS = -lncurses
 SRC_NAME = 	main.c\
 			gets.c\
 			moves.c\
-			while.c
+			while.c\
+			summ.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 
