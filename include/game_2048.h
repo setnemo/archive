@@ -21,7 +21,6 @@
 
 # define WIN_WIDTH 61
 # define WIN_HEIGHT 31
-# define HOWFOUR 20
 # define WINSCORE 2048
 # define C_I (COLS / 2)
 # define C_J (LINES / 2)
@@ -30,7 +29,9 @@ typedef struct	s_data
 {
 	const char	*name;
 	int			**core;
+	int			**copy;
 	int			field;
+	int			howfour;
 	int			colsfield;
 	int			linesfield;
 	int			score;
@@ -61,10 +62,10 @@ void			init_data(t_data *data, int i, int x, int y);
 void			init_ncurses(t_data *data);
 void			new_game(t_data *data);
 
-void			key_down(t_data *data);
-void			key_up(t_data *data);
-void			key_left(t_data *data);
-void			key_right(t_data *data);
+void			key_down(t_data *data, int count, int alone, int i);
+void			key_up(t_data *data, int count, int alone, int i);
+void			key_left(t_data *data, int count, int alone, int i);
+void			key_right(t_data *data, int count, int alone, int i);
 
 void			mv_numbers_down(t_data *data, int *count);
 void			mv_numbers_up(t_data *data, int *count);

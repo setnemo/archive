@@ -23,7 +23,7 @@ void		init_data(t_data *data, int i, int x, int y)
 	while (++i < 100)
 		data->random4[i] = 2;
 	i = -1;
-	while (++i < HOWFOUR)
+	while (++i < data->howfour)
 		data->random4[i] = 4;
 	data->core = ft_new_int_matrix(data->field);
 	srand(time(NULL));

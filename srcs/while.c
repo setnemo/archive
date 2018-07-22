@@ -66,10 +66,10 @@ void		game_loop(t_data *data)
 	while (42)
 	{
 		fields_function(data, &ch);
-		ch == KEY_DOWN ? key_down(data) : 0;
-		ch == KEY_UP ? key_up(data) : 0;
-		ch == KEY_LEFT ? key_left(data) : 0;
-		ch == KEY_RIGHT ? key_right(data) : 0;
+		ch == KEY_DOWN ? key_down(data, 0, 0, 0) : 0;
+		ch == KEY_UP ? key_up(data, 0, 0, 0) : 0;
+		ch == KEY_LEFT ? key_left(data, 0, 0, 0) : 0;
+		ch == KEY_RIGHT ? key_right(data, 0, 0, 0) : 0;
 		check_win(data);
 		if (ch == 27)
 			pause_menu(data);
