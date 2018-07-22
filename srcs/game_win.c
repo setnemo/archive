@@ -15,12 +15,10 @@
 void		continue_game(t_data *data)
 {
 	int ch;
-	int count;
 
 	while (42)
 	{
 		fields_function(data, &ch);
-		count = 0;
 		ch == KEY_DOWN ? key_down(data) : 0;
 		ch == KEY_UP ? key_up(data) : 0;
 		ch == KEY_LEFT ? key_left(data) : 0;
@@ -75,7 +73,6 @@ void		game_win(t_data *data)
 		ch == '1' ? continue_game(data) : 0;
 		ch == '2' ? new_game(data) : 0;
 		ch == '3' ? print_score(data) : 0;
-		ch == 27 ? endwin() : 0;
 		if (ch == 27)
 		{
 			endwin();

@@ -55,10 +55,10 @@ void		get_greeting_text(void)
 	mvprintw(CENTER_J + 6, CENTER_I - (ft_strlen("Press ESC to EXIT") / 2),
 		"Press ESC to EXIT");
 	attron(COLOR_PAIR(1));
-	mvprintw(CENTER_J + 13, CENTER_I - (ft_strlen("made by") / 2), "made by");
+	mvprintw(CENTER_J + 12, CENTER_I - (ft_strlen("made by") / 2), "made by");
 	attron(COLOR_PAIR(2));
-	mvprintw(CENTER_J + 14, CENTER_I - (ft_strlen("apakhomo") / 2 - 1),
+	mvprintw(CENTER_J + 13, CENTER_I - (ft_strlen("apakhomo") / 2 - 1),
 		"apakhomo");
-	mvprintw(CENTER_J + 15, CENTER_I - (ft_strlen("vzamyati") / 2 - 1),
+	mvprintw(CENTER_J + 14, CENTER_I - (ft_strlen("vzamyati") / 2 - 1),
 		"vzamyati");
 }

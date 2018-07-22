@@ -22,7 +22,7 @@
 # define WIN_WIDTH 61
 # define WIN_HEIGHT 31
 # define HOWFOUR 20
-# define WINSCORE 8
+# define WINSCORE 2048
 # define CENTER_I (COLS / 2)
 # define CENTER_J (LINES / 2)
 
