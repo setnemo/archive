@@ -21,7 +21,13 @@ SRC_NAME = 	main.c\
 			while.c\
 			summ.c\
 			keys.c\
-			init.c
+			init.c\
+			adds.c\
+			score.c\
+			game_win.c\
+			game_over.c\
+			greeting.c\
+			pause.c
 
 OBJ_NAME = $(SRC_NAME:%.c=%.o)
 

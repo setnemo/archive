@@ -12,9 +12,9 @@
 
 #include "game_2048.h"
 
-void 	key_down(t_data *data)
+void	key_down(t_data *data)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	while (count != data->field - 1)
@@ -28,7 +28,7 @@ void 	key_down(t_data *data)
 
 void	key_up(t_data *data)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	while (count != data->field - 1)
@@ -42,7 +42,7 @@ void	key_up(t_data *data)
 
 void	key_left(t_data *data)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	while (count != data->field - 1)
@@ -56,7 +56,7 @@ void	key_left(t_data *data)
 
 void	key_right(t_data *data)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	while (count != data->field - 1)

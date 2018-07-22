@@ -45,10 +45,11 @@ void		init_ncurses(t_data *data)
 	get_field(data, 0);
 	get_numbers(data);
 }
+
 void		new_game(t_data *data)
 {
-	int x;
-	int y;
+	int		x;
+	int		y;
 
 	x = -1;
 	while (++x < data->field)

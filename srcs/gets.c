@@ -12,10 +12,30 @@
 
 #include "game_2048.h"
 
+void		get_border(void)
+{
+	int		i;
+	int		j;
+
+	i = -1;
+	attron(COLOR_PAIR(15));
+	while (++i < LINES)
+	{
+		mvprintw(i, 0, "#");
+		mvprintw(i, COLS - 1, "#");
+		j = -1;
+		if (i == 0 || i == LINES - 1)
+		{
+			while (++j < COLS)
+				mvprintw(i, j, "#");
+		}
+	}
+}
+
 void		get_clear(void)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = -1;
 	attron(COLOR_PAIR(17));
@@ -31,12 +51,11 @@ void		get_clear(void)
 
 void		get_numbers(t_data *data)
 {
-	int i;
-	int j;
-	char *temp;
+	int		i;
+	int		j;
+	char	*temp;
 
 	i = -1;
-	attron(COLOR_PAIR(1));
 	while (++i < data->field)
 	{
 		j = -1;
@@ -53,7 +72,7 @@ void		get_numbers(t_data *data)
 
 void		get_field(t_data *data, int i)
 {
-	int j;
+	int		j;
 
 	i = -1;
 	attron(COLOR_PAIR(15));

@@ -95,4 +95,3 @@ void		mv_numbers_right(t_data *data, int *count)
 	}
 	*count += 1;
 }
-
