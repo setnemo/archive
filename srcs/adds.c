@@ -39,6 +39,6 @@ void	colors(void)
 
 void	usage(void)
 {
-	ft_printf("Usage: ./game_2048 [NICKNAME] [MAP_SIZE]\n");
+	ft_printf("Usage: ./game_2048 [NICKNAME] [MAP_SIZE] [HOW4]\n");
 	exit(0);
 }
