@@ -3,7 +3,7 @@
 # DESCRIPTION
 
 Educational project in School 42 (UNIT Factory Kiev).
-Write replication of the game 2048 in the C language for 48 hours. We with ВеЗамяти have consulted for 13 hours.
+Task: Write replication of the game 2048 in the C language for 48 hours. We with [vzamyati](https://github.com/vzamyati/) ended for 13 hours.
 
 The game is written in C language with the use of the library ncurses.
 
