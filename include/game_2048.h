@@ -23,8 +23,8 @@
 # define WIN_HEIGHT 31
 # define HOWFOUR 20
 # define WINSCORE 2048
-# define CENTER_I (COLS / 2)
-# define CENTER_J (LINES / 2)
+# define C_I (COLS / 2)
+# define C_J (LINES / 2)
 
 typedef struct	s_data
 {

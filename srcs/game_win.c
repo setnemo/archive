@@ -37,22 +37,22 @@ void		get_game_win_text(t_data *data)
 
 	sc = ft_itoa(data->score);
 	attron(COLOR_PAIR(1));
-	mvprintw(CENTER_J - 12, CENTER_I - (ft_strlen("YOUR SCORE") / 2),
+	mvprintw(C_J - 12, C_I - (ft_strlen("YOUR SCORE") / 2),
 		"YOUR SCORE");
 	attron(COLOR_PAIR(6));
-	mvprintw(CENTER_J - 10, CENTER_I - (ft_strlen(sc) / 2), sc);
+	mvprintw(C_J - 10, C_I - (ft_strlen(sc) / 2), sc);
 	ft_strdel(&sc);
 	attron(COLOR_PAIR(1));
-	mvprintw(CENTER_J - 6, CENTER_I - (ft_strlen("CONGRATS!") / 2),
+	mvprintw(C_J - 6, C_I - (ft_strlen("CONGRATS!") / 2),
 		"CONGRATS!");
 	attron(COLOR_PAIR(3));
-	mvprintw(CENTER_J - 3, CENTER_I - (ft_strlen("Press 1 to CONTINUE") / 2),
+	mvprintw(C_J - 3, C_I - (ft_strlen("Press 1 to CONTINUE") / 2),
 		"Press 1 to CONTINUE");
-	mvprintw(CENTER_J, CENTER_I - (ft_strlen("Press 2 to NEW GAME") / 2),
+	mvprintw(C_J, C_I - (ft_strlen("Press 2 to NEW GAME") / 2),
 		"Press 2 to NEW GAME");
-	mvprintw(CENTER_J + 3, CENTER_I - (ft_strlen("Press 3 to SCORE BOARD") / 2),
+	mvprintw(C_J + 3, C_I - (ft_strlen("Press 3 to SCORE BOARD") / 2),
 		"Press 3 to SCORE BOARD");
-	mvprintw(CENTER_J + 6, CENTER_I - (ft_strlen("Press ESC to EXIT") / 2),
+	mvprintw(C_J + 6, C_I - (ft_strlen("Press ESC to EXIT") / 2),
 		"Press ESC to EXIT");
 }
 

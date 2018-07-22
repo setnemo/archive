@@ -39,19 +39,19 @@ void		pause_menu(t_data *data)
 void		pause_menu_text(void)
 {
 	attron(COLOR_PAIR(1));
-	mvprintw(CENTER_J - 11, CENTER_I - 17, "  #####    ###   #        ##### ");
-	mvprintw(CENTER_J - 10, CENTER_I - 17, " #     #  #   #  #    #  #     # ");
-	mvprintw(CENTER_J - 9, CENTER_I - 17, "       # #     # #    #  #     # ");
-	mvprintw(CENTER_J - 8, CENTER_I - 17, "  #####  #     # #    #   #####  ");
-	mvprintw(CENTER_J - 7, CENTER_I - 17, " #       #     # ####### #     # ");
-	mvprintw(CENTER_J - 6, CENTER_I - 17, " #        #   #       #  #     # ");
-	mvprintw(CENTER_J - 5, CENTER_I - 17, " #######   ###        #   #####  ");
-	mvprintw(CENTER_J, CENTER_I - (ft_strlen("Press 1 to CONTINUE") / 2),
+	mvprintw(C_J - 11, C_I - 21, "   #######    #####   ##         #######  ");
+	mvprintw(C_J - 10, C_I - 21, "  ##     ##  ##   ##  ##    ##  ##     ## ");
+	mvprintw(C_J - 9, C_I - 21, "         ## ##     ## ##    ##  ##     ## ");
+	mvprintw(C_J - 8, C_I - 21, "   #######  ##     ## ##    ##   #######  ");
+	mvprintw(C_J - 7, C_I - 21, "  ##        ##     ## ######### ##     ## ");
+	mvprintw(C_J - 6, C_I - 21, "  ##         ##   ##        ##  ##     ## ");
+	mvprintw(C_J - 5, C_I - 21, "  #########   #####         ##   #######  ");
+	mvprintw(C_J, C_I - (ft_strlen("Press 1 to CONTINUE") / 2),
 		"Press 1 to CONTINUE");
 	attron(COLOR_PAIR(3));
-	mvprintw(CENTER_J + 3, CENTER_I - (ft_strlen("Press 2 to NEW GAME") / 2),
+	mvprintw(C_J + 3, C_I - (ft_strlen("Press 2 to NEW GAME") / 2),
 		"Press 2 to NEW GAME");
 	attron(COLOR_PAIR(2));
-	mvprintw(CENTER_J + 6, CENTER_I - (ft_strlen("Press ESC to EXIT") / 2),
+	mvprintw(C_J + 6, C_I - (ft_strlen("Press ESC to EXIT") / 2),
 		"Press ESC to EXIT");
 }

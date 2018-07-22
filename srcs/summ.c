@@ -17,8 +17,8 @@ void		sum_numbers_down(t_data *data)
 	int i;
 	int j;
 
-	i = -1;
-	while (++i < data->field)
+	i = data->field;
+	while (--i > -1)
 	{
 		j = -1;
 		while (++j < data->field)
