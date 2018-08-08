@@ -5,13 +5,28 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 
-char		*send_and_recv(const char *command, int sock_num)
+static char		*insert_length(const char *command, int *command_len)
+{
+	char		*tmp;
+	int			len;
+
+	len = strlen(command);
+	tmp = strdup(command);
+	tmp = realloc(tmp, len + 4);
+	memmove((void*)(tmp + 4), (void*)tmp, len);
+	tmp = memcpy((void*)tmp, (void*)&len, sizeof(int));
+	*command_len = len + 4;
+	return (tmp);
+}
+
+static char		*send_and_recv(const char *command, int sock_num)
 {
 	char		server_reply[4];
 	char		*reply;
 	int			len;
 
-	if (send(sock_num, command, strlen(command), 0) < 0)
+	command = insert_length(command, &len);
+	if (send(sock_num, command, len, 0) < 0)
 	{
 		puts("Send failed");
 		return (NULL);
@@ -35,7 +50,7 @@ char		*send_and_recv(const char *command, int sock_num)
 	return (reply);
 }
 
-char		*send_text_command(const char *command)
+char			*send_text_command(const char *command)
 {
 	int					sock_num;
 	struct sockaddr_in	server;
