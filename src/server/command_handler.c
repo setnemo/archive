@@ -1,11 +1,6 @@
 #include <string.h>
 #include <stdlib.h>
-
-char		*hello_test_callback(void *arg)
-{
-	(void)arg;
-	return strdup("test success!");
-}
+#include "server/command_callbacks.h"
 
 static char		*g_commands[] = {
 	"hello test",

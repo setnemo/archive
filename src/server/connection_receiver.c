@@ -1,12 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <unistd.h>
-#include <pthread.h>
-
-char			*command_handler(char *command);
+#include "server/server.h"
 
 static char		*insert_length(const char *command, int *command_len)
 {

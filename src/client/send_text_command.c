@@ -1,9 +1,4 @@
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
+#include "client/client.h"
 
 static char		*insert_length(const char *command, int *command_len)
 {
@@ -71,17 +66,4 @@ char			*send_text_command(const char *command)
 	server_reply = send_and_recv(command, sock_num);
 	close(sock_num);
 	return (server_reply);
-}
-
-int		main(void)
-{
-	char	*responce;
-
-	responce = send_text_command("hello test\n");
-	if (responce)
-	{
-		puts(responce);
-	}
-	free(responce);
-	return (0);
 }
