@@ -9,6 +9,7 @@ static char		*insert_length(const char *command, int *command_len)
 	tmp = strdup(command);
 	tmp = realloc(tmp, len + 4);
 	memmove((void*)(tmp + 4), (void*)tmp, len);
+	printf("response len: %d\n", len);
 	tmp = memcpy((void*)tmp, (void*)&len, sizeof(int));
 	*command_len = len + 4;
 	return (tmp);
