@@ -32,7 +32,7 @@ static char		*send_and_recv(const char *command, int sock_num)
 		puts("ERROR recv");
 		return (NULL);
 	}
-	len = *(int*)(&(server_reply[0]));
+	len = *(int*)(&(server_reply[0])) + 1;
 	printf("len: %d\n", len);
 	reply = malloc(len + 1);
 	if ((recv(sock_num, reply, len, 0)) < 0)

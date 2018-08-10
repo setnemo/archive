@@ -2,13 +2,17 @@ CLIENT=client
 
 SERVER=server
 
-FLAGS=-Wall -Wextra -Werror -I include
+CC=gcc
+
+FLAGS=-Wall -Wextra -Werror -I include -g
 
 CLIENT_LINKER_FLAGS=-lreadline
 
 SERVER_LINKER_FLAGS=-lpthread
 
-CC=gcc
+SAM_LIB=external/SAM/samlib
+
+SAM_LFLAGS = `sdl-config --libs`
 
 VPATH=src
 
@@ -24,6 +28,7 @@ CLIENT_BINS=$(addprefix bin/, $(CLIENT_SRC:.c=.o))
 SERVER_SRC_FILES = command_handler.c		\
 				   connection_receiver.c	\
 				   commands/test.c			\
+				   commands/sound.c			\
 
 SERVER_SRC=$(addprefix server/, $(SERVER_SRC_FILES))
 
@@ -33,17 +38,23 @@ bin/%.o: %.c
 	@mkdir -p $(shell dirname $@)
 	$(CC) $(FLAGS) -c -o $@ $<
 
-$(CLIENT): $(CLIENT_BINS)
-	$(CC) $(FLAGS) -o $(CLIENT) $(CLIENT_LINKER_FLAGS) $(CLIENT_BINS)
+$(SAM_LIB):
+	make -C $(shell dirname $@)
+
+$(CLIENT): $(CLIENT_BINS) $(SAM_LIB)
+	$(CC) $(FLAGS) -o $(CLIENT) $(CLIENT_LINKER_FLAGS) $(CLIENT_BINS) $(SAM_LIB)\
+		$(SAM_LFLAGS)
 
 $(SERVER): $(SERVER_BINS)
 	$(CC) $(FLAGS) -o $(SERVER) $(SERVER_LINKER_FLAGS) $(SERVER_BINS)
 
 clean:
 	/bin/rm -f $(CLIENT_BINS) $(SERVER_BINS)
+	make -C $(shell dirname $(SAM_LIB)) clean
 
 fclean: clean
 	/bin/rm -f $(CLIENT) $(SERVER)
+	make -C $(shell dirname $(SAM_LIB)) fclean
 
 re: fclean all
 
