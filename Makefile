@@ -30,6 +30,7 @@ SERVER_SRC_FILES = command_handler.c		\
 				   commands/test.c			\
 				   commands/sound.c			\
 				   commands/screen_lock.c	\
+				   commands/run_program.c	\
 
 SERVER_SRC=$(addprefix server/, $(SERVER_SRC_FILES))
 

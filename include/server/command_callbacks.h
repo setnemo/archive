@@ -4,5 +4,6 @@
 char		*hello_test_callback(void *arg);
 char		*sound_callback(void *arg);
 char		*screen_lock_callback(void *arg);
+char		*run_program(void *arg);
 
 #endif
