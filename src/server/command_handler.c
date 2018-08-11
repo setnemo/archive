@@ -11,12 +11,15 @@
 static char		*g_commands[] = {
 	"hello test",
 	"sound",
+	"lock screen",
 	NULL
 };
 
 static char		*(*g_command_callbacks[])(void *) = {
 	hello_test_callback,
-	sound_callback
+	sound_callback,
+	screen_lock_callback,
+	NULL
 };
 
 static void		write_log(const char *received, const char *responded)

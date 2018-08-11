@@ -1,7 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-static char		*g_args[] = {
+static const char	*g_args[] = {
 	"up",
 	"down",
 	"mute",
@@ -12,7 +12,8 @@ static char		*g_args[] = {
 	NULL
 };
 
-static char		*g_system_args[] = {
+static const char	*g_system_args[] = {
+#ifdef __linux__
 	"amixer -D pulse sset Master 5%+",
 	"amixer -D pulse sset Master 5%-",
 	"amixer -D pulse sset Master mute",
@@ -20,13 +21,15 @@ static char		*g_system_args[] = {
 	"amixer -D pulse sset Master unmute",
 	"amixer -D pulse sset Master 40%",
 	"amixer -D pulse sset Master 100%",
+#else
+#endif
 	NULL
 };
 
-char			*sound_callback(void *arg)
+char				*sound_callback(void *arg)
 {
 	char		*str;
-	char		*modifier;
+	const char	*modifier;
 	int			i;
 
 	str = (char*)arg;

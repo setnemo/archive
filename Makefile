@@ -29,6 +29,7 @@ SERVER_SRC_FILES = command_handler.c		\
 				   connection_receiver.c	\
 				   commands/test.c			\
 				   commands/sound.c			\
+				   commands/screen_lock.c	\
 
 SERVER_SRC=$(addprefix server/, $(SERVER_SRC_FILES))
 
