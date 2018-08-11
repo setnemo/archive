@@ -1,8 +1,9 @@
 #include <stdlib.h>
 #include <string.h>
+#include "server/config.h"
 
 #ifdef __linux__
-static const char			*g_command = "dm-tool lock";
+static const char			*g_command = LOCKSCREEN_CMD;
 #else
 #endif
 

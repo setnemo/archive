@@ -13,6 +13,8 @@ static char		*g_commands[] = {
 	"sound",
 	"lock screen",
 	"run",
+	"screen shot",
+	"show screen shots",
 	NULL
 };
 
@@ -21,6 +23,8 @@ static char		*(*g_command_callbacks[])(void *) = {
 	sound_callback,
 	screen_lock_callback,
 	run_program,
+	screen_shot_callback,
+	show_screen_shots_callback,
 	NULL
 };
 
