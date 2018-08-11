@@ -154,7 +154,9 @@ int sam_say(char *text)
     int phonetic = 0;
 
     char* wavfilename = NULL;
-    char *input;
+    char *input = strdup(text);
+
+	int  input_len = strlen(input);
 
 #ifdef USESDL
         /* freopen("CON", "w", stdout); */
@@ -163,19 +165,19 @@ int sam_say(char *text)
 #endif
 
 
-    i = 1;
-	input = text;
+	input_len = input_len < 256 ? 256 : input_len + 1;
+	input = realloc(input, input_len);
 
     for(i=0; input[i] != 0; i++)
         input[i] = toupper((int)input[i]);
 
     if (!phonetic)
     {
-        strncat(input, "[", 256);
+        strncat(input, "[", input_len);
         if (!TextToPhonemes((unsigned char *)input)) return 1;
         if (debug)
             printf("phonetic input: %s\n", input);
-    } else strncat(input, "\x9b", 256);
+    } else strncat(input, "\x9b", input_len);
 
 #ifdef USESDL
     if ( SDL_Init(SDL_INIT_AUDIO) < 0 )
