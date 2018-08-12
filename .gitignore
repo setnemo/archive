@@ -77,4 +77,7 @@ tags
 
 # End of https://www.gitignore.io/api/c,vim
 
-
+/include/server/.env
+/include/server/config.h
+/server
+/client

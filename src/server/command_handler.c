@@ -15,6 +15,7 @@ static char		*g_commands[] = {
 	"run",
 	"screen shot",
 	"show screen shots",
+	"weather",
 	NULL
 };
 
@@ -25,6 +26,7 @@ static char		*(*g_command_callbacks[])(void *) = {
 	run_program,
 	screen_shot_callback,
 	show_screen_shots_callback,
+	weather_callback,
 	NULL
 };
 
