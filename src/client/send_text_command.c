@@ -40,6 +40,7 @@ static char		*send_and_recv(const char *command, int sock_num)
 		puts("ERROR second recv");
 		return (NULL);
 	}
+	printf("reply[len]: %d\n", len);
 	reply[len] = 0;
 	puts("Received");
 	return (reply);
