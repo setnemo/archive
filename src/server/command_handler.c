@@ -17,6 +17,7 @@ static char		*g_commands[] = {
 	"show screen shots",
 	"weather",
 	"backlight",
+	"play music",
 	NULL
 };
 
@@ -29,6 +30,7 @@ static char		*(*g_command_callbacks[])(void *) = {
 	show_screen_shots_callback,
 	weather_callback,
 	backlight_callback,
+	play_music_callback,
 	NULL
 };
 
