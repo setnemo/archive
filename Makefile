@@ -10,7 +10,7 @@ CLIENT_LINKER_FLAGS=
 
 SERVER_LINKER_FLAGS=-lpthread -lcurl
 
-SAM_LIB=external/SAM/samlib
+SAM_LIB=external/sam/libsam.a
 
 SAM_LFLAGS = `sdl-config --libs`
 

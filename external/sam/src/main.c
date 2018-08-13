@@ -148,105 +148,36 @@ void OutputSound() {}
 
 int debug = 0;
 
-int text_to_speech(char *str)
+int sam_say(char *text)
 {
-    // char **arr;
-    //
-    // arr = ft_strsplit(str, ' ');
-
     int i;
     int phonetic = 0;
 
     char* wavfilename = NULL;
-    char *input;
+    char *input = strdup(text);
 
-    input = str;
+	int  input_len = strlen(input);
 
-// #ifdef USESDL
-//         freopen("CON", "w", stdout);
-//         freopen("CON", "w", stderr);
-// #endif
+#ifdef USESDL
+        /* freopen("CON", "w", stdout); */
+        /* freopen("CON", "w", stderr); */
+	pos = 0;
+#endif
 
-    // for(i=0; i<256; i++) input[i] = 0;
 
-    // if (argc <= 1)
-    // {
-    //     PrintUsage();
-    //     return 1;
-    // }
-
-    // i = 0;
-    //
-    // while(arr[i] != 0)
-    // {
-    //     if (arr[i][0] != '-')
-    //     {
-    //         strncat(input, arr[i], 255);
-    //         strncat(input, " ", 255);
-    //     } else
-    //     {
-    //         if (strcmp(&arr[i][1], "wav")==0)
-    //         {
-    //             wavfilename = arr[i+1];
-    //             i++;
-    //         } else
-    //         if (strcmp(&arr[i][1], "sing")==0)
-    //         {
-    //             EnableSingmode();
-    //         } else
-    //         if (strcmp(&arr[i][1], "phonetic")==0)
-    //         {
-    //             phonetic = 1;
-    //         } else
-    //         if (strcmp(&arr[i][1], "debug")==0)
-    //         {
-    //             debug = 1;
-    //         } else
-    //         if (strcmp(&arr[i][1], "pitch")==0)
-    //         {
-    //             SetPitch(atoi(arr[i+1]));
-    //             i++;
-    //         } else
-    //         if (strcmp(&arr[i][1], "speed")==0)
-    //         {
-    //             SetSpeed(atoi(arr[i+1]));
-    //             i++;
-    //         } else
-    //         if (strcmp(&arr[i][1], "mouth")==0)
-    //         {
-    //             SetMouth(atoi(arr[i+1]));
-    //             i++;
-    //         } else
-    //         if (strcmp(&arr[i][1], "throat")==0)
-    //         {
-    //             SetThroat(atoi(arr[i+1]));
-    //             i++;
-    //         } else
-    //         {
-    //             PrintUsage();
-    //             return 1;
-    //         }
-    //     }
-    //
-    //     i++;
-    // } //while
+	input_len = input_len < 256 ? 256 : input_len + 1;
+	input = realloc(input, input_len);
 
     for(i=0; input[i] != 0; i++)
         input[i] = toupper((int)input[i]);
 
-    if (debug)
-    {
-        if (phonetic) printf("phonetic input: %s\n", input);
-        else printf("text input: %s\n", input);
-    }
-
     if (!phonetic)
     {
-        strncat(input, "[", 256);
+        strncat(input, "[", input_len);
         if (!TextToPhonemes((unsigned char *)input)) return 1;
         if (debug)
             printf("phonetic input: %s\n", input);
-    } else strncat(input, "\x9b", 256);
+    } else strncat(input, "\x9b", input_len);
 
 #ifdef USESDL
     if ( SDL_Init(SDL_INIT_AUDIO) < 0 )
@@ -269,7 +200,7 @@ int text_to_speech(char *str)
     else
         OutputSound();
 
-
-    return (0);
+	SDL_Quit();
+    return 0;
 
 }

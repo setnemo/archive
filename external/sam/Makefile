@@ -3,7 +3,7 @@ OBJS = reciter.o sam.o render.o main.o debug.o
 CC = gcc
 
 # libsdl present
-CFLAGS =  -Wall -Os -DUSESDL `sdl-config --cflags`
+CFLAGS =  -Wall -Os -DUSESDL `sdl-config --cflags` -g
 LFLAGS = `sdl-config --libs`
 
 # no libsdl present
@@ -20,7 +20,10 @@ package:
 	tar -cvzf sam.tar.gz README.md Makefile sing src/
 
 clean:
-	rm -f *.o *.a
+	rm -f *.o
+
+fclean: clean
+	rm -f libsam.a
 
 re: clean libsam.a
 
