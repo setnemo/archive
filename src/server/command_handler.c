@@ -20,7 +20,7 @@ static const char		*g_commands[] = {
 	NULL
 };
 
-static const char		*(*g_command_callbacks[])(void *) = {
+static char		*(*g_command_callbacks[])(void *) = {
 	hello_test_callback,
 	sound_callback,
 	screen_lock_callback,

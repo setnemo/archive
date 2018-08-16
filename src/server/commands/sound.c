@@ -27,8 +27,8 @@ static const char	*g_system_args[] = {
 	"osascript -e \"set volume with output muted\"",
 	"osascript -e \"set volume with output muted\"",
 	"osascript -e \"set volume without output muted\"",
-	"osascript -e \"set volume 40\"",
-	"osascript -e \"set volume 100\"",
+	"osascript -e \"set volume 4\"",
+	"osascript -e \"set volume 10\"",
 #endif
 	NULL
 };

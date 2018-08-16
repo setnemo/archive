@@ -5,6 +5,7 @@
 #ifdef __linux__
 static const char			*g_command = LOCKSCREEN_CMD;
 #else
+static const char			*g_command = "LOCKSCREEN_CMD";
 #endif
 
 char				*screen_lock_callback(void *arg)

@@ -7,6 +7,8 @@ static const char			*g_command = SCREENSHOT_CMD;
 static const char			*g_show_command = FILE_MANAGER_CMD " "\
 											  SCREENSHOT_FOLDER " &";
 #else
+static const char			*g_command = "SCREENSHOT_CMD";
+static const char			*g_show_command = "FILE_MANAGER_CMD SCREENSHOT_FOLDER ";
 #endif
 
 char				*screen_shot_callback(void *arg)
