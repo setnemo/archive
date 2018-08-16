@@ -22,6 +22,13 @@ static const char	*g_system_args[] = {
 	"amixer -D pulse sset Master 40%",
 	"amixer -D pulse sset Master 100%",
 #else
+	"osascript -e \"set volume output volume (output volume of (get volume settings) + 5) --100%\"",
+	"osascript -e \"set volume output volume (output volume of (get volume settings) - 5) --100%\"",
+	"osascript -e \"set volume with output muted\"",
+	"osascript -e \"set volume with output muted\"",
+	"osascript -e \"set volume without output muted\"",
+	"osascript -e \"set volume 40\"",
+	"osascript -e \"set volume 100\"",
 #endif
 	NULL
 };
