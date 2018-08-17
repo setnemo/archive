@@ -198,7 +198,8 @@ recognize_from_microphone()
     utt_started = FALSE;
     E_INFO("Ready....\n");
 
-    for (;;) {
+    for (;;)
+	{
         if ((k = ad_read(ad, adbuf, 2048)) < 0)
             E_FATAL("Failed to read audio\n");
         ps_process_raw(ps, adbuf, k, FALSE, FALSE);

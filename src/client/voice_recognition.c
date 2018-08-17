@@ -1,3 +1,6 @@
+#include <unistd.h>
+#include <stdio.h>
+#include <sphinxbase/ad.h>
 #include "pocketsphinx.h"
 
 static void	recognize_from_mic(cmd_ln_t *config, ps_decoder_t *ps)
@@ -7,15 +10,33 @@ static void	recognize_from_mic(cmd_ln_t *config, ps_decoder_t *ps)
 	uint8		in_speech;
 	int16		adbuf[2048];
 	int32		k;
+	char const	*hyp;
 
 	utt_started = FALSE;
 	ad = ad_open_dev(cmd_ln_str_r(config, "-adcdev"), (int)cmd_ln_float32_r(config, "-samprate"));
-	while()
+	ad_start_rec(ad);
+	ps_start_utt(ps);
+	for(;;)
 	{
 		k = ad_read(ad, adbuf, 2048);
 		ps_process_raw(ps, adbuf, k, FALSE, FALSE);
 		in_speech = ps_get_in_speech(ps);
+		if (in_speech && !utt_started)
+			utt_started = TRUE;
+		if (!in_speech && utt_started)
+		{
+			ps_end_utt(ps);
+			hyp = ps_get_hyp(ps, NULL);
+			if (hyp)
+			{
+				printf("%s\n", hyp);
+				//fflush(stdout);
+			}
+			utt_started = FALSE;
+		}
+		sleep(1);
 	}
+	ad_close(ad);
 }
 
 int		main(int argc, char **argv)
@@ -34,16 +55,13 @@ int		main(int argc, char **argv)
 		fprintf(stderr, "Failed to create config object\n");
 		return (-1);
 	}
-
 	ps = ps_init(config);
 	if (ps == NULL)
 	{
 		fprintf(stderr, "Failed to create recognizer\n");
 		return (-1);
 	}
-
 	recognize_from_mic(config, ps);
-
 	ps_free(ps);
 	cmd_ln_free_r(config);
 	return (0);
