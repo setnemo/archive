@@ -54,8 +54,8 @@ char				*backlight_callback(void *arg)
 		}
 	}
 	if (!modifier)
-		return (strdup("I don't understand this sound operation"));
+		return (strdup("I don't understand this backlight operation"));
 	if (system(modifier))
-		return (strdup("Fail sound operation"));
-	return (strdup("Success sound operation"));
+		return (strdup("Fail backlight operation"));
+	return (strdup("Success backlight operation"));
 }
