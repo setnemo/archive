@@ -20,6 +20,18 @@ static const char	*g_system_args[] = {
 	"xbacklight = 100",
 	"xbacklight = 10",
 #else
+	"osascript -e 'tell application \"System Events\"' \
+		-e 'repeat 2 times' -e 'key code 144' -e 'end repeat' -e 'end tell'",
+	"osascript -e 'tell application \"System Events\"' \
+		-e 'repeat 2 times' -e 'key code 145' -e 'end repeat' -e 'end tell'",
+	"osascript -e 'tell application \"System Events\"' \
+		-e 'repeat 2 times' -e 'key code 144' -e 'end repeat' -e 'end tell'",
+	"osascript -e 'tell application \"System Events\"' \
+		-e 'repeat 2 times' -e 'key code 145' -e 'end repeat' -e 'end tell'",
+	"osascript -e 'tell application \"System Events\"' \
+		-e 'repeat 16 times' -e 'key code 145' -e 'end repeat' -e 'end tell'",
+	"osascript -e 'tell application \"System Events\"' \
+		-e 'repeat 16 times' -e 'key code 144' -e 'end repeat' -e 'end tell'",
 #endif
 	NULL
 };
