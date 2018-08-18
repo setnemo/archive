@@ -9,20 +9,23 @@ static const char	*g_args[] = {
 	"browser",
 	"terminal",
 	"file manager",
+	"clean",
 	NULL
 };
 
 static const char	*g_system_args[] = {
 #ifdef __linux__
-	"xbacklight + 10",
-	"xbacklight + 10",
-	"xbacklight + 10",
-	"xbacklight + 10",
+	PROGRAM_EDITOR,
+	PROGRAM_BROWSER,
+	PROGRAM_TERMINAL,
+	PROGRAM_FILEMANAGER
+	"echo only for UNIT Factory computers",
 #else
 	"open -a \"" PROGRAM_EDITOR "\"",
 	"open -a \"" PROGRAM_BROWSER"\"",
 	"open -a \"" PROGRAM_TERMINAL"\"",
 	"open -a \"" PROGRAM_FILEMANAGER"\"",
+	"rm -f ~/Library/*42_cache*",
 #endif
 	NULL
 };
