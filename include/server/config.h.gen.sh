@@ -19,6 +19,13 @@ cat <<EOF > config.h
 #  define SCREENSHOT_CMD "scrot '" SCREENSHOT_FOLDER "%Y-%m-%d_\$wx\$h.png'"
 #  define FILE_MANAGER_CMD "thunar"
 # else
+#  define LOCKSCREEN_CMD "osascript -e 'tell application \"System Events\" to keystroke \"q\" using {control down,  command down}'"
+#  define SCREENSHOT_FOLDER "$HOME/screenshots/"
+#  define SCREENSHOT_CMD "screencapture $HOME/screenshots/"
+#  define PROGRAM_EDITOR "Sublime Text"
+#  define PROGRAM_BROWSER "Google Chrome"
+#  define PROGRAM_TERMINAL "iterm"
+#define PROGRAM_FILEMANAGER "Finder"
 # endif
 # define WEATHER_GEO_LOCATION "$WEATHER_GEO_LOCATION"
 # define WEATHER_API_KEY "$WEATHER_API_KEY"

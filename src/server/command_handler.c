@@ -8,7 +8,7 @@
 #include <unistd.h>
 #include "server/command_callbacks.h"
 
-static char		*g_commands[] = {
+static const char		*g_commands[] = {
 	"hello test",
 	"sound",
 	"lock screen",
@@ -21,18 +21,18 @@ static char		*g_commands[] = {
 };
 
 static char		*(*g_command_callbacks[])(void *) = {
-	hello_test_callback,
-	sound_callback,
-	screen_lock_callback,
-	run_program,
-	screen_shot_callback,
-	show_screen_shots_callback,
-	weather_callback,
-	backlight_callback,
+	hello_test_callback,		//done
+	sound_callback,				//done
+	screen_lock_callback,		//done
+	run_program,				//done
+	screen_shot_callback,		//done
+	show_screen_shots_callback,	//done
+	weather_callback,			//done
+	backlight_callback,			//done
 	NULL
 };
 
-static void		write_log(const char *received, const char *responded)
+static void				write_log(const char *received, const char *responded)
 {
 	int		fd;
 
@@ -46,7 +46,7 @@ static void		write_log(const char *received, const char *responded)
 	close(fd);
 }
 
-char			*command_handler(char *command)
+char					*command_handler(char *command)
 {
 	int			i;
 	char		*responce;
