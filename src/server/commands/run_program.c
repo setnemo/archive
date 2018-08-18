@@ -2,10 +2,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <stdio.h>
-#define PROGRAM_EDITOR "Sublime Text"
-#define PROGRAM_BROWSER "Google Chrome"
-#define PROGRAM_TERMINAL "iterm"
-#define PROGRAM_FILEMANAGER "Finder"
+#include "server/config.h"
+
 static const char	*g_args[] = {
 	"editor",
 	"browser",
