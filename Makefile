@@ -38,6 +38,7 @@ SERVER_SRC_FILES = command_handler.c		\
 				   commands/screen_shot.c	\
 				   commands/weather.c		\
 				   commands/backlight.c		\
+				   commands/play_music.c	\
 
 SERVER_SRC=$(addprefix server/, $(SERVER_SRC_FILES))
 

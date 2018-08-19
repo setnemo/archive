@@ -17,18 +17,20 @@ static const char		*g_commands[] = {
 	"show screen shots",
 	"weather",
 	"backlight",
+	"play music",
 	NULL
 };
 
 static char		*(*g_command_callbacks[])(void *) = {
-	hello_test_callback,		//done
-	sound_callback,				//done
-	screen_lock_callback,		//done
-	run_program,				//done
-	screen_shot_callback,		//done
-	show_screen_shots_callback,	//done
-	weather_callback,			//done
-	backlight_callback,			//done
+	hello_test_callback,
+	sound_callback,
+	screen_lock_callback,
+	run_program,
+	screen_shot_callback,
+	show_screen_shots_callback,
+	weather_callback,
+	backlight_callback,
+	play_music_callback,
 	NULL
 };
 
