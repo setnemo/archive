@@ -18,6 +18,7 @@ static const char		*g_commands[] = {
 	"weather",
 	"backlight",
 	"play music",
+	"history",
 	NULL
 };
 
@@ -31,6 +32,7 @@ static char		*(*g_command_callbacks[])(void *) = {
 	weather_callback,
 	backlight_callback,
 	play_music_callback,
+	history_callback,
 	NULL
 };
 

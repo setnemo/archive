@@ -39,6 +39,7 @@ SERVER_SRC_FILES = command_handler.c		\
 				   commands/weather.c		\
 				   commands/backlight.c		\
 				   commands/play_music.c	\
+				   commands/history.c		\
 
 SERVER_SRC=$(addprefix server/, $(SERVER_SRC_FILES))
 
@@ -75,4 +76,12 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+web_client:
+	@echo Starting web server
+	nohup php -S 0.0.0.0:8888 -t bonus &
+
+run: $(SERVER) $(CLIENT) web_client
+	@echo Starting JOPA server
+	./$(SERVER)
+
+.PHONY: all clean fclean re web_client run
