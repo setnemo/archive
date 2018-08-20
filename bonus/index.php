@@ -6,7 +6,7 @@ $fp = @fopen('../command_log.csv', 'r');
 
 // Add each line to an array
 if ($fp) {
-   $array = explode("\n", fread($fp, filesize('../command_log.csv')));
+	 $array = explode("\n", fread($fp, filesize('../command_log.csv')));
 }
 ?>
 <!doctype html>
@@ -76,6 +76,21 @@ $(document).ready(function(){
 		});
 	});
 });
+window.onload = function() {
+	setTimeout(yeah, 10000);
+}
+function yeah() {
+	$.ajax({
+			type:"POST",
+			url: 'refresh.php',
+		data: {},
+			success: function(response){
+				$('#alldata').html(response);
+		}
+	});
+	setTimeout(yeah, 10000);
+}
+
 </script>
 </body>
 </html>
