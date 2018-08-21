@@ -1,6 +1,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <sphinxbase/ad.h>
+#include <sphinxbase/err.h>
 #include "pocketsphinx.h"
 
 static void	recognize_from_mic(cmd_ln_t *config, ps_decoder_t *ps)
@@ -13,7 +14,7 @@ static void	recognize_from_mic(cmd_ln_t *config, ps_decoder_t *ps)
 	char const	*hyp;
 
 	utt_started = FALSE;
-	ad = ad_open_dev(cmd_ln_str_r(config, "-adcdev"), (int)cmd_ln_float32_r(config, "-samprate"));
+	ad = ad_open_dev("sysdefault", (int)cmd_ln_float32_r(config, "-samprate"));
 	ad_start_rec(ad);
 	ps_start_utt(ps);
 	for(;;)
@@ -22,17 +23,19 @@ static void	recognize_from_mic(cmd_ln_t *config, ps_decoder_t *ps)
 		ps_process_raw(ps, adbuf, k, FALSE, FALSE);
 		in_speech = ps_get_in_speech(ps);
 		if (in_speech && !utt_started)
+		{
+			printf("Listen...\n");
 			utt_started = TRUE;
+		}
 		if (!in_speech && utt_started)
 		{
 			ps_end_utt(ps);
 			hyp = ps_get_hyp(ps, NULL);
 			if (hyp)
-			{
 				printf("%s\n", hyp);
-				//fflush(stdout);
-			}
+			ps_start_utt(ps);
 			utt_started = FALSE;
+			printf("Ready\n");
 		}
 		sleep(1);
 	}
