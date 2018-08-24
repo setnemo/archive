@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   weather.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vrybalko <vrybalko@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/08/24 22:22:13 by vrybalko          #+#    #+#             */
+/*   Updated: 2018/08/24 22:25:15 by vrybalko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -90,5 +102,7 @@ char				*weather_callback(void *arg)
 	data = get_weather_data(arg);
 	if (!data)
 		return (strdup("Failed to get weather forecast"));
+	else if (strncmp(data, "Forbid", 6) == 0)
+		return (strdup("Your API key is invalid"));
 	return (parse_daily_summary(data));
 }
