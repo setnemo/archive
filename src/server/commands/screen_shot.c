@@ -7,15 +7,14 @@ static const char			*g_command = SCREENSHOT_CMD;
 static const char			*g_show_command = FILE_MANAGER_CMD " "\
 											  SCREENSHOT_FOLDER " &";
 #else
+static const char			*g_command = SCREENSHOT_CMD"$(date +%Y%m%d%H%M%S)"".png";
+static const char			*g_show_command = " open -a Preview.app "SCREENSHOT_FOLDER;
 #endif
-
 char				*screen_shot_callback(void *arg)
 {
 	(void)arg;
-#ifdef __linux__
 	if (system("mkdir -p " SCREENSHOT_FOLDER))
 		return (strdup("Failed to create screen shot folder"));
-#endif
 	if (system(g_command))
 		return (strdup("Failed to take screen shot"));
 	return (strdup("Screen shot have been taken"));

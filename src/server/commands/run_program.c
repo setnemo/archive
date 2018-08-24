@@ -2,25 +2,54 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <stdio.h>
+#include "server/config.h"
 
-char		*run_program(void *arg)
+static const char	*g_args[] = {
+	"editor",
+	"browser",
+	"terminal",
+	"file manager",
+	"clean",
+	NULL
+};
+
+static const char	*g_system_args[] = {
+#ifdef __linux__
+	PROGRAM_EDITOR,
+	PROGRAM_BROWSER,
+	PROGRAM_TERMINAL,
+	PROGRAM_FILEMANAGER
+	"echo only for UNIT Factory computers",
+#else
+	"open -a \"" PROGRAM_EDITOR "\"",
+	"open -a \"" PROGRAM_BROWSER"\"",
+	"open -a \"" PROGRAM_TERMINAL"\"",
+	"open -a \"" PROGRAM_FILEMANAGER"\"",
+	"rm -f ~/Library/*42_cache*",
+#endif
+	NULL
+};
+
+char				*run_program(void *arg)
 {
-	char	*command;
-	char	*str;
-	int		i;
+	char		*str;
+	const char	*modifier;
+	int			i;
 
 	str = (char*)arg;
-	i = 0;
-	while (isalpha(str[i]))
-		i++;
-	while (isspace(str[i]))
-		i++;
-	str += i;
-	command = malloc(strlen(str) + 3);
-	strncpy(command, str, strlen(str) + 3);
-	strncat(command, " &", strlen(str) + 3);
-	puts(command);
-	if (system(command))
-		return (strdup("Fail running command"));
-	return (strdup("Success running command"));
+	modifier = NULL;
+	i = -1;
+	while (g_args[++i])
+	{
+		if (strstr(str, g_args[i]))
+		{
+			modifier = g_system_args[i];
+			break ;
+		}
+	}
+	if (!modifier)
+		return (strdup("I don't understand this run program operation"));
+	if (system(modifier))
+		return (strdup("Fail run program operation"));
+	return (strdup("Success run program operation"));
 }
