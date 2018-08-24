@@ -65,10 +65,10 @@ char	*get_user_speech(void)
 	cmd_ln_t		*config;
 
 	config = cmd_ln_init(NULL, ps_args(), TRUE,
-			"-hmm", MODELDIR "/en-us/en-us",
-			"-lm", MODELDIR "/en-us/en-us.lm.bin",	// custom language model (file must be present)
-			"-dict", "dict.dic",					// custom dictionary (file must be present)
-			"-logfn", "/dev/null", NULL);
+	"-hmm", MODELDIR "/en-us/en-us",
+	"-lm", MODELDIR "/en-us/en-us.lm.bin",	// custom language model (file must be present)
+	"-dict", "dict.dic",	// custom dictionary (file must be present)
+	"-logfn", "/dev/null", NULL);
 	if (config == NULL)
 	{
 		fprintf(stderr, "Failed to create config object\n");

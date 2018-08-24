@@ -13,14 +13,15 @@ int		main(void)
 	{
 		len = 0;
 		input = NULL;
-		printf("please enter command > ");
-		if (getline(&input, &len, stdin) == -1)
-		{
-			puts("Error reading stdin");
-			continue ;
-		}
-		if ((line_end = strchr(input, '\n')))
-			line_end[0] = 0;
+		input = get_user_speech();
+		// printf("please enter command > ");
+		// if (getline(&input, &len, stdin) == -1)
+		// {
+		// 	puts("Error reading stdin");
+		// 	continue ;
+		// }
+		// if ((line_end = strchr(input, '\n')))
+		// 	line_end[0] = 0;
 		if (!input || strlen(input) == 0)
 		{
 			puts("No input detected!");
