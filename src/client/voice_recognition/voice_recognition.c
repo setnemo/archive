@@ -65,20 +65,21 @@ char	*get_user_speech(void)
 	cmd_ln_t		*config;
 
 	config = cmd_ln_init(NULL, ps_args(), TRUE,
-	"-hmm", MODELDIR "/en-us/en-us",
+	"-hmm", DICTDIR "en-us-adapt",
 	"-lm", MODELDIR "/en-us/en-us.lm.bin",	// custom language model (file must be present)
-	"-dict", "dict.dic",	// custom dictionary (file must be present)
-	"-logfn", "/dev/null", NULL);
+	"-dict", DICTDIR "dict.dic",	// custom dictionary (file must be present)
+	"-logfn", "/dev/null",
+	"-mllr", "/home/dana/projects/kift/sound_samples/mllr_matrix", NULL);
 	if (config == NULL)
 	{
 		fprintf(stderr, "Failed to create config object\n");
-		return (-1);
+		return (NULL);
 	}
 	ps = ps_init(config);
 	if (ps == NULL)
 	{
 		fprintf(stderr, "Failed to create recognizer\n");
-		return (-1);
+		return (NULL);
 	}
 	result = recognize_from_mic(config, ps);
 	ps_free(ps);

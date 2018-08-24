@@ -6,12 +6,12 @@ int		main(void)
 {
 	char	*responce;
 	char	*input;
-	char	*line_end;
-	size_t	len;
+	// char	*line_end;
+	// size_t	len;
 
 	while (1)
 	{
-		len = 0;
+		// len = 0;
 		input = NULL;
 		input = get_user_speech();
 		// printf("please enter command > ");
