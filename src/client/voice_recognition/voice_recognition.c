@@ -68,7 +68,8 @@ char	*get_user_speech(void)
 	"-hmm", DICTDIR "en-us-adapt",
 	"-lm", MODELDIR "/en-us/en-us.lm.bin",	// custom language model (file must be present)
 	"-dict", DICTDIR "dict.dic",	// custom dictionary (file must be present)
-	"-logfn", "/dev/null", NULL);
+	"-logfn", "/dev/null",
+	"-mllr", DICTDIR "mllr_matrix", NULL);
 	if (config == NULL)
 	{
 		fprintf(stderr, "Failed to create config object\n");
