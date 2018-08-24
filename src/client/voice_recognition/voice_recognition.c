@@ -69,7 +69,7 @@ char	*get_user_speech(void)
 	"-lm", MODELDIR "/en-us/en-us.lm.bin",	// custom language model (file must be present)
 	"-dict", DICTDIR "dict.dic",	// custom dictionary (file must be present)
 	"-logfn", "/dev/null",
-	"-mllr", "/home/dana/projects/kift/sound_samples/mllr_matrix", NULL);
+	"-mllr", DICTDIR "mllr_matrix", NULL);
 	if (config == NULL)
 	{
 		fprintf(stderr, "Failed to create config object\n");
