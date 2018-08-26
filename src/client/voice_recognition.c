@@ -47,11 +47,10 @@ int		main(int argc, char **argv)
 	ps_decoder_t	*ps;
 	cmd_ln_t		*config;
 
-	config = cmd_ln_init(NULL, ps_args(), TRUE,		// Load the configuration structure - ps_args() passes the default values
-	"-hmm", MODELDIR "/en-us/en-us",				// path to the standard english language model
-	"-lm", MODELDIR "/en-us/en-us.lm.bin",			// custom language model (file must be present)
-	"-dict", MODELDIR "/en-us/cmudict-en-us.dict",	// custom dictionary (file must be present)
-	//"-logfn", "/dev/null",							// suppress log info from being sent to screen
+	config = cmd_ln_init(NULL, ps_args(), TRUE,				// Load the configuration structure - ps_args() passes the default values
+			"-hmm", MODELDIR "/en-us/en-us",				// path to the standard english language model
+			"-lm", MODELDIR "/en-us/en-us.lm.bin",			// custom language model (file must be present)
+			"-dict", MODELDIR "/en-us/cmudict-en-us.dict",	// custom dictionary (file must be present)
 	NULL);
 	if (config == NULL)
 	{
