@@ -6,9 +6,13 @@ CC=gcc
 
 FLAGS=-Wall -Wextra -Werror -I include -g
 
-CLIENT_LINKER_FLAGS=
+CLIENT_LINKER_FLAGS=`pkg-config --libs pocketsphinx sphinxbase`
 
 SERVER_LINKER_FLAGS=-lpthread -lcurl
+
+CLIENT_COMP_FLAGS=`pkg-config --cflags pocketsphinx sphinxbase` \
+					-DMODELDIR=\"`pkg-config --variable=modeldir pocketsphinx`\" \
+					-DDICTDIR=\"$(shell pwd)/src/client/voice_recognition/\"
 
 SAM_LIB=external/sam/libsam.a
 
@@ -22,8 +26,9 @@ VPATH=src
 
 all: $(CLIENT) $(SERVER)
 
-CLIENT_SRC_FILES = main.c					\
-				   send_text_command.c		\
+CLIENT_SRC_FILES = main.c									\
+				   send_text_command.c						\
+				   voice_recognition/voice_recognition.c	\
 
 CLIENT_SRC=$(addprefix client/, $(CLIENT_SRC_FILES))
 
@@ -38,6 +43,8 @@ SERVER_SRC_FILES = command_handler.c		\
 				   commands/screen_shot.c	\
 				   commands/weather.c		\
 				   commands/backlight.c		\
+				   commands/play_music.c	\
+				   commands/history.c		\
 
 SERVER_SRC=$(addprefix server/, $(SERVER_SRC_FILES))
 
@@ -45,7 +52,7 @@ SERVER_BINS=$(addprefix bin/, $(SERVER_SRC:.c=.o))
 
 bin/%.o: %.c
 	@mkdir -p $(shell dirname $@)
-	$(CC) $(FLAGS) -c -o $@ $<
+	$(CC) $(FLAGS) $(CLIENT_COMP_FLAGS) -c -o $@ $<
 
 $(SAM_LIB):
 	make -C $(shell dirname $@)
@@ -53,15 +60,18 @@ $(SAM_LIB):
 $(CJSON_LIB):
 	make -C $(shell dirname $@)
 
+$(shell dirname $(CONFIG_FILE))/.env: $(shell dirname $(CONFIG_FILE))/.env.example
+	cp $< $@
+
 $(CONFIG_FILE): $(shell dirname $(CONFIG_FILE))/.env
 	cd $(shell dirname $@); /bin/bash ./$(shell basename $@).gen.sh
 
 $(CLIENT): $(CLIENT_BINS) $(SAM_LIB)
-	$(CC) $(FLAGS) -o $(CLIENT) $(CLIENT_LINKER_FLAGS) $(CLIENT_BINS) $(SAM_LIB)\
-		$(SAM_LFLAGS)
+	$(CC) $(FLAGS) -o $(CLIENT) $(CLIENT_BINS) $(SAM_LIB)\
+		$(SAM_LFLAGS)  $(CLIENT_LINKER_FLAGS)
 
 $(SERVER): $(CONFIG_FILE) $(SERVER_BINS) $(CJSON_LIB)
-	$(CC) $(FLAGS) -o $(SERVER) $(SERVER_LINKER_FLAGS) $(SERVER_BINS) $(CJSON_LIB)
+	$(CC) $(FLAGS) -o $(SERVER) $(SERVER_BINS) $(CJSON_LIB) $(SERVER_LINKER_FLAGS)
 
 clean:
 	/bin/rm -f $(CLIENT_BINS) $(SERVER_BINS)
@@ -74,4 +84,12 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+web_client:
+	@echo Starting web server
+	nohup php -S 0.0.0.0:8888 -t bonus &
+
+run: $(SERVER) $(CLIENT) web_client
+	@echo Starting JOPA server
+	./$(SERVER)
+
+.PHONY: all clean fclean re web_client run

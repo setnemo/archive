@@ -4,6 +4,8 @@
 static const char	*g_args[] = {
 	"up",
 	"down",
+	"increase",
+	"decrease",
 	"mute",
 	"disable",
 	"enable",
@@ -16,12 +18,23 @@ static const char	*g_system_args[] = {
 #ifdef __linux__
 	"amixer -D pulse sset Master 5%+",
 	"amixer -D pulse sset Master 5%-",
+	"amixer -D pulse sset Master 5%+",
+	"amixer -D pulse sset Master 5%-",
 	"amixer -D pulse sset Master mute",
 	"amixer -D pulse sset Master mute",
 	"amixer -D pulse sset Master unmute",
 	"amixer -D pulse sset Master 40%",
 	"amixer -D pulse sset Master 100%",
 #else
+	"osascript -e \"set volume output volume (output volume of (get volume settings) + 5) --100%\"",
+	"osascript -e \"set volume output volume (output volume of (get volume settings) - 5) --100%\"",
+	"osascript -e \"set volume output volume (output volume of (get volume settings) + 5) --100%\"",
+	"osascript -e \"set volume output volume (output volume of (get volume settings) - 5) --100%\"",
+	"osascript -e \"set volume with output muted\"",
+	"osascript -e \"set volume with output muted\"",
+	"osascript -e \"set volume without output muted\"",
+	"osascript -e \"set volume 4\"",
+	"osascript -e \"set volume 10\"",
 #endif
 	NULL
 };
