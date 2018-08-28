@@ -22,14 +22,12 @@ void		hook_start_pause(t_data *data)
 		if (data->status == 0)
 			data->start = 1;
 		data->status = 1;
-		init_button(img, data, "./xpm/Mad.xpm");
-		mlx_put_image_to_window(data->img->mlx, img->win, img->smile, img->button[1] - 2, img->button[0] - 2);
+		// mlx_put_image_to_window(data->img->mlx, img->win, img->smile, img->button[1] - 2, img->button[0] - 2);
 	}
 	else if (data->status == 1)
 	{
 		data->status = 2;
-		init_button(img, data, "./xpm/Sleepy.xpm");
-		mlx_put_image_to_window(img->mlx, img->win, img->smile, img->button[1] - 2, img->button[0] - 2);
+		// mlx_put_image_to_window(img->mlx, img->win, img->smile, img->button[1] - 2, img->button[0] - 2);
 	}
 }
 
@@ -39,8 +37,8 @@ int		mouse_hook(int mouse, int x, int y, t_data *data)
 	int x1;
 	int y1;
 	
-	ft_printf("mouse[%d. x[%d] y[%d]\n", mouse, x, y);
-	if (data->status == 3)
+	ft_printf("mouse[%d. x[%d] y[%d] data[%d]\n", mouse, x, y, data->status);
+	if (data->status == 3 || data->status == 4)
 	{
 		key_hook(49, data);
 		return (0);
@@ -69,7 +67,7 @@ int		mouse_hook(int mouse, int x, int y, t_data *data)
 				{
 					draw_xpm(data, data->field[y1][x1], x1, y1);
 					// ft_printf("HERAK!\n");
-					draw_stop(data, 0);
+					data->status=4;
 				}
 			}
 		}
@@ -108,7 +106,7 @@ int		mouse_hook(int mouse, int x, int y, t_data *data)
 		// 		ft_printf("\n");
 		// 	}
 		// 	ft_printf("=========  end  show ======\n");
-			ft_printf("======= %d ============= %d ====\n", data->openm, data->openc);
+		// 	ft_printf("======= %d ============= %d ====\n", data->openm, data->openc);
 
 		// }
 		// else
@@ -126,10 +124,11 @@ int		mouse_hook(int mouse, int x, int y, t_data *data)
 int			key_hook(int keycode, t_data *data)
 {
 	// ft_printf("HOOK %d\n", keycode);
-	if (data->status != 3)
+	if (data->status < 3)
 	{
 		if ((keycode == 53 || keycode == 65307) && data->status != 1)
 		{
+			system("leaks -quiet mines42");
 			exit(1);
 		}
 		else if (keycode == 49 || keycode == 32)
@@ -140,25 +139,12 @@ int			key_hook(int keycode, t_data *data)
 	else
 	{
 		if (keycode == 53 || keycode == 65307)
-		{
 			exit(1);
-		}
 		if (keycode == 49 || keycode == 32)
 		{
 			ft_printf("new game....\n");
-			t_img *img = data->img;
-			data->openc = data->img->how_x * data->img->how_y;
-			data->openm = data->img->mines;
-			mlx_clear_window (data->img->mlx, data->img->win);
-			img->img = mlx_new_image(img->mlx, data->windowsizew, data->windowsizeh);
-			img->img_ptr = (int*)mlx_get_data_addr(img->img, &img->bpp, &img->sl, &img->endian);
-			int i = -1;
-			while (++i < data->windowsizew * data->windowsizeh)
-				data->img->img_ptr[i] = 0xc0c0c0;
-			init_lines(data->img, data);
-			mlx_put_image_to_window(img->mlx, img->win, img->img, 0, 0);
-			data->status = 0;
-			hook_start_pause(data);
+			data->start = 1;
+			data->status = 1;
 		}
 	}
 	return (0);

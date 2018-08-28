@@ -12,49 +12,11 @@
 
 #include "mines.h"
 
-void		draw_stop(t_data *data, int flag)
-{
-	int		i1;
-	int		i2;
-	char	*gameover;
-	char	*button;
+// void		draw_stop(t_data *data, int flag)
+// {
 
-	i1 = 120;
-	i2 = 72;
-	if (flag)
-	{
-		gameover = "./xpm/win.xpm";
-		button = "./xpm/Love.xpm";
-	}
-	else
-	{
-		gameover = "./xpm/lose.xpm" ;
-		button = "./xpm/Sad.xpm" ;
-		
-	}
-	data->img->xpm = mlx_xpm_file_to_image(data->img->mlx, gameover, &i1, &i2);
-	i2 = (data->windowsizeh / 2) - 36;
-	i1 = (data->windowsizew / 2) - 60;
-	mlx_put_image_to_window(data->img->mlx, data->img->win, data->img->xpm, i1, i2);
-	data->start = 1;
-	int i;
-	i = -1;
-	while (++i < data->img->how_y)
-	{
-				// ft_printf("=%i=========>%p\n===========>%p\n", i, data->field[i], data->show[i]);
-
-		free(data->field[i]);
-		free(data->show[i]);
-	}
-				// ft_printf("===========>%p\n===========>%p\n", data->field, data->show);
-	free(data->field);
-	free(data->show);
-	data->show = NULL;
-	init_button(data->img, data, button);
-	mlx_put_image_to_window(data->img->mlx, data->img->win, data->img->smile, data->img->button[1] - 2, data->img->button[0] - 2);
-	mlx_destroy_image(data->img->mlx, data->img->img);
-	data->status = 3;
-}
+// 	;
+// }
 
 void		draw_square(t_img *img, t_data *data, int points[])
 {
@@ -160,5 +122,5 @@ void		draw_xpm(t_data *data, int flag, int x, int y)
 		}
 	}
 	if (data->openm == data->img->mines && data->openc == data->img->how_x * data->img->how_y - data->img->mines)
-		draw_stop(data, 1);
+		data->status = 3;
 }
