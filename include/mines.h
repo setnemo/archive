@@ -13,9 +13,8 @@
 #ifndef MINES_H
 # define MINES_H
 # include "../libft/include/libft.h"
-# include </home/apakhomo/libmlx/mlx.h>
+# include </root/libmlx/mlx.h>
 // # include <mlx.h>
-# include <time.h>
 # include <fcntl.h>
 # include <unistd.h>
 # define NOVICE_SIDE 9
@@ -61,8 +60,6 @@ typedef struct		s_data
 	int				start;
 	int				openc;
 	int				openm;
-	time_t			time;
-	int				sec;
 	char			**field;
 	char			**show;
 	struct s_img	*img;

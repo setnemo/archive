@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "mines.h"
+#include <time.h>
 
 int			window_close(void)
 {
@@ -19,80 +20,11 @@ int			window_close(void)
 }
 
 
-
-int	t(t_data *data)
+int			times(int x, int y, t_data *data)
 {
-	
-	if (data->status == 0)
-	{
-		init_img(data);
-		ft_printf(".");
-
-	}
-	else if (data->status == 1)
-	{
-		init_img(data);
-		ft_printf("-");
-
-	}
-	else
-		ft_printf("+");
-	return (1);
-}
-
-void		init_button(t_img *img, t_data *data, char *str)
-{
-	int		t[4];
-	int		i1;
-	int		i2;
-
-	ft_memcpy(&t[0], &img->button[0], sizeof(int) * 4);
-	draw_square(img, data, t);
-	i1 = data->cellsize * 2;
-	i2 = data->cellsize * 2;
-	img->smile = mlx_xpm_file_to_image(img->mlx, str, &i1, &i2);
-}
-
-void		init_lines(t_img *img, t_data *data)
-{
-	int		i;
-	i = -1;
-	while (++i < data->windowsizew * data->windowsizeh)
-	{
-		// ft_printf(":%i:\n", i);
-		img->img_ptr[i] = 0xc0c0c0;
-	}
-	int j;
-	int points[4];
-	j = -1;
-	while (++j < img->how_x)
-	{
-		i = -1;
-		while (++i < img->how_y)
-		{
-			points[0] = data->img->shifty + i * data->cellsize;
-			points[1] = data->img->shiftx + j * data->cellsize;
-			points[2] = data->img->shifty + (i + 1) * data->cellsize;
-			points[3] = data->img->shiftx + (j + 1) * data->cellsize;
-			draw_square(img, data, points);
-		}
-	}
-	// init_button(img, data, "./xpm/Shout.xpm");
-}
-
-void		init_img(t_data *data)
-{
-	t_img	*img;
-
-
-	img = data->img;
-	mlx_clear_window(data->img->mlx, data->img->win);
-	if (data->img->img)
-		mlx_destroy_image(data->img->mlx, data->img->img);
-	data->img->img = mlx_new_image(data->img->mlx, data->windowsizew, data->windowsizeh);
-	init_lines(data->img, data);
-	mlx_put_image_to_window(data->img->mlx, data->img->win, data->img->img, 0, 0);
-
+  const time_t timer = time(NULL);
+  printf("%s\n", ctime(&timer));
+	return (0);
 }
 
 
@@ -100,19 +32,17 @@ static void	start_mines(t_data *data)
 {
 	t_img *img;
 
+	init_img(data);
 	img = data->img;
-	img->mlx = mlx_init();
-	img->win = mlx_new_window(img->mlx, data->windowsizew, data->windowsizeh, "Mines42");
-	data->img->img = mlx_new_image(data->img->mlx, data->windowsizew, data->windowsizeh);
-	img->img_ptr = (int*)mlx_get_data_addr(img->img, &img->bpp, &img->sl, &img->endian);
-	img->fillline = mlx_get_color_value(img->mlx, img->fillline);
-	init_lines(data->img, data);
-	mlx_put_image_to_window(data->img->mlx, data->img->win, data->img->img, 0, 0);
-	mlx_mouse_hook(data->img->win, mouse_hook, data);
-	mlx_hook(data->img->win, 17, 0, window_close, data);
-	mlx_key_hook(data->img->win, key_hook, data);
-	mlx_loop_hook(data->img->mlx, t, data);
-	// ft_printf("%lld", clock());
+	init_lines(img, data);
+	mlx_put_image_to_window(img->mlx, img->win, img->img, 0, 0);
+	mlx_put_image_to_window(img->mlx, img->win, img->smile, img->button[1] - 2, img->button[0] - 2);
+	mlx_mouse_hook(img->win, mouse_hook, data);
+	mlx_hook(img->win, 17, 0, window_close, data);
+	mlx_key_hook(img->win, key_hook, data);
+	mlx_expose_hook(img->win, times, data);
+	// mlx_hook(img->win, 6, 64, times, data);
+	mlx_loop_hook(img->win, times, data);
 	mlx_loop(img->mlx);
 }
 
@@ -144,9 +74,8 @@ static void	init_struct(t_data *data, int flag)
 	data->img->button[3] = data->img->button[1] + data->cellsize * 2;
 	data->status = 0;
 	data->start = 0;
-	data->openc = 0;
-	data->openm = 0;
-	data->show = 0;
+	data->openc = data->img->how_x * data->img->how_y;
+	data->openm = data->img->mines;
 }
 
 int			main(int argc, char **argv)
@@ -180,9 +109,9 @@ int			main(int argc, char **argv)
 
 // DONE 		написать инициализацию в зависимости от сложности
 // DONE			дорисовать кнопку страта в шапке (она же будет выход, если нажат эскейп)
-// DONE			написать алгоритм игры
-// DONE		 	связать кей хуки с отрисовкой
-// DONE			реализовать свой рандом на базе urandom
+// написать алгоритм игры
+// связать кей хуки с отрисовкой
+// реализовать свой рандом на базе urandom
 // реализовать таймер на базе clock() и отрисовать его в игре
 
 

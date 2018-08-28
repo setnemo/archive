@@ -6,7 +6,7 @@
 #    By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 20:34:52 by apakhomo          #+#    #+#              #
-#    Updated: 2018/08/28 10:54:36 by apakhomo         ###   ########.fr        #
+#    Updated: 2017/11/07 20:34:54 by apakhomo         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -14,7 +14,7 @@ NAME = mines42
 CC = gcc 
 # WWW = -Wall -Wextra -Werror 
 # FLAGS = -g -lmlx -framework OpenGL -framework AppKit
-FLAGS =  -lmlx -lXext -lX11 -L /home/apakhomo/libmlx/ -I /home/apakhomo/libmlx/
+FLAGS =  -lmlx -lXext -lX11 -L /root/libmlx/ -I /root/libmlx/
 
 SRC_NAME = 	main.c\
 			hook.c\
@@ -62,6 +62,5 @@ fclean: clean
 	@echo "##### REMOVE BINARY FILES #####"
 
 re: fclean all
-
 
 .PHONY: clean fclean all re
