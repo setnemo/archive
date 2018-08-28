@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_img.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apakhomo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -30,6 +30,7 @@ void		init_lines(t_img *img, t_data *data)
 	int i;
 	int j;
 	int points[4];
+
 	j = -1;
 	while (++j < img->how_x)
 	{
@@ -44,7 +45,6 @@ void		init_lines(t_img *img, t_data *data)
 		}
 	}
 	init_button(img, data, "./xpm/Shout.xpm");
-	// init_button(img, data, "./xpm/Love.xpm");
 }
 
 void		init_img(t_data *data)
@@ -54,9 +54,12 @@ void		init_img(t_data *data)
 
 	img = data->img;
 	img->mlx = mlx_init();
-	img->win = mlx_new_window(img->mlx, data->windowsizew, data->windowsizeh, "Mines42");
-	img->img = mlx_new_image(img->mlx, data->windowsizew, data->windowsizeh);
-	img->img_ptr = (int*)mlx_get_data_addr(img->img, &img->bpp, &img->sl, &img->endian);
+	img->win = mlx_new_window(img->mlx,
+		data->windowsizew, data->windowsizeh, "Mines42");
+	img->img = mlx_new_image(img->mlx,
+		data->windowsizew, data->windowsizeh);
+	img->img_ptr = (int*)mlx_get_data_addr(img->img,
+		&img->bpp, &img->sl, &img->endian);
 	img->fillline = mlx_get_color_value(img->mlx, img->fillline);
 	i = -1;
 	while (++i < data->windowsizew * data->windowsizeh)

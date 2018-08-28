@@ -12,13 +12,13 @@
 
 NAME = mines42
 CC = gcc 
-# WWW = -Wall -Wextra -Werror 
-# FLAGS = -g -lmlx -framework OpenGL -framework AppKit
-FLAGS =  -lmlx -lXext -lX11 -L /root/libmlx/ -I /root/libmlx/
+WWW = -Wall -Wextra -Werror 
+FLAGS = -g -lmlx -framework OpenGL -framework AppKit
 
 SRC_NAME = 	main.c\
 			hook.c\
 			draw.c\
+			draw_xpm.c\
 			init_img.c\
 			init_field.c\
 			core.c
@@ -35,7 +35,7 @@ OBJ_DIR = obj/
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	# @make -C $(LIB_DIR) --silent
+	@make -C $(LIB_DIR) --silent
 	@echo "######### LIB CREATED #########"
 	$(CC) -o $(NAME) $(OBJ) -L $(LIB_DIR) -lft $(FLAGS) 
 	@echo "##### COMPILING FINISHED ######"
@@ -52,12 +52,12 @@ norm:
 	@norminette ./srcs
 
 clean:
-	# @make -C $(LIB_DIR) clean --silent
+	@make -C $(LIB_DIR) clean --silent
 	@rm -f $(OBJ)
 	@echo "##### REMOVE OBJECT FILES #####"
 
 fclean: clean
-	# @make -C $(LIB_DIR) fclean --silent
+	@make -C $(LIB_DIR) fclean --silent
 	@rm -f $(NAME)
 	@echo "##### REMOVE BINARY FILES #####"
 
