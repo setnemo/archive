@@ -6,11 +6,16 @@
 /*   By: dmulish <dmulish@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/26 19:04:02 by dmulish           #+#    #+#             */
-/*   Updated: 2018/08/27 18:54:11 by dmulish          ###   ########.fr       */
+/*   Updated: 2018/09/04 20:19:35 by dmulish          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "external/recognize_from_mic.h"
+
+/*
+** config param for model
+** "-mllr", DICTDIR "mllr_matrix"
+*/
 
 char		*get_user_speech(void)
 {
@@ -21,9 +26,8 @@ char		*get_user_speech(void)
 	config = cmd_ln_init(NULL, ps_args(), TRUE,
 			"-hmm", DICTDIR "en-us-adapt",
 			"-lm", MODELDIR "/en-us/en-us.lm.bin",
-			"-dict", DICTDIR "dict.dic",
+			"-dict", DICTDIR "dict2.dic",
 			"-logfn", "/dev/null", NULL);
-			/*"-mllr", DICTDIR "mllr_matrix",*/
 	if (config == NULL)
 	{
 		fprintf(stderr, "Failed to create config object\n");
