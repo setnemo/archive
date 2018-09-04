@@ -1,9 +1,8 @@
 NAME = libsphinx.a
 
-FLAGS = -Wall -Wextra -Werror -I include -g \
+FLAGS = -Wall -Wextra -Werror -g \
 		`pkg-config --cflags pocketsphinx sphinxbase` \
-		-DMODELDIR=\"`pkg-config --variable=modeldir pocketsphinx`\" \
-		-DDICTDIR=\"$(shell pwd)/src/client/voice_recognition/\"
+		-DDICTDIR=\"$(shell pwd)/../src/client/voice_recognition/\"
 
 SRCS = recognize_from_mic.c
 
