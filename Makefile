@@ -38,6 +38,9 @@ SERVER_SRC_FILES = command_handler.c		\
 				   commands/screen_shot.c	\
 				   commands/weather.c		\
 				   commands/backlight.c		\
+				   small_talk/small_talk.c	\
+				   small_talk/tell_me_something.c	\
+
 
 SERVER_SRC=$(addprefix server/, $(SERVER_SRC_FILES))
 
