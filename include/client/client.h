@@ -8,6 +8,7 @@
 # include <sys/socket.h>
 # include <arpa/inet.h>
 
+char			*get_user_speech(void);
 char			*send_text_command(const char *command);
 
 #endif
