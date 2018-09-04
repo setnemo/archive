@@ -1,29 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   connection_receiver.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vrybalko <vrybalko@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/04 20:51:41 by vrybalko          #+#    #+#             */
+/*   Updated: 2018/09/04 21:24:41 by vrybalko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "server/server.h"
-
-static char		*insert_length(const char *command, int *command_len)
-{
-	char		*tmp;
-	int			len;
-
-	len = strlen(command);
-	tmp = strdup(command);
-	tmp = realloc(tmp, len + 4);
-	memmove((void*)(tmp + 4), (void*)tmp, len);
-	printf("response len: %d\n", len);
-	tmp = memcpy((void*)tmp, (void*)&len, sizeof(int));
-	*command_len = len + 4;
-	return (tmp);
-}
+#include "connection_receiver_private.h"
 
 static int	bind_server(void)
 {
-	int					option;
+	int					opt;
 	int					server_socket;
 	struct sockaddr_in	server;
 
 	server_socket = socket(AF_INET, SOCK_STREAM, 0);
-	option = 1;
-	setsockopt(server_socket, SOL_SOCKET, SO_REUSEADDR, &option, sizeof(option));
+	opt = 1;
+	setsockopt(server_socket, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 	if (server_socket == -1)
 		perror("ERROR: Could not create server_socket!");
 	server.sin_family = AF_INET;
@@ -62,12 +60,7 @@ static void	*client_handler(void *thread_data)
 	printf("Received: %s\n", buf);
 	responce = command_handler(buf);
 	free(buf);
-	printf("Responded: %s\n", responce);
-	responce = insert_length(responce, &len);
-	write(client_socket, responce, len);
-	close(client_socket);
-	free(thread_data);
-	free(responce);
+	respond_and_clean(responce, thread_data, client_socket, len);
 	return (NULL);
 }
 
@@ -97,19 +90,14 @@ static void	wait_for_connection_loop(int server_socket)
 		perror("ERROR: accept failed");
 }
 
-void		receive_connection_loop(void)
+int			main(void)
 {
 	int		server_socket;
 
 	server_socket = bind_server();
 	printf("server_socket: %d\n", server_socket);
 	if (server_socket < 0)
-		return ;
+		return (-1);
 	wait_for_connection_loop(server_socket);
-}
-
-
-int			main(void)
-{
-	receive_connection_loop();
+	return (0);
 }

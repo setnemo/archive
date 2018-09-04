@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   send_text_command.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vrybalko <vrybalko@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/04 20:51:39 by vrybalko          #+#    #+#             */
+/*   Updated: 2018/09/04 21:01:14 by vrybalko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "client/client.h"
 
 static char		*insert_length(const char *command, int *command_len)
@@ -14,9 +26,22 @@ static char		*insert_length(const char *command, int *command_len)
 	return (tmp);
 }
 
-static char		*send_and_recv(const char *command, int sock_num)
+static int		get_message_length(int sock_num)
 {
 	char		server_reply[4];
+	int			len;
+
+	if (recv(sock_num, server_reply, 4, 0) < 0)
+	{
+		puts("ERROR recv");
+		return (-1);
+	}
+	len = *(int*)(&(server_reply[0]));
+	return (len);
+}
+
+static char		*send_and_recv(const char *command, int sock_num)
+{
 	char		*reply;
 	int			len;
 
@@ -27,12 +52,8 @@ static char		*send_and_recv(const char *command, int sock_num)
 		return (NULL);
 	}
 	puts("Sent");
-	if (recv(sock_num, server_reply, 4, 0) < 0)
-	{
-		puts("ERROR recv");
+	if ((len = get_message_length(sock_num)) < 0)
 		return (NULL);
-	}
-	len = *(int*)(&(server_reply[0]));
 	printf("len: %d\n", len);
 	reply = malloc(len + 1);
 	if ((recv(sock_num, reply, len, 0)) < 0)

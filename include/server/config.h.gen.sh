@@ -24,7 +24,9 @@ cat <<EOF > config.h
 #  define PROGRAM_FILEMANAGER "thunar"
 #  define OPEN_CMD "xdg-open"
 # else
-#  define LOCKSCREEN_CMD "osascript -e 'tell application \"System Events\" to keystroke \"q\" using {control down,  command down}'"
+#  define L1 "osascript -e 'tell application \"System Events\" to "
+#  define L2 "keystroke \"q\" using {control down,  command down}'"
+#  define LOCKSCREEN_CMD L1 L2
 #  define SCREENSHOT_FOLDER "$HOME/screenshots/"
 #  define SCREENSHOT_CMD "screencapture $HOME/screenshots/"
 #  define PROGRAM_EDITOR "Sublime Text"
@@ -38,3 +40,4 @@ cat <<EOF > config.h
 
 #endif
 EOF
+vim +Stdheader +wq config.h

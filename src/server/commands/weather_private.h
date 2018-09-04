@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.h                                           :+:      :+:    :+:   */
+/*   weather_private.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vrybalko <vrybalko@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/04 21:26:41 by vrybalko          #+#    #+#             */
-/*   Updated: 2018/09/04 21:26:45 by vrybalko         ###   ########.fr       */
+/*   Created: 2018/09/04 21:11:00 by vrybalko          #+#    #+#             */
+/*   Updated: 2018/09/04 21:14:07 by vrybalko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERVER_H
-# define SERVER_H
+#ifndef WEATHER_PRIVATE_H
+# define WEATHER_PRIVATE_H
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <sys/socket.h>
-# include <arpa/inet.h>
-# include <unistd.h>
-# include <pthread.h>
+# include <stddef.h>
+# include <curl/curl.h>
 
-char			*command_handler(char *command);
+typedef struct		s_memory_chunk
+{
+	char			*memory;
+	size_t			size;
+}					t_memory_chunk;
+
+typedef CURL		t_curl;
 
 #endif

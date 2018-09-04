@@ -41,17 +41,18 @@ CLIENT_SRC=$(addprefix client/, $(CLIENT_SRC_FILES))
 
 CLIENT_BINS=$(addprefix bin/, $(CLIENT_SRC:.c=.o))
 
-SERVER_SRC_FILES = command_handler.c		\
-				   connection_receiver.c	\
-				   commands/test.c			\
-				   commands/sound.c			\
-				   commands/screen_lock.c	\
-				   commands/run_program.c	\
-				   commands/screen_shot.c	\
-				   commands/weather.c		\
-				   commands/backlight.c		\
-				   commands/play_music.c	\
-				   commands/history.c		\
+SERVER_SRC_FILES = command_handler.c					\
+				   connection_receiver.c				\
+				   connection_receiver_helpers.c		\
+				   commands/test.c						\
+				   commands/sound.c						\
+				   commands/screen_lock.c				\
+				   commands/run_program.c				\
+				   commands/screen_shot.c				\
+				   commands/weather.c					\
+				   commands/backlight.c					\
+				   commands/play_music.c				\
+				   commands/history.c					\
 
 SERVER_SRC=$(addprefix server/, $(SERVER_SRC_FILES))
 

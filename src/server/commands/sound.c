@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sound.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vrybalko <vrybalko@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/04 20:51:40 by vrybalko          #+#    #+#             */
+/*   Updated: 2018/09/04 20:57:23 by vrybalko         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <string.h>
 #include <stdlib.h>
 
@@ -16,6 +28,7 @@ static const char	*g_args[] = {
 
 static const char	*g_system_args[] = {
 #ifdef __linux__
+
 	"amixer -D pulse sset Master 5%+",
 	"amixer -D pulse sset Master 5%-",
 	"amixer -D pulse sset Master 5%+",
@@ -26,16 +39,22 @@ static const char	*g_system_args[] = {
 	"amixer -D pulse sset Master 40%",
 	"amixer -D pulse sset Master 100%",
 #else
-	"osascript -e \"set volume output volume (output volume of (get volume settings) + 5) --100%\"",
-	"osascript -e \"set volume output volume (output volume of (get volume settings) - 5) --100%\"",
-	"osascript -e \"set volume output volume (output volume of (get volume settings) + 5) --100%\"",
-	"osascript -e \"set volume output volume (output volume of (get volume settings) - 5) --100%\"",
+
+	"osascript -e \"set volume output volume (output volume of "
+	"(get volume settings) + 5) --100%\"",
+	"osascript -e \"set volume output volume (output volume of "
+	"(get volume settings) - 5) --100%\"",
+	"osascript -e \"set volume output volume (output volume of "
+	"(get volume settings) + 5) --100%\"",
+	"osascript -e \"set volume output volume (output volume of "
+	"(get volume settings) - 5) --100%\"",
 	"osascript -e \"set volume with output muted\"",
 	"osascript -e \"set volume with output muted\"",
 	"osascript -e \"set volume without output muted\"",
 	"osascript -e \"set volume 4\"",
 	"osascript -e \"set volume 10\"",
 #endif
+
 	NULL
 };
 

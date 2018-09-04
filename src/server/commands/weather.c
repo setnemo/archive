@@ -6,7 +6,7 @@
 /*   By: vrybalko <vrybalko@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/24 22:22:13 by vrybalko          #+#    #+#             */
-/*   Updated: 2018/08/24 22:25:15 by vrybalko         ###   ########.fr       */
+/*   Updated: 2018/09/04 21:14:44 by vrybalko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,7 @@
 #include <curl/curl.h>
 #include "external/cJSON.h"
 #include "server/config.h"
-
-typedef struct		s_memory_chunk
-{
-	char			*memory;
-	size_t			size;
-}					t_memory_chunk;
+#include "weather_private.h"
 
 static size_t		write_memory_callback(void *contents, size_t size,
 						size_t nmemb, void *userp)
@@ -42,7 +37,7 @@ static size_t		write_memory_callback(void *contents, size_t size,
 
 static char			*get_weather_data(void *arg)
 {
-	CURL			*curl;
+	t_curl			*curl;
 	t_memory_chunk	chunk;
 
 	(void)arg;
