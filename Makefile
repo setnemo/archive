@@ -41,7 +41,6 @@ CLIENT_SRC=$(addprefix client/, $(CLIENT_SRC_FILES))
 
 CLIENT_BINS=$(addprefix bin/, $(CLIENT_SRC:.c=.o))
 
-<<<<<<< HEAD
 SERVER_SRC_FILES = command_handler.c					\
 				   connection_receiver.c				\
 				   connection_receiver_helpers.c		\
@@ -55,7 +54,7 @@ SERVER_SRC_FILES = command_handler.c					\
 				   commands/play_music.c				\
 				   commands/history.c					\
 				   small_talk/small_talk.c				\
-				   small_talk/tell_me_something.c		\
+				   small_talk/tell_command_small_talk.c	\
 
 SERVER_SRC=$(addprefix server/, $(SERVER_SRC_FILES))
 

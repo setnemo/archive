@@ -6,7 +6,7 @@
 /*   By: kshcherb <kshcherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 20:45:45 by kshcherb          #+#    #+#             */
-/*   Updated: 2018/09/04 21:01:03 by kshcherb         ###   ########.fr       */
+/*   Updated: 2018/09/04 21:46:04 by vrybalko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 #include <time.h>
 #include "server/small_talk.h"
 
-char	*flip_a_coin(void)
+char	*flip_a_coin(void *arg)
 {
 	int digit;
 
+	(void)arg;
 	srand(time(NULL));
 	digit = rand() % 2;
 	if (digit == 1)
@@ -28,10 +29,11 @@ char	*flip_a_coin(void)
 		return (strdup("tail"));
 }
 
-char	*crystal_ball(void)
+char	*crystal_ball(void *arg)
 {
 	int digit;
 
+	(void)arg;
 	srand(time(NULL));
 	digit = rand() % 8;
 	if (digit == 0)
@@ -53,10 +55,11 @@ char	*crystal_ball(void)
 	return (strdup("the magic ball is broken"));
 }
 
-char	*roll_the_dice(void)
+char	*roll_the_dice(void *arg)
 {
 	int digit;
 
+	(void)arg;
 	srand(time(NULL));
 	digit = rand() % 6;
 	if (digit == 0)
@@ -74,10 +77,11 @@ char	*roll_the_dice(void)
 	return (strdup("the dice is broken"));
 }
 
-char	*sing_song(void)
+char	*sing_song(void *arg)
 {
 	int digit;
 
+	(void)arg;
 	srand(time(NULL));
 	digit = rand() % 3;
 	if (digit == 0)
@@ -89,25 +93,4 @@ char	*sing_song(void)
 	else if (digit == 2)
 		return (strdup("op, eroinaa op op eroinaa maa"));
 	return (strdup("i forgot all the songs"));
-}
-
-char	*small_talk(char *str)
-{
-	if (strcmp(str, "flip a coin") == 0)
-		return (flip_a_coin());
-	else if (strcmp(str, "roll the dice") == 0)
-		return (roll_the_dice());
-	else if (strcmp(str, "magic ball") == 0)
-		return (crystal_ball());
-	else if (strcmp(str, "who are you") == 0)
-		return (strdup("my name is jopa assistance. i am the best assistant"
-		"designed by UNIT Factory students."));
-	else if (strcmp(str, "sing a song") == 0)
-		return (sing_song());
-	else if (strcmp(str, "tell me something") == 0)
-		return (tell_me_something());
-	else if (strcmp(str, "tell a joke") == 0)
-		return (tell_a_joke());
-	else
-		return (strdup("i dont understand you"));
 }

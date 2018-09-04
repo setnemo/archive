@@ -6,7 +6,7 @@
 /*   By: vrybalko <vrybalko@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 20:51:39 by vrybalko          #+#    #+#             */
-/*   Updated: 2018/09/04 20:51:39 by vrybalko         ###   ########.fr       */
+/*   Updated: 2018/09/04 21:45:35 by vrybalko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@
 #include <time.h>
 #include <unistd.h>
 #include "server/command_callbacks.h"
+#include "server/small_talk.h"
 
 static const char		*g_commands[] = {
-	"hello test",
+	"hello",
 	"sound",
 	"lock screen",
 	"run",
@@ -31,6 +32,12 @@ static const char		*g_commands[] = {
 	"backlight",
 	"play music",
 	"history",
+	"flip coin",
+	"crystal ball",
+	"roll dice",
+	"sing song",
+	"tell something",
+	"tell joke",
 	NULL
 };
 
@@ -45,6 +52,12 @@ static char		*(*g_command_callbacks[])(void *) = {
 	backlight_callback,
 	play_music_callback,
 	history_callback,
+	flip_a_coin,
+	crystal_ball,
+	roll_the_dice,
+	sing_song,
+	tell_me_something,
+	tell_a_joke,
 	NULL
 };
 

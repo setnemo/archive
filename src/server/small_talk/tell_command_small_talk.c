@@ -6,7 +6,7 @@
 /*   By: kshcherb <kshcherb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 20:45:45 by kshcherb          #+#    #+#             */
-/*   Updated: 2018/09/04 20:53:13 by kshcherb         ###   ########.fr       */
+/*   Updated: 2018/09/04 21:44:59 by vrybalko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 #include <time.h>
 #include "server/small_talk.h"
 
-char	*tell_me_something(void)
+char	*tell_me_something(void *arg)
 {
 	int digit;
 
+	(void)arg;
 	srand(time(NULL));
 	digit = rand() % 8;
 	if (digit == 0)
@@ -44,10 +45,11 @@ char	*tell_me_something(void)
 	return (strdup("i dont want to talk"));
 }
 
-char	*tell_a_joke(void)
+char	*tell_a_joke(void *arg)
 {
 	int digit;
 
+	(void)arg;
 	srand(time(NULL));
 	digit = rand() % 6;
 	if (digit == 0)
