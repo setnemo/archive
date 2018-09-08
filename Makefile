@@ -86,6 +86,9 @@ $(CLIENT): $(CLIENT_BINS) $(SAM_LIB) $(SPHINX_LIB)
 $(SERVER): $(CONFIG_FILE) $(SERVER_BINS) $(CJSON_LIB)
 	$(CC) $(FLAGS) -o $(SERVER) $(SERVER_BINS) $(CJSON_LIB) $(SERVER_LINKER_FLAGS)
 
+norm:
+	norminette src/
+	norminette include/{client,server}
 clean:
 	/bin/rm -f $(CLIENT_BINS) $(SERVER_BINS)
 	make -C $(shell dirname $(SAM_LIB)) clean
