@@ -1,6 +1,5 @@
-	<footer id="footer">
-	
-		<p>apakhomo - UNIT Factory - 2018</p>
-
-	</footer>
-	<!-- /#footer --> 
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted">apakhomo - UNIT Factory - 2018</span>
+      </div>
+    </footer>
