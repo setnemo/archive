@@ -1,16 +1,18 @@
     <main role="main" class="container">
-        <h1 class="mt-5">Sticky footer with fixed navbar</h1>
-        <div class="row">
+        <!-- <h1 class="mt-5">Sticky footer with fixed navbar</h1> -->
+        <!-- <pre><?php print_r($postsList) ?></pre> -->
+        <div class="row mt-5">
             <?php foreach ($postsList as $post): ?>
-<div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+            <div class="col-lg-3 col-md-6 col-sm-9 col-xs-9">
                 <div class="card profile-card-2">
                     <div class="card-img-block">
-                        <img class="img-fluid" src="<?php echo $post['path']?>" alt="Card image cap">
+                        <a href="/<?php echo $post['login']."/".$post['id'] ?>"><img class="img-fluid" src="/img/posts/<?php echo $post['path']; ?>" alt="<?php echo $post['caption']; ?>"></a>
                     </div>
                     <div class="card-body pt-5">
-                        <img src="https://randomuser.me/api/portraits/men/64.jpg" alt="profile-image" class="profile"/>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <div class="icon-block"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"> <i class="fa fa-twitter"></i></a><a href="#"> <i class="fa fa-google-plus"></i></a></div>
+                        <a href="/<?php echo $post['login']; ?>"><img src="/img/profile/<?php echo $post['login']; ?>.jpg" alt="profile-image" class="profile"/></a>
+                        <div class="icon-block"><a href="http://twitter.com/share?text=<?php echo "Post by ".$post['login']." at http://". $_SERVER['HTTP_HOST']."/".$post['login']."/".$post['id'] ?>&url=<?php echo $_SERVER['HTTP_HOST']."/".$post['login']."/".$post['id'] ?>" title="Поделиться ссылкой в Твиттере" onclick="window.open(this.href, this.title, 'toolbar=0, status=0, width=548, height=325'); return false" target="_parent""> <i class="fa fa-twitter share1"></i></a><a href="https://plus.google.com/share?url=http://<?php echo $_SERVER['HTTP_HOST']."/".$post['login']."/".$post['id'] ?>" onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"> <i class="fa fa-google-plus share2"></i></a></div>
+                        <p class="card-text"><?php echo $post['caption'] ?></p>
                     </div>
                 </div>
                 <p class="mt-3 w-100 float-left text-center"></p>
