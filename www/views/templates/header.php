@@ -3,7 +3,7 @@
           <a href="/" class="active">Home</a>
           <a href="/">Most popular</a>
           <a href="/">Most comment</a>
-          <a href="#" id="myBtn">Login</a>
+          <?php if (isset($_SESSION['auth']) && $_SESSION['auth'] == session_id()) { ?><a href="#" id="myBtn">Account</a><?php } else { ?><a href="#" id="myBtn">Login</a><?php } ?>
           <a href="javascript:void(0);" class="icon" onclick="myFunction()">
             <i class="fa fa-bars"></i>
           </a>
@@ -20,15 +20,40 @@
         </script>
 
     </header>
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="closed">&times;</span>
-    <p>Some text in the Modal..</p>
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="loginmodal-container">
+        <span class="closed">&times;</span>
+        <h1>Login to Your Account</h1><br>
+      <form>
+        <input type="text" name="user" placeholder="Username">
+        <input type="password" name="pass" placeholder="Password">
+        <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+      </form>
+          
+      <div class="login-help">
+      <a href="#">Register</a> - <a href="#">Forgot Password</a>
+      </div>
+    </div>
   </div>
-
 </div>
+<!--   <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal Heading</h5>
+          <button type="button" class="close closed2">&times;</button>
+        </div>
+        <div class="modal-body">
+          Modal body..
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div> -->
 <script>
 var modal = document.getElementById('myModal');
 var btn = document.getElementById("myBtn");
