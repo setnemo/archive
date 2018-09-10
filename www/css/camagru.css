@@ -89,7 +89,7 @@ body {
 .profile-card-2 .card-img-block{
     float:left;
     width:100%;
-    height:350px;
+    /*height:350px;*/
     overflow:hidden;
 }
 .profile-card-2 .card-body{
@@ -301,3 +301,4 @@ body {
 .login-help{
   font-size: 12px;
 }
+
