@@ -15,3 +15,31 @@ AH00558: apache2: Could not reliably determine the server's fully qualified doma
 [Sun Sep 09 12:36:24.045505 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.21 configured -- resuming normal operations
 [Sun Sep 09 12:36:24.045865 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
 [Sun Sep 09 17:56:21.689579 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.3. Set the 'ServerName' directive globally to suppress this message
+[Sun Sep 09 19:39:37.562502 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.21 configured -- resuming normal operations
+[Sun Sep 09 19:39:37.562625 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[Mon Sep 10 17:19:08.759273 2018] [core:warn] [pid 1] AH00045: child process 17 still did not exit, sending a SIGTERM
+[Mon Sep 10 17:19:08.794517 2018] [core:warn] [pid 1] AH00045: child process 18 still did not exit, sending a SIGTERM
+[Mon Sep 10 17:19:08.794527 2018] [core:warn] [pid 1] AH00045: child process 19 still did not exit, sending a SIGTERM
+[Mon Sep 10 17:19:08.794532 2018] [core:warn] [pid 1] AH00045: child process 21 still did not exit, sending a SIGTERM
+[Mon Sep 10 17:19:08.794537 2018] [core:warn] [pid 1] AH00045: child process 23 still did not exit, sending a SIGTERM
+[Mon Sep 10 17:19:08.794543 2018] [core:warn] [pid 1] AH00045: child process 24 still did not exit, sending a SIGTERM
+[Mon Sep 10 17:19:08.794548 2018] [core:warn] [pid 1] AH00045: child process 25 still did not exit, sending a SIGTERM
+[Mon Sep 10 17:19:08.794553 2018] [core:warn] [pid 1] AH00045: child process 26 still did not exit, sending a SIGTERM
+[Mon Sep 10 17:19:08.794558 2018] [core:warn] [pid 1] AH00045: child process 27 still did not exit, sending a SIGTERM
+[Mon Sep 10 17:19:08.794563 2018] [core:warn] [pid 1] AH00045: child process 28 still did not exit, sending a SIGTERM
+[Mon Sep 10 17:19:10.796708 2018] [core:warn] [pid 1] AH00045: child process 17 still did not exit, sending a SIGTERM
+[Mon Sep 10 17:19:10.796796 2018] [core:warn] [pid 1] AH00045: child process 18 still did not exit, sending a SIGTERM
+[Mon Sep 10 17:19:10.796842 2018] [core:warn] [pid 1] AH00045: child process 19 still did not exit, sending a SIGTERM
+[Mon Sep 10 17:19:10.796859 2018] [core:warn] [pid 1] AH00045: child process 21 still did not exit, sending a SIGTERM
+[Mon Sep 10 17:19:10.796873 2018] [core:warn] [pid 1] AH00045: child process 23 still did not exit, sending a SIGTERM
+[Mon Sep 10 17:19:10.796888 2018] [core:warn] [pid 1] AH00045: child process 24 still did not exit, sending a SIGTERM
+[Mon Sep 10 17:19:10.796902 2018] [core:warn] [pid 1] AH00045: child process 25 still did not exit, sending a SIGTERM
+[Mon Sep 10 17:19:10.796916 2018] [core:warn] [pid 1] AH00045: child process 26 still did not exit, sending a SIGTERM
+[Mon Sep 10 17:19:10.796930 2018] [core:warn] [pid 1] AH00045: child process 27 still did not exit, sending a SIGTERM
+[Mon Sep 10 17:19:10.796944 2018] [core:warn] [pid 1] AH00045: child process 28 still did not exit, sending a SIGTERM
+[Mon Sep 10 17:19:12.878188 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.4. Set the 'ServerName' directive globally to suppress this message
+[Mon Sep 10 17:20:13.674696 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.21 configured -- resuming normal operations
+[Mon Sep 10 17:20:13.674778 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[Mon Sep 10 19:13:57.717442 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
