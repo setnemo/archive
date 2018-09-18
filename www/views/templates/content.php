@@ -17,29 +17,12 @@
                 </div>
                 <p class="mt-3 w-100 float-left text-center"></p>
             </div>
-            <?php endforeach; ?>
-    <?php
-
-$subject = 'the subject';
-$headers = "From: test@camagru.com" . "\r\n";
-$headers .= "Reply-To: test@camagru.com".  "\r\n";
-$headers .= "MIME-Version: 1.0\r\n";
-$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-
-$message = '<html><body style="width: 100%;">';
-$message .= '<div style="padding: 0px;position: relative;margin-top: 30px;margin-left: auto;margin-right: auto;background-color: #fff;border-top: 1px;border-bottom: 1px;border-left: 1px;border-right: 1px;border-radius: 10px;border-style: solid;border-color: #aaa;width: 300px;height: 330px;text-align: center;box-shadow: 1px 11px 95px #aaa;">';
-$message .= '<p style="color: #03519b;font-family: "PT Sans", sans-serif;font-size: 25px;font-weight: bold;line-height: 35px;text-align: center;">';
-$message .= '<br><br><br>Вхід на сайт за посиланням<br>';
-$message .= '</p></a>';
-$message .= '</div>';
-$message .= '</body></html>';
-$to = "setnemo@gmail.com";
-
-$tmp = mail($to, $subject, $message, $headers);
-
-
+            <?php endforeach; 
 echo "<pre>";
-echo $tmp;
+echo mail('setnemo@gmail.com', 'the subject', 'the message', null,
+   '-fwebmaster@example.com');;
 echo "</pre>";
-?>            </div>
+?>            
+    </div>
 </main>
+

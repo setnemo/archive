@@ -126,3 +126,149 @@ postdrop: warning: unable to look up public/pickup: No such file or directory
 postdrop: warning: unable to look up public/pickup: No such file or directory
 postdrop: warning: unable to look up public/pickup: No such file or directory
 postdrop: warning: unable to look up public/pickup: No such file or directory
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 18:42:48.904827 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 18:42:48.904961 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+[Tue Sep 18 19:16:02.568579 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.19.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 19:16:35.471004 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 19:16:35.471145 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[Tue Sep 18 19:16:52.782901 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.19.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 19:17:27.752570 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 19:17:27.752653 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[Tue Sep 18 19:17:44.118338 2018] [core:alert] [pid 18] [client 172.19.0.1:41864] /var/www/html/.htaccess: Invalid command 'RewriteEngine', perhaps misspelled or defined by a module not included in the server configuration
+[Tue Sep 18 19:17:44.443658 2018] [core:alert] [pid 19] [client 172.19.0.1:41866] /var/www/html/.htaccess: Invalid command 'RewriteEngine', perhaps misspelled or defined by a module not included in the server configuration, referer: http://127.0.0.1/
+[Tue Sep 18 19:17:51.181185 2018] [core:alert] [pid 20] [client 172.19.0.1:41876] /var/www/html/.htaccess: Invalid command 'RewriteEngine', perhaps misspelled or defined by a module not included in the server configuration
+[Tue Sep 18 19:17:51.413775 2018] [core:alert] [pid 21] [client 172.19.0.1:41878] /var/www/html/.htaccess: Invalid command 'RewriteEngine', perhaps misspelled or defined by a module not included in the server configuration, referer: http://127.0.0.1/
+[Tue Sep 18 19:18:06.284398 2018] [core:alert] [pid 22] [client 172.19.0.1:41886] /var/www/html/.htaccess: Invalid command 'RewriteEngine', perhaps misspelled or defined by a module not included in the server configuration
+[Tue Sep 18 19:18:06.520868 2018] [core:alert] [pid 18] [client 172.19.0.1:41884] /var/www/html/.htaccess: Invalid command 'RewriteEngine', perhaps misspelled or defined by a module not included in the server configuration, referer: http://127.0.0.1/
+[Tue Sep 18 19:18:07.410189 2018] [core:alert] [pid 19] [client 172.19.0.1:41892] /var/www/html/.htaccess: Invalid command 'RewriteEngine', perhaps misspelled or defined by a module not included in the server configuration
+[Tue Sep 18 19:18:07.638064 2018] [core:alert] [pid 20] [client 172.19.0.1:41894] /var/www/html/.htaccess: Invalid command 'RewriteEngine', perhaps misspelled or defined by a module not included in the server configuration, referer: http://127.0.0.1/
+[Tue Sep 18 19:18:51.368647 2018] [core:alert] [pid 22] [client 172.19.0.1:41934] /var/www/html/.htaccess: Invalid command 'RewriteEngine', perhaps misspelled or defined by a module not included in the server configuration
+[Tue Sep 18 19:18:51.661106 2018] [core:alert] [pid 18] [client 172.19.0.1:41930] /var/www/html/.htaccess: Invalid command 'RewriteEngine', perhaps misspelled or defined by a module not included in the server configuration, referer: http://127.0.0.1/
+[Tue Sep 18 19:18:57.305902 2018] [core:alert] [pid 19] [client 172.19.0.1:41942] /var/www/html/.htaccess: Invalid command 'RewriteEngine', perhaps misspelled or defined by a module not included in the server configuration
+[Tue Sep 18 19:18:57.586362 2018] [core:alert] [pid 20] [client 172.19.0.1:41944] /var/www/html/.htaccess: Invalid command 'RewriteEngine', perhaps misspelled or defined by a module not included in the server configuration, referer: http://127.0.0.1/index
+[Tue Sep 18 19:19:00.406677 2018] [core:alert] [pid 23] [client 172.19.0.1:41954] /var/www/html/.htaccess: Invalid command 'RewriteEngine', perhaps misspelled or defined by a module not included in the server configuration, referer: http://127.0.0.1/
+[Tue Sep 18 19:40:35.399969 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.19.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 19:41:51.589596 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 19:41:51.589715 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+[Tue Sep 18 19:43:47.032187 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.19.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 19:44:15.086331 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 19:44:15.086406 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+postdrop: warning: unable to look up public/pickup: No such file or directory
+[Tue Sep 18 19:44:43.220322 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.19.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 19:44:55.586867 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 19:44:55.586953 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[Tue Sep 18 19:55:21.486655 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.19.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 19:55:26.443196 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 19:55:26.443292 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+ssmtp: Cannot open mail:25
+ssmtp: Cannot open mail:25
+[Tue Sep 18 20:00:05.559356 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.19.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 20:00:09.840831 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 20:00:09.840956 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[Tue Sep 18 20:01:05.338694 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.19.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 20:01:08.801040 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 20:01:08.801120 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+ssmtp: Cannot open mail:25
+ssmtp: Cannot open mail:25
+ssmtp: Cannot open mail:25
+ssmtp: Cannot open mail:25
+ssmtp: Cannot open mail:25
+ssmtp: Cannot open mail:25
+ssmtp: Cannot open mail:25
+ssmtp: Cannot open mail:25
+[Tue Sep 18 20:31:27.637164 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.19.0.4. Set the 'ServerName' directive globally to suppress this message
+PHP:  syntax error, unexpected '(' in /usr/local/etc/php/conf.d/mail.ini on line 3
+[Tue Sep 18 20:31:32.775850 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 20:31:32.775962 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+ssmtp: Cannot open mail:25
+ssmtp: Cannot open mail:25
+ssmtp: Cannot open mail:25
+ssmtp: Cannot open mail:25
+[Tue Sep 18 20:36:37.185117 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.19.0.4. Set the 'ServerName' directive globally to suppress this message
+PHP:  syntax error, unexpected '(' in /usr/local/etc/php/conf.d/mail.ini on line 3
+[Tue Sep 18 20:36:40.337735 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 20:36:40.337815 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[Tue Sep 18 20:40:40.509204 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.19.0.4. Set the 'ServerName' directive globally to suppress this message
+PHP:  syntax error, unexpected '(' in /usr/local/etc/php/conf.d/mail.ini on line 3
+[Tue Sep 18 20:40:45.846483 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 20:40:45.846609 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[Tue Sep 18 20:49:26.730078 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.19.0.4. Set the 'ServerName' directive globally to suppress this message
+PHP:  syntax error, unexpected '(' in /usr/local/etc/php/conf.d/mail.ini on line 3
+[Tue Sep 18 20:49:32.455201 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 20:49:32.455346 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[Tue Sep 18 20:51:36.260484 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.19.0.4. Set the 'ServerName' directive globally to suppress this message
+PHP:  syntax error, unexpected '(' in /usr/local/etc/php/conf.d/mail.ini on line 3
+[Tue Sep 18 20:51:40.205428 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 20:51:40.205527 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[Tue Sep 18 21:01:58.427969 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.19.0.4. Set the 'ServerName' directive globally to suppress this message
+PHP:  syntax error, unexpected '(' in /usr/local/etc/php/conf.d/mail.ini on line 2
+[Tue Sep 18 21:02:05.491903 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 21:02:05.492082 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[Tue Sep 18 21:04:53.479891 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.19.0.4. Set the 'ServerName' directive globally to suppress this message
+PHP:  syntax error, unexpected '(' in /usr/local/etc/php/conf.d/mail.ini on line 2
+[Tue Sep 18 21:04:56.574755 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 21:04:56.574832 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+sh: 1: -t: not found
+sh: 1: -t: not found
+sh: 1: -t: not found
+sh: 1: -t: not found
+sh: 1: -t: not found
+sh: 1: -t: not found
+sh: 1: -t: not found
+sh: 1: -t: not found
+sh: 1: -t: not found
+sh: 1: -t: not found
+sh: 1: -t: not found
+sh: 1: -t: not found
+sh: 1: -t: not found
+[Tue Sep 18 21:13:18.141514 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.19.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 21:13:21.133014 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 21:13:21.133086 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[Tue Sep 18 21:15:45.029446 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.19.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 21:15:48.055136 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 21:15:48.055232 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[Tue Sep 18 21:22:13.924179 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.19.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 21:22:16.848927 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 21:22:16.849011 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[Tue Sep 18 21:25:52.267227 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.19.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 21:25:55.775354 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 21:25:55.775450 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+sendmail: RCPT TO:<setnemo@gmail.com> (553 5.7.1 <test@camagru.com>: Sender address rejected: not owned by user real@camagru.pp.ua)
+sendmail: RCPT TO:<setnemo@gmail.com> (553 5.7.1 <test@camagru.com>: Sender address rejected: not owned by user real@camagru.pp.ua)
+sendmail: RCPT TO:<setnemo@gmail.com> (553 5.7.1 <test@camagru.com>: Sender address rejected: not owned by user real@camagru.pp.ua)
+sendmail: RCPT TO:<setnemo@gmail.com> (553 5.7.1 <test@camagru.com>: Sender address rejected: not owned by user real@camagru.pp.ua)
+sendmail: RCPT TO:<setnemo@gmail.com> (553 5.7.1 <test@camagru.com>: Sender address rejected: not owned by user real@camagru.pp.ua)
+sendmail: RCPT TO:<setnemo@gmail.com> (553 5.7.1 <test@camagru.com>: Sender address rejected: not owned by user real@camagru.pp.ua)
+sendmail: RCPT TO:<setnemo@gmail.com> (553 5.7.1 <test@camagru.com>: Sender address rejected: not owned by user real@camagru.pp.ua)
+sendmail: RCPT TO:<setnemo@gmail.com> (553 5.7.1 <real@camagru.com>: Sender address rejected: not owned by user real@camagru.pp.ua)
+sendmail: RCPT TO:<setnemo@gmail.com> (553 5.7.1 <real@camagru.com>: Sender address rejected: not owned by user real@camagru.pp.ua)
+sendmail: RCPT TO:<setnemo@gmail.com> (553 5.7.1 <real@camagru.com>: Sender address rejected: not owned by user real@camagru.pp.ua)
+sendmail: RCPT TO:<setnemo@gmail.com> (553 5.7.1 <real@camagru.com>: Sender address rejected: not owned by user real@camagru.pp.ua)
