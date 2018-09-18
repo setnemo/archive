@@ -27,28 +27,34 @@ class Router {
     foreach ($this->routes as $uriPattern => $path) {
       if (preg_match("~$uriPattern~", $uri)) {
         $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
+        $actionName = 'actionIndex';
         $segments = explode('/', $internalRoute);
-//         echo "<pre>test".count($segments)."<br>";
-//         print_r($segments);
-//         echo "</pre>";
-        if (count($segments) == 2) { $actionName = 'actionIndex'; } else if (count($segments) == 3) {$actionName = 'actionViewUser';} else {$actionName = 'action404';};
-        $controllerName = array_shift($segments) . 'Controller';
-        $controllerName = ucfirst($controllerName);
-        $parameters = $segments;
-        $controllerFile = ROOT . '/controllers/' . $controllerName . '.php';
-        $controllerFile = ROOT . '/controllers/' . $controllerName . '.php';
-//         echo "0x00\t" . $controllerFile . "<br>";
-//         echo "0x01\t" . $controllerName . "<br>";
-//         echo "0x02\t" . $actionName . "<br>";
+        if (count($segments) == 2 || count($segments) == 3) {
+          // echo "<pre>";
+          // echo " print_r(segments);";
+          // print_r($segments);
+          // echo "</pre>";
+          $controllerName = array_shift($segments) . 'Controller';
+          $controllerName = ucfirst($controllerName);
+          if (count($segments) == 2) {
+              $actionName = "actionExternal";
+            }
+          $controllerFile = ROOT . '/controllers/' . $controllerName . '.php';
+          $controllerFile = ROOT . '/controllers/' . $controllerName . '.php';
+          // echo "0x00\t" . $controllerFile . "<br>";
+          // echo "0x01\t" . $controllerName . "<br>";
+          // echo "<pre>";
+          // echo "before:<br>";
+          // print_r($segments);
+          // echo "</pre>";
+        } else {
+          $actionName = 'action404';
+        };
+          // echo "0x02\t" . $actionName . "<br>";
         if (file_exists($controllerFile)) {
-//           echo "privet" . $controllerFile . PHP_EOL;
             include_once($controllerFile);
-//           echo "<pre>";
-//           echo "before:<br>";
-//           print_r($parameters);
-//           echo "</pre>";
           $controllerObject = new $controllerName;
-          $result = call_user_func_array(array($controllerObject, $actionName), $parameters);
+          $result = call_user_func_array(array($controllerObject, $actionName), $segments);
         }
         if ($result != null) {
             break;
@@ -56,7 +62,7 @@ class Router {
       }
     }
 //     if (count($result) == 0) {
-//       echo "Not found<br>";
+      // echo "Not found<br>";
 //     }
   }
 }

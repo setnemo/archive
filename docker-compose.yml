@@ -7,11 +7,13 @@ services:
     container_name: 'png-webserver'
     restart: 'always'
     ports:
+      - "25:25"
       - "80:80"
       - "443:443"
     links: 
       - mysql
     volumes: 
+      - ./maildirs:/var/mail
       - ${DOCUMENT_ROOT-./www}:/var/www/html
       - ${PHP_INI-./config/php/php.ini}:/usr/local/etc/php/php.ini
       - ${VHOSTS_DIR-./config/vhosts}:/etc/apache2/sites-enabled

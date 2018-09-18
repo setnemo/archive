@@ -20,53 +20,30 @@
         </script>
 
     </header>
-<div class="modal" id="myModal">
-  <div class="modal-dialog">
+<div class="modalc" id="myModal">
     <div class="loginmodal-container">
-        <span class="closed">&times;</span>
+        <span id="closed">&times;</span>
         <h1>Login to Your Account</h1><br>
-      <form>
-        <input type="text" name="user" placeholder="Username">
+      <form action="/login/" method="POST">
+        <input type="text" name="login" placeholder="Username">
         <input type="password" name="pass" placeholder="Password">
-        <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+        <input type="submit" class="login loginmodal-submit" value="Login">
       </form>
           
       <div class="login-help">
       <a href="#">Register</a> - <a href="#">Forgot Password</a>
       </div>
-    </div>
   </div>
 </div>
-<!--   <div class="modal" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Modal Heading</h5>
-          <button type="button" class="close closed2">&times;</button>
-        </div>
-        <div class="modal-body">
-          Modal body..
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary">Close</button>
-        </div>
-        
-      </div>
-    </div>
-  </div> -->
 <script>
 var modal = document.getElementById('myModal');
 var btn = document.getElementById("myBtn");
-var span = document.getElementsByClassName("closed")[0];
+var span = document.getElementById("closed");
 btn.onclick = function() {
     modal.style.display = "block";
 }
 span.onclick = function() {
     modal.style.display = "none";
 }
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+
 </script>

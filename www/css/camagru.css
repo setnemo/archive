@@ -89,7 +89,7 @@ body {
 .profile-card-2 .card-img-block{
     float:left;
     width:100%;
-    /*height:350px;*/
+    height:350px;
     overflow:hidden;
 }
 .profile-card-2 .card-body{
@@ -169,7 +169,7 @@ body {
 
 
 /* The Modal (background) */
-.modal {
+.modalc {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -183,17 +183,18 @@ body {
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-/* Modal Content */
-.modal-content {
+/* Modalc Content */
+.modalc-content {
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+    z-index: 2;
 }
 
 /* The Close Button */
-.closed {
+#closed {
     color: #aaaaaa;
     float: right;
     font-size: 28px;
@@ -201,8 +202,8 @@ body {
     height: 20px;
 }
 
-.closed:hover,
-.closed:focus {
+#closed:hover,
+#closed:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
@@ -301,4 +302,3 @@ body {
 .login-help{
   font-size: 12px;
 }
-

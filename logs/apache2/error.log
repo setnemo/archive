@@ -16,30 +16,113 @@ AH00558: apache2: Could not reliably determine the server's fully qualified doma
 [Sun Sep 09 12:36:24.045865 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
 [Sun Sep 09 17:56:21.689579 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
 AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.3. Set the 'ServerName' directive globally to suppress this message
-[Sun Sep 09 19:39:37.562502 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.21 configured -- resuming normal operations
-[Sun Sep 09 19:39:37.562625 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
-[Mon Sep 10 17:19:08.759273 2018] [core:warn] [pid 1] AH00045: child process 17 still did not exit, sending a SIGTERM
-[Mon Sep 10 17:19:08.794517 2018] [core:warn] [pid 1] AH00045: child process 18 still did not exit, sending a SIGTERM
-[Mon Sep 10 17:19:08.794527 2018] [core:warn] [pid 1] AH00045: child process 19 still did not exit, sending a SIGTERM
-[Mon Sep 10 17:19:08.794532 2018] [core:warn] [pid 1] AH00045: child process 21 still did not exit, sending a SIGTERM
-[Mon Sep 10 17:19:08.794537 2018] [core:warn] [pid 1] AH00045: child process 23 still did not exit, sending a SIGTERM
-[Mon Sep 10 17:19:08.794543 2018] [core:warn] [pid 1] AH00045: child process 24 still did not exit, sending a SIGTERM
-[Mon Sep 10 17:19:08.794548 2018] [core:warn] [pid 1] AH00045: child process 25 still did not exit, sending a SIGTERM
-[Mon Sep 10 17:19:08.794553 2018] [core:warn] [pid 1] AH00045: child process 26 still did not exit, sending a SIGTERM
-[Mon Sep 10 17:19:08.794558 2018] [core:warn] [pid 1] AH00045: child process 27 still did not exit, sending a SIGTERM
-[Mon Sep 10 17:19:08.794563 2018] [core:warn] [pid 1] AH00045: child process 28 still did not exit, sending a SIGTERM
-[Mon Sep 10 17:19:10.796708 2018] [core:warn] [pid 1] AH00045: child process 17 still did not exit, sending a SIGTERM
-[Mon Sep 10 17:19:10.796796 2018] [core:warn] [pid 1] AH00045: child process 18 still did not exit, sending a SIGTERM
-[Mon Sep 10 17:19:10.796842 2018] [core:warn] [pid 1] AH00045: child process 19 still did not exit, sending a SIGTERM
-[Mon Sep 10 17:19:10.796859 2018] [core:warn] [pid 1] AH00045: child process 21 still did not exit, sending a SIGTERM
-[Mon Sep 10 17:19:10.796873 2018] [core:warn] [pid 1] AH00045: child process 23 still did not exit, sending a SIGTERM
-[Mon Sep 10 17:19:10.796888 2018] [core:warn] [pid 1] AH00045: child process 24 still did not exit, sending a SIGTERM
-[Mon Sep 10 17:19:10.796902 2018] [core:warn] [pid 1] AH00045: child process 25 still did not exit, sending a SIGTERM
-[Mon Sep 10 17:19:10.796916 2018] [core:warn] [pid 1] AH00045: child process 26 still did not exit, sending a SIGTERM
-[Mon Sep 10 17:19:10.796930 2018] [core:warn] [pid 1] AH00045: child process 27 still did not exit, sending a SIGTERM
-[Mon Sep 10 17:19:10.796944 2018] [core:warn] [pid 1] AH00045: child process 28 still did not exit, sending a SIGTERM
-[Mon Sep 10 17:19:12.878188 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+[Tue Sep 18 09:57:06.142830 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 09:57:06.143183 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+sh: 1: -t: not found
+sh: 1: -t: not found
+[Tue Sep 18 12:01:08.105002 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
 AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.4. Set the 'ServerName' directive globally to suppress this message
-[Mon Sep 10 17:20:13.674696 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.21 configured -- resuming normal operations
-[Mon Sep 10 17:20:13.674778 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
-[Mon Sep 10 19:13:57.717442 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+[Tue Sep 18 12:02:19.273450 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 12:02:19.273827 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[Tue Sep 18 12:05:27.556462 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 12:05:30.200027 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 12:05:30.200819 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+sh: 1: -t: not found
+sh: 1: -t: not found
+sh: 1: -t: not found
+sh: 1: -t: not found
+sh: 1: -t: not found
+sh: 1: -t: not found
+sh: 1: -t: not found
+sh: 1: -t: not found
+sh: 1: -t: not found
+[Tue Sep 18 12:16:35.926050 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 12:17:24.815730 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 12:17:24.816636 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+[Tue Sep 18 12:18:19.845752 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 12:24:04.777932 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 12:24:04.778355 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+sh: 1: -t: not found
+sh: 1: -t: not found
+[Tue Sep 18 12:25:41.427825 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 12:27:04.542331 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 12:27:04.542881 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+sendmail: Cannot open maildev:25
+sendmail: Cannot open maildev:25
+[Tue Sep 18 12:30:55.117612 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 12:31:13.114444 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 12:31:13.115475 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+sendmail: Cannot open mailhub:25
+sendmail: Cannot open mailhub:25
+sendmail: Cannot open mailhub:25
+sendmail: Cannot open mailhub:25
+sendmail: Cannot open mailhub:25
+[Tue Sep 18 12:33:32.646440 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.3. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 12:33:52.049343 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 12:33:52.050063 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+sendmail: Cannot open mail:25
+sendmail: Cannot open mail:25
+sendmail: Cannot open mail:25
+[Tue Sep 18 12:37:05.864798 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 12:39:28.339983 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 12:39:28.340353 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+sendmail: Cannot open mail:25
+sendmail: Cannot open mail:25
+sendmail: Cannot open mail:25
+[Tue Sep 18 12:40:38.607799 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 12:48:38.403600 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 12:48:38.404033 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+[Tue Sep 18 12:51:45.889324 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 12:51:53.770538 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 12:51:53.771120 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+postdrop: warning: unable to look up public/pickup: No such file or directory
+[Tue Sep 18 12:53:11.243047 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 12:54:10.222348 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 12:54:10.222824 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+[Tue Sep 18 12:57:42.559033 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 12:59:11.403918 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 12:59:11.404562 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+[Tue Sep 18 13:01:01.591682 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.4. Set the 'ServerName' directive globally to suppress this message
+[Tue Sep 18 13:02:08.147688 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Tue Sep 18 13:02:08.147962 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory
+postdrop: warning: unable to look up public/pickup: No such file or directory

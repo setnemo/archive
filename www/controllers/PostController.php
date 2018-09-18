@@ -13,14 +13,16 @@ class PostController {
 //     print_r($postsList);
 //     echo "</pre>";
     }
-    else { header("HTTP/1.0 404 Not Found"); }
+    else { 
+      header("HTTP/1.0 404 Not Found");
+    }
     return true;
   }  
   public function action404() {
     header("HTTP/1.0 404 Not Found");
     return true;
   }
-  public function actionViewUser($user, $id) {
+  public function actionExternal($user, $id) {
     $postsList = array();
     $postsList = Post::getPostItemById($user, $id);
     require_once(ROOT.'/views/posts/index.php');
