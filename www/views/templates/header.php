@@ -3,7 +3,8 @@
           <a href="/" class="active">Home</a>
           <a href="/">Most popular</a>
           <a href="/">Most comment</a>
-          <?php if (isset($_SESSION['auth']) && $_SESSION['auth'] == session_id()) { ?><a href="#" id="myBtn">Account</a><?php } else { ?><a href="#" id="myBtn">Login</a><?php } ?>
+          <?php if ($_SERVER['REQUEST_URI'] != '/login/') { if (isset($_SESSION['auth']) && $_SESSION['auth'] == session_id()) { ?><a href="/account/" class="myBtn">Account</a><?php } else { ?><a href="#" id="myBtn">Login</a><?php } }?>
+          <?php if (isset($_SESSION['auth']) && $_SESSION['auth'] == session_id()) { ?><a href="/login/logout/" class="myBtn">Logout</a><?php } ?>
           <a href="javascript:void(0);" class="icon" onclick="myFunction()">
             <i class="fa fa-bars"></i>
           </a>
@@ -20,6 +21,7 @@
         </script>
 
     </header>
+<?php if ($_SERVER['REQUEST_URI'] != '/login/') { ?>
 <div class="modalc" id="myModal">
     <div class="loginmodal-container">
         <span id="closed">&times;</span>
@@ -45,5 +47,5 @@ btn.onclick = function() {
 span.onclick = function() {
     modal.style.display = "none";
 }
-
 </script>
+<?php } ?>

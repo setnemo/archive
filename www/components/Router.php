@@ -28,6 +28,8 @@ class Router {
       if (preg_match("~$uriPattern~", $uri)) {
         $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
         $actionName = 'actionIndex';
+        $controllerName = 'PostController';
+        $controllerFile = ROOT . '/controllers/' . $controllerName . '.php';
         $segments = explode('/', $internalRoute);
         if (count($segments) == 2 || count($segments) == 3) {
           // echo "<pre>";
@@ -39,7 +41,6 @@ class Router {
           if (count($segments) == 2) {
               $actionName = "actionExternal";
             }
-          $controllerFile = ROOT . '/controllers/' . $controllerName . '.php';
           $controllerFile = ROOT . '/controllers/' . $controllerName . '.php';
           // echo "0x00\t" . $controllerFile . "<br>";
           // echo "0x01\t" . $controllerName . "<br>";

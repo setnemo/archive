@@ -10,19 +10,35 @@
                     </div>
                     <div class="card-body pt-5">
                         <a href="/post/<?php echo $post['login']; ?>"><img src="/img/profile/<?php echo $post['login']; ?>.jpg" alt="profile-image" class="profile"/></a>
-                        <div class="icon-block"><a href="http://twitter.com/share?text=<?php echo "Post by ".$post['login']." at http://". $_SERVER['HTTP_HOST']."/".$post['login']."/".$post['id'] ?>&url=<?php echo $_SERVER['HTTP_HOST']."/".$post['login']."/".$post['id'] ?>" title="Поделиться ссылкой в Твиттере" onclick="window.open(this.href, this.title, 'toolbar=0, status=0, width=548, height=325'); return false" target="_parent""> <i class="fa fa-twitter share1"></i></a><a href="https://plus.google.com/share?url=http://<?php echo $_SERVER['HTTP_HOST']."/".$post['login']."/".$post['id'] ?>" onclick="javascript:window.open(this.href,
+                        <div class="icon-block"><a href="http://twitter.com/share?text=<?php echo "Post by ".$post['login']." at http://". $_SERVER['HTTP_HOST']."/".$post['login']."/".$post['id'] ?>&url=<?php echo $_SERVER['HTTP_HOST']."/".$post['login']."/".$post['id'] ?>" title="Поделиться ссылкой в Твиттере" onclick="window.open(this.href, this.title, 'toolbar=0, status=0, width=548, height=325'); return false" target="_parent""> <i class="fa fa-twitter share1"></i></a><a href="https://plus.google.com/share?text=http://<?php echo $_SERVER['HTTP_HOST']."/".$post['login']."/".$post['id'] ?>" onclick="javascript:window.open(this.href,
   '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"> <i class="fa fa-google-plus share2"></i></a></div>
                         <p class="card-text"><?php echo $post['caption'] ?></p>
                     </div>
                 </div>
                 <p class="mt-3 w-100 float-left text-center"></p>
             </div>
-            <?php endforeach; 
+            <?php endforeach; ?>
+</div>
+</main>
+<?php
+$to = "setnemo@gmail.com";
+
+$subject = "new HTML email";
+
+
+
+    $templatePath = ROOT.'/views/templates/email.php';
+    $message = include($templatePath);
+
+// Always set content-type when sending HTML email
+$headers = "MIME-Version: 1.0" . "\r\n";
+$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+// More headers
+$headers .= 'From: <real@camagru.pp.ua>' . "\r\n";
+
 echo "<pre>";
-echo mail('setnemo@gmail.com', 'the subject', 'the message', null,
-   '-fwebmaster@example.com');;
+// echo mail($to , $subject, $message, $headers,
+   // '-freal@camagru.pp.ua');
 echo "</pre>";
 ?>            
-    </div>
-</main>
-
