@@ -36,6 +36,24 @@ MYSQL_USER: camagru
 MYSQL_PASSWORD: camagru
 ```
 
+##TODO
+
+* add registration
+* add token registration
+* add recovery password
+* add edit account
+* add profile photo
+* add 404 management
+* add most popular page
+* add most comments page
+* add hide comments (sign in trigger)
+* add comment
+* add likes and comment counter
+* add post photo
+* add post video
+* add photo editor
+* del mine posts 
+* add infinity scroll
 
 ## Built With
 
