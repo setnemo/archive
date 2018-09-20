@@ -21,24 +21,5 @@
 </div>
 </main>
 <?php
-$to = "setnemo@gmail.com";
 
-$subject = "new HTML email";
-
-
-
-    $templatePath = ROOT.'/views/templates/email.php';
-    $message = include($templatePath);
-
-// Always set content-type when sending HTML email
-$headers = "MIME-Version: 1.0" . "\r\n";
-$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-
-// More headers
-$headers .= 'From: <real@camagru.pp.ua>' . "\r\n";
-
-echo "<pre>";
-// echo mail($to , $subject, $message, $headers,
-   // '-freal@camagru.pp.ua');
-echo "</pre>";
 ?>            

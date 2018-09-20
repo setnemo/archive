@@ -38,9 +38,7 @@ MYSQL_PASSWORD: camagru
 
 ##TODO
 
-* add registration
-* add token registration
-* add templates for email
+* add token verify
 * add recovery password
 * add edit account
 * add profile photo

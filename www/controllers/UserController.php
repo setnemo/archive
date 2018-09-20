@@ -22,13 +22,16 @@ class UserController {
       $_SESSION['login'] = $_POST['login'];
       header("Location: /");
       exit ;
+    }else{
+      require_once(ROOT.'/views/login/index.php');
+      return true;
     }
     return false ;
   }
 
   public function actionExternal($login, $params) {
 
-    $valid = ['logout', 'recovery', 'edit', 'account', 'register'];
+    $valid = ['logout', 'recovery', 'edit', 'account', 'register', 'add'];
 
     if (in_array($params, $valid))
     {
@@ -49,7 +52,7 @@ class UserController {
       header("Location: /");
       exit ;
     }
-    User::$methodName();
+    $status = User::$methodName();
     if ($params != 'logout')
     {
       require_once(ROOT.'/views/login/'.$params.'.php');
