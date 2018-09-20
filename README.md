@@ -40,20 +40,20 @@ MYSQL_PASSWORD: camagru
 
 * add registration
 * add token registration
+* add templates for email
 * add recovery password
 * add edit account
 * add profile photo
-* add 404 management
 * add most popular page
 * add most comments page
 * add hide comments (sign in trigger)
 * add comment
 * add likes and comment counter
 * add post photo
-* add post video
 * add photo editor
 * del mine posts 
 * add infinity scroll
+* add 404 management
 
 ## Built With
 

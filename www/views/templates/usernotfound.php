@@ -3,8 +3,8 @@
         <!-- <pre><?php print_r($_SESSION) ?></pre> -->
         <div class="row mt-5">
         <div class="loginmodal-container">
-            <h1>Error! No such user or bad password!</h1>
-                <h2>Login to Your Account</h2><br>
+            <h5>Error! No such user or bad password!</h5>
+              <br><h3>Login to Your Account</h3><br>
               <form action="/login/" method="POST">
                 <input type="text" name="login" placeholder="Username">
                 <input type="password" name="pass" placeholder="Password">

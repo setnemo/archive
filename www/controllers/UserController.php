@@ -7,7 +7,7 @@ class UserController {
   public function actionIndex() {
     if (isset($_SESSION['auth']) && $_SESSION['auth'] == session_id())
     {
-      header("Location: /account/");
+      header("Location: /");
       exit ;
     }
     if (!isset($_POST['login']) || !isset($_POST['pass']))
@@ -25,18 +25,40 @@ class UserController {
     }
     return false ;
   }
-  public function action404() {
-    require_once(ROOT.'/views/login/index.php');
-    return true;
-  }
-  public function actionExternal($user, $pass) {
-    if ($pass == 'logout')
+
+  public function actionExternal($login, $params) {
+
+    $valid = ['logout', 'recovery', 'edit', 'account', 'register'];
+
+    if (in_array($params, $valid))
     {
-      $_SESSION['auth'] = null;
-      $_SESSION['login'] = null;
+      $methodName = 'get' . ucfirst($params);
+    }
+    else
+    {
+      header("HTTP/1.0 404 Not Found");
+      return true;
+    }
+    if ($params == 'register' && isset($_SESSION['auth']) && $_SESSION['auth'] == session_id())
+    {
       header("Location: /");
       exit ;
     }
+    if (($params == 'account' || $params == 'edit')  && !isset($_SESSION['auth']))
+    {
+      header("Location: /");
+      exit ;
+    }
+    User::$methodName();
+    if ($params != 'logout')
+    {
+      require_once(ROOT.'/views/login/'.$params.'.php');
+    }
     return true;
+  }
+
+  public function action404() {
+      require_once(ROOT.'/views/login/index.php');
+      return true;
   }
 }

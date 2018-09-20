@@ -13,6 +13,7 @@ class HomeController {
 //     echo "</pre>";
     return true;
   }
+
   public function action404() {
     header("HTTP/1.0 404 Not Found");
     return true;
