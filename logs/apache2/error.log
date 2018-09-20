@@ -317,3 +317,7 @@ AH00558: apache2: Could not reliably determine the server's fully qualified doma
 [Thu Sep 20 09:13:20.694750 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
 [Thu Sep 20 09:13:20.695079 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
 [Thu Sep 20 13:01:04.279112 2018] [mpm_prefork:notice] [pid 1] AH00169: caught SIGTERM, shutting down
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.20.0.3. Set the 'ServerName' directive globally to suppress this message
+[Thu Sep 20 18:50:39.461355 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Thu Sep 20 18:50:39.461472 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+sendmail: No recipients specified although -t option used

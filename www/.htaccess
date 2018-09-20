@@ -59,8 +59,7 @@ RewriteCond %{QUERY_STRING} ^(%2d|\-)[^=]+$ [NC,OR]
 RewriteCond %{QUERY_STRING} proc\/self\/environ [NC,OR]
 
 RewriteCond %{QUERY_STRING} (sp_executesql) [NC]
-RewriteRule ^(.*)$ - [F,L]
-
+RewriteRule !403\.html$ - [F]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
