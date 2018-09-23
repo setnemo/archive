@@ -6,7 +6,7 @@ class HomeController {
   
   public function actionIndex() {
     $postsList = array();
-    $postsList = Post::getPostList(1); // 1 = full, 0 = without likes
+    $postsList = Post::getPostList($_SESSION['login']); // 1 = full, 0 = without likes
     require_once(ROOT.'/views/posts/index.php');
 //     echo "<pre>";
 //     print_r($postsList);

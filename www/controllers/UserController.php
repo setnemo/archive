@@ -31,7 +31,7 @@ class UserController {
 
   public function actionExternal($login, $params) {
 
-    $valid = ['logout', 'recovery', 'edit', 'account', 'register', 'add'];
+    $valid = ['logout', 'recovery', 'edit', 'account', 'register', 'add', 'newpassword'];
 
     if (in_array($params, $valid))
     {

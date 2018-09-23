@@ -6,7 +6,7 @@ class PostController {
   
   public function actionIndex($user) {
     $postsList = array();
-    $postsList = Post::getPostItemByUser($user);
+    $postsList = Post::getPostItemByUser($_SESSION['login'], $user);
     if ($postsList) {
       require_once(ROOT.'/views/posts/index.php');
 //     echo "<pre>";
@@ -21,7 +21,7 @@ class PostController {
 
   public function actionExternal($user, $id) {
     $postsList = array();
-    $postsList = Post::getPostItemById($user, $id);
+    $postsList = Post::getPostItemById($_SESSION['login'], $user, $id);
     if ($postsList) {
       require_once(ROOT.'/views/posts/index.php');
 //     echo "<pre>";

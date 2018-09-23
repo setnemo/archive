@@ -2,7 +2,7 @@
 
 class Post {
 
-  public static function getPostItemByUser($user) {
+  public static function getPostItemByUser($flag, $user) {
     
   $conn = Db::getConnection();
     
@@ -26,15 +26,18 @@ class Post {
     while ($row = $result->fetch()) {
       $postList[$it]['id'] = $row['id'];
       $postList[$it]['path'] = $row['path'];
-      $postList[$it]['likes'] = $row['likes'];
       $postList[$it]['caption'] = $row['caption'];
-      $postList[$it]['created_at'] = $row['created_at'];
       $postList[$it]['login'] = $row['login'];
+      if ($flag) 
+      {
+        $postList[$it]['created_at'] = $row['created_at'];
+        $postList[$it]['likes'] = $row['likes'];
+      }
       $it++;
     }
     return $postList;
   }    
-  public static function getPostItemById($user, $id) {
+  public static function getPostItemById($flag, $user, $id) {
     
     $id = intval($id);
     $postList = array();
@@ -61,10 +64,13 @@ class Post {
     while ($row = $result->fetch()) {
       $postList[$it]['id'] = $row['id'];
       $postList[$it]['path'] = $row['path'];
-      $postList[$it]['likes'] = $row['likes'];
       $postList[$it]['caption'] = $row['caption'];
-      $postList[$it]['created_at'] = $row['created_at'];
       $postList[$it]['login'] = $row['login'];
+      if ($flag) 
+      {
+        $postList[$it]['created_at'] = $row['created_at'];
+        $postList[$it]['likes'] = $row['likes'];
+      }
       $it++;
     }
     }
@@ -110,10 +116,13 @@ class Post {
     while ($row = $result->fetch()) {
       $postList[$it]['id'] = $row['id'];
       $postList[$it]['path'] = $row['path'];
-      $postList[$it]['likes'] = $row['likes'];
       $postList[$it]['caption'] = $row['caption'];
-      $postList[$it]['created_at'] = $row['created_at'];
       $postList[$it]['login'] = $row['login'];
+      if ($flag) 
+      {
+        $postList[$it]['created_at'] = $row['created_at'];
+        $postList[$it]['likes'] = $row['likes'];
+      }
       $it++;
     }
     return $postList;

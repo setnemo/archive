@@ -38,8 +38,6 @@ MYSQL_PASSWORD: camagru
 
 ##TODO
 
-* add validation registration (sql)
-* add token verify
 * add recovery password
 * add edit account
 * add profile photo
