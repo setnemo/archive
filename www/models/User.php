@@ -31,29 +31,33 @@ class User {
     return true;
   }
 
-  public static function getAccount() {
+  public static function getNewpassword() {
 
-    //
-    return true;
+    $conn = Db::getConnection();
+    
+    $result = $conn->prepare("
+    SELECT
+      id
+    FROM
+      users
+    WHERE login=? AND email=? AND firstname=? AND lastname=? AND status = 1;
+    ");
+    $result->execute([$_POST['login'], $_POST['email'], $_POST['firstname'], $_POST['lastname']]);
+    $fetch = $result->fetch();
+    if ($fetch)
+    {
+      $newpassword = include(ROOT.'/config/generator.php');
+      $insert = $conn->prepare("UPDATE users SET password=? WHERE email=?;");
+      $newhash = hash('whirlpool', $newpassword);
+      $insert->execute([$newhash, $_POST['email']]);
+      $insert->fetch();
+      $emailObj = new Email;
+      $confirm = Email::confirmPassword($_POST['email'], $newpassword);
+      return true;
+    }
+    return false;
   }
 
-  public static function getEdit() {
-
-    //
-    return true;
-  }
-
-  public static function getRecovery() {
-
-    //
-    return true;
-  }
-
-  public static function getRegister() {
-
-    //
-    return true;
-  }
 
   public static function getAdd() {
 
@@ -80,6 +84,149 @@ class User {
     $tokenUrl = $_SERVER['SERVER_NAME'].'/token/'.$token.'/'.$_POST['email'].'/';
     $confirm = Email::confirmEmail($_POST['email'], $_POST['login'], $tokenUrl);
   }
+  return true;
+  }
+
+  public static function getEdit() {
+
+    $conn = Db::getConnection();
+
+    $data = array();
+    foreach ($_POST as $key => $value) {
+      if ($value)
+      {
+        $data[$key] = $value;
+      }
+    }
+    if (array_key_exists('password', $data))
+    {
+      $result = $conn->prepare("
+      SELECT
+        id
+      FROM
+        users
+      WHERE login=? AND password=? ;
+      ");
+      $result->execute([$_SESSION['login'], hash('whirlpool', $_POST['password'])]);
+      $fetch = $result->fetch();
+      if ($fetch)
+      {
+        if (count($data) > 1)
+        {
+          if (array_key_exists('passn1', $data) && array_key_exists('passn2', $data) && array_key_exists('passn1', $data) == array_key_exists('passn2', $data))
+          {
+            // change password
+            $insert = $conn->prepare("UPDATE users SET password=? WHERE login=?;");
+            $insert->execute([hash('whirlpool', $data['passn2']), $_SESSION['login']]);
+            $insert->fetch();
+          }
+          if (array_key_exists('login', $data))
+          {
+            $result = $conn->prepare("
+            SELECT
+              id
+            FROM
+              users
+            WHERE login=? ;
+            ");
+            $result->execute([$data['login']]);
+            $fetch = $result->fetch();
+            if ($fetch)
+              return false;
+            else 
+            {
+              $insert = $conn->prepare("UPDATE users SET login=? WHERE login=?;");
+              $insert->execute([$data['login'], $_SESSION['login']]);
+              $insert->fetch();
+              $_SESSION['login'] = $data['login'];
+            }
+          }
+          if (array_key_exists('email', $data))
+          {
+            $result = $conn->prepare("
+            SELECT
+              id
+            FROM
+              users
+            WHERE email=? ;
+            ");
+            $result->execute([$data['email']]);
+            $fetch = $result->fetch();
+            if ($fetch)
+              return false;
+            else 
+            {
+              $insert = $conn->prepare("UPDATE users SET email=? WHERE login=?;");
+              $insert->execute([$data['email'], $_SESSION['login']]);
+              $insert->fetch();
+            }
+          }
+          if (array_key_exists('firstname', $data))
+          {
+            $insert = $conn->prepare("UPDATE users SET firstname=? WHERE login=?;");
+            $insert->execute([$data['firstname'], $_SESSION['login']]);
+            $insert->fetch();
+          }
+          if (array_key_exists('lastname', $data))
+          {
+            $insert = $conn->prepare("UPDATE users SET lastname=? WHERE login=?;");
+            $insert->execute([$data['lastname'], $_SESSION['login']]);
+            $insert->fetch();
+          }
+            return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  public static function getAccountData($login) {
+    
+    $conn = Db::getConnection();
+
+    $result = $conn->prepare("
+    SELECT
+      *
+    FROM
+      users
+    WHERE login=?;
+    ");
+    $result->execute([$login]);
+    return $result->fetch();
+  }
+
+  public static function getAvatars() {
+
+    $conn = Db::getConnection();
+    $result = $conn->query("
+      SELECT
+        login, email
+      FROM
+        users;
+      ");
+    $fetch = $result->fetchAll(PDO::FETCH_ASSOC);
+    $data = array();
+    foreach ($fetch as $key) {
+        $data[$key['login']] = md5( strtolower( trim( $key['email'] ) ) );
+    }
+    return $data ;
+  }
+  public static function getRecovery() {
+
+    // silence is golden
     return true;
   }
+
+  public static function getRegister() {
+
+    // silence is golden
+    return true;
+  }
+
+  public static function getAccount() {
+
+    // silence is golden
+    return true;
+  }
+  
 }

@@ -255,7 +255,7 @@ function confirmation(){
           <div class="content">
 
             <!-- START CENTERED WHITE CONTAINER -->
-            <span class="preheader">Confirmation email from Camagru</span>
+            <span class="preheader">Confirmation account at CAMAGRU</span>
             <table class="main">
 
               <!-- START MAIN CONTENT AREA -->

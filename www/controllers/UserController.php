@@ -31,7 +31,7 @@ class UserController {
 
   public function actionExternal($login, $params) {
 
-    $valid = ['logout', 'recovery', 'edit', 'account', 'register', 'add', 'newpassword'];
+    $valid = ['logout', 'recovery', 'account', 'register', 'add', 'newpassword', 'edit'];
 
     if (in_array($params, $valid))
     {
@@ -53,6 +53,9 @@ class UserController {
       exit ;
     }
     $status = User::$methodName();
+    if ($params == 'account' && $_SESSION['login']) {
+      $account_data = User::getAccountData($_SESSION['login']);
+    }
     if ($params != 'logout')
     {
       require_once(ROOT.'/views/login/'.$params.'.php');

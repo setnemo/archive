@@ -38,9 +38,6 @@ MYSQL_PASSWORD: camagru
 
 ##TODO
 
-* add recovery password
-* add edit account
-* add profile photo
 * add most popular page
 * add most comments page
 * add hide comments (sign in trigger)
