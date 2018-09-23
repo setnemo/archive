@@ -6,7 +6,7 @@ class Post {
     
   $conn = Db::getConnection();
     
-    $postList = array();
+    $postList = array('');
     $result = $conn->query("
     SELECT
       posts.id, 

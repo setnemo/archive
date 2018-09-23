@@ -61,32 +61,35 @@ class User {
 
   public static function getAdd() {
 
-    if (!isset($_SESSION['login'])) { return false;}
+  if (isset($_SESSION['login']) && $_SESSION['login'] == '' || !isset($_SESSION['login']) ) { 
+  echo "<pre>";
+  print_r($_POST);
+  echo "</pre>";
 
   $conn = Db::getConnection();
-  $result = $conn->query("
+  $result = $conn->prepare("
     SELECT
       id
     FROM
       users
     WHERE
-      login = \"".$_POST['login']."\" OR email = \"".$_POST['email']."\";
+      login = ? OR email = ? ;
     ");
+  $result->execute([$_POST['login'], $_POST['email']]);
   $fetch = $result->fetch();
   if ($fetch)
   {
     return false;
   }
-  else
-  {
-    $token = hash('whirlpool', $_POST['login'].$_POST['pass'].time());
-    $insert = $conn->prepare("INSERT INTO users (login, email, password, firstname, lastname, token) VALUES (?, ?, ?, ?, ?, ?)");
-    $insert->execute([$_POST['login'], $_POST['email'], hash('whirlpool', $_POST['pass']), $_POST['firstname'], $_POST['lastname'], $token]);
-    $emailObj = new Email;
-    $tokenUrl = $_SERVER['SERVER_NAME'].'/token/'.$token.'/'.$_POST['email'].'/';
-    $confirm = Email::confirmEmail($_POST['email'], $_POST['login'], $tokenUrl);
-  }
+  $token = hash('whirlpool', $_POST['login'].$_POST['pass'].time());
+  $insert = $conn->prepare("INSERT INTO users (login, email, password, firstname, lastname, token) VALUES (?, ?, ?, ?, ?, ?)");
+  $insert->execute([$_POST['login'], $_POST['email'], hash('whirlpool', $_POST['pass']), $_POST['firstname'], $_POST['lastname'], $token]);
+  $emailObj = new Email;
+  $tokenUrl = $_SERVER['SERVER_NAME'].'/token/'.$token.'/'.$_POST['email'].'/';
+  $confirm = Email::confirmEmail($_POST['email'], $_POST['login'], $tokenUrl);
   return true;
+  }
+  return false;
   }
 
   public static function getEdit() {

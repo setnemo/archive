@@ -3,6 +3,7 @@
         <!-- <pre><?php print_r($postsList) ?></pre> -->
         <div class="row mt-5">
             <?php foreach ($postsList as $post): ?>
+            <?php if ($post) { ?>
             <div class="col-lg-3 col-md-6 col-sm-9 col-xs-9">
                 <div class="card profile-card-2">
                     <div class="card-img-block">
@@ -19,7 +20,8 @@
                 </div>
                 <p class="mt-3 w-100 float-left text-center"></p>
             </div>
-            <?php endforeach; ?>
+            <?php }
+            endforeach; ?>
 </div>
 </main>
 <?php

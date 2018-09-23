@@ -24,7 +24,7 @@
             <div class="col-lg-6 col-md-9 col-sm-12 col-xs-12">
                 <div class="card profile-card-2">
                     <div class="card-body pt-5">
-                        <a href="/post/<?php echo $_SESSION['login']; ?>"><img src="//www.gravatar.com/avatar/<?php echo $avatar[$_SESSION['login']]; ?>.jpg" alt="profile-image" class="profile"/></a>
+                        <a href="/post/<?php echo $_SESSION['login']; ?>/"><img src="//www.gravatar.com/avatar/<?php echo $avatar[$_SESSION['login']]; ?>.jpg" alt="profile-image" class="profile"/></a>
                         <form action="" method="POST">
                         <input type="text" class="form-control" style="display:none;" value="<?php echo $_SESSION['login']; ?>">
                         <label for="comment">New comment:</label>

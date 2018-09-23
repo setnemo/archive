@@ -334,3 +334,6 @@ AH00558: apache2: Could not reliably determine the server's fully qualified doma
 sendmail: No recipients specified although -t option used
 sendmail: No recipients specified although -t option used
 sendmail: No recipients specified although -t option used
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.4. Set the 'ServerName' directive globally to suppress this message
+[Sun Sep 23 21:04:38.829251 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Sun Sep 23 21:04:38.829379 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'

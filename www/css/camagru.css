@@ -405,7 +405,6 @@ body {
 }
 .comment-actions li {
   display: inline;
-  margin: -2px;
   cursor: pointer;
 }
 .comment-actions li.complain {
@@ -415,6 +414,7 @@ body {
 .comment-actions li.reply {
   padding-left: 0.75rem;
   padding-right: 0.125rem;
+  white-space: nowrap;
 }
 .comment-actions li:hover {
   color: #0095ff;
