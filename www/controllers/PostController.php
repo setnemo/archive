@@ -25,6 +25,7 @@ class PostController {
     $postsList = Post::getPostItemById($_SESSION['login'], $user, $id);
     $avatar = User::getAvatars();
     if ($postsList) {
+      $comments = Post::getComments($id);
       require_once(ROOT.'/views/posts/single.php');
 //     echo "<pre>";
 //     print_r($postsList);

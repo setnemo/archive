@@ -82,7 +82,7 @@ class Post {
     return $postList;
   }
   
-  public static function getPostList($flag) {
+  public static function getPostList($flag, $sort) {
   $conn = Db::getConnection();
     
     $postList = array();
@@ -100,7 +100,6 @@ class Post {
     FROM
       posts
     INNER JOIN users ON posts.user = users.id
-    ORDER BY posts.id DESC;
     ";
     }
     else {
@@ -108,15 +107,26 @@ class Post {
     SELECT
       posts.id, 
       posts.path,
+      posts.likes,
+      posts.comment,
       posts.caption,
       posts.user,
       users.login
     FROM
       posts
     INNER JOIN users ON posts.user = users.id
-    ORDER BY posts.id DESC;
     ";
     }
+    if ($sort) {
+      if ($sort == 'liking') {
+        $sq .= 'ORDER BY posts.likes DESC, posts.comment DESC;';
+      } else {
+        $sq .= 'ORDER BY posts.comment DESC, posts.likes DESC;';
+      }
+    } else {
+      $sq .= 'ORDER BY posts.id DESC;';
+    }
+    
     $result = $conn->query($sq);
     $it = 0;
     while ($row = $result->fetch()) {
@@ -137,15 +147,17 @@ class Post {
 
   public static function getAddLike($post, $user) {
 
+    if (!isset($_SESSION['login'])) { return false;}
+
     $conn = Db::getConnection();
     $result = $conn->prepare("
       SELECT
         id
       FROM
         likes
-      WHERE user = ?;
+      WHERE user = ? AND post = ?;
       ");
-    $result->execute([$user]);
+    $result->execute([$user, $post]);
     $fetch = $result->fetch();
 
     if ($fetch)
@@ -173,5 +185,24 @@ class Post {
       $result->execute([$post]);
       $fetch = $result->fetchAll(PDO::FETCH_ASSOC);
       echo $fetch[0]['likes'];
+  }
+  public static function getComments($id) {
+
+    
+    
+  $conn = Db::getConnection();
+    
+    $sql = "
+    SELECT
+      *
+    FROM
+      comments
+    WHERE post = ?
+    ORDER BY created_at DESC;
+    ";
+    $result = $conn->prepare($sql);
+    $result->execute([$id]);
+    $fetch = $result->fetchAll(PDO::FETCH_ASSOC);
+    return $fetch;
   }
 }

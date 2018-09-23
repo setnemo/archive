@@ -27,7 +27,7 @@ class User {
 
     $_SESSION['auth'] = null;
     $_SESSION['login'] = null;
-    header("Location: /");
+    header("Location: " . $_SESSION['enter']);
     return true;
   }
 
@@ -61,6 +61,8 @@ class User {
 
   public static function getAdd() {
 
+    if (!isset($_SESSION['login'])) { return false;}
+
   $conn = Db::getConnection();
   $result = $conn->query("
     SELECT
@@ -88,6 +90,8 @@ class User {
   }
 
   public static function getEdit() {
+
+    if (!isset($_SESSION['login'])) { return false;}
 
     $conn = Db::getConnection();
 
@@ -181,7 +185,8 @@ class User {
   }
 
   public static function getAccountData($login) {
-    
+
+    if (!isset($_SESSION['login'])) { return false;}
     $conn = Db::getConnection();
 
     $result = $conn->prepare("

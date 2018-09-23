@@ -7,7 +7,7 @@ class HomeController {
   
   public function actionIndex() {
     $postsList = array();
-    $postsList = Post::getPostList($_SESSION['login']); // 1 = full, 0 = without likes
+    $postsList = Post::getPostList($_SESSION['login'], null); // 1 = full, 0 = without likes
     $avatar = User::getAvatars();
     require_once(ROOT.'/views/posts/index.php');
 //     echo "<pre>";
@@ -15,6 +15,20 @@ class HomeController {
 //     echo "</pre>";
     return true;
   }
+  
+  public function actionExternal($home, $attr) {
+
+    if (!in_array($attr, ['liking', 'commenting'])) { header("HTTP/1.0 404 Not Found"); exit ;}
+
+    $postsList = array();
+    $postsList = Post::getPostList($_SESSION['login'], $attr); // 1 = full, 0 = without likes
+    $avatar = User::getAvatars();
+    require_once(ROOT.'/views/posts/index.php');
+//     echo "<pre>";
+//     print_r($postsList);
+//     echo "</pre>";
+    return true;
+  }  
 
   public function action404() {
     header("HTTP/1.0 404 Not Found");

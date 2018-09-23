@@ -20,7 +20,7 @@ class UserController {
     {
       $_SESSION['auth'] = session_id();
       $_SESSION['login'] = $_POST['login'];
-      header("Location: /");
+      header("Location: " . $_SESSION['enter']);
       exit ;
     }else{
       require_once(ROOT.'/views/login/index.php');
@@ -39,18 +39,18 @@ class UserController {
     }
     else
     {
-      header("HTTP/1.0 404 Not Found");
+      header("Location: /");
       return true;
     }
     if ($params == 'register' && isset($_SESSION['auth']) && $_SESSION['auth'] == session_id())
     {
       header("Location: /");
-      exit ;
+      return true;
     }
     if (($params == 'account' || $params == 'edit')  && !isset($_SESSION['auth']))
     {
       header("Location: /");
-      exit ;
+      return true;
     }
     $status = User::$methodName();
     if ($params == 'account' && $_SESSION['login']) {

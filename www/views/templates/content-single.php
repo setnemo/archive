@@ -1,6 +1,6 @@
     <main role="main" class="container">
         <!-- <h1 class="mt-5">Sticky footer with fixed navbar</h1> -->
-        <!-- <pre><?php print_r($avatar) ?></pre> -->
+
         <div class="row mt-5">
             <?php foreach ($postsList as $post): ?>
             <div class="col-lg-6 col-md-9 col-sm-12 col-xs-12">
@@ -20,6 +20,50 @@
                 <p class="mt-3 w-100 float-left text-center"></p>
             </div>
             <?php endforeach; ?>
+           <?php if (isset($post['comment'])) { ?>
+            <div class="col-lg-6 col-md-9 col-sm-12 col-xs-12">
+                <div class="card profile-card-2">
+                    <div class="card-body pt-5">
+                        <a href="/post/<?php echo $_SESSION['login']; ?>"><img src="//www.gravatar.com/avatar/<?php echo $avatar[$_SESSION['login']]; ?>.jpg" alt="profile-image" class="profile"/></a>
+                        <form action="" method="POST">
+                        <input type="text" class="form-control" style="display:none;" value="<?php echo $_SESSION['login']; ?>">
+                        <label for="comment">New comment:</label>
+                        <textarea class="form-control" rows="5" id="comment" placeholder="Amazing!"></textarea>
+                        <p class="card-text"></p>
+                        <input type="submit" class="btn-warning btn" value="ADD COMMENT">
+
+
+
+<div class="comments">
+
+
+        <!-- comments -->
+        <?php foreach ($comments as $post): ?>
+        <div class="comment-wrap">
+                <div class="photo">
+                        <div class="avatar" style="background-image: url('//www.gravatar.com/avatar/<?php echo $avatar[$post['user']]; ?>')"></div>
+                </div>
+                <div class="comment-block">
+                        <p class="comment-text"><?php echo $post['body']?></p>
+                        <div class="bottom-comment">
+                                <ul class="comment-actions">
+                                        <li class="complain"><a href="/post/<?php echo $post['user']; ?>/"><?php echo $post['user']; ?></a></li>
+                                        <li class="reply"><?php echo $post['created_at']?></li>
+                                </ul>
+                        </div>
+                </div>
+        </div>
+        <?php endforeach; ?>
+
+</div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+            <?php } ?>
 </div>
 </main>
 <?php
