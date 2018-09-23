@@ -12,6 +12,7 @@ class Post {
       posts.id, 
       posts.path,
       posts.likes,
+      posts.comment,
       posts.caption,
       posts.created_at,
       posts.user,
@@ -32,11 +33,13 @@ class Post {
       {
         $postList[$it]['created_at'] = $row['created_at'];
         $postList[$it]['likes'] = $row['likes'];
+        $postList[$it]['comment'] = $row['comment'];
       }
       $it++;
     }
     return $postList;
-  }    
+  }   
+   
   public static function getPostItemById($flag, $user, $id) {
     
     $id = intval($id);
@@ -50,6 +53,7 @@ class Post {
       posts.id, 
       posts.path,
       posts.likes,
+      posts.comment,
       posts.caption,
       posts.created_at,
       posts.user,
@@ -70,6 +74,7 @@ class Post {
       {
         $postList[$it]['created_at'] = $row['created_at'];
         $postList[$it]['likes'] = $row['likes'];
+        $postList[$it]['comment'] = $row['comment'];
       }
       $it++;
     }
@@ -87,6 +92,7 @@ class Post {
       posts.id, 
       posts.path,
       posts.likes,
+      posts.comment,
       posts.caption,
       posts.created_at,
       posts.user,
@@ -122,9 +128,50 @@ class Post {
       {
         $postList[$it]['created_at'] = $row['created_at'];
         $postList[$it]['likes'] = $row['likes'];
+        $postList[$it]['comment'] = $row['comment'];
       }
       $it++;
     }
     return $postList;
+  }
+
+  public static function getAddLike($post, $user) {
+
+    $conn = Db::getConnection();
+    $result = $conn->prepare("
+      SELECT
+        id
+      FROM
+        likes
+      WHERE user = ?;
+      ");
+    $result->execute([$user]);
+    $fetch = $result->fetch();
+
+    if ($fetch)
+    {
+      $insert = $conn->prepare("UPDATE posts SET likes = likes - 1 WHERE id=?;");
+      $insert->execute([$post]);
+      $insert = $conn->prepare("DELETE FROM likes WHERE user=? AND post=?;");
+      $insert->execute([$user, $post]);
+    }
+    else 
+    {
+      $insert = $conn->prepare("UPDATE posts SET likes = likes + 1 WHERE id=?;");
+      $insert->execute([$post]);
+      $sql = "INSERT INTO likes (user, post) VALUES (?, ?) ;";
+      $conn->prepare($sql)->execute([$user, $post]);
+    }
+    $sql = "
+      SELECT
+        likes
+      FROM
+        posts
+      WHERE id = ?;
+      ";
+      $result = $conn->prepare($sql);
+      $result->execute([$post]);
+      $fetch = $result->fetchAll(PDO::FETCH_ASSOC);
+      echo $fetch[0]['likes'];
   }
 }

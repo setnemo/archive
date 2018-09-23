@@ -25,7 +25,7 @@ class PostController {
     $postsList = Post::getPostItemById($_SESSION['login'], $user, $id);
     $avatar = User::getAvatars();
     if ($postsList) {
-      require_once(ROOT.'/views/posts/index.php');
+      require_once(ROOT.'/views/posts/single.php');
 //     echo "<pre>";
 //     print_r($postsList);
 //     echo "</pre>";

@@ -38,11 +38,11 @@ MYSQL_PASSWORD: camagru
 
 ##TODO
 
-* add most popular page
-* add most comments page
-* add hide comments (sign in trigger)
 * add comment
 * add likes and comment counter
+* add hide comments (sign in trigger)
+* add most popular page
+* add most comments page
 * add post photo
 * add photo editor
 * del mine posts 
