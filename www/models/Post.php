@@ -3,10 +3,9 @@
 class Post {
 
   public static function getPostItemByUser($flag, $user) {
-    
-  $conn = Db::getConnection();
-    
-    $postList = array('');
+      
+    $conn = Db::getConnection();
+    $postList = array();
     $result = $conn->query("
     SELECT
       posts.id, 
@@ -37,17 +36,20 @@ class Post {
       }
       $it++;
     }
+    if (count($postList))
+      return $postList;
+    else
+      $postList = array('');
     return $postList;
-  }   
-   
+    }   
+     
   public static function getPostItemById($flag, $user, $id) {
-    
     $id = intval($id);
     $postList = array();
-    
+
     if ($id) {
-  $conn = Db::getConnection();
-    
+    $conn = Db::getConnection();
+
     $result = $conn->query("
     SELECT
       posts.id, 
@@ -80,11 +82,10 @@ class Post {
     }
     }
     return $postList;
-  }
-  
-  public static function getPostList($flag, $sort) {
-  $conn = Db::getConnection();
+    }
     
+  public static function getPostList($flag, $sort) {
+    $conn = Db::getConnection();
     $postList = array();
     if ($flag) {
     $sq = "
@@ -143,12 +144,10 @@ class Post {
       $it++;
     }
     return $postList;
-  }
+    }
 
-  public static function getAddLike($post, $user) {
-
+  public static function getAddLike($post, $user, $fix) {
     if (!isset($_SESSION['login'])) { return false;}
-
     $conn = Db::getConnection();
     $result = $conn->prepare("
       SELECT
@@ -159,7 +158,6 @@ class Post {
       ");
     $result->execute([$user, $post]);
     $fetch = $result->fetch();
-
     if ($fetch)
     {
       $insert = $conn->prepare("UPDATE posts SET likes = likes - 1 WHERE id=?;");
@@ -186,12 +184,33 @@ class Post {
       $fetch = $result->fetchAll(PDO::FETCH_ASSOC);
       echo $fetch[0]['likes'];
   }
-  public static function getComments($id) {
 
+  public static function getAddComment($comment, $user, $post) {  
+    $conn = Db::getConnection();
+    $sql = "INSERT INTO `comments` (`id`, `user`, `post`, `body`, `created_at`) VALUES (NULL, ?, ?, ?, CURRENT_TIMESTAMP);";
+    $result = $conn->prepare($sql);
+    $result->execute([$user, $post, $comment]);
     
-    
+    $result = $conn->prepare("SELECT * FROM comments WHERE user = ? ORDER BY created_at DESC LIMIT 0,1;");
+    $result->execute([$user]);
+    $fetch1 = $result->fetch(PDO::FETCH_ASSOC);
+    $result = $conn->prepare("SELECT * FROM users WHERE login = ? ;");
+    $result->execute([$user]);
+    $fetch2 = $result->fetch(PDO::FETCH_ASSOC);
+    $insert = $conn->prepare("UPDATE posts SET comment = likes + 1 WHERE id=?;");
+    $insert->execute([$post]);
+    $printdata = array();
+    $printdata['avatar'] = hash('md5', $fetch2['email']);
+    $printdata['text'] = $fetch1['body'];
+    $printdata['login'] = $user;
+    $printdata['date'] = $fetch1['created_at'];
+    require_once(ROOT.'/views/posts/comment.php');
+    return ;
+  }
+
+
+  public static function getComments($id) {
   $conn = Db::getConnection();
-    
     $sql = "
     SELECT
       *
