@@ -52,6 +52,7 @@ if (newcomment && commentBtn)
 						div.innerHTML = this.responseText;
 						insertAfter(anewComment, div);
 						commentCount[0].lastChild.nodeValue.innerHTML = commentCount[0].lastChild.nodeValue++;
+						textComment.value = '';
 					}
 				}
 			}

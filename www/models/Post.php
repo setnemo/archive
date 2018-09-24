@@ -1,5 +1,7 @@
 <?php
 
+include_once ROOT.'/models/Email.php';
+
 class Post {
 
   public static function getPostItemByUser($flag, $user) {
@@ -147,7 +149,7 @@ class Post {
     }
 
   public static function getAddLike($post, $user, $fix) {
-    if (!isset($_SESSION['login'])) { return false;}
+    if (!isset($_SESSION['login'])) { return false; }
     $conn = Db::getConnection();
     $result = $conn->prepare("
       SELECT
@@ -183,14 +185,18 @@ class Post {
       $result->execute([$post]);
       $fetch = $result->fetchAll(PDO::FETCH_ASSOC);
       echo $fetch[0]['likes'];
+      return ;
   }
 
-  public static function getAddComment($comment, $user, $post) {  
+  public static function getAddComment($comment, $user, $post) {
+    if (!isset($_SESSION['login'])) { return false; }
     $conn = Db::getConnection();
+    $result = $conn->prepare("SELECT * FROM users WHERE login = ?;");
+    $result->execute([$user]);
+    $fetch = $result->fetch(PDO::FETCH_ASSOC);
     $sql = "INSERT INTO `comments` (`id`, `user`, `post`, `body`, `created_at`) VALUES (NULL, ?, ?, ?, CURRENT_TIMESTAMP);";
     $result = $conn->prepare($sql);
-    $result->execute([$user, $post, $comment]);
-    
+    $result->execute([$user, $post, $comment]); 
     $result = $conn->prepare("SELECT * FROM comments WHERE user = ? ORDER BY created_at DESC LIMIT 0,1;");
     $result->execute([$user]);
     $fetch1 = $result->fetch(PDO::FETCH_ASSOC);
@@ -199,6 +205,14 @@ class Post {
     $fetch2 = $result->fetch(PDO::FETCH_ASSOC);
     $insert = $conn->prepare("UPDATE posts SET comment = likes + 1 WHERE id=?;");
     $insert->execute([$post]);
+    // need login post created! and email template
+    echo "<pre>";
+    print_r($result);
+    echo "</pre>";
+    if ($fetch['action'] == "1") {
+      $emailObj = new Email;
+      $letter = Email::commentNotification($fetch);
+    }
     $printdata = array();
     $printdata['avatar'] = hash('md5', $fetch2['email']);
     $printdata['text'] = $fetch1['body'];

@@ -118,7 +118,7 @@ class User {
       $fetch = $result->fetch();
       if ($fetch)
       {
-        if (count($data) > 1)
+        if (count($data) >= 1)
         {
           if (array_key_exists('passn1', $data) && array_key_exists('passn2', $data) && array_key_exists('passn1', $data) == array_key_exists('passn2', $data))
           {
@@ -180,6 +180,18 @@ class User {
             $insert->execute([$data['lastname'], $_SESSION['login']]);
             $insert->fetch();
           }
+          if (array_key_exists('action', $data))
+          {
+            $insert = $conn->prepare("UPDATE users SET action=? WHERE login=?;");
+            $insert->execute(['1', $_SESSION['login']]);
+            $insert->fetch();
+          } else {
+            $insert = $conn->prepare("UPDATE users SET action=? WHERE login=?;");
+            $insert->execute(['0', $_SESSION['login']]);
+            $insert->fetch();
+
+          }
+
             return true;
         }
       }

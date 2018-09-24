@@ -53,9 +53,20 @@ class Email {
     return true;
   }
 
-  public static function getRecovery() {
+  public static function commentNotification($fetch) {
 
-    //
+    include_once ROOT.'/views/templates/email-notification.php';
+
+    $message = confirmation($fetch['login'], 'nil');
+    $subject = "CAMAGRU: Generate new password!";
+    // Always set content-type when sending HTML email
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+    // More headers
+    $headers .= 'From: <real@camagru.pp.ua>' . "\r\n";
+
+    mail($fetch['email'], $subject, $message, $headers, '-freal@camagru.pp.ua');
     return true;
   }
 

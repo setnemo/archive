@@ -37,8 +37,7 @@ MYSQL_PASSWORD: camagru
 ```
 
 ##TODO
-
-* add comment JS
+* emails for action
 * add post photo
 * add photo editor
 * del mine posts 
