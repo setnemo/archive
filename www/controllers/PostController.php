@@ -2,11 +2,17 @@
 
 include_once ROOT.'/models/Post.php';
 include_once ROOT.'/models/User.php';
+
 class PostController {
   
   public function actionIndex($user) {
     $postsList = array();
-    $postsList = Post::getPostItemByUser($_SESSION['login'], $user);
+    if (isset($_SESSION['login'])) {
+      $login = $_SESSION['login'];
+    } else {
+      $login = null;
+    }
+    $postsList = Post::getPostItemByUser($login, $user);
     $avatar = User::getAvatars();
     if ($postsList) {
       require_once(ROOT.'/views/posts/index.php');
@@ -22,7 +28,12 @@ class PostController {
 
   public function actionExternal($user, $id) {
     $postsList = array();
-    $postsList = Post::getPostItemById($_SESSION['login'], $user, $id);
+    if (isset($_SESSION['login'])) {
+      $login = $_SESSION['login'];
+    } else {
+      $login = null;
+    }
+    $postsList = Post::getPostItemById($login, $user, $id);
     $avatar = User::getAvatars();
     if ($postsList) {
       $comments = Post::getComments($id);

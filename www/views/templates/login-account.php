@@ -15,7 +15,7 @@
                 <input type="email" name="email" placeholder="new email">
                 <input type="text" name="firstname" placeholder="new firstname">
                 <input type="text" name="lastname" placeholder="new lastname">
-                <label>Receive notifications<input type="checkbox" name="action"<?php if ($account_data['action'] == 1) echo " checked";?>></label>
+                <label>Receive notifications <input type="checkbox" name="action"<?php if ($account_data['action'] == 1) echo " checked";?>></label>
                 <input type="submit" class="login loginmodal-submit" value="CHANGE">
               </form>
               <div class="login-help">

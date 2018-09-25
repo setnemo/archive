@@ -62,9 +62,6 @@ class User {
   public static function getAdd() {
 
   if (isset($_SESSION['login']) && $_SESSION['login'] == '' || !isset($_SESSION['login']) ) { 
-  echo "<pre>";
-  print_r($_POST);
-  echo "</pre>";
 
   $conn = Db::getConnection();
   $result = $conn->prepare("

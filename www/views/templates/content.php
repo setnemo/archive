@@ -23,6 +23,16 @@
             <?php }
             endforeach; ?>
 </div>
+<div class="content-container">
+</div>
+<div class="loading-container no-content">
+  <div class="loading">
+    <div class="loading-bar"></div>
+    <div class="loading-bar"></div>
+    <div class="loading-bar"></div>
+    <div class="loading-bar"></div>
+  </div>
+  </div>
 </main>
 <?php
 

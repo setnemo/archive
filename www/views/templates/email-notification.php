@@ -1,6 +1,6 @@
 <?php 
 
-function confirmation($login, $tokenUrl){
+function confirmation($fetch, $post){
   return
   '<!doctype html>
 <html>
@@ -255,7 +255,7 @@ function confirmation($login, $tokenUrl){
           <div class="content">
 
             <!-- START CENTERED WHITE CONTAINER -->
-            <span class="preheader">Confirmation email from Camagru</span>
+            <span class="preheader">New comment at your post</span>
             <table class="main">
 
               <!-- START MAIN CONTENT AREA -->
@@ -264,8 +264,8 @@ function confirmation($login, $tokenUrl){
                   <table border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-                        <p>Hi '.$login.'!</p>
-                        <p>Confirm your email, and you\'ll be ready to share your awesome photo and memes</p>
+                        <p>Hi '.$fetch['login'].'!</p>
+                        <p>You have a new comment at your post</p>
                         <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                           <tbody>
                             <tr>
@@ -273,7 +273,7 @@ function confirmation($login, $tokenUrl){
                                 <table border="0" cellpadding="0" cellspacing="0">
                                   <tbody>
                                     <tr>
-                                      <td> <a href="'.$tokenUrl.'" target="_blank">Confirm email address</a> </td>
+                                      <td> <a href="'.$_SERVER['SERVER_NAME'].'/post/'.$fetch['login'].'/'.$post.'/" target="_blank">Check new comment</a> </td>
                                     </tr>
                                   </tbody>
                                 </table>

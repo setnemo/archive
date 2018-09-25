@@ -20,7 +20,7 @@ class HomeController {
   
   public function actionExternal($home, $attr) {
 
-    if (!in_array($attr, ['liking', 'commenting'])) { header("HTTP/1.0 404 Not Found"); exit ;}
+    if (!in_array($attr, ['liking', 'commenting'])) { header("HTTP/1.0 404 Not Found"); return false ;}
 
     $postsList = array();
     if (isset($_SESSION['login'])) {

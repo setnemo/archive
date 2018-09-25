@@ -22,7 +22,7 @@ class Post {
       posts
     INNER JOIN users ON posts.user = users.id
     WHERE users.login=\"".$user."\"
-    ORDER BY posts.id DESC;
+    ORDER BY posts.id DESC LIMIT 0, 8;
     ");
     $it = 0;
     while ($row = $result->fetch()) {
@@ -66,7 +66,7 @@ class Post {
       posts
     INNER JOIN users ON posts.user = users.id
     WHERE users.login=\"".$user."\" and posts.id=\"".$id."\"
-    ORDER BY posts.id DESC;
+    ORDER BY posts.id DESC ;
     ");
     $it = 0;
     while ($row = $result->fetch()) {
@@ -122,12 +122,12 @@ class Post {
     }
     if ($sort) {
       if ($sort == 'liking') {
-        $sq .= 'ORDER BY posts.likes DESC, posts.comment DESC;';
+        $sq .= 'ORDER BY posts.likes DESC, posts.comment DESC LIMIT 0, 8;';
       } else {
-        $sq .= 'ORDER BY posts.comment DESC, posts.likes DESC;';
+        $sq .= 'ORDER BY posts.comment DESC, posts.likes DESC LIMIT 0, 8;';
       }
     } else {
-      $sq .= 'ORDER BY posts.id DESC;';
+      $sq .= 'ORDER BY posts.id DESC LIMIT 0, 8;';
     }
     
     $result = $conn->query($sq);
@@ -191,9 +191,6 @@ class Post {
   public static function getAddComment($comment, $user, $post) {
     if (!isset($_SESSION['login'])) { return false; }
     $conn = Db::getConnection();
-    $result = $conn->prepare("SELECT * FROM users WHERE login = ?;");
-    $result->execute([$user]);
-    $fetch = $result->fetch(PDO::FETCH_ASSOC);
     $sql = "INSERT INTO `comments` (`id`, `user`, `post`, `body`, `created_at`) VALUES (NULL, ?, ?, ?, CURRENT_TIMESTAMP);";
     $result = $conn->prepare($sql);
     $result->execute([$user, $post, $comment]); 
@@ -203,15 +200,21 @@ class Post {
     $result = $conn->prepare("SELECT * FROM users WHERE login = ? ;");
     $result->execute([$user]);
     $fetch2 = $result->fetch(PDO::FETCH_ASSOC);
-    $insert = $conn->prepare("UPDATE posts SET comment = likes + 1 WHERE id=?;");
+    $insert = $conn->prepare("UPDATE posts SET comment = comment + 1 WHERE id=?;");
     $insert->execute([$post]);
     // need login post created! and email template
+    $result = $conn->prepare("SELECT * FROM posts WHERE id = ?;");
+    $result->execute([$post]);
+    $fetch = $result->fetch(PDO::FETCH_ASSOC);
+    $result = $conn->prepare("SELECT * FROM users WHERE id = ?;");
+    $result->execute([$fetch['user']]);
+    $fetch = $result->fetch(PDO::FETCH_ASSOC);
     echo "<pre>";
-    print_r($result);
+    print_r($fetch);
     echo "</pre>";
     if ($fetch['action'] == "1") {
       $emailObj = new Email;
-      $letter = Email::commentNotification($fetch);
+      $letter = Email::commentNotification($fetch, $post);
     }
     $printdata = array();
     $printdata['avatar'] = hash('md5', $fetch2['email']);

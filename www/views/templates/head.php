@@ -15,4 +15,4 @@
 	<link href="/css/bootstrap.min.css" rel="stylesheet">
 	<link href="/css/camagru.css" rel="stylesheet">
 </head>
-<?php $_SESSION['enter'] = $_SERVER['REQUEST_URI']; ?>
+<?php if (!strripos($_SERVER['REQUEST_URI'], 'token')) $_SESSION['enter'] = $_SERVER['REQUEST_URI']; else $_SESSION['enter'] = '/';?>

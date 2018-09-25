@@ -47,11 +47,11 @@ RUN docker-php-ext-install -j$(nproc) gd
 RUN apt-get install -q -y ssmtp mailutils
 
 # root is the person who gets all mail for userids < 1000
-RUN echo "root=real@camagru.pp.ua" >> /etc/ssmtp/ssmtp.conf
+RUN echo "root=no-reply@camagru.pp.ua" >> /etc/ssmtp/ssmtp.conf
 
 # Here is the gmail configuration (or change it to your private smtp server)
 RUN echo "mailhub=mail.adm.tools:2525" >> /etc/ssmtp/ssmtp.conf
-RUN echo "AuthUser=real@camagru.pp.ua" >> /etc/ssmtp/ssmtp.conf
+RUN echo "AuthUser=no-reply@camagru.pp.ua" >> /etc/ssmtp/ssmtp.conf
 RUN echo "AuthPass=A1qwerty" >> /etc/ssmtp/ssmtp.conf
 
 RUN echo "UseTLS=YES" >> /etc/ssmtp/ssmtp.conf

@@ -26,10 +26,6 @@ class Token {
     $confirm = Email::confirmAccount($email);
     return true;
   }
-  else
-  {
-    return false;
-  }
   return false;
   }
 

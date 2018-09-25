@@ -37,11 +37,11 @@ MYSQL_PASSWORD: camagru
 ```
 
 ##TODO
-* emails for action
+
 * add post photo
 * add photo editor
 * del mine posts 
-* add infinity scroll
+* add infinity scroll // in progress
 
 ## Built With
 
@@ -50,7 +50,7 @@ MYSQL_PASSWORD: camagru
 * MySQL
 * PHP
 * Bootstrap CSS
-* JavaScript
+* Vanilla JavaScript
 
 ## Authors
 
