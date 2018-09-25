@@ -12,10 +12,18 @@ class ActionController {
 
   public function actionExternal($what, $action) {
 
-    $methodName = 'get' . ucfirst($action). ucfirst($what);
-    // echo $methodName;
-    if (count($_POST) < 1 || !isset($_SESSION['login']) ) { header("HTTP/1.0 404 Not Found"); exit ;}
+
+    if ($what != 'infinity') {
+      $methodName = 'get' . ucfirst($action). ucfirst($what);
+      // echo $methodName;
+      if (count($_POST) < 1 || !isset($_SESSION['login']) ) { header("HTTP/1.0 404 Not Found"); exit ;}
+    }
     $postsList = array();
+    if ($what == 'infinity') {
+      $methodName = 'get' . ucfirst($what);
+      $postsList = Post::$methodName($action, null, null);
+      return true;
+    } 
     // $postsList = Post::$methodName($_POST['post'], $_SESSION['user']);
     // session_start();
     $fix = '';

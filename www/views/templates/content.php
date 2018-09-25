@@ -23,17 +23,67 @@
             <?php }
             endforeach; ?>
 </div>
-<div class="content-container">
+<div id="infcontainer">
 </div>
-<div class="loading-container no-content">
-  <div class="loading">
-    <div class="loading-bar"></div>
-    <div class="loading-bar"></div>
-    <div class="loading-bar"></div>
-    <div class="loading-bar"></div>
-  </div>
-  </div>
+
 </main>
+<script>
+
+//infinity scroll
+var distToBottom, data;
+var page = 8;
+var pollingForData = false;
+var infinity = new XMLHttpRequest();
+var newInfo = document.querySelector("#infcontainer");
+
+function getDistFromBottom () {
+  
+  var scrollPosition = window.pageYOffset;
+  var windowSize     = window.innerHeight;
+  var bodyHeight     = document.body.offsetHeight;
+
+  return Math.max(bodyHeight - (scrollPosition + windowSize), 0);
+
+}
+function insertBefore(referenceNode, newNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode);
+}
+
+infinity.onload = function() {
+  if(infinity.status === 200) {
+
+    pollingForData = false;
+    data = infinity.responseText
+
+    if (this.readyState == 4) {
+        if (this.status == 200) {
+            let div = window.top.document.createElement('div');
+            div.className = "row mt-5";
+            div.innerHTML = this.responseText;
+            insertBefore(newInfo, div);
+        }
+    }
+  }
+};
+
+infinity.open('POST', '/action/infinity/8', true);
+infinity.send();
+pollingForData = true;
+
+document.addEventListener('scroll', function() {
+        distToBottom = getDistFromBottom();
+        // console.log('scrolling', getDistFromBottom());
+
+        if (!pollingForData && distToBottom > 0 && distToBottom <= 8888) {
+          pollingForData = true;
+
+          page += 8;
+          infinity.open('POST', '/action/infinity/'+page, true);
+          infinity.send();
+
+        }
+});
+</script>
 <?php
 
 ?>            

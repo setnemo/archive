@@ -1,6 +1,7 @@
 <?php
 
 include_once ROOT.'/models/Email.php';
+include_once ROOT.'/models/User.php';
 
 class Post {
 
@@ -209,9 +210,9 @@ class Post {
     $result = $conn->prepare("SELECT * FROM users WHERE id = ?;");
     $result->execute([$fetch['user']]);
     $fetch = $result->fetch(PDO::FETCH_ASSOC);
-    echo "<pre>";
-    print_r($fetch);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($fetch);
+    // echo "</pre>";
     if ($fetch['action'] == "1") {
       $emailObj = new Email;
       $letter = Email::commentNotification($fetch, $post);
@@ -240,5 +241,44 @@ class Post {
     $result->execute([$id]);
     $fetch = $result->fetchAll(PDO::FETCH_ASSOC);
     return $fetch;
+  }
+
+  public static function getInfinity($iter, $what, $sort) {
+  $conn = Db::getConnection();
+  $it2 = $iter + 7;
+  $iter--;
+    $sql =  "SELECT
+      posts.id, 
+      posts.path,
+      posts.likes,
+      posts.comment,
+      posts.caption,
+      posts.created_at,
+      posts.user,
+      users.login
+    FROM
+      posts
+    INNER JOIN users ON posts.user = users.id ORDER BY posts.id LIMIT ".intval($iter).", ".intval($it2).";";
+    $result = $conn->prepare($sql);
+    $result->execute();
+    $postsList = array();
+
+    $it = 0;
+    while ($row = $result->fetch()) {
+      $postsList[$it]['id'] = $row['id'];
+      $postsList[$it]['path'] = $row['path'];
+      $postsList[$it]['caption'] = $row['caption'];
+      $postsList[$it]['login'] = $row['login'];
+        $postsList[$it]['created_at'] = $row['created_at'];
+        $postsList[$it]['likes'] = $row['likes'];
+        $postsList[$it]['comment'] = $row['comment'];
+      $it++;
+    }
+        $avatar = User::getAvatars();
+      // echo "<pre>";
+      // print_r($postsList);
+      // echo "</pre>";
+    require_once(ROOT.'/views/posts/infinity.php');
+    return ;
   }
 }
