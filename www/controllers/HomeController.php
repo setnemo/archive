@@ -14,6 +14,7 @@ class HomeController {
     }
     $postsList = Post::getPostList($login, null);
     $avatar = User::getAvatars();
+    $pagemode = '';
     require_once(ROOT.'/views/posts/index.php');
     return true;
   }
@@ -30,6 +31,7 @@ class HomeController {
     }
     $postsList = Post::getPostList($login, $attr);
     $avatar = User::getAvatars();
+    $pagemode = $attr;
     require_once(ROOT.'/views/posts/index.php');
     return true;
   }  

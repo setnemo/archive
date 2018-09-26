@@ -15,6 +15,7 @@ class PostController {
     $postsList = Post::getPostItemByUser($login, $user);
     $avatar = User::getAvatars();
     if ($postsList) {
+      $pagemode = $user;
       require_once(ROOT.'/views/posts/index.php');
 //     echo "<pre>";
 //     print_r($postsList);
@@ -36,6 +37,7 @@ class PostController {
     $postsList = Post::getPostItemById($login, $user, $id);
     $avatar = User::getAvatars();
     if ($postsList) {
+      $pagemode = $user;
       $comments = Post::getComments($id);
       require_once(ROOT.'/views/posts/single.php');
 //     echo "<pre>";

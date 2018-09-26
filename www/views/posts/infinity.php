@@ -1,3 +1,4 @@
+<?php if ($postsList) { ?>
 <?php foreach ($postsList as $post): ?>
 <?php if ($post) { ?>
 <div class="col-lg-3 col-md-6 col-sm-9 col-xs-9">
@@ -17,4 +18,6 @@
     <p class="mt-3 w-100 float-left text-center"></p>
 </div>
 <?php }
-endforeach; ?>
+endforeach;
+} else { header("HTTP/1.0 404 Not Found"); }
+?>

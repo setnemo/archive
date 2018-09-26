@@ -21,7 +21,7 @@ class ActionController {
     $postsList = array();
     if ($what == 'infinity') {
       $methodName = 'get' . ucfirst($what);
-      $postsList = Post::$methodName($action, null, null);
+      $postsList = Post::$methodName($action, $_POST['sort']);
       return true;
     } 
     // $postsList = Post::$methodName($_POST['post'], $_SESSION['user']);

@@ -23,6 +23,7 @@
             <?php }
             endforeach; ?>
 </div>
+<div id="pagemode" name="<?php echo $pagemode; ?>"></div>
 <div id="infcontainer">
 </div>
 
@@ -56,18 +57,43 @@ infinity.onload = function() {
     data = infinity.responseText
 
     if (this.readyState == 4) {
-        if (this.status == 200) {
+        if (this.status == 200 && infinity.responseText != 'null' ) {
             let div = window.top.document.createElement('div');
             div.className = "row mt-5";
             div.innerHTML = this.responseText;
             insertBefore(newInfo, div);
+const   newlike = new XMLHttpRequest();
+var     likes = [...document.querySelectorAll(".likes")];
+var     likesCount = [...document.querySelectorAll(".likes-count")];
+var     tempindex;
+
+function likeIt(post, index) {
+    post.onclick = function() {
+        var     data = new FormData();
+        tempindex = index;
+        data.append("post", post.getAttribute('name'));
+        newlike.open("POST", '/action/like/add/');
+        newlike.send(data);
+    }
+    
+}
+
+if (likes)
+{
+    newlike.onreadystatechange = function() {
+        likesCount[tempindex].innerHTML = this.responseText;
+    };
+    likes.forEach(likeIt);
+}
         }
     }
   }
 };
-
+var info = new FormData;
+var pagemode = document.querySelector("#pagemode");
+info.append("sort", pagemode.getAttribute('name'));
 infinity.open('POST', '/action/infinity/8', true);
-infinity.send();
+infinity.send(info);
 pollingForData = true;
 
 document.addEventListener('scroll', function() {
@@ -76,13 +102,14 @@ document.addEventListener('scroll', function() {
 
         if (!pollingForData && distToBottom > 0 && distToBottom <= 8888) {
           pollingForData = true;
-
-          page += 8;
+          page += 4;
+          info.append("sort", pagemode.getAttribute('name'));
           infinity.open('POST', '/action/infinity/'+page, true);
-          infinity.send();
+          infinity.send(info);
 
         }
 });
+
 </script>
 <?php
 
