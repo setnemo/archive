@@ -32,7 +32,7 @@
 
 //infinity scroll
 var distToBottom, data;
-var page = 8;
+var page = 7;
 var pollingForData = false;
 var infinity = new XMLHttpRequest();
 var newInfo = document.querySelector("#infcontainer");

@@ -245,7 +245,7 @@ class Post {
 
   public static function getInfinity($iter, $sort) {
   $conn = Db::getConnection();
-  $iter--;
+  $iter = intval($iter);
     $sql =  "SELECT
       posts.id, 
       posts.path,
@@ -264,13 +264,18 @@ class Post {
       } else if ($sort == 'commenting') {
         $sql .= 'ORDER BY posts.comment DESC, posts.likes DESC LIMIT 4 OFFSET ?;';
       } else {
-        $sql .= 'WHERE users.login = '.$sort.' ORDER BY posts.id DESC LIMIT 4 OFFSET ?;';
+        $sql .= 'WHERE users.login = ? ORDER BY posts.id DESC LIMIT 4 OFFSET ?;';
       }
     } else {
       $sql .= 'ORDER BY posts.id DESC LIMIT 4 OFFSET ?;';
     }
     $result = $conn->prepare($sql);
-    $result->bindValue(1, $iter, PDO::PARAM_INT);
+    if ($sort != 'liking' && $sort != 'commenting' && $sort != '' ) {
+      $result->bindValue(1, $sort, PDO::PARAM_STR);
+      $result->bindValue(2, $iter, PDO::PARAM_INT);
+    } else {
+      $result->bindValue(1, $iter, PDO::PARAM_INT);
+    }
     $result->execute();
     $postsList = array();
 
@@ -287,7 +292,7 @@ class Post {
     }
         $avatar = User::getAvatars();
       // echo "<div><pre>";
-      // print_r([count($postsList)]);
+      // print_r([count($postsList), $sql, $iter]);
       // echo "</pre><hr></div>";
     require_once(ROOT.'/views/posts/infinity.php');
     return ;
