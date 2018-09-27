@@ -48,7 +48,7 @@ class PostController {
       {
         require_once(ROOT.'/views/posts/add-live.php');
       }
-      if ($id == 'live-add')
+      if ($id == 'send-live')
       {
         Post::getNewpostLive();
       }

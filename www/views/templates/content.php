@@ -57,34 +57,35 @@ infinity.onload = function() {
     data = infinity.responseText
 
     if (this.readyState == 4) {
-        if (this.status == 200 && infinity.responseText != 'null' ) {
+        if (this.status == 200 && infinity.responseText != "null" ) {
             let div = window.top.document.createElement('div');
             div.className = "row mt-5";
             div.innerHTML = this.responseText;
             insertBefore(newInfo, div);
-const   newlike = new XMLHttpRequest();
-var     likes = [...document.querySelectorAll(".likes")];
-var     likesCount = [...document.querySelectorAll(".likes-count")];
-var     tempindex;
 
-function likeIt(post, index) {
-    post.onclick = function() {
-        var     data = new FormData();
-        tempindex = index;
-        data.append("post", post.getAttribute('name'));
-        newlike.open("POST", '/action/like/add/');
-        newlike.send(data);
-    }
-    
-}
+            const   newlike = new XMLHttpRequest();
+            var     likes = [...document.querySelectorAll(".likes")];
+            var     likesCount = [...document.querySelectorAll(".likes-count")];
+            var     tempindex;
 
-if (likes)
-{
-    newlike.onreadystatechange = function() {
-        likesCount[tempindex].innerHTML = this.responseText;
-    };
-    likes.forEach(likeIt);
-}
+            function likeIt(post, index) {
+                post.onclick = function() {
+                    var     data = new FormData();
+                    tempindex = index;
+                    data.append("post", post.getAttribute('name'));
+                    newlike.open("POST", '/action/like/add/');
+                    newlike.send(data);
+                }
+                
+            }
+
+            if (likes)
+            {
+                newlike.onreadystatechange = function() {
+                    likesCount[tempindex].innerHTML = this.responseText;
+                };
+                likes.forEach(likeIt);
+            }
         }
     }
   }

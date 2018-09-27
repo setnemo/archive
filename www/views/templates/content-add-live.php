@@ -14,7 +14,7 @@
             post</h1>
         <div id="previewVidCnt" style="margin-top: -20px;">
             <div class="vidprevabs">
-                <form method="POST" action="user/upload64.php" enctype="multipart/form-data" id="upload-form">
+                <form method="POST" action="/post/create/send-live/" enctype="multipart/form-data" id="upload-form">
                     <video class="previewVid" id="previewVid"></video>
                     <br><br>
                     <img alt="" class="ph vidprevabs cropprev" style="position: absolute;top: -40px;left:0;right:0"
@@ -26,20 +26,15 @@
                     <input type="submit" id="bigassbutton" name="submit" value="Upload"
                            style="margin-top:60px;margin-bottom: 60px;">
                     <br>
-                    <input type="radio" name="gender" class="gender" id="fr1"
-                        <?php if (isset($gender) && $gender=="female") echo "checked";?>
+                    <input type="radio" name="gender" class="gender" id="fr1" onclick="clickBorder(this)" 
                            value="female">Female
-                    <input type="radio" name="gender" class="gender" id="fr2"
-                        <?php if (isset($gender) && $gender=="male") echo "checked";?>
+                    <input type="radio" name="gender" class="gender" id="fr2" onclick="clickBorder(this)" 
                            value="male">Male
-                    <input type="radio" name="gender" class="gender" id="fr3"
-                        <?php if (isset($gender) && $gender=="other") echo "checked";?>
+                    <input type="radio" name="gender" class="gender" id="fr3" onclick="clickBorder(this)" 
                            value="other">Other
-                    <input type="radio" name="gender" class="gender" id="fr4"
-                        <?php if (isset($gender) && $gender=="other") echo "checked";?>
+                    <input type="radio" name="gender" class="gender" id="fr4" onclick="clickBorder(this)" 
                            value="other">Off
                 </form>
-                                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>                    <br><br>
             </div>
             <canvas style="display: none;" class='vidprevabs'></canvas>
             <button value="Snap" class="snap-btn" onclick="snapQ();">Snap</button>
@@ -48,10 +43,23 @@
         </div>
     </div>
     <script>
-      $("input.gender").on("click", function () {
-         if (this.id === "fr4") {$("img.pr").attr("src", "");}
-         else {$("img.pr").attr("src", "/img/overlays/" + this.id + ".png");}
-      })
+        function clickBorder(i) {
+            document.getElementsByClassName('pr')[0].src = '/img/overlays/'+ i.id + '.png';
+        }
+//       var gender = [...document.querySelectorAll(".gender")];
+
+// if (gender) {
+//     for (var i = 0; i < gender.length; i++) {
+//         if (gender[i].checked){
+//              console.log(gender[i].value);
+//         }
+//     }
+// }
+
+      // $("input.gender").on("click", function () {
+      //    if (this.id === "fr4") {$("img.pr").attr("src", "");}
+      //    else {$("img.pr").attr("src", "/img/overlays/" + this.id + ".png");}
+      // })
     </script>
 
     <?php

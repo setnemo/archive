@@ -327,7 +327,7 @@ class Post {
           else if ($_POST['gender'] === "female") {$over_name = "fr1.png";}
           else if ($_POST['gender'] === "other") {$over_name = "fr3.png";}
           else {$over_name = "empty.png";}
-          $overlay = imagecreatefrompng('/img/overlays/' . $over_name);
+          $overlay = imagecreatefrompng(ROOT.'/img/overlays/' . $over_name);
           $rand = rand(0, 99999);
           while (file_exists(ROOT."/img/posts/" . $rand . ".png")) {$rand = rand(0, 99999);}
           $fd = fopen(ROOT."/img/posts/" . $rand . ".png", 'w+') or die("Unable to open file!");
