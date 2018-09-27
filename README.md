@@ -41,7 +41,6 @@ MYSQL_PASSWORD: camagru
 * add post photo
 * add photo editor
 * del mine posts 
-* add infinity scroll // in progress
 
 ## Built With
 

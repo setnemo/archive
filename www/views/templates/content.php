@@ -100,7 +100,7 @@ document.addEventListener('scroll', function() {
         distToBottom = getDistFromBottom();
         // console.log('scrolling', getDistFromBottom());
 
-        if (!pollingForData && distToBottom > 0 && distToBottom <= 100) {
+        if (!pollingForData && distToBottom > 0 && distToBottom <= 2000) {
           pollingForData = true;
           page += 4;
           info.append("sort", pagemode.getAttribute('name'));

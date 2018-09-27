@@ -350,3 +350,7 @@ sendmail: 550 5.7.1 Recipient rejected - known example address
 sendmail: 550 5.7.1 Recipient rejected - known example address
 sendmail: 550 5.7.1 Recipient rejected - known example address
 sendmail: 550 5.7.1 Recipient rejected - known example address
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.18.0.3. Set the 'ServerName' directive globally to suppress this message
+[Thu Sep 27 09:12:03.756240 2018] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.25 (Debian) PHP/7.1.22 configured -- resuming normal operations
+[Thu Sep 27 09:12:03.757020 2018] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
+sendmail: 550 5.7.1 Recipient rejected - known example address

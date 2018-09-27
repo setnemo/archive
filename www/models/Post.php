@@ -297,4 +297,58 @@ class Post {
     require_once(ROOT.'/views/posts/infinity.php');
     return ;
   }
+
+
+  public static function getNewpost() {
+    if (isset($_POST['submit'])) {
+//        $image = $_FILES['photo']['name'];
+        $iname = rand(0,99999);
+        while (file_exists(ROOT."/img/posts/" . $iname)) {
+            $iname = rand(0,9999999);
+        }
+        $target = ROOT."/img/posts/" . $iname. ".jpg";
+        $user = $_SESSION["login"];
+
+        if (move_uploaded_file($_FILES['photo']['tmp_name'], $target)) {
+            header("Location: /");
+        } else {
+            echo "Failed to upload image";
+        }
+    }
+    return true;
+    }
+
+  public static function getNewpostLive() {
+      if (isset($_POST['submit'])) {
+          $data = $_POST['photo'];
+          $arr = explode(',', $data);
+          $s1 = base64_decode($arr[1]);
+          if ($_POST['gender'] === "male") {$over_name = "fr2.png";}
+          else if ($_POST['gender'] === "female") {$over_name = "fr1.png";}
+          else if ($_POST['gender'] === "other") {$over_name = "fr3.png";}
+          else {$over_name = "empty.png";}
+          $overlay = imagecreatefrompng('/img/overlays/' . $over_name);
+          $rand = rand(0, 99999);
+          while (file_exists(ROOT."/img/posts/" . $rand . ".png")) {$rand = rand(0, 99999);}
+          $fd = fopen(ROOT."/img/posts/" . $rand . ".png", 'w+') or die("Unable to open file!");
+          fwrite($fd, $s1);
+          fclose($fd);
+          $im = imagecreatefrompng(ROOT."/img/posts/". $rand . ".png");
+          $sx = imagesx($overlay);
+          $sy = imagesy($overlay);
+          $mright = 0;
+          $mbottom = 0;
+          imagecopy($im, $overlay, imagesx($im) - $sx - $mright, imagesy($im) - $sy - $mbottom, 0, 0, imagesx($overlay), imagesy($overlay));
+          header('Content-type: image/png');
+          imagepng($im, ROOT."/img/posts/" . $rand . ".png");
+          imagedestroy($im);
+          $image = $rand . '.png';
+          if (file_exists(ROOT."/img/posts/" . $image)) {
+              header("Location: /");
+          } else {
+              echo "Ooops, something's gone wrong... <a href='/'> Press to return to the homepage</a>";
+      }
+    }
+    return true;
+    }
 }
