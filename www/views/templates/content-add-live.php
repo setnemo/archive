@@ -8,58 +8,40 @@
 
 <?php if (isset($_SESSION['login'])) {
     ?>
-    <div id="register_form" style="height: 715px;margin-top:30px;">
-        <a href="/?page=new"><span id="liveMode" style="color:#c23;"><i class="fas fa-camera"></i> Live</span></a>
-        <h1 class="blue_text" style="position: relative;top:20px;margin-left:-105px;z-index:9">Choose a picture for your
-            post</h1>
-        <div id="previewVidCnt" style="margin-top: -20px;">
-            <div class="vidprevabs">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <a href="/post/create/live/" class="btn btn-primary m-3"><i class="fa fa-camera"></i> Live</a>
+        <a href="/post/create/add/" class="btn btn-primary m-3"><i class="fa fa-upload"></i> Upload</a>
+            <div class="vidprevabs" style="position: relative;">
+                    <video class="previewVid col-12" id="previewVid"></video>
+                    <img alt="" class="ph vidprevabs cropprev col-12" src="">
+                    <img alt="" class="pr vidprevabs cropprev col-12" src="">
+                    <canvas style="display: none;" class='vidprevabs'></canvas>
+                    <div class="row ml-2">
+                    <button value="Snap" class="btn btn-success p-auto mt-2 ml-2 mb-2" onclick="snapQ();"><i class="fa fa-camera"></i></button>
+                    <button value="Snap" class="btn btn-danger p-auto mt-2 ml-2 mb-2" onclick="delsnapQ();"><i class="fa fa-trash"></i></button>
+                        
+                    </div>
                 <form method="POST" action="/post/create/send-live/" enctype="multipart/form-data" id="upload-form">
-                    <video class="previewVid" id="previewVid"></video>
-                    <br><br>
-                    <img alt="" class="ph vidprevabs cropprev" style="position: absolute;top: -40px;left:0;right:0"
-                         src="">
-                    <img alt="" class="pr vidprevabs cropprev" style="position: absolute;top: -40px;left:0;right:0"
-                         src="">
-                    <input id="snapupload" type="text" name="photo" style="display: none;" required>
 
-                    <input type="submit" id="bigassbutton" name="submit" value="Upload"
-                           style="margin-top:60px;margin-bottom: 60px;">
-                    <br>
-                    <input type="radio" name="gender" class="gender" id="fr1" onclick="clickBorder(this)" 
-                           value="female">Female
-                    <input type="radio" name="gender" class="gender" id="fr2" onclick="clickBorder(this)" 
-                           value="male">Male
-                    <input type="radio" name="gender" class="gender" id="fr3" onclick="clickBorder(this)" 
-                           value="other">Other
-                    <input type="radio" name="gender" class="gender" id="fr4" onclick="clickBorder(this)" 
-                           value="other">Off
+                    <input id="snapupload" type="text" name="photo" style="display: none;" required>
+                    <label class="gender" style="display: none;">Female</label>
+                    <input type="radio" name="gender" class="gender mt-2 ml-2 mb-2" id="fr1" onclick="clickBorder(this)"  style="display: none;"  value="female">
+                    <label class="gender" style="display: none;">Male</label>
+                    <input type="radio" name="gender" class="gender mt-2 ml-2 mb-2" id="fr2" onclick="clickBorder(this)"  style="display: none;"  value="male">
+                    <label class="gender" style="display: none;">Other</label>
+                    <input type="radio" name="gender" class="gender mt-2 ml-2 mb-2" id="fr3" onclick="clickBorder(this)"  style="display: none;"  value="other">
+                    <label class="gender" style="display: none;">Off</labrl>
+                        <input type="radio" name="gender" class="gender mt-2 ml-2 mb-2" id="fr4" onclick="clickBorder(this)"  style="display: none;"  value="off">
+                    <label for="comment">Caption:</label>
+                    <textarea class="form-control" rows="5" name ='caption' placeholder="My Amazing Shot!"></textarea>
+                    <input type="submit" class="btn btn-warning mt-2" name="submit" value="Upload">
                 </form>
             </div>
-            <canvas style="display: none;" class='vidprevabs'></canvas>
-            <button value="Snap" class="snap-btn" onclick="snapQ();">Snap</button>
-            <button value="Snap" class="snap-del-btn" onclick="delsnapQ();"><i
-                        style="font-size: 15px;margin-top:5px;margin-left:2px;" class="fas fa-trash trash"></i></button>
         </div>
-    </div>
     <script>
         function clickBorder(i) {
             document.getElementsByClassName('pr')[0].src = '/img/overlays/'+ i.id + '.png';
         }
-//       var gender = [...document.querySelectorAll(".gender")];
-
-// if (gender) {
-//     for (var i = 0; i < gender.length; i++) {
-//         if (gender[i].checked){
-//              console.log(gender[i].value);
-//         }
-//     }
-// }
-
-      // $("input.gender").on("click", function () {
-      //    if (this.id === "fr4") {$("img.pr").attr("src", "");}
-      //    else {$("img.pr").attr("src", "/img/overlays/" + this.id + ".png");}
-      // })
     </script>
 
     <?php
@@ -78,6 +60,10 @@
 </main>
            
 <script>
+    function radioBtnIt(radioBtn, index) {
+        radioBtn.style.display = 'block';
+    }
+
 function snapQ() {
     var draft = document.querySelector('canvas'),
         input = document.querySelector('video.previewVid'),
@@ -86,14 +72,18 @@ function snapQ() {
         w = 640,
         h = 480,
         c = draft.getContext('2d');
+
+var     radioBtn = [...document.querySelectorAll(".gender")];
+
     draft.width = 480;
     draft.height = h;
     c.drawImage(input, -80, 0, w, h);
     var idataURL = draft.toDataURL('image/png');
     img.setAttribute('src', idataURL);
     document.getElementById('snapupload').setAttribute('value', idataURL);
-    input.style.opacity = '0';
+    input.style.display = 'none';
     img.style.opacity = '0';
+    radioBtn.forEach(radioBtnIt);
     setTimeout(function() {
         img.style.opacity = '1';
     }, 500);
@@ -101,7 +91,7 @@ function snapQ() {
 function delsnapQ() {
     var img = document.querySelector('img.ph');
     img.setAttribute('src', "");
-    document.querySelector('video.previewVid').style.opacity = '1';
+    document.querySelector('video.previewVid').style.display = 'block';
 
 }
 

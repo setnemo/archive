@@ -301,16 +301,53 @@ class Post {
 
   public static function getNewpost() {
     if (isset($_POST['submit'])) {
-//        $image = $_FILES['photo']['name'];
+        $conn = Db::getConnection();
         $iname = rand(0,99999);
-        while (file_exists(ROOT."/img/posts/" . $iname)) {
-            $iname = rand(0,9999999);
-        }
-        $target = ROOT."/img/posts/" . $iname. ".jpg";
-        $user = $_SESSION["login"];
+        // while (file_exists(ROOT."/img/posts/" . $iname)) {
+        //     $iname = rand(0,9999999);
+        // }
+      $image = $iname . '.png';
+      $target = ROOT."/img/posts/" . $image;
+      move_uploaded_file($_FILES['photo']['tmp_name'], $target);
+      $overlay = imagecreatefrompng(ROOT.'/img/overlays/empty.png');
+      switch ( strtolower(pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION ))) {
+          case 'jpeg':
+          case 'jpg':
+              $im = imagecreatefromjpeg($target);
+          break;
 
-        if (move_uploaded_file($_FILES['photo']['tmp_name'], $target)) {
-            header("Location: /");
+          case 'png':
+              $im = imagecreatefrompng($target);
+          break;
+
+          case 'gif':
+              $im = imagecreatefromgif($target);
+          break;
+      }
+      list($w, $h) = getimagesize($target); // get image resolution
+
+      if ($w < $h){ // if width is less than height, crop height using imagecrop function
+          $im = imagecrop($im, array(
+              "x" => 0,
+              "y" => ($w - $h) / 2,
+              "width" => $w,
+              "height" => $w
+          ));
+      } else if ($h < $w){ // vice versa
+          $im = imagecrop($im, array(
+              "x" => ($w - $h) / 2,
+              "y" => 0,
+              "width" => $h,
+              "height" => $h
+          ));
+      }
+      imagepng($im, $target);
+      imagedestroy($im);
+        $user = $_SESSION["login"];
+        if (file_exists(ROOT."/img/posts/" . $image)) {
+          $sql = "INSERT INTO posts (user, caption, `path`) VALUES (?, ?, ?) ;";
+          $conn->prepare($sql)->execute([$_SESSION['user_id'], $_POST['caption'], $image]);
+          header("Location: /");
         } else {
             echo "Failed to upload image";
         }
@@ -320,12 +357,16 @@ class Post {
 
   public static function getNewpostLive() {
       if (isset($_POST['submit'])) {
+          $conn = Db::getConnection();
           $data = $_POST['photo'];
+      // echo "<pre>";
+      // print_r($_POST);
+      // echo "</pre>";
           $arr = explode(',', $data);
           $s1 = base64_decode($arr[1]);
-          if ($_POST['gender'] === "male") {$over_name = "fr2.png";}
-          else if ($_POST['gender'] === "female") {$over_name = "fr1.png";}
-          else if ($_POST['gender'] === "other") {$over_name = "fr3.png";}
+          if ($_POST['gender'] == "male") {$over_name = "fr2.png";}
+          else if ($_POST['gender'] == "female") {$over_name = "fr1.png";}
+          else if ($_POST['gender'] == "other") {$over_name = "fr3.png";}
           else {$over_name = "empty.png";}
           $overlay = imagecreatefrompng(ROOT.'/img/overlays/' . $over_name);
           $rand = rand(0, 99999);
@@ -344,6 +385,8 @@ class Post {
           imagedestroy($im);
           $image = $rand . '.png';
           if (file_exists(ROOT."/img/posts/" . $image)) {
+              $sql = "INSERT INTO posts (user, caption, `path`) VALUES (?, ?, ?) ;";
+              $conn->prepare($sql)->execute([$_SESSION['user_id'], $_POST['caption'], $image]);
               header("Location: /");
           } else {
               echo "Ooops, something's gone wrong... <a href='/'> Press to return to the homepage</a>";

@@ -24,8 +24,9 @@ body {
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
-
-
+.custom-file-input ~ .custom-file-label::after {
+    content: "Elegir";
+}
 
 .topnav {
 
@@ -88,6 +89,7 @@ body {
 /*Profile card 2*/
 .img-fluid-single {
   min-width: 100%;
+  max-width: 100%;
 }
 .profile-card-2 .card-img-block{
     float:left;
@@ -430,4 +432,10 @@ body {
     box-shadow: none;
     color: #333;
     background-color: #E6E6E6;
+}
+
+.pr {
+  position: absolute;
+    top: 0;
+    left: 0;
 }

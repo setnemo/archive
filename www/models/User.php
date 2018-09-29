@@ -11,14 +11,16 @@ class User {
     $hashpass = hash('whirlpool', $pass);
     $result = $conn->query("
     SELECT
-      status
+      *
     FROM
       users
     WHERE login=\"".$user."\" AND password=\"".$hashpass."\" AND status = 1;
     ");
     $fetch = $result->fetch();
-    if ($fetch['status'])
+    if ($fetch['status']) {
+      $_SESSION['user_id'] = $fetch['id'];
       return true;
+    }
     else
       return false;
   }

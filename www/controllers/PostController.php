@@ -6,6 +6,11 @@ include_once ROOT.'/models/User.php';
 class PostController {
   
   public function actionIndex($user) {
+    // echo "<pre>";
+    // print_r($user);
+    // echo "</pre>";
+    if ($user == 'create') { header("HTTP/1.0 404 Not Found"); return true; }
+
     $postsList = array();
     if (isset($_SESSION['login'])) {
       $login = $_SESSION['login'];
@@ -17,9 +22,6 @@ class PostController {
     if ($postsList) {
       $pagemode = $user;
       require_once(ROOT.'/views/posts/index.php');
-//     echo "<pre>";
-//     print_r($postsList);
-//     echo "</pre>";
     }
     else { 
       header("HTTP/1.0 404 Not Found");
@@ -34,29 +36,35 @@ class PostController {
     } else {
       $login = null;
     }
-    if ($user == 'create')
-    {
-      if ($id == 'add')
-      {
-        require_once(ROOT.'/views/posts/add.php');
-      }
-      if ($id == 'send')
-      {
-        Post::getNewpost();
-      }
-      if ($id == 'live')
-      {
-        require_once(ROOT.'/views/posts/add-live.php');
-      }
-      if ($id == 'send-live')
-      {
-        Post::getNewpostLive();
-      }
-      return true;
-    }
     // echo "<pre>";
     // print_r([$user, $id]);
     // echo "</pre>";
+    if ($user == 'create' && $login)
+    {
+      // echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!";
+      if (!isset($_SESSION['login'])) { header("HTTP/1.0 404 Not Found"); return true; }
+      $valid = ['add', 'send', 'send-live', 'live'];
+      if (in_array($id, $valid)) {
+        if ($id == 'add')
+        {
+          require_once(ROOT.'/views/posts/add.php');
+        }
+        if ($id == 'send')
+        {
+          Post::getNewpost();
+        }
+        if ($id == 'live')
+        {
+          require_once(ROOT.'/views/posts/add-live.php');
+        }
+        if ($id == 'send-live')
+        {
+          Post::getNewpostLive();
+        }
+      }
+      else { header("HTTP/1.0 404 Not Found"); return true; }
+      return true;
+    }
     $postsList = Post::getPostItemById($login, $user, $id);
     $avatar = User::getAvatars();
     if ($postsList) {

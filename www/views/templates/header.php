@@ -4,7 +4,7 @@
           <a href="/home/liking/">Most popular</a>
           <a href="/home/commenting/">Most comment</a>
           <?php if ($_SERVER['REQUEST_URI'] != '/login/') { if (isset($_SESSION['auth']) && $_SESSION['auth'] == session_id()) { ?><a href="/login/account/" class="myBtn">Account</a><?php } else { ?><a href="#" id="myBtn">Login</a><?php } }?>
-          <?php if (isset($_SESSION['auth']) && $_SESSION['auth'] == session_id()) { ?><a href="/login/logout/" class="myBtn">Logout</a><?php } ?>
+          <?php if (isset($_SESSION['auth']) && $_SESSION['auth'] == session_id()) { ?><a href="/post/create/live/"><i class="fa fa-plus"></i></a><a href="/login/logout/" class="myBtn">Logout</a><?php } ?>
           <a href="javascript:void(0);" class="icon" onclick="myFunction()">
             <i class="fa fa-bars"></i>
           </a>
