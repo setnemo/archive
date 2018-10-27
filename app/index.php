@@ -16,6 +16,7 @@
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 				<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 				<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
+				<script type="text/javascript" src="script.js"></script>
 		</head>
 		<body>
 <div class="container">
@@ -27,17 +28,54 @@
    <p>Please enter place</p>
    </div>
     <form id="Login" class='row'>
-
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-6" id='src1'>
             <input type="text" class="form-control" id="inputEmail" placeholder="Start Place">
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-6" id='dst1'>
             <input type="text" class="form-control" id="inputPassword" placeholder="Finish Place">
         </div>
-        <button type="submit" class="btn btn-primary">SEARCH</button>
+        <button type="submit" class="btn btn-danger">SEARCH PLACE</button>
+        <div class="form-group col-md-6" id='src2'>
+        	<hr>
+			<label class="radio">Place1
+				<input type="radio" checked="checked" name="is_company">
+				<span class="checkround"></span>
+			</label>
+			<label class="radio">Place2
+				<input type="radio" name="is_company">
+				<span class="checkround"></span>
+			</label>
+			<label class="radio">Place3
+				<input type="radio" name="is_company">
+				<span class="checkround"></span>
+			</label>
+			<label class="radio">Place4
+				<input type="radio" name="is_company">
+				<span class="checkround"></span>
+			</label>
+        </div>
+        <div class="form-group col-md-6" id='dst2'>
+        	<hr>
+			<label class="radio">Place5
+				<input type="radio" checked="checked" name="is_company2">
+				<span class="checkround"></span>
+			</label>
+			<label class="radio">Place6
+				<input type="radio" name="is_company2">
+				<span class="checkround"></span>
+			</label>
+			<label class="radio">Place7
+				<input type="radio" name="is_company2">
+				<span class="checkround"></span>
+			</label>
+			<label class="radio">Place8
+				<input type="radio" name="is_company2">
+				<span class="checkround"></span>
+			</label>
+        </div>
+        <button type="submit" class="btn btn-primary">SELECT PlACE</button>
     </form>
     </div>
 <p class="botto-text">apakhomo, mgayduk &copy; 2018</p>
-</div></div></div>
 </body>
 </html>
