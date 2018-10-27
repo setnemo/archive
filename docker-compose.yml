@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:latest
+
+    container_name: nginx
+
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./app:/usr/share/nginx/html/
+      - ./nginx/config:/etc/nginx/conf.d
+      - ./nginx/logs:/var/log/nginx/
+
+  php-fpm:
+    image: php:7.2-fpm
+
+    container_name: "php-fpm"
+    volumes:
+      - ./app:/app
+
+  pgsql:
+    image: postgres:9.6
+
+    container_name: pgsql
+
+    ports:
+      - "5432:5432"
+
+    environment:
+      - POSTGRES_DB=ratp
+      - POSTGRES_USER=ratp
+      - POSTGRES_PASSWORD=ratp
+
+    volumes:
+      - ./database:/var/lib/postgresql/data
+      - ./db_dump:/db_dump
