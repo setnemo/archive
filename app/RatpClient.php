@@ -8,13 +8,43 @@ class RatpClient {
 
     private $token = 'fd1abb9a-aef3-421c-8da4-e1a78c490af9:';
 
+    private function getArrayFromJson($data) {
+        $json_array = json_decode($data, true);
+        $assoc_array = array();
+        for($i = 0; $i < sizeof($json_array); $i++)
+        {
+             $key = $json_array[$i]['name'];
+             $assoc_array[$key] = $json_array[$i]['value'];
+        }
+        return $json_array;
+    }
+
     public function getPlace(string $userInput) {
-        $q = 'places?q=' . $userInput . '&type[]=address';
+        $q = 'places?q=' . $userInput . '&type[stoppoint]=address';
         return $this->performQuery($q);
     }
 
-    public function getCoords(string $place) {
-        // $q = 
+    public function getMetroPointNearbyPlace($data) {
+        $coords = array();
+        $temp = $this->getArrayFromJson($data)['places'];
+        for ($i=0; $i < sizeof($temp); $i++) {
+            if ($temp[$i]['embedded_type'] === 'stop_area' ) {
+                $flag = 0;
+                if (isset($temp[$i]['stop_area']['commercial_modes']))
+                {
+                    for ($j=0; $j < sizeof($temp[$i]['stop_area']['commercial_modes']); $j++) { 
+                            if ($temp[$i]['stop_area']['commercial_modes'][$j]['id'] == 'commercial_mode:metro'){
+                                $flag = 1;
+                            }
+                    }
+                }
+                if ($flag != 0) {
+                    $coords[] = array('name' => $temp[$i]['stop_area']['label'], 'id' => $temp[$i]['stop_area']['id']);
+                    // $coords[] = array('name' => $temp[$i]['stop_area']], 'id' => $temp[$i]['stop_area']['id']); //show alls data in stop_area
+                }
+            }
+        }
+        return $coords;
     }
 
     public function performQuery(string $url)
@@ -28,16 +58,13 @@ class RatpClient {
         curl_close($ch);
 
         // return json_decode($result);
-        return $result;
+        $coords = $this->getMetroPointNearbyPlace($result);
+        return $coords;
     }
 
     public function getQuery($url) {
         $base = 'https://' . $this->urlBase . 'coverage/' . $this->coverage . '/';
+        // echo $base . $url;
         return  $base . $url;
     }
 }
-
-$c = new RatpClient();
-$r = $c->getPlace('asd');
-print_r($r);
-
