@@ -38,7 +38,7 @@
         <div class='col-md-12 row' id='first-last'>
 
         </div>
-        <button type="submit" class="btn btn-primary">SELECT PlACE</button>
+        <button type="submit" class="btn btn-primary mt-5">SELECT PlACE</button>
     </span>
     </div>
 <p class="botto-text">apakhomo, mgayduk &copy; 2018</p>
