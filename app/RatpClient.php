@@ -31,6 +31,36 @@ class RatpClient {
         return $this->getArrayFromJson($data);
     }
 
+    // public function getMatrix(array $routes) {
+    //     $matrix = array();
+    //     foreach ($routes as $route => $names) {
+    //        foreach ($names as $stoppoint => $value) {
+    //         $matrix[$route] = $value['id'];
+    //        }
+    //     }
+    //     return $matrix;
+    // }
+    public function getJourney(array $routes, string $first, string $last) {
+        $stop = 0;
+        $firstline = '';
+        $firstline_r = '';
+        foreach ($routes as $routename => $route) {
+            foreach ($route as $key) {
+                if ($key['id'] === $first) {
+                    $stop++;
+                    if ($stop === 1)
+                        $firstline = $routename;
+                    else
+                        $firstline_r = $routename;
+                    break ;
+                }
+            }
+            if ($stop === 2)
+                break ;
+        }
+        echo '<br> firstline => ' . $firstline .'<br>' . '<br>firstline_r =>  ' . $firstline_r .'<br>';
+    }
+
     public function getRoutes(array $routes) {
         $myroutes = array();
 
