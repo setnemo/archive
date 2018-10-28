@@ -7,24 +7,41 @@ class JourneyFinder {
         $open = new SplQueue();
         $closed = new SplQueue();
 
-        $open->enqueue('none@' . $first);
+        $open->enqueue($first);
         $way = [];
+        $it = 0;
+        $jt = 0;
+        $check = 0;
         while (!$open->isEmpty()) {
             $now = $open->dequeue();
-            $now = $root[substr(strstr($now, '@'), 1)];
-            if ($now['name'] === $goal['name']) {
-                return array_unique($way);
-            }
-            // return substr(strstr($now, '@'), 1);
-            foreach ($now['links'] as $value) {
-                if (in_array($now['name'] . '@' . $value['next'], iterator_to_array($closed))) {
-                    continue;
-                }
-                if (!in_array($now['name'] . '@' . $value['next'], iterator_to_array($open))) {
-                    $way[] = $now['name'] . '@' . $value['next'];
-                    $open->enqueue($now['name'] . '@' . $value['next']);
+            $now = $root[$now];
+            $way[$now['name']] = $now;
+            $check = 0;
+            if (isset($way[$now['name']]['links'])) {
+                $check = count($way[$now['name']]['links']);
+                foreach ($way[$now['name']]['links'] as &$key) {
+                    $key['dist'] = $jt;
+                    // echo $key['dist']."<br>";
                 }
             }
+            if ($now['name'] == $goal['name']) {
+                return $way;
+            }
+            if (isset($now['links']))
+            {
+                foreach ($now['links'] as $value) {
+                    if (in_array($value['next'], iterator_to_array($closed))) {
+                        continue;
+                    }
+                    if (!in_array($value['next'], iterator_to_array($open))) {
+                        $open->enqueue($value['next']);
+                    }
+                }
+            }
+            if ($it == $check) {
+                $it = 0;
+                $jt++;
+            } else { $it++;}
             $closed->enqueue($now['name']);
         }
     }
@@ -42,28 +59,52 @@ class JourneyFinder {
         // $iterat = $this->lastNotFound($queue, $last, $map);
         // $queue = $map[$first];
         $test = $this->bfs($map, $first, $map[$last]);
-        $go_to = [];
-        foreach ($test as $value) {
-            if (substr(strstr($value, '@'), 1) == $last) {
-                $start = $value;
-            }
-        }
-        while (true) {
-            echo $start."<br>";
-            $go_to[] = $start;
-            $start = substr($start, 0, strpos($start, '@'));
-            if ($start == 'none') {
-                break;
-            }
-            foreach ($test as $value) {
-                if (substr(strstr($value, '@'), 1) == $start) {
-                    $start = $value;
-                }
-            }
-        }
         $iterator = 1;
         $new = array();
-        return $go_to;
+        while (true)
+        {
+            foreach ($test as $value) {
+                if (isset($value['links'])) {
+                    foreach ($value['links'] as $key) {
+                       $new[$key['routename']][] = $value['name'];
+                        // echo $key['next'];
+                    }
+                }
+            }
+            break ;
+        }
+        $result = array();
+        foreach ($new as $key) {
+            if (in_array($first, $key)) {
+                $result['first'] = $key;
+                break ;
+            }
+        }
+        foreach ($new as $key) {
+            if (in_array($last, $key)) {
+                $result['last'] = $key;
+                break ;
+            }
+        }
+        $result['first'] = array_reverse ($result['first']);
+        $result['last'] = array_reverse ($result['last']);
+        $result2 = array();
+        foreach ($result['last'] as $key) {
+            $result2['result'][] = $key;
+            if (in_array($key, $result['first'])){
+                foreach ($result['first'] as $key2) {
+                    if ($stop == 0 && $key2 != $key) {
+                        continue;
+                    }
+                    $stop++;
+                    if ($stop > 1) {
+                        $result2['result'][] = $key2;
+                    }
+                }
+                break ;
+            }
+        }
+        return  $result2 ;
         // return $map;
     }
 

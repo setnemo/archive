@@ -38,19 +38,34 @@
         <div class='col-md-12 row' id='first-last'>
 
         </div>
-        <button type="submit" class="btn btn-primary mt-5">SELECT PlACE</button>
+        <button type="submit" id='calc' class="btn btn-primary mt-5">SELECT PlACE</button>
     </span>
     </div>
 <p class="botto-text">apakhomo, mgayduk &copy; 2018</p>
 <script>
   $(document).on('click', '#searchStation', function(e){
-    console.log('click');
+    // console.log('click');
     $.ajax({
         type:"POST",
         url: '/start.php',
       data: {
          first: $( "#inputStart" ).val(),
          last: $( "#inputLast" ).val(),
+      },
+        success: function(response){
+            console.log(response);
+          $('#first-last').html(response);
+      }
+    });
+});
+  $(document).on('click', '#calc', function(e){
+    console.log('click');
+    $.ajax({
+        type:"POST",
+        url: '/second.php',
+      data: {
+         first: $( "input[name='is_company']:checked" ).val(),
+         last: $( "input[name='is_company2']:checked" ).val(),
       },
         success: function(response){
             console.log(response);
