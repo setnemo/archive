@@ -3,85 +3,18 @@
 class RatpClient {
 
     private $urlBase = 'api.navitia.io/v1/';
-
     private $coverage = 'fr-idf';
-
     private $token = 'fd1abb9a-aef3-421c-8da4-e1a78c490af9:';
-
-    private function getMatrix(array $routes) {
-        $matrix = array();
-        foreach ($routes as $routename => $route) {
-            foreach ($route as $key) {
-                $matrix[$key['label']][] = $routename;
-            }
-        }
-        return $matrix;
-    }
+    private $network = 'network%3AOIF%3A439';
     
-    private function get_next_station(string $label, string $line, array $routes) {
-        $stop = 0;
-        foreach ($routes[$line] as $station) {
-            if ($stop == 0 && $station['label'] !== $label) {
-                continue ;
-            }
-            $stop++;
-            if ($stop == 2) {
-                return $station['label'];
-            }
-
-        }
-        return 'null';
-    }
-    private function getMap(array $routes) {
-        $matrix = array();
-        foreach ($routes as $routename => $route) {
-            foreach ($route as $key) {
-                $matrix[$key['label']][$routename] = array('next' => $this->get_next_station($key['label'], $routename, $routes), 'dist' => -42);
-            }
-        }
-        return $matrix;
-    }
-
     public function getMetro(string $userInput) {
         $q = 'places?q=' . $userInput . '&type[stoppoint]=address';
         $ret = $this->performQuery($q);
         return $this->getMetroPointNearbyPlace($ret);
     }
 
-    public function getTest() {
-        $q = 'networks/network%3AOIF%3A439/routes?depth=3&';
-        $data = $this->performQuery($q);
-    }
-
-    private function lastNotFound(array $queue, string $last, array &$map)
-    {
-        foreach ($queue as $key => $line) {
-            $map[$line['next']][$key]['dist'] = 1;
-            if ($line['next'] === $last)
-                return false;
-        }
-        return true;
-    } 
-    public function getJourney(array $routes, string $first, string $last) {
-        $stop = 0;
-        $matrix = $this->getMatrix($routes);
-        $map = $this->getMap($routes);
-        $journey1 = array();
-        $queue = array();
-        $queue = $map[$first];
-        foreach ($map[$first] as &$key) {
-            $key['dist'] = 0;
-        }
-        $iterat = $this->lastNotFound($queue, $last, $map);
-        // while ($iterat)
-        // {
-
-        // }
-        return $queue;
-    }
-
     public function getRoutes() {
-        $q = 'networks/network%3AOIF%3A439/routes?depth=3&';
+        $q = 'networks/' . $this->network . '/routes?depth=3&';
         $routes = $this->performQuery($q)['routes'];
         $myroutes = array();
         foreach ($routes as $route) {
@@ -92,7 +25,7 @@ class RatpClient {
         return $myroutes;
     }
 
-    public function getMetroPointNearbyPlace($data) {
+    public function getMetroPointNearbyPlace(array $data) {
         $coords = array();
         $temp = $data['places'];
         for ($i=0; $i < sizeof($temp); $i++) {
@@ -101,13 +34,13 @@ class RatpClient {
                 if (isset($temp[$i]['stop_area']['commercial_modes']))
                 {
                     for ($j=0; $j < sizeof($temp[$i]['stop_area']['commercial_modes']); $j++) { 
-                            if ($temp[$i]['stop_area']['commercial_modes'][$j]['id'] == 'commercial_mode:metro'){
-                                $flag = 1;
-                            }
+                        if ($temp[$i]['stop_area']['commercial_modes'][$j]['id'] == 'commercial_mode:metro'){
+                            $flag = 1;
+                        }
                     }
                 }
                 if ($flag != 0) {
-                    $coords[] = array('name' => $temp[$i]['stop_area']['name'], 'id' => $temp[$i]['stop_area']['id']);
+                    $coords[] = array('label' => $temp[$i]['stop_area']['label'], 'id' => $temp[$i]['stop_area']['id']);
                 }
             }
         }
