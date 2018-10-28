@@ -8,6 +8,15 @@ class RatpClient {
 
     private $token = 'fd1abb9a-aef3-421c-8da4-e1a78c490af9:';
 
+    private function getMatrix(array $routes) {
+        $matrix = array();
+        foreach ($routes as $routename => $route) {
+            foreach ($route as $key) {
+                $matrix[$key['label']][] = $routename;
+            }
+        }
+        return $matrix;
+    }
     private function getArrayFromJson($data) {
         $json_array = json_decode($data, true);
         $assoc_array = array();
@@ -31,34 +40,64 @@ class RatpClient {
         return $this->getArrayFromJson($data);
     }
 
-    // public function getMatrix(array $routes) {
-    //     $matrix = array();
-    //     foreach ($routes as $route => $names) {
-    //        foreach ($names as $stoppoint => $value) {
-    //         $matrix[$route] = $value['id'];
-    //        }
-    //     }
-    //     return $matrix;
-    // }
     public function getJourney(array $routes, string $first, string $last) {
         $stop = 0;
-        $firstline = '';
-        $firstline_r = '';
-        foreach ($routes as $routename => $route) {
-            foreach ($route as $key) {
-                if ($key['id'] === $first) {
-                    $stop++;
-                    if ($stop === 1)
-                        $firstline = $routename;
-                    else
-                        $firstline_r = $routename;
-                    break ;
+        // $firstline = '';
+        // $firstline_r = '';
+        // foreach ($routes as $routename => $route) {
+        //     foreach ($route as $key) {
+        //         if ($key['id'] === $first) {
+        //             $stop++;
+        //             if ($stop === 1)
+        //                 $firstline = $routename;
+        //             else
+        //                 $firstline_r = $routename;
+        //             break ;
+        //         }
+        //     }
+        //     if ($stop === 2)
+        //         break ;
+        // }
+        // echo '<br> firstline => ' . $firstline .'<br>' . '<br>firstline_r =>  ' . $firstline_r .'<br>';
+        $matrix = $this->getMatrix($routes);
+        $journey1 = array();
+        $queue = array();
+        $queueSt = array();
+        // while ($stop)
+        // {
+        //     $queue = $matrix[$first];
+        //     foreach ($queue as $name => $line) {
+        //         foreach ($routes[$name] as $key) {
+        //             if (in_array($last, $key))
+        //                 $stop = 0;
+        //         }
+        //     }
+        //     if ($stop) {
+        //         foreach ($queue as $name => $line) {
+        //             foreach ($routes[$name] as $key) {
+        //                 if
+        //             }
+        //         }
+        //     }
+        // }
+
+        $queue = $matrix[$first];
+        foreach ($queue as $name => $line) {
+            $flag = 0;
+            foreach ($routes[$line] as $key) {
+                if ($flag === 0 && $key['label'] !== $first) {
+                   echo $key['label'];
+                   continue ;
+                }
+                $flag++;
+                if ($flag === 2) {
+                    echo "HERAK!";
+                    $queue = array_unique(array_merge($matrix[$key['label']], $queue));
+                    // break ;
                 }
             }
-            if ($stop === 2)
-                break ;
         }
-        echo '<br> firstline => ' . $firstline .'<br>' . '<br>firstline_r =>  ' . $firstline_r .'<br>';
+        return $queue;
     }
 
     public function getRoutes(array $routes) {
