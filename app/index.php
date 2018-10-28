@@ -53,13 +53,13 @@
          last: $( "#inputLast" ).val(),
       },
         success: function(response){
-            console.log(response);
+            // console.log(response);
           $('#first-last').html(response);
       }
     });
 });
   $(document).on('click', '#calc', function(e){
-    console.log('click');
+    console.log($( "input[name='is_company']:checked" ).val());
     $.ajax({
         type:"POST",
         url: '/second.php',
@@ -68,7 +68,7 @@
          last: $( "input[name='is_company2']:checked" ).val(),
       },
         success: function(response){
-            console.log(response);
+            // console.log(response);
           $('#first-last').html(response);
       }
     });
