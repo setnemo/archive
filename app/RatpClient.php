@@ -17,6 +17,31 @@ class RatpClient {
         }
         return $matrix;
     }
+    
+    private function get_next_station(string $label, string $line, array $routes) {
+        $stop = 0;
+        foreach ($routes[$line] as $station) {
+            if ($stop == 0 && $station['label'] !== $label) {
+                continue ;
+            }
+            $stop++;
+            if ($stop == 2) {
+                return $station['label'];
+            }
+
+        }
+        return 'null';
+    }
+    private function getMap(array $routes) {
+        $matrix = array();
+        foreach ($routes as $routename => $route) {
+            foreach ($route as $key) {
+                $matrix[$key['label']][] = array('names' => $this->get_next_station($key['label'], $routename, $routes), 'lines' => $routename);
+            }
+        }
+        return $matrix;
+    }
+
     private function getArrayFromJson($data) {
         $json_array = json_decode($data, true);
         $assoc_array = array();
@@ -60,6 +85,7 @@ class RatpClient {
         // }
         // echo '<br> firstline => ' . $firstline .'<br>' . '<br>firstline_r =>  ' . $firstline_r .'<br>';
         $matrix = $this->getMatrix($routes);
+        $map = $this->getMap($routes);
         $journey1 = array();
         $queue = array();
         $queueSt = array();
@@ -82,22 +108,28 @@ class RatpClient {
         // }
 
         $queue = $matrix[$first];
-        foreach ($queue as $name => $line) {
-            $flag = 0;
+        $queue2 = $matrix[$first];
+        $current = $first;
+        $it = 0;
+        foreach ($queue2 as $name => $line) {
+            $flag = $it;
+            echo '----------'.$line;
             foreach ($routes[$line] as $key) {
-                if ($flag === 0 && $key['label'] !== $first) {
+                if ($flag === $it && $key['label'] !== $current) {
                    echo $key['label'];
                    continue ;
                 }
                 $flag++;
-                if ($flag === 2) {
+                if ($flag === $it + 2) {
                     echo "HERAK!";
-                    $queue = array_unique(array_merge($matrix[$key['label']], $queue));
-                    // break ;
+                    // $current = $matrix[$key['label']];
+                    $queue = array_unique(array_merge($queue2, $matrix[$key['label']]));
+                    $it++;
+                    break ;
                 }
             }
         }
-        return $queue;
+        return $map;
     }
 
     public function getRoutes(array $routes) {
