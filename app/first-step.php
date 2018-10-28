@@ -5,12 +5,9 @@ require_once('RatpClient.php');
 
 $c = new RatpClient();
 $r = $c->getMetro('gare');
-// echo "<pre>";
-// print_r($r);
-// echo "</pre>";
 
-$r = $c->getTest('networks/network%3AOIF%3A439/routes?depth=3&');
-$routes = $c->getRoutes($r['routes']);
+
+$routes = $c->getRoutes();
 // $matrix = $c->getMatrix($routes);
 
 

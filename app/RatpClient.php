@@ -42,27 +42,15 @@ class RatpClient {
         return $matrix;
     }
 
-    private function getArrayFromJson($data) {
-        $json_array = json_decode($data, true);
-        $assoc_array = array();
-        for($i = 0; $i < sizeof($json_array); $i++)
-        {
-             $key = $json_array[$i]['name'];
-             $assoc_array[$key] = $json_array[$i]['value'];
-        }
-        return $json_array;
-    }
-
     public function getMetro(string $userInput) {
         $q = 'places?q=' . $userInput . '&type[stoppoint]=address';
         $ret = $this->performQuery($q);
         return $this->getMetroPointNearbyPlace($ret);
     }
 
-    public function getTest(string $userInput) {
-        $q = '' . $userInput;
+    public function getTest() {
+        $q = 'networks/network%3AOIF%3A439/routes?depth=3&';
         $data = $this->performQuery($q);
-        return $this->getArrayFromJson($data);
     }
 
     private function lastNotFound(array $queue, string $last, array &$map)
@@ -85,16 +73,17 @@ class RatpClient {
             $key['dist'] = 0;
         }
         $iterat = $this->lastNotFound($queue, $last, $map);
-        while ($iterat)
-        {
+        // while ($iterat)
+        // {
 
-        }
+        // }
         return $queue;
     }
 
-    public function getRoutes(array $routes) {
+    public function getRoutes() {
+        $q = 'networks/network%3AOIF%3A439/routes?depth=3&';
+        $routes = $this->performQuery($q)['routes'];
         $myroutes = array();
-
         foreach ($routes as $route) {
            foreach ($route['stop_points'] as $stoppoint) {
             $myroutes[$route['id']][] = array('label' => $stoppoint['stop_area']['label'], 'id' => $stoppoint['id']);
@@ -105,7 +94,7 @@ class RatpClient {
 
     public function getMetroPointNearbyPlace($data) {
         $coords = array();
-        $temp = $this->getArrayFromJson($data)['places'];
+        $temp = $data['places'];
         for ($i=0; $i < sizeof($temp); $i++) {
             if ($temp[$i]['embedded_type'] === 'stop_area' ) {
                 $flag = 0;
@@ -119,7 +108,6 @@ class RatpClient {
                 }
                 if ($flag != 0) {
                     $coords[] = array('name' => $temp[$i]['stop_area']['name'], 'id' => $temp[$i]['stop_area']['id']);
-                    // $coords[] = array('name' => $temp[$i]['stop_area']], 'id' => $temp[$i]['stop_area']['id']); //show alls data in stop_area
                 }
             }
         }
@@ -136,13 +124,11 @@ class RatpClient {
         $result = curl_exec($ch);
         curl_close($ch);
 
-        // return json_decode($result, true);
-        return $result;
+        return json_decode($result, true);
     }
 
     public function getQuery($url) {
         $base = 'https://' . $this->urlBase . 'coverage/' . $this->coverage . '/';
-        // echo $base . $url;
         return  $base . $url;
     }
 }
