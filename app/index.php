@@ -60,6 +60,7 @@
 });
   $(document).on('click', '#calc', function(e){
     console.log($( "input[name='is_company']:checked" ).val());
+    console.log($( "input[name='is_company2']:checked" ).val());
     $.ajax({
         type:"POST",
         url: '/second.php',
