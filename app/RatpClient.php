@@ -26,8 +26,20 @@ class RatpClient {
     }
 
     public function getTest(string $userInput) {
-        $q = 'stop_areas/' . $userInput . '/departures?';
-        return $this->performQuery($q);
+        $q = '' . $userInput;
+        $data = $this->performQuery($q);
+        return $this->getArrayFromJson($data);
+    }
+
+    public function getRoutes(array $routes) {
+        $myroutes = array();
+
+        foreach ($routes as $route) {
+           foreach ($route['stop_points'] as $stoppoint) {
+            $myroutes[$route['id']][] = array('label' => $stoppoint['stop_area']['label'], 'id' => $stoppoint['id']);
+           }
+        }
+        return $myroutes;
     }
 
     public function getMetroPointNearbyPlace($data) {
@@ -63,7 +75,7 @@ class RatpClient {
         $result = curl_exec($ch);
         curl_close($ch);
 
-        // return json_decode($result);
+        // return json_decode($result, true);
         return $result;
     }
 
