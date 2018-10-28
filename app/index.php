@@ -27,55 +27,78 @@
    <h2></h2>
    <p>Please enter place</p>
    </div>
-    <form id="Login" class='row'>
+    <span id="Login" class='row'>
         <div class="form-group col-md-6" id='src1'>
-            <input type="text" class="form-control" id="inputEmail" placeholder="Start Place">
+            <input type="text" class="form-control" id="inputStart" placeholder="Start Place">
         </div>
         <div class="form-group col-md-6" id='dst1'>
-            <input type="text" class="form-control" id="inputPassword" placeholder="Finish Place">
+            <input type="text" class="form-control" id="inputLast" placeholder="Finish Place">
         </div>
-        <button type="submit" class="btn btn-danger">SEARCH PLACE</button>
-        <div class="form-group col-md-6" id='src2'>
-        	<hr>
-			<label class="radio">Place1
-				<input type="radio" checked="checked" name="is_company">
-				<span class="checkround"></span>
-			</label>
-			<label class="radio">Place2
-				<input type="radio" name="is_company">
-				<span class="checkround"></span>
-			</label>
-			<label class="radio">Place3
-				<input type="radio" name="is_company">
-				<span class="checkround"></span>
-			</label>
-			<label class="radio">Place4
-				<input type="radio" name="is_company">
-				<span class="checkround"></span>
-			</label>
-        </div>
-        <div class="form-group col-md-6" id='dst2'>
-        	<hr>
-			<label class="radio">Place5
-				<input type="radio" checked="checked" name="is_company2">
-				<span class="checkround"></span>
-			</label>
-			<label class="radio">Place6
-				<input type="radio" name="is_company2">
-				<span class="checkround"></span>
-			</label>
-			<label class="radio">Place7
-				<input type="radio" name="is_company2">
-				<span class="checkround"></span>
-			</label>
-			<label class="radio">Place8
-				<input type="radio" name="is_company2">
-				<span class="checkround"></span>
-			</label>
-        </div>
+        <button type="submit" id='searchStation' href="#" class="btn btn-danger">SEARCH PLACE</button>
+        <div id='first-last'>
+	        <div class="form-group col-md-6" id='src2'>
+	        	<hr>
+				<label class="radio">Place1
+					<input type="radio" checked="checked" name="is_company">
+					<span class="checkround"></span>
+				</label>
+				<label class="radio">Place2
+					<input type="radio" name="is_company">
+					<span class="checkround"></span>
+				</label>
+				<label class="radio">Place3
+					<input type="radio" name="is_company">
+					<span class="checkround"></span>
+				</label>
+				<label class="radio">Place4
+					<input type="radio" name="is_company">
+					<span class="checkround"></span>
+				</label>
+	        </div>
+	        <div class="form-group col-md-6" id='dst2'>
+	        	<hr>
+				<label class="radio">Place5
+					<input type="radio" checked="checked" name="is_company2">
+					<span class="checkround"></span>
+				</label>
+				<label class="radio">Place6
+					<input type="radio" name="is_company2">
+					<span class="checkround"></span>
+				</label>
+				<label class="radio">Place7
+					<input type="radio" name="is_company2">
+					<span class="checkround"></span>
+				</label>
+				<label class="radio">Place8
+					<input type="radio" name="is_company2">
+					<span class="checkround"></span>
+				</label>
+	        </div>
+    	</div>
         <button type="submit" class="btn btn-primary">SELECT PlACE</button>
-    </form>
+    </span>
     </div>
 <p class="botto-text">apakhomo, mgayduk &copy; 2018</p>
+<script>
+  $(document).on('click', '#searchStation', function(e){
+  	console.log('click');
+    $.ajax({
+        type:"POST",
+        url: '/start.php',
+      data: {
+         first: $( "#inputStart" ).val(),
+         last: $( "#inputLast" ).val(),
+      },
+        success: function(response){
+        	console.log(response);
+          $('#first-last').html(response);
+      }
+    });
+});
+  $(document).on('click', '#write', function(e){
+    var tmp = $( "#res" ).text();
+    $('#lvlstart').val(parseFloat(tmp).toFixed(2));
+});
+</script>
 </body>
 </html>
