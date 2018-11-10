@@ -6,42 +6,23 @@ class JourneyFinder {
     {
         $open = new SplQueue();
         $closed = new SplQueue();
-
         $open->enqueue($first);
         $way = [];
-        $it = 0;
-        $jt = 0;
-        $check = 0;
         while (!$open->isEmpty()) {
             $now = $open->dequeue();
             $now = $root[$now];
-            $way[$now['name']] = $now;
-            $check = 0;
-            if (isset($way[$now['name']]['links'])) {
-                $check = count($way[$now['name']]['links']);
-                foreach ($way[$now['name']]['links'] as &$key) {
-                    $key['dist'] = $jt;
-                    // echo $key['dist']."<br>";
+            if ($now['name'] === $goal['name']) {
+                return array_unique($way);
+            }
+            foreach ($now['links'] as $value) {
+                if (in_array($value['next'], iterator_to_array($closed))) {
+                    continue;
+                }
+                if (!in_array($value['next'], iterator_to_array($open))) {
+                    $way[] = $value['next'];
+                    $open->enqueue($value['next']);
                 }
             }
-            if ($now['name'] == $goal['name']) {
-                return $way;
-            }
-            if (isset($now['links']))
-            {
-                foreach ($now['links'] as $value) {
-                    if (in_array($value['next'], iterator_to_array($closed))) {
-                        continue;
-                    }
-                    if (!in_array($value['next'], iterator_to_array($open))) {
-                        $open->enqueue($value['next']);
-                    }
-                }
-            }
-            if ($it == $check) {
-                $it = 0;
-                $jt++;
-            } else { $it++;}
             $closed->enqueue($now['name']);
         }
     }
@@ -59,6 +40,7 @@ class JourneyFinder {
         // $iterat = $this->lastNotFound($queue, $last, $map);
         // $queue = $map[$first];
         $test = $this->bfs($map, $first, $map[$last]);
+        return $test;
         $iterator = 1;
         $new = array();
         while (true)

@@ -10,7 +10,8 @@ $routes = $c->getRoutes();
 
 $jf = new JourneyFinder();
 
-$journey = $jf->getJourney($routes, $_POST['first'], $_POST['last']);
+//$journey = $jf->getJourney($routes, trim($_POST['first']), trim($_POST['last']));
+$journey = $jf->getJourney($routes, 'Gare de Lyon (Paris)', 'Louvre / Rivoli (Paris)');
 
 echo "<pre>";
 print_r($journey);
