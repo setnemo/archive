@@ -20,14 +20,17 @@ void	find_and_start_func(t_ssl_mngr mngr[], int argc, char **argv, int flag)
 	i = -1;
 	while (++i < POINTERFUNC)
 	{
-		if (ft_strequ(*(argv + 1), mngr[i].conver))
+		// ft_printf("(%i)seg: %s\n", i, *(argv + 1));
+		if (*(argv + 1) != NULL  && ft_strequ(*(argv + 1), mngr[i].conver))
 		{
 			mngr[i].mngr(argc, argv, i);
+			// ft_printf("===seg\n");
 			flag++;
 		}
 	}
 	if (flag != 1)
 		print_error(argv);
+
 }
 
 void	flag_parser(int argc, char **argv, int flag)
