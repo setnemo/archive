@@ -1,0 +1,239 @@
+.doft {
+	background-color: #515151;
+}
+
+.shadowround {
+	border-radius: 1.5em;
+	box-shadow: black 0.5em 0.5em 0.5em;
+}
+
+.up {
+	position: relative;
+	border-radius: 10px;
+	box-shadow: black 0.5em 0.5em 0.5em;
+	vertical-align: top;
+	padding: 10px;
+	margin: 0 auto;
+	width: 1400px;
+	height: 115px;
+	background-color: #8f8f8f;
+}
+
+.up-right{
+	float: right;
+}
+.up-top{
+}
+
+.up-top img{
+	position: absolute;
+	top: 9px;
+	right: 9px;
+	width: 20px;
+}
+
+.up-top-2 img{
+	position: absolute;
+	bottom: 9px;
+	right: 9px;
+	width: 20px;
+}
+.d42 img{
+	width: 430px;
+}
+
+.up-right-img {
+	position: absolute;
+	bottom: -20px;
+	right: 29px;
+}
+
+.content {
+	position: relative;
+	width: 1362px;
+	height: 720px;
+	margin: 22px auto;
+}
+
+.abs {
+position: absolute;
+    bottom: 49px;
+    left: -72px;
+    z-index: 2;
+    width: 483px;
+    height: 146px;
+    padding: 10px 18px;
+    background-color: #88FF89;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-radius: 10px;
+    box-shadow: black 0.5em 0.5em 0.5em;
+}
+.abs p {
+	font-size: 16px;
+	font-weight: 500;
+	margin-top: 0px;
+	margin-left: -8px;
+	margin-bottom: 0;
+}
+.abs_strong_text {
+    font-size: 30px;
+    font-weight: 300;
+}
+.abs_shadow_text {
+    text-shadow: 7px 4px 4px #DC143C;
+}
+.abs_italic_text {
+    font-style: italic;
+    position: relative;
+    top: -2px;
+    left: 1px;
+}
+.abs input {
+    position: relative;
+    font-size: 12px;
+    width: 376px;
+    left: -5px;
+    top: 0px;
+}
+.abs button {
+    position: relative;
+	font-size: 14px;
+    width: 80px;
+    left: -5px;
+    top: 0px;
+}
+
+.left {
+	border-radius: 10px;
+	box-shadow: black 0.5em 0.5em 0.5em;
+	width: 140px;
+	height: 425px;
+	margin-right: 30px;
+	background-color: #8f8f8f;
+	float: left;
+}
+
+.imgcenter1 {
+	position: absolute;
+	top: 13px;
+	left: 33px;
+	width: 71px;
+}
+.imgcenter2 {
+	position: absolute;
+	top: 93px;
+	left: 33px;
+	width: 71px;
+}
+.imgcenter3 {
+	position: absolute;
+	top: 169px;
+	left: 29px;
+	width: 70px;
+	border: 5px solid red;
+	border-radius: 6px;
+}
+.imgcenter4 {
+	position: absolute;
+	top: 249px;
+	left: 33px;
+	width: 71px;
+}
+.imgcenter5 {
+	position: absolute;
+	top: 328px;
+	left: 33px;
+	width: 71px;
+}
+.left .pad{
+	padding: 8px 30px;
+}
+.towel {
+	position: absolute;
+	top: 120px;
+	left: 36px;
+	width: 71px;
+}
+.book {
+	position: absolute;
+	top: 13px;
+	left: 36px;
+	width: 71px;
+}   
+.wall {
+	position: absolute;
+	width: 120px;
+	height: 74px;
+	top: 177px;
+	left: 12px;
+	background-image: url(resources/brick.jpg);
+	background-repeat: repeat;
+	background-size: 27% 45%;
+}
+
+.center {
+	border-radius: 10px;
+	box-shadow: black 0.5em 0.5em 0.5em;
+	width: 1020px;
+	height: 580px;
+	margin-right: 30px;
+	background-color: #8f8f8f;
+	float: left;
+}
+
+.content .center .ikea {
+	height: 225px;
+	width: 160px;
+	position: absolute;
+	margin-left: 310px;
+	margin-top: 300px;
+}
+
+.content .center .apple {
+	height: 200px;
+	width: 210px;
+	position: absolute;
+	margin-left: 780px;
+	margin-top: 300px;
+}
+
+
+.left-menu {
+	line-height: 5px;
+	font-family: Helvetica;
+	font-size: 11pt;
+	padding: 10px;
+	margin: 0 auto;
+	margin-top: 500px;
+	position: absolute;
+	background-color: #b3ff8f;
+	width: 520px;
+	height: 170px;
+	border-radius: 5px;
+	box-shadow: black 0.5em 0.5em 0.5em;
+}
+
+.cluster {
+    z-index: 1;
+    display: inline-block;
+    width: 1325px;
+    height: 100%;
+}
+.cluster img {
+	width: 1000px;
+	position: absolute;
+	height: 561px;
+	top: 10px;
+	left: 182px;
+}
+
+.right {
+	border-radius: 10px;
+	box-shadow: black 0.5em 0.5em 0.5em;
+	width: 140px;
+	height: 426px;
+	background-color: #8f8f8f;
+	float: left;
+	position: relative;
+}
+
