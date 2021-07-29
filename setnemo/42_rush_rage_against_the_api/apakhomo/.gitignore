@@ -1,0 +1,10 @@
+.*
+!.gitignore
+
+ntfs
+ntfs.zip
+
+database
+db_dump
+
+nginx/logs/*
