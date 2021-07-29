@@ -1,0 +1,2 @@
+#dig slash16.org | grep "slash16" | sed "1, 10d"
+whois slash16.org | grep "Name Server"

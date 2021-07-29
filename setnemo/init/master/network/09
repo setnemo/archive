@@ -1,0 +1,2 @@
+#dig 42.fr | grep "A\t" | sed "3, 4d"
+host 42.fr

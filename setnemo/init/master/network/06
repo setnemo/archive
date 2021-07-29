@@ -1,0 +1,2 @@
+#show file /etc/resolv.conf or use it
+cat /etc/resolv.conf | grep nameserver | cut -d ' ' -f 2

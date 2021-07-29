@@ -1,0 +1,4 @@
+#ssh-keygen
+#cd ~/.ssh/
+#id_rsa - privet key
+#id_rsa.pub - public key for connection
